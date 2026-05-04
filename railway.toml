@@ -1,0 +1,6 @@
+[build]
+builder = "nixpacks"
+
+[deploy]
+region = "eu-west"
+restartPolicyType = "always"
