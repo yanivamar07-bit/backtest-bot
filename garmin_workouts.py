@@ -1,164 +1,264 @@
 #!/usr/bin/env python3
 """
-Gorilla Hypertrophy — création des séances dans Garmin Connect.
-
-Prérequis :
-    pip install garminconnect
-
-Usage :
-    GARMIN_EMAIL=ton@email.com GARMIN_PASSWORD=motdepasse python garmin_workouts.py
+Gorilla Hypertrophy — Garmin Connect workout creator
+Format correct : RepeatGroupDTO avec vrais noms d'exercices.
+Usage: GARMIN_EMAIL=xxx GARMIN_PASSWORD=yyy python3 garmin_workouts.py
 """
-
-import os
-import sys
-import time
-
+import os, sys, time
 try:
     from garminconnect import Garmin
 except ImportError:
-    sys.exit("pip install garminconnect")
+    sys.exit("pip3 install garminconnect")
 
 EMAIL    = os.environ.get("GARMIN_EMAIL")
 PASSWORD = os.environ.get("GARMIN_PASSWORD")
-
 if not EMAIL or not PASSWORD:
-    sys.exit("Usage: GARMIN_EMAIL=xxx GARMIN_PASSWORD=yyy python garmin_workouts.py")
+    sys.exit("Usage: GARMIN_EMAIL=xxx GARMIN_PASSWORD=yyy python3 garmin_workouts.py")
 
-STRENGTH = {"sportTypeId": 4, "sportTypeKey": "strength_training"}
+S    = {"sportTypeId": 5, "sportTypeKey": "strength_training"}
+WU   = {"unitId": 8, "unitKey": "kilogram", "factor": 1000.0}
+NT   = {"workoutTargetTypeId": 1, "workoutTargetTypeKey": "no.target"}
+SK   = {"strokeTypeId": 0, "strokeTypeKey": None, "displayOrder": 0}
+EQ   = {"equipmentTypeId": 0, "equipmentTypeKey": None, "displayOrder": 0}
+REPS = {"conditionTypeId": 10, "conditionTypeKey": "reps"}
+TIME = {"conditionTypeId": 2,  "conditionTypeKey": "time"}
+LAP  = {"conditionTypeId": 1,  "conditionTypeKey": "lap.button"}
+ITER = {"conditionTypeId": 7,  "conditionTypeKey": "iterations"}
 
 
-def step(order: int, note: str, reps: int = 0, rest_sec: int = 0):
-    if rest_sec:
+class WB:
+    """Workout Builder — construit des workouts au format RepeatGroupDTO."""
+    def __init__(self): self.o = 0; self.c = 0; self.g = []
+    def _o(self): self.o += 1; return self.o
+    def _c(self): self.c += 1; return self.c
+
+    def add(self, iters, exs):
+        go = self._o(); cid = self._c(); inner = []
+        for cat, name, val, w, timed in exs:
+            inner.append({
+                "type": "ExecutableStepDTO",
+                "stepOrder": self._o(),
+                "stepType": {"stepTypeId": 3, "stepTypeKey": "interval"},
+                "childStepId": cid,
+                "description": None,
+                "endCondition": TIME if timed else REPS,
+                "endConditionValue": float(val),
+                "targetType": NT,
+                "targetValueOne": None, "targetValueTwo": 0.0, "targetValueUnit": None,
+                "zoneNumber": None, "strokeType": SK, "equipmentType": EQ,
+                "category": cat, "exerciseName": name,
+                "weightValue": float(w), "weightUnit": WU,
+            })
+        inner.append({
+            "type": "ExecutableStepDTO",
+            "stepOrder": self._o(),
+            "stepType": {"stepTypeId": 5, "stepTypeKey": "rest"},
+            "childStepId": cid,
+            "description": None,
+            "endCondition": LAP, "endConditionValue": 0.0,
+            "targetType": NT,
+            "targetValueOne": None, "targetValueTwo": None, "targetValueUnit": None,
+            "zoneNumber": None, "strokeType": SK, "equipmentType": EQ,
+            "category": None, "exerciseName": None,
+            "weightValue": -1.0, "weightUnit": WU,
+        })
+        self.g.append({
+            "type": "RepeatGroupDTO",
+            "stepOrder": go,
+            "stepType": {"stepTypeId": 6, "stepTypeKey": "repeat"},
+            "childStepId": cid,
+            "numberOfIterations": iters,
+            "workoutSteps": inner,
+            "endConditionValue": float(iters),
+            "endCondition": ITER,
+            "smartRepeat": False,
+        })
+
+    def build(self, name, desc):
         return {
-            "stepOrder": order,
-            "stepType": {"stepTypeId": 4, "stepTypeKey": "rest"},
-            "durationValue": rest_sec,
-            "durationValueType": {"durationTypeId": 2, "durationTypeKey": "time"},
-            "description": f"Repos {rest_sec}s",
+            "workoutName": name, "description": desc, "sportType": S,
+            "workoutSegments": [{"segmentOrder": 1, "sportType": S, "workoutSteps": self.g}],
         }
-    return {
-        "stepOrder": order,
-        "stepType": {"stepTypeId": 3, "stepTypeKey": "interval"},
-        "description": note,
-        "repetitionValue": reps if reps else 1,
-        "repetitionValueType": {"repetitionTypeId": 3, "repetitionTypeKey": "repetitions"},
-    }
 
 
-def workout(name: str, description: str, steps: list) -> dict:
-    return {
-        "workoutName": name,
-        "description": description,
-        "sportType": STRENGTH,
-        "workoutSegments": [{
-            "segmentOrder": 1,
-            "sportType": STRENGTH,
-            "workoutSteps": steps,
-        }],
-    }
+def e(cat, name, val, w=-1, timed=False):
+    return (cat, name, val, w, timed)
 
+
+def build_lundi():
+    b = WB()
+    b.add(5, [e("BENCH_PRESS",    "BARBELL_BENCH_PRESS",              6, 77.5)])
+    b.add(4, [e("BENCH_PRESS",    "INCLINE_DUMBBELL_BENCH_PRESS",     9, 29)])
+    b.add(4, [e("DIP",            "WEIGHTED_DIP",                    10, 15)])
+    b.add(4, [
+        e("FLY", "PEC_DECK_FLY",        15),
+        e("FLY", "INCLINE_DUMBBELL_FLY", 12, 13),
+    ])
+    b.add(4, [
+        e("SHOULDER_PRESS", "SEATED_DUMBBELL_SHOULDER_PRESS", 10, 20),
+        e("LATERAL_RAISE",  "DUMBBELL_LATERAL_RAISE",         17,  8),
+        e("FLY",            "DUMBBELL_REVERSE_FLY",           15,  6),
+    ])
+    b.add(3, [
+        e("TRICEPS_EXTENSION", "EZ_BAR_SKULL_CRUSHER", 10, 30),
+        e("TRICEPS_EXTENSION", "ROPE_PUSHDOWN",         15),
+    ])
+    return b.build(
+        "Pecs · Epaules · Triceps",
+        "Dev couche 5x6@77.5 | Dev incline 4x9@29 | Dips lestes 4x10 | "
+        "Biset Pec Deck+Ecartes | Cannonball triset x4 | Biset Triceps x3 | Marche inclinee 20min",
+    )
+
+
+def build_mardi():
+    b = WB()
+    b.add(5, [e("PULL_UP", "PULL_UP",    8)])
+    b.add(5, [e("ROW",     "BARBELL_ROW", 8, 75)])
+    b.add(4, [
+        e("LAT_PULLDOWN", "NEUTRAL_GRIP_LAT_PULLDOWN", 11),
+        e("ROW",          "SEATED_CABLE_ROW",           11),
+    ])
+    b.add(4, [
+        e("CURL", "EZ_BAR_CURL",           10, 32.5),
+        e("CURL", "INCLINE_DUMBBELL_CURL", 12, 12),
+    ])
+    b.add(3, [
+        e("CURL", "HAMMER_CURL",   12, 16),
+        e("CURL", "PREACHER_CURL", 12),
+    ])
+    b.add(1, [e("CURL", "CABLE_BICEPS_CURL", 50)])
+    return b.build(
+        "Dos · Biceps",
+        "Tractions 5x8 | Rowing barre 5x8@75 | Biset tirage x4 | "
+        "Biset curl EZ+incline x4 | Biset marteau+pupitre x3 | Finisher curl 50 | Velo 20min",
+    )
+
+
+def build_mercredi():
+    b = WB()
+    b.add(5, [e("SHOULDER_PRESS", "MACHINE_SHOULDER_PRESS", 9)])
+    b.add(5, [
+        e("LATERAL_RAISE", "DUMBBELL_LATERAL_RAISE", 15, 8),
+        e("FLY",           "DUMBBELL_REVERSE_FLY",   15),
+        e("LATERAL_RAISE", "CABLE_LATERAL_RAISE",    15),
+    ])
+    b.add(4, [
+        e("CURL",              "EZ_BAR_CURL",          10),
+        e("TRICEPS_EXTENSION", "EZ_BAR_SKULL_CRUSHER", 10),
+    ])
+    b.add(4, [
+        e("CURL",              "PREACHER_CURL", 12),
+        e("TRICEPS_EXTENSION", "ROPE_PUSHDOWN", 15),
+    ])
+    b.add(3, [
+        e("CURL",              "INCLINE_DUMBBELL_CURL",      12, 12),
+        e("TRICEPS_EXTENSION", "OVERHEAD_TRICEPS_EXTENSION", 15),
+    ])
+    b.add(4, [
+        e("CRUNCH",    "CABLE_CRUNCH",       15),
+        e("LEG_RAISE", "HANGING_LEG_RAISE",  15),
+    ])
+    return b.build(
+        "Epaules · Bras · Abdos",
+        "Shoulder press 5x9 | Giant set epaules x5 | Biset bras x3 | Abdos x4 | Rameur 15min",
+    )
+
+
+def build_vendredi():
+    b = WB()
+    b.add(5, [e("BENCH_PRESS", "INCLINE_DUMBBELL_BENCH_PRESS", 8, 30)])
+    b.add(5, [e("PULL_UP",     "WEIGHTED_PULL_UP",              7, 15)])
+    b.add(4, [
+        e("BENCH_PRESS", "MACHINE_CHEST_PRESS",    12),
+        e("ROW",         "INCLINE_DUMBBELL_ROW",   12),
+    ])
+    b.add(4, [
+        e("FLY", "CABLE_CROSSOVER",  15),
+        e("ROW", "SEATED_CABLE_ROW", 12),
+    ])
+    b.add(4, [
+        e("LATERAL_RAISE", "DUMBBELL_LATERAL_RAISE", 15,  8),
+        e("CURL",          "HAMMER_CURL",             12, 16),
+    ])
+    b.add(1, [
+        e("PUSH_UP", "PUSH_UP",  50),
+        e("PULL_UP", "PULL_UP",  25),
+    ])
+    return b.build(
+        "Pecs · Dos · Bras",
+        "Dev incline 5x8@30 | Tractions lestees 5x7 | Bisets pecs/dos x4 | "
+        "Ecartes+tirage x4 | Elev lat+curl x4 | Finisher pompes+tractions | Marche 20min",
+    )
+
+
+def build_dimanche():
+    b = WB()
+    b.add(4, [
+        e("CURL",              "EZ_BAR_CURL",          9, 35),
+        e("TRICEPS_EXTENSION", "EZ_BAR_SKULL_CRUSHER", 9, 30),
+    ])
+    b.add(4, [
+        e("CURL",              "INCLINE_DUMBBELL_CURL", 12, 12),
+        e("TRICEPS_EXTENSION", "ROPE_PUSHDOWN",         15),
+    ])
+    b.add(4, [
+        e("CURL",              "HAMMER_CURL",                12, 16),
+        e("TRICEPS_EXTENSION", "OVERHEAD_TRICEPS_EXTENSION", 15),
+    ])
+    b.add(1, [
+        e("CURL",              "CABLE_BICEPS_CURL", 50),
+        e("TRICEPS_EXTENSION", "ROPE_PUSHDOWN",     50),
+    ])
+    b.add(4, [
+        e("CRUNCH",    "CABLE_CRUNCH",      15),
+        e("LEG_RAISE", "HANGING_LEG_RAISE", 15),
+    ])
+    b.add(3, [e("PLANK", "PLANK", 60, timed=True)])
+    return b.build(
+        "Bras · Abdos",
+        "Biset curl+barre front x4 | Biset curl incline+pushdown x4 | "
+        "Biset marteau+extension x4 | Finisher 50+50 | Abdos x4 | Gainage 3x1min | Velo 20min",
+    )
+
+
+OLD = [
+    "Pecs · Epaules · Triceps", "Dos · Biceps",
+    "Epaules · Bras · Abdos",   "Pecs · Dos · Bras", "Bras · Abdos",
+]
 
 WORKOUTS = [
-    workout(
-        "LUNDI — Push Silverback (Pecs)",
-        "Pecs priorité | Épaules | Triceps | Cardio 20 min marche inclinée",
-        [
-            step(1,  "Développé couché barre — échauff progressif", 10),
-            step(2,  "Développé couché barre 6×6 lourd", 6),
-            step(3,  "", rest_sec=120),
-            step(4,  "Développé incliné haltères 5×8-10", 9),
-            step(5,  "", rest_sec=90),
-            step(6,  "Dips lestés 5×8-12", 10),
-            step(7,  "", rest_sec=90),
-            step(8,  "Pec Deck 4×15-20 + dernière série dropset", 17),
-            step(9,  "CANNONBALL ×4 — Dév militaire 20kg ×10 | Élév lat 8kg ×20 | Oiseau 6kg ×15", 1),
-            step(10, "", rest_sec=60),
-            step(11, "TRICEPS ×4 — Barre front ×10 | Pushdown corde ×15 | Dips banc max", 1),
-            step(12, "", rest_sec=45),
-            step(13, "Cardio : marche inclinée 20 min — 12% / 5,5 km/h", 1),
-        ],
-    ),
-    workout(
-        "MARDI — Pull Gorilla (Dos + Bras)",
-        "Dos lourd | Biceps | Finisher preacher curl dropset | Vélo 20 min",
-        [
-            step(1,  "Tractions pronation 5×6-10", 8),
-            step(2,  "Rowing barre 5×8 lourd", 8),
-            step(3,  "", rest_sec=120),
-            step(4,  "Tirage vertical prise neutre 4×10-12", 11),
-            step(5,  "Rowing machine convergente 4×10-12", 11),
-            step(6,  "BICEPS ×4 — Curl EZ 30-35kg ×10 | Curl incliné 12-14kg ×12 | Curl marteau 16kg ×12", 1),
-            step(7,  "", rest_sec=60),
-            step(8,  "Finisher : Preacher curl machine 12 reps → -20% → max → -20% → max", 1),
-            step(9,  "Cardio : vélo 20 min", 1),
-        ],
-    ),
-    workout(
-        "MERCREDI — Shoulders & Arms Titan",
-        "Épaules | Bras en bisets | Finisher 100 élév lat + 50 curls | Rameur 15 min",
-        [
-            step(1,  "Shoulder Press Machine 5×8-10", 9),
-            step(2,  "Élévations latérales poulie 5×15", 15),
-            step(3,  "Reverse Pec Deck 4×15", 15),
-            step(4,  "Biset ×4 — Curl EZ + Barre front", 1),
-            step(5,  "", rest_sec=60),
-            step(6,  "Biset ×4 — Preacher curl + Pushdown corde", 1),
-            step(7,  "", rest_sec=60),
-            step(8,  "Biset ×3 — Curl incliné + Extension au-dessus de la tête", 1),
-            step(9,  "Finisher : 100 élévations latérales", 100),
-            step(10, "Finisher : 50 curls marteau", 50),
-            step(11, "Cardio : rameur 15 min", 1),
-        ],
-    ),
-    workout(
-        "VENDREDI — Upper Mass Monster",
-        "Pecs + Dos | Bras | Cardio 15 min",
-        [
-            step(1,  "Développé incliné haltères 5×8", 8),
-            step(2,  "Tractions lestées 5×6-8", 7),
-            step(3,  "", rest_sec=120),
-            step(4,  "Développé convergent machine 4×12", 12),
-            step(5,  "Rowing poitrine appuyée 4×12", 12),
-            step(6,  "Écartés poulie 4×15", 15),
-            step(7,  "Tirage horizontal poulie 4×12", 12),
-            step(8,  "Biset bras ×4 — Curl marteau + Extension corde", 1),
-            step(9,  "Cardio 15 min (vélo ou rameur)", 1),
-        ],
-    ),
-    workout(
-        "DIMANCHE — Legs & Core (OBLIGATOIRE)",
-        "Jambes | Abdos | Vélo 20 min",
-        [
-            step(1,  "Squat 5×5", 5),
-            step(2,  "", rest_sec=180),
-            step(3,  "Presse 4×15", 15),
-            step(4,  "Soulevé de terre roumain 4×10", 10),
-            step(5,  "Leg curl 4×15", 15),
-            step(6,  "Mollets 5×20", 20),
-            step(7,  "Abdos — Crunch câble 4×15 | Relevés de jambes 4×15 | Gainage 3×1 min", 1),
-            step(8,  "Cardio : vélo 20 min", 1),
-        ],
-    ),
+    build_lundi(), build_mardi(), build_mercredi(),
+    build_vendredi(), build_dimanche(),
 ]
 
 
 def main():
-    print("Connexion à Garmin Connect...")
+    print("Connexion...")
     client = Garmin(EMAIL, PASSWORD)
     client.login()
-    print("Connecté.\n")
+    print("Connecte.\n")
 
+    print("Suppression anciens workouts...")
+    try:
+        for w in client.get_workouts(0, 100):
+            if w.get("workoutName") in OLD:
+                client.delete_workout(w["workoutId"])
+                print(f"  Supprime : {w['workoutName']}")
+                time.sleep(0.5)
+    except Exception as ex:
+        print(f"  Erreur suppression : {ex}")
+
+    print("\nCreation workouts...")
     for w in WORKOUTS:
-        print(f"  Création : {w['workoutName']}")
+        print(f"  {w['workoutName']}")
         try:
-            client.add_workout(w)
-            print("    ✓ OK")
-        except Exception as e:
-            print(f"    ✗ Erreur : {e}")
+            client.upload_workout(w)
+            print("    OK")
+        except Exception as ex:
+            print(f"    Erreur : {ex}")
         time.sleep(1)
 
-    print("\nTerminé — ouvre Garmin Connect → Entraînement → Workouts pour les voir.")
-    print("Synchronise ta montre via Bluetooth pour les avoir directement dessus.")
+    print("\nTermine ! Garmin Connect > Entrainement > Workouts, puis sync Bluetooth.")
 
 
 if __name__ == "__main__":
