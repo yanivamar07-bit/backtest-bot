@@ -87,17 +87,17 @@ def e(cat, name, val, w=-1, timed=False):
 
 def build_lundi():
     b = WB()
-    b.add(5, [e("BENCH_PRESS",    "BARBELL_BENCH_PRESS",              6, 77.5)])
-    b.add(4, [e("BENCH_PRESS",    "INCLINE_DUMBBELL_BENCH_PRESS",     9, 29)])
-    b.add(4, [e("DIP",            "WEIGHTED_DIP",                    10, 15)])
+    b.add(5, [e("BENCH_PRESS", "BARBELL_BENCH_PRESS",          6, 77.5)])
+    b.add(4, [e("BENCH_PRESS", "INCLINE_DUMBBELL_BENCH_PRESS", 9, 29)])
+    b.add(4, [e(None, None,                                   10, 15)])
     b.add(4, [
-        e("FLYE", "PEC_DECK_FLYE",         15),
-        e("FLYE", "INCLINE_DUMBBELL_FLYE",  12, 13),
+        e("FLYE", "PEC_DECK_FLYE",        15),
+        e("FLYE", "INCLINE_DUMBBELL_FLYE", 12, 13),
     ])
     b.add(4, [
-        e("SHOULDER_PRESS", "SEATED_DUMBBELL_SHOULDER_PRESS", 10, 20),
-        e("LATERAL_RAISE",  "DUMBBELL_LATERAL_RAISE",         17,  8),
-        e("REAR_DELT",      "BENT_OVER_DUMBBELL_REAR_DELT_RAISE", 15, 6),
+        e(None,            None,                    10, 20),
+        e("LATERAL_RAISE", "DUMBBELL_LATERAL_RAISE", 17,  8),
+        e(None,            None,                     15,  6),
     ])
     b.add(3, [
         e("TRICEPS_EXTENSION", "EZ_BAR_SKULL_CRUSHER", 10, 30),
@@ -115,8 +115,8 @@ def build_mardi():
     b.add(5, [e("PULL_UP", "PULL_UP",    8)])
     b.add(5, [e("ROW",     "BARBELL_ROW", 8, 75)])
     b.add(4, [
-        e("LAT_PULLDOWN", "NEUTRAL_GRIP_LAT_PULLDOWN", 11),
-        e("ROW",          "SEATED_CABLE_ROW",           11),
+        e(None,  None,               11),
+        e("ROW", "SEATED_CABLE_ROW", 11),
     ])
     b.add(4, [
         e("CURL", "EZ_BAR_CURL",           10, 32.5),
@@ -136,11 +136,11 @@ def build_mardi():
 
 def build_mercredi():
     b = WB()
-    b.add(5, [e("SHOULDER_PRESS", "MACHINE_SHOULDER_PRESS", 9)])
+    b.add(5, [e(None, None, 9)])
     b.add(5, [
-        e("LATERAL_RAISE", "DUMBBELL_LATERAL_RAISE",              15, 8),
-        e("REAR_DELT",     "BENT_OVER_DUMBBELL_REAR_DELT_RAISE",  15),
-        e("LATERAL_RAISE", "CABLE_LATERAL_RAISE",                  15),
+        e("LATERAL_RAISE", "DUMBBELL_LATERAL_RAISE", 15, 8),
+        e(None,            None,                      15),
+        e("LATERAL_RAISE", "CABLE_LATERAL_RAISE",    15),
     ])
     b.add(4, [
         e("CURL",              "EZ_BAR_CURL",          10),
@@ -155,8 +155,8 @@ def build_mercredi():
         e("TRICEPS_EXTENSION", "OVERHEAD_TRICEPS_EXTENSION", 15),
     ])
     b.add(4, [
-        e("CRUNCH",    "CABLE_CRUNCH",       15),
-        e("LEG_RAISE", "HANGING_LEG_RAISE",  15),
+        e("CRUNCH",    "CABLE_CRUNCH",      15),
+        e("LEG_RAISE", "HANGING_LEG_RAISE", 15),
     ])
     return b.build(
         "Epaules · Bras · Abdos",
