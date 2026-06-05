@@ -95,9 +95,9 @@ def build_lundi():
         e("FLYE", "INCLINE_DUMBBELL_FLYE", 12, 13),
     ])
     b.add(4, [
-        e(None,            None,                    10, 20),
-        e("LATERAL_RAISE", "DUMBBELL_LATERAL_RAISE", 17,  8),
-        e(None,            None,                     15,  6),
+        e("SHOULDER_PRESS", "SEATED_DUMBBELL_SHOULDER_PRESS",    10, 20),
+        e("LATERAL_RAISE",  "DUMBBELL_LATERAL_RAISE",            17,  8),
+        e("FLYE",           "BENT_OVER_DUMBBELL_REAR_DELT_RAISE", 15,  6),
     ])
     b.add(3, [
         e("TRICEPS_EXTENSION", "EZ_BAR_SKULL_CRUSHER", 10, 30),
@@ -136,10 +136,10 @@ def build_mardi():
 
 def build_mercredi():
     b = WB()
-    b.add(5, [e(None, None, 9)])
+    b.add(5, [e("SHOULDER_PRESS", "MACHINE_SHOULDER_PRESS", 9)])
     b.add(5, [
         e("LATERAL_RAISE", "DUMBBELL_LATERAL_RAISE", 15, 8),
-        e(None,            None,                      15),
+        e("FLYE",          "REAR_DELT_FLY",          15),
         e("LATERAL_RAISE", "CABLE_LATERAL_RAISE",    15),
     ])
     b.add(4, [
