@@ -104,9 +104,9 @@ def build_lundi():
         e("TRICEPS_EXTENSION", "ROPE_PUSHDOWN",         15),
     ])
     return b.build(
-        "Pecs · Epaules · Triceps",
-        "Dev couche 5x6@77.5 | Dev incline 4x9@29 | Dips lestes 4x10 | "
-        "Biset Pec Deck+Ecartes | Cannonball triset x4 | Biset Triceps x3 | Marche inclinee 20min",
+        "Push Silverback — Pecs · Epaules · Triceps",
+        "Dev couche 5x6@77.5 | Dev incline 4x9@29 | Dips lestes 4x10@+15 | "
+        "Biset Pec Deck+Ecartes x4 | Cannonball triset x4 | Biset Triceps x3 | Marche inclinee 20min",
     )
 
 
@@ -128,7 +128,7 @@ def build_mardi():
     ])
     b.add(1, [e("CURL", "CABLE_BICEPS_CURL", 50)])
     return b.build(
-        "Dos · Biceps",
+        "Pull Gorilla — Dos · Biceps",
         "Tractions 5x8 | Rowing barre 5x8@75 | Biset tirage x4 | "
         "Biset curl EZ+incline x4 | Biset marteau+pupitre x3 | Finisher curl 50 | Velo 20min",
     )
@@ -159,8 +159,9 @@ def build_mercredi():
         e("LEG_RAISE", "HANGING_LEG_RAISE", 15),
     ])
     return b.build(
-        "Epaules · Bras · Abdos",
-        "Shoulder press 5x9 | Giant set epaules x5 | Biset bras x3 | Abdos x4 | Rameur 15min",
+        "Shoulders & Arms Titan — Epaules · Bras · Abdos",
+        "Shoulder press machine 5x9 | Giant set epaules x5 | Biset curl+front x4 | "
+        "Biset pupitre+pushdown x4 | Biset incline+overhead x3 | Abdos x4 | Rameur 15min",
     )
 
 
@@ -185,9 +186,9 @@ def build_vendredi():
         e("PULL_UP", "PULL_UP",  25),
     ])
     return b.build(
-        "Pecs · Dos · Bras",
-        "Dev incline 5x8@30 | Tractions lestees 5x7 | Bisets pecs/dos x4 | "
-        "Ecartes+tirage x4 | Elev lat+curl x4 | Finisher pompes+tractions | Marche 20min",
+        "Upper Mass Monster — Pecs · Dos · Bras",
+        "Dev incline 5x8@30 | Tractions lestees 5x7@+15 | Bisets pecs/dos x4 | "
+        "Ecartes+tirage x4 | Elev lat+curl x4 | Finisher 50 pompes+25 tractions | Marche 20min",
     )
 
 
@@ -215,15 +216,20 @@ def build_dimanche():
     ])
     b.add(3, [e("PLANK", "PLANK", 60, timed=True)])
     return b.build(
-        "Bras · Abdos",
-        "Biset curl+barre front x4 | Biset curl incline+pushdown x4 | "
-        "Biset marteau+extension x4 | Finisher 50+50 | Abdos x4 | Gainage 3x1min | Velo 20min",
+        "Arms & Abs Annihilation — Bras · Abdos",
+        "Biset curl EZ lourd+front x4 | Biset incline+pushdown x4 | "
+        "Biset marteau+overhead x4 | Finisher 50+50 | Abdos x4 | Gainage 3x1min | Velo 20min",
     )
 
 
 OLD = [
     "Pecs · Epaules · Triceps", "Dos · Biceps",
     "Epaules · Bras · Abdos",   "Pecs · Dos · Bras", "Bras · Abdos",
+    "Push Silverback — Pecs · Epaules · Triceps",
+    "Pull Gorilla — Dos · Biceps",
+    "Shoulders & Arms Titan — Epaules · Bras · Abdos",
+    "Upper Mass Monster — Pecs · Dos · Bras",
+    "Arms & Abs Annihilation — Bras · Abdos",
 ]
 
 WORKOUTS = [
