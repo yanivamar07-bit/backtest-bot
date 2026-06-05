@@ -91,13 +91,13 @@ def build_lundi():
     b.add(4, [e("BENCH_PRESS",    "INCLINE_DUMBBELL_BENCH_PRESS",     9, 29)])
     b.add(4, [e("DIP",            "WEIGHTED_DIP",                    10, 15)])
     b.add(4, [
-        e("FLY", "PEC_DECK_FLY",        15),
-        e("FLY", "INCLINE_DUMBBELL_FLY", 12, 13),
+        e("FLYE", "PEC_DECK_FLYE",         15),
+        e("FLYE", "INCLINE_DUMBBELL_FLYE",  12, 13),
     ])
     b.add(4, [
         e("SHOULDER_PRESS", "SEATED_DUMBBELL_SHOULDER_PRESS", 10, 20),
         e("LATERAL_RAISE",  "DUMBBELL_LATERAL_RAISE",         17,  8),
-        e("FLY",            "DUMBBELL_REVERSE_FLY",           15,  6),
+        e("REAR_DELT",      "BENT_OVER_DUMBBELL_REAR_DELT_RAISE", 15, 6),
     ])
     b.add(3, [
         e("TRICEPS_EXTENSION", "EZ_BAR_SKULL_CRUSHER", 10, 30),
@@ -138,9 +138,9 @@ def build_mercredi():
     b = WB()
     b.add(5, [e("SHOULDER_PRESS", "MACHINE_SHOULDER_PRESS", 9)])
     b.add(5, [
-        e("LATERAL_RAISE", "DUMBBELL_LATERAL_RAISE", 15, 8),
-        e("FLY",           "DUMBBELL_REVERSE_FLY",   15),
-        e("LATERAL_RAISE", "CABLE_LATERAL_RAISE",    15),
+        e("LATERAL_RAISE", "DUMBBELL_LATERAL_RAISE",              15, 8),
+        e("REAR_DELT",     "BENT_OVER_DUMBBELL_REAR_DELT_RAISE",  15),
+        e("LATERAL_RAISE", "CABLE_LATERAL_RAISE",                  15),
     ])
     b.add(4, [
         e("CURL",              "EZ_BAR_CURL",          10),
@@ -173,8 +173,8 @@ def build_vendredi():
         e("ROW",         "INCLINE_DUMBBELL_ROW",   12),
     ])
     b.add(4, [
-        e("FLY", "CABLE_CROSSOVER",  15),
-        e("ROW", "SEATED_CABLE_ROW", 12),
+        e("FLYE", "CABLE_CROSSOVER",  15),
+        e("ROW",  "SEATED_CABLE_ROW", 12),
     ])
     b.add(4, [
         e("LATERAL_RAISE", "DUMBBELL_LATERAL_RAISE", 15,  8),
@@ -232,11 +232,14 @@ WORKOUTS = [
 ]
 
 
+TOKEN_FILE = os.path.expanduser("~/.garmin_tokens.json")
+
+
 def main():
     print("Connexion...")
     client = Garmin(EMAIL, PASSWORD)
-    client.login()
-    print("Connecte.\n")
+    client.login(tokenstore=TOKEN_FILE)
+    print(f"Connecte. (tokens sauvegardes dans {TOKEN_FILE})\n")
 
     print("Suppression anciens workouts...")
     try:
