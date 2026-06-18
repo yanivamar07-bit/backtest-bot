@@ -204,6 +204,7 @@ FILES = [
     ("08_examens_blancs.md",         "08_Examens_Blancs"),
     ("09_analyse_erreurs.md",        "09_Analyse_Erreurs"),
     ("10_fiches_revision.md",        "10_Fiches_Revision"),
+    ("11_corriges_detailles.md",     "11_Corriges_Detailles"),
 ]
 
 MD_EXT = markdown.Markdown(extensions=["tables", "fenced_code", "nl2br", "sane_lists"])
