@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YAEL — Révisions Intelligentes</title>
+<style>
+:root{
+  --blue:#4257b2;--blue-dark:#2d3e8f;--blue-light:#e8ebf7;
+  --green:#23af79;--red:#ef4444;--yellow:#ffcd1f;--orange:#f59e0b;
+  --bg:#f6f7fb;--card:#fff;--text:#1a1a2e;--muted:#6b7280;
+  --radius:12px;--shadow:0 2px 12px rgba(0,0,0,.08);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+
+/* NAV */
+.nav{background:var(--blue);color:#fff;padding:0 20px;display:flex;align-items:center;gap:0;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.nav-logo{font-size:1.3rem;font-weight:800;padding:14px 20px 14px 0;letter-spacing:1px;white-space:nowrap}
+.nav-logo span{color:var(--yellow)}
+.nav-tabs{display:flex;gap:0;flex:1;overflow-x:auto}
+.nav-tab{padding:14px 18px;cursor:pointer;font-size:.9rem;font-weight:600;border-bottom:3px solid transparent;white-space:nowrap;transition:.2s;color:rgba(255,255,255,.75)}
+.nav-tab:hover{color:#fff;background:rgba(255,255,255,.1)}
+.nav-tab.active{color:#fff;border-bottom-color:var(--yellow)}
+
+/* SCREENS */
+.screen{display:none;padding:24px 20px;max-width:960px;margin:0 auto}
+.screen.active{display:block}
+
+/* DASHBOARD */
+.dash-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:24px}
+.stat-card{background:var(--card);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);text-align:center}
+.stat-card .num{font-size:2.2rem;font-weight:800;color:var(--blue)}
+.stat-card .num.green{color:var(--green)}
+.stat-card .num.orange{color:var(--orange)}
+.stat-card .num.red{color:var(--red)}
+.stat-card .label{font-size:.85rem;color:var(--muted);margin-top:4px}
+.section-title{font-size:1.1rem;font-weight:700;margin:20px 0 12px;color:var(--blue-dark)}
+.btn-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.btn{border:none;border-radius:var(--radius);padding:14px 20px;font-size:.95rem;font-weight:700;cursor:pointer;transition:.18s;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-primary:hover{background:var(--blue-dark)}
+.btn-success{background:var(--green);color:#fff}
+.btn-success:hover{background:#1a8f60}
+.btn-warn{background:var(--orange);color:#fff}
+.btn-warn:hover{background:#d97706}
+.btn-outline{background:#fff;color:var(--blue);border:2px solid var(--blue)}
+.btn-outline:hover{background:var(--blue-light)}
+.btn-sm{padding:8px 14px;font-size:.82rem}
+.progress-bar-wrap{background:#e5e7eb;border-radius:99px;height:10px;margin-top:8px;overflow:hidden}
+.progress-bar-fill{height:100%;background:var(--green);border-radius:99px;transition:.5s}
+.cat-grid{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.cat-pill{padding:6px 14px;border-radius:99px;font-size:.8rem;font-weight:600;cursor:pointer;border:2px solid transparent;transition:.15s}
+.cat-pill.active{background:var(--blue);color:#fff}
+.cat-pill:not(.active){background:#fff;color:var(--blue);border-color:var(--blue)}
+
+/* FLASHCARD */
+.fc-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px}
+.fc-progress{font-size:.85rem;color:var(--muted);font-weight:600}
+.fc-bar-wrap{background:#e5e7eb;border-radius:99px;height:6px;margin-bottom:20px;overflow:hidden}
+.fc-bar{background:var(--blue);height:100%;border-radius:99px;transition:.4s}
+.fc-scene{width:100%;perspective:1200px;margin-bottom:20px}
+.fc-card-wrap{position:relative;width:100%;min-height:300px;cursor:pointer;transform-style:preserve-3d;transition:transform .5s}
+.fc-card-wrap.flipped{transform:rotateY(180deg)}
+.fc-face{position:absolute;width:100%;min-height:300px;backface-visibility:hidden;background:var(--card);border-radius:16px;box-shadow:var(--shadow);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 30px;text-align:center}
+.fc-face.back{transform:rotateY(180deg)}
+.fc-tag{font-size:.75rem;font-weight:700;text-transform:uppercase;color:var(--muted);letter-spacing:1px;margin-bottom:16px}
+.fc-word{font-size:2.4rem;font-weight:800;color:var(--text);direction:rtl;line-height:1.3;margin-bottom:8px}
+.fc-word-small{font-size:1.5rem;font-weight:700;color:var(--text);direction:rtl}
+.fc-translation{font-size:1.6rem;font-weight:700;color:var(--blue);margin-bottom:12px}
+.fc-hint{font-size:.85rem;color:var(--muted);margin-top:8px}
+.fc-example{font-size:.9rem;color:var(--muted);direction:rtl;margin-top:12px;background:var(--blue-light);padding:8px 14px;border-radius:8px;font-style:italic;max-width:100%}
+.fc-click-hint{font-size:.8rem;color:var(--muted);margin-top:16px;display:flex;align-items:center;gap:4px}
+.fc-btns{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;max-width:500px;margin:0 auto}
+.fc-btn-dk{background:#fee2e2;color:var(--red);border:none;border-radius:var(--radius);padding:14px;font-size:.9rem;font-weight:700;cursor:pointer;transition:.15s}
+.fc-btn-dk:hover{background:var(--red);color:#fff}
+.fc-btn-hard{background:#fef3c7;color:var(--orange);border:none;border-radius:var(--radius);padding:14px;font-size:.9rem;font-weight:700;cursor:pointer;transition:.15s}
+.fc-btn-hard:hover{background:var(--orange);color:#fff}
+.fc-btn-know{background:#d1fae5;color:var(--green);border:none;border-radius:var(--radius);padding:14px;font-size:.9rem;font-weight:700;cursor:pointer;transition:.15s}
+.fc-btn-know:hover{background:var(--green);color:#fff}
+.fc-next-info{text-align:center;font-size:.8rem;color:var(--muted);margin-top:10px}
+.fc-done{text-align:center;padding:40px 20px}
+.fc-done h2{font-size:1.8rem;color:var(--green);margin-bottom:8px}
+.fc-done p{color:var(--muted);margin-bottom:20px}
+
+/* QUIZ */
+.quiz-q-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.quiz-timer{font-size:1.1rem;font-weight:800;color:var(--orange);background:#fff;border-radius:8px;padding:6px 14px;box-shadow:var(--shadow)}
+.quiz-q-num{font-size:.85rem;color:var(--muted);font-weight:600}
+.quiz-q-text{background:var(--card);border-radius:var(--radius);padding:28px 24px;box-shadow:var(--shadow);margin-bottom:16px;text-align:center}
+.quiz-q-label{font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;font-weight:600}
+.quiz-q-word{font-size:2rem;font-weight:800;direction:rtl;color:var(--text)}
+.quiz-q-word.fr{font-size:1.6rem;direction:ltr;color:var(--blue-dark)}
+.quiz-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+@media(max-width:500px){.quiz-opts{grid-template-columns:1fr}}
+.quiz-opt{background:var(--card);border:2px solid #e5e7eb;border-radius:var(--radius);padding:14px 18px;font-size:1rem;font-weight:600;cursor:pointer;text-align:left;transition:.15s;color:var(--text)}
+.quiz-opt:hover:not(.disabled){border-color:var(--blue);background:var(--blue-light)}
+.quiz-opt.correct{border-color:var(--green);background:#d1fae5;color:#065f46}
+.quiz-opt.wrong{border-color:var(--red);background:#fee2e2;color:#7f1d1d}
+.quiz-opt.disabled{cursor:default}
+.quiz-opt.he{direction:rtl;text-align:right}
+.quiz-explain{background:#fffbeb;border:1px solid var(--yellow);border-radius:var(--radius);padding:14px 18px;margin-bottom:16px;font-size:.9rem;line-height:1.6}
+.quiz-explain strong{color:var(--blue-dark)}
+.quiz-next-row{display:flex;justify-content:flex-end}
+.quiz-result{text-align:center;padding:32px 16px}
+.quiz-result .score{font-size:3.5rem;font-weight:900;color:var(--blue)}
+.quiz-result .score-sub{font-size:1rem;color:var(--muted);margin-bottom:20px}
+.quiz-result .medal{font-size:4rem;margin-bottom:8px}
+
+/* STATS */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:24px}
+.mastery-bar{margin-bottom:12px}
+.mastery-bar .mb-label{display:flex;justify-content:space-between;font-size:.85rem;font-weight:600;margin-bottom:4px}
+.mb-fill{height:12px;border-radius:99px;transition:.5s}
+.history-list{background:var(--card);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
+.history-item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #f3f4f6;font-size:.88rem}
+.history-item:last-child{border:none}
+.badge{display:inline-block;padding:2px 10px;border-radius:99px;font-size:.75rem;font-weight:700}
+.badge-green{background:#d1fae5;color:#065f46}
+.badge-orange{background:#fef3c7;color:#92400e}
+.badge-red{background:#fee2e2;color:#7f1d1d}
+
+/* UTIL */
+.flex{display:flex}.gap-8{gap:8px}.gap-12{gap:12px}.mt-8{margin-top:8px}.mt-16{margin-top:16px}.text-center{text-align:center}
+.streak-banner{background:linear-gradient(135deg,var(--blue),var(--blue-dark));color:#fff;border-radius:var(--radius);padding:16px 20px;margin-bottom:20px;display:flex;align-items:center;gap:14px}
+.streak-banner .fire{font-size:2rem}
+.streak-banner h3{font-size:1.1rem;font-weight:800}
+.streak-banner p{font-size:.85rem;opacity:.85;margin-top:2px}
+
+/* RTL support */
+[lang="he"]{direction:rtl}
+.chip{background:var(--blue-light);color:var(--blue);padding:3px 10px;border-radius:99px;font-size:.78rem;font-weight:700;display:inline-block}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-logo">Y<span>AEL</span></div>
+  <div class="nav-tabs">
+    <div class="nav-tab active" onclick="showScreen('home')">🏠 Accueil</div>
+    <div class="nav-tab" onclick="showScreen('flashcards')">🃏 Flashcards</div>
+    <div class="nav-tab" onclick="showScreen('quiz')">🎯 Quiz</div>
+    <div class="nav-tab" onclick="showScreen('connectors')">🔗 Connecteurs</div>
+    <div class="nav-tab" onclick="showScreen('stats')">📊 Progrès</div>
+  </div>
+</nav>
+
+<!-- HOME -->
+<div id="screen-home" class="screen active">
+  <div id="streak-area"></div>
+  <div class="dash-grid" id="dash-stats"></div>
+
+  <div class="section-title">📚 Étudier par catégorie</div>
+  <div class="cat-grid" id="cat-filter">
+    <span class="cat-pill active" data-cat="all" onclick="selectCat(this,'all')">Tout (1000 mots)</span>
+    <span class="cat-pill" data-cat="F" onclick="selectCat(this,'F')">🔑 Fondamentaux (1-50)</span>
+    <span class="cat-pill" data-cat="V" onclick="selectCat(this,'V')">⚡ Verbes (51-150)</span>
+    <span class="cat-pill" data-cat="N" onclick="selectCat(this,'N')">💡 Noms (151-250)</span>
+    <span class="cat-pill" data-cat="A" onclick="selectCat(this,'A')">🎨 Adjectifs (251-350)</span>
+    <span class="cat-pill" data-cat="P" onclick="selectCat(this,'P')">📰 Presse/Acad. (351-550)</span>
+    <span class="cat-pill" data-cat="S" onclick="selectCat(this,'S')">🔬 Santé/Science (551-650)</span>
+    <span class="cat-pill" data-cat="C" onclick="selectCat(this,'C')">🏛 Société/Culture (651-800)</span>
+    <span class="cat-pill" data-cat="E" onclick="selectCat(this,'E')">🌍 Env./Économie (801-900)</span>
+    <span class="cat-pill" data-cat="R" onclick="selectCat(this,'R')">⭐ Rares/Avancés (901+)</span>
+  </div>
+
+  <div class="btn-grid">
+    <button class="btn btn-primary" onclick="startFlashcards('due')">🃏 Réviser les cartes DUE</button>
+    <button class="btn btn-success" onclick="startFlashcards('all')">📖 Étudier tout</button>
+    <button class="btn btn-warn" onclick="startQuiz()">🎯 Quiz rapide (20 Q)</button>
+    <button class="btn btn-outline" onclick="startQuiz(50)">🏆 Examen blanc (50 Q)</button>
+  </div>
+
+  <div class="section-title" style="margin-top:24px">📈 Maîtrise par catégorie</div>
+  <div id="mastery-overview"></div>
+</div>
+
+<!-- FLASHCARDS -->
+<div id="screen-flashcards" class="screen">
+  <div class="fc-header">
+    <div>
+      <div style="font-size:1.1rem;font-weight:800" id="fc-title">Flashcards</div>
+      <div class="fc-progress" id="fc-progress"></div>
+    </div>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-outline btn-sm" onclick="shuffleDeck()">🔀 Mélanger</button>
+      <button class="btn btn-outline btn-sm" onclick="showScreen('home')">✕ Quitter</button>
+    </div>
+  </div>
+  <div class="fc-bar-wrap"><div class="fc-bar" id="fc-bar" style="width:0%"></div></div>
+
+  <div class="fc-scene">
+    <div class="fc-card-wrap" id="fc-card" onclick="flipCard()">
+      <div class="fc-face front" id="fc-front"></div>
+      <div class="fc-face back" id="fc-back"></div>
+    </div>
+  </div>
+  <p class="fc-next-info" id="fc-next-info"></p>
+
+  <div class="fc-btns" id="fc-btns" style="display:none">
+    <button class="fc-btn-dk" onclick="rateCard(1)">✗ Je ne sais pas<br><small>Demain</small></button>
+    <button class="fc-btn-hard" onclick="rateCard(2)">~ Difficile<br><small id="hard-days"></small></button>
+    <button class="fc-btn-know" onclick="rateCard(3)">✓ Je sais !<br><small id="know-days"></small></button>
+  </div>
+
+  <div id="fc-done-screen" style="display:none" class="fc-done">
+    <div style="font-size:3rem">🎉</div>
+    <h2>Session terminée !</h2>
+    <p id="fc-done-msg"></p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <button class="btn btn-primary" onclick="startFlashcards('due')">🔄 Continuer les due</button>
+      <button class="btn btn-outline" onclick="showScreen('home')">🏠 Accueil</button>
+    </div>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div id="screen-quiz" class="screen">
+  <div id="quiz-content"></div>
+</div>
+
+<!-- CONNECTEURS -->
+<div id="screen-connectors" class="screen">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px">
+    <div>
+      <div style="font-size:1.2rem;font-weight:800">🔗 Exercices de connecteurs</div>
+      <div style="font-size:.85rem;color:var(--muted)">Choisissez le bon connecteur logique</div>
+    </div>
+    <div style="display:flex;gap:8px">
+      <span id="conn-score-disp" style="font-weight:700;font-size:1rem;color:var(--blue)"></span>
+      <button class="btn btn-primary btn-sm" onclick="startConnectorQuiz()">🔄 Recommencer</button>
+    </div>
+  </div>
+  <div id="conn-content"></div>
+</div>
+
+<!-- STATS -->
+<div id="screen-stats" class="screen">
+  <div style="font-size:1.2rem;font-weight:800;margin-bottom:16px">📊 Mes progrès</div>
+  <div class="stats-grid" id="stats-grid"></div>
+
+  <div class="section-title">Maîtrise par catégorie</div>
+  <div id="stats-mastery"></div>
+
+  <div class="section-title" style="margin-top:20px">Historique des quiz</div>
+  <div class="history-list" id="stats-history"></div>
+
+  <div style="margin-top:20px;text-align:center">
+    <button class="btn btn-outline btn-sm" style="color:var(--red);border-color:var(--red)" onclick="resetConfirm()">🗑 Réinitialiser la progression</button>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+
+// Format: [hebrew, french, category, antonym_hebrew?]
+// Categories: F=fondamentaux, V=verbes, N=noms, A=adjectifs, P=presse, S=santé/science, C=société, E=économie/env, R=rares
+const RAW_WORDS = [
+// SECTION 1 — Fondamentaux (F)
+["לדעת","savoir","F"],["לחשוב","penser","F"],["להבין","comprendre","F"],["לרצות","vouloir","F"],
+["לצריך","avoir besoin","F"],["לכול","pouvoir","F"],["לראות","voir","F"],["לשמוע","entendre","F"],
+["לדבר","parler","F"],["לכתוב","écrire","F"],["לקרוא","lire / appeler","F"],["לבוא","venir","F"],
+["ללכת","aller / marcher","F"],["לתת","donner","F"],["לקחת","prendre","F"],["לעשות","faire","F"],
+["לומר","dire","F"],["לשאול","demander / questionner","F"],["לענות","répondre","F"],["לחזור","revenir / répéter","F"],
+["יותר","plus","F"],["פחות","moins","F"],["מאוד","très / beaucoup","F"],["כבר","déjà","F"],
+["עוד","encore / de plus","F"],["רק","seulement","F"],["גם","aussi","F"],["אבל","mais","F"],
+["כי","parce que / car","F"],["אם","si (condition)","F"],["כאשר","quand / lorsque","F"],
+["כדי","afin de / pour","F"],["לכן","donc / c'est pourquoi","F"],["עם","avec","F"],
+["בין","entre","F"],["על","sur / à propos de","F"],["תחת","sous","F"],["לפני","avant / devant","F"],
+["אחרי","après / derrière","F"],["בגלל","à cause de","F"],["בזכות","grâce à","F"],
+["למרות","malgré","F"],["כך","ainsi / de cette façon","F"],["זה","ceci / c'est","F"],
+["אלה","ceux-ci / ces","F"],["כל","tout / chaque","F"],["כמה","combien / quelques","F"],
+["הרבה","beaucoup","F"],["מעט","peu / un peu","F"],["ביחד","ensemble","F"],
+
+// SECTION 2 — Verbes (V)
+["לסיים","terminer / finir","V"],["להתחיל","commencer","V"],["להמשיך","continuer","V"],
+["לעצור","arrêter","V"],["לנסות","essayer","V"],["להצליח","réussir","V"],["להיכשל","échouer","V"],
+["לשנות","changer","V"],["לשמור","garder / sauvegarder","V"],["לאבד","perdre","V"],
+["למצוא","trouver","V"],["לחפש","chercher","V"],["לבחור","choisir","V"],["להחליט","décider","V"],
+["לחשב","calculer / considérer","V"],["לתכנן","planifier","V"],["להכין","préparer","V"],
+["לבדוק","vérifier / examiner","V"],["לפתור","résoudre","V"],["ליצור","créer","V"],
+["לבנות","construire","V"],["לפתוח","ouvrir","V"],["לסגור","fermer","V"],["להוסיף","ajouter","V"],
+["להסיר","enlever / retirer","V"],["להגדיל","agrandir / augmenter","V"],["להקטין","réduire / diminuer","V"],
+["להרחיב","élargir / développer","V"],["לשפר","améliorer","V"],["להחמיר","aggraver","V"],
+["לגרום","causer / provoquer","V"],["להשפיע","influencer / affecter","V"],["לתמוך","soutenir","V"],
+["להתנגד","s'opposer","V"],["להסכים","être d'accord","V"],["לסרב","refuser","V"],
+["לקבל","recevoir / accepter","V"],["לדחות","rejeter / remettre à plus tard","V"],
+["לפגוש","rencontrer","V"],["להצטרף","rejoindre","V"],["להיפרד","se séparer","V"],
+["לשתף","partager","V"],["לתקשר","communiquer","V"],["להעביר","transmettre / passer","V"],
+["לנהל","gérer / diriger","V"],["להוביל","mener / conduire","V"],["לעקוב","suivre","V"],
+["להוכיח","prouver","V"],["להסביר","expliquer","V"],["לפרט","détailler","V"],
+["לסכם","résumer","V"],["להציג","présenter","V"],["להעריך","estimer / apprécier","V"],
+["למדוד","mesurer","V"],["לבחון","examiner / tester","V"],["לנתח","analyser","V"],
+["להשוות","comparer","V"],["להבדיל","distinguer / différencier","V"],["לחלק","diviser / distribuer","V"],
+["לאחד","unifier / combiner","V"],["לעלות","monter / coûter","V"],["לרדת","descendre / baisser","V"],
+["לגדול","grandir / augmenter","V"],["להתפתח","se développer","V"],["להתקדם","progresser / avancer","V"],
+["להתרחב","s'élargir / s'étendre","V"],["להצטמצם","se réduire / se rétrécir","V"],
+["להיעלם","disparaître","V"],["להופיע","apparaître","V"],["להכניס","introduire / mettre","V"],
+["להוציא","sortir / dépenser","V"],["להביא","apporter","V"],["לשלוח","envoyer","V"],
+["לדאוג","se soucier / s'occuper","V"],["לטפל","traiter / soigner","V"],["לסייע","aider / assister","V"],
+["למנוע","empêcher / prévenir","V"],["להגן","protéger","V"],["לסכן","mettre en danger","V"],
+["לאפשר","permettre","V"],["לאסור","interdire","V"],["לחייב","obliger","V"],
+["לדרוש","exiger / réclamer","V"],["לבקש","demander / solliciter","V"],["להציע","proposer / offrir","V"],
+["לפרסם","publier / diffuser","V"],["להכריז","annoncer / déclarer","V"],["לציין","mentionner / noter","V"],
+["להדגיש","souligner / accentuer","V"],["להסיק","déduire / conclure","V"],
+["לקבל החלטה","prendre une décision","V"],["לשתף פעולה","coopérer","V"],
+
+// SECTION 3 — Noms abstraits (N)
+["המצב","la situation","N"],["הבעיה","le problème","N"],["הפתרון","la solution","N"],
+["ההחלטה","la décision","N"],["הסיבה","la raison / la cause","N"],["התוצאה","le résultat","N"],
+["ההשפעה","l'influence / l'effet","N"],["השינוי","le changement","N"],["ההתפתחות","le développement","N"],
+["ההתקדמות","le progrès","N"],["ההצלחה","le succès","N"],["הכישלון","l'échec","N"],
+["הניסיון","l'expérience / l'essai","N"],["הרעיון","l'idée","N"],["המטרה","l'objectif / le but","N"],
+["הכוונה","l'intention","N"],["הצורך","le besoin","N"],["הדרישה","l'exigence","N"],
+["האפשרות","la possibilité","N"],["ההזדמנות","l'opportunité","N"],["הסיכוי","la chance / la probabilité","N"],
+["הסיכון","le risque","N"],["הסכנה","le danger","N"],["הביטחון","la sécurité / la confiance","N"],
+["החשיבות","l'importance","N"],["המשמעות","la signification / le sens","N"],["הערך","la valeur","N"],
+["ההבדל","la différence","N"],["הקשר","le lien / le contexte","N"],["היחס","la relation / l'attitude","N"],
+["המאמץ","l'effort","N"],["ההצעה","la proposition / l'offre","N"],["ההסכם","l'accord","N"],
+["הסכסוך","le conflit","N"],["הוויכוח","la dispute / le débat","N"],["ההבנה","la compréhension","N"],
+["הידע","le savoir / la connaissance","N"],["המידע","l'information","N"],["הנתון","la donnée","N"],
+["העובדה","le fait","N"],["הראיה","la preuve / l'indice","N"],["הטיעון","l'argument","N"],
+["המסקנה","la conclusion","N"],["הדעה","l'opinion","N"],["הגישה","l'approche / l'attitude","N"],
+["הנקודה","le point","N"],["ההיבט","l'aspect","N"],["הנושא","le sujet / le thème","N"],
+["התחום","le domaine / le secteur","N"],["המסגרת","le cadre","N"],["הרמה","le niveau","N"],
+["השלב","l'étape / la phase","N"],["התהליך","le processus","N"],["השיטה","la méthode","N"],
+["הדרך","la voie / la façon","N"],["הכלי","l'outil","N"],["האמצעי","le moyen","N"],
+["המשאב","la ressource","N"],["התקציב","le budget","N"],["ההשקעה","l'investissement","N"],
+["הרווח","le profit / le gain","N"],["ההפסד","la perte","N"],["העלות","le coût","N"],
+["המחיר","le prix","N"],["ההכנסה","le revenu","N"],["ההוצאה","la dépense","N"],
+["הביקוש","la demande (économique)","N"],["השוק","le marché","N"],["התחרות","la compétition","N"],
+["השותפות","le partenariat","N"],["הפיתוח","le développement","N"],["החדשנות","l'innovation","N"],
+["המחקר","la recherche","N"],["הניסוי","l'expérience (scientifique)","N"],["הגילוי","la découverte","N"],
+["ההמצאה","l'invention","N"],["היצירה","la création / l'œuvre","N"],["ההישג","l'accomplissement","N"],
+["הפרויקט","le projet","N"],["התוכנית","le plan / le programme","N"],["המדיניות","la politique","N"],
+["החוק","la loi","N"],["הזכות","le droit / le privilège","N"],["החובה","l'obligation / le devoir","N"],
+["האחריות","la responsabilité","N"],["הסמכות","l'autorité","N"],["הכוח","la puissance / la force","N"],
+["התמיכה","le soutien","N"],["ההתנגדות","l'opposition","N"],["הבקשה","la demande / la requête","N"],
+["הצעד","le pas / l'étape","N"],
+
+// SECTION 4 — Adjectifs (A)
+["גדול","grand","A","קטן"],["חשוב","important","A","שולי"],["חזק","fort","A","חלש"],
+["מהיר","rapide","A","איטי"],["ישן","vieux / ancien","A","חדש"],["פשוט","simple","A","מורכב"],
+["ברור","clair","A","מעורפל"],["נכון","correct / vrai","A","שגוי"],["אפשרי","possible","A","בלתי אפשרי"],
+["הכרחי","nécessaire","A","מיותר"],["חיובי","positif","A","שלילי"],["עיקרי","principal","A","משני"],
+["ציבורי","public","A","פרטי"],["פנימי","interne","A","חיצוני"],["מקומי","local","A","עולמי"],
+["כלכלי","économique","A"],["חברתי","social","A"],["פוליטי","politique","A"],
+["מדעי","scientifique","A"],["תרבותי","culturel","A"],["חינוכי","éducatif","A"],
+["בריאותי","sanitaire / de santé","A"],["סביבתי","environnemental","A"],["טכנולוגי","technologique","A"],
+["בינלאומי","international","A","מקומי"],["מיוחד","spécial / particulier","A","רגיל"],
+["שונה","différent","A","דומה"],["קשה","difficile / dur","A","קל"],
+["מתאים","approprié","A","לא מתאים"],["יעיל","efficace","A","לא יעיל"],
+["מוצלח","réussi","A","כושל"],["מספיק","suffisant","A","לא מספיק"],
+["מלא","plein / complet","A","ריק"],["פנוי","libre / disponible","A","עסוק"],
+["מסוכן","dangereux","A","בטוח"],["שלם","entier / complet","A","חלקי"],
+["ישיר","direct","A","עקיף"],["פעיל","actif","A","פסיבי"],
+["עצמאי","indépendant","A","תלוי"],["משותף","commun / partagé","A","פרטי"],
+["מוגבל","limité","A","בלתי מוגבל"],["עמוק","profond","A","שטחי"],
+["רחב","large / vaste","A","צר"],["רציני","sérieux","A","שטחי"],
+["מעשי","pratique","A","תיאורטי"],["יציב","stable","A","תנודתי"],
+["קבוע","permanent / fixe","A","זמני"],["גמיש","flexible","A","נוקשה"],
+["מנוגד","opposé","A","תואם"],["הדדי","mutuel / réciproque","A","חד-צדדי"],
+["משמעותי","significatif","A","זניח"],["מהותי","essentiel","A","שולי"],
+["הגיוני","logique","A","אבסורדי"],["הוגן","équitable / juste","A","לא הוגן"],
+["אמין","fiable","A","לא אמין"],["מדויק","précis","A","משוער"],
+["מקיף","complet / exhaustif","A","חלקי"],["מתמשך","continu","A","לסירוגין"],
+["הדרגתי","graduel","A","פתאומי"],["ארוך-טווח","à long terme","A","קצר-טווח"],
+["קריטי","critique / crucial","A","שולי"],["מורכב","complexe","A","פשוט"],
+["מודרני","moderne","A","מסורתי"],["מסורתי","traditionnel","A","חדשני"],
+["מבוסס","fondé / établi","A","מפוקפק"],["מוכח","prouvé","A","לא מוכח"],
+["שנוי במחלוקת","controversé","A","מוסכם"],["ודאי","certain / sûr","A","מסופק"],
+["צפוי","prévisible","A","בלתי צפוי"],
+
+// SECTION 5 — Presse / académique (P)
+["לפי","selon","P"],["על פי","selon / d'après","P"],["בהתאם ל","conformément à","P"],
+["בניגוד ל","contrairement à","P"],["בהשוואה ל","comparé à","P"],["ביחס ל","par rapport à","P"],
+["בנוגע ל","concernant","P"],["לגבי","concernant / à propos de","P"],["בנושא","sur le sujet de","P"],
+["בתחום","dans le domaine de","P"],["במסגרת","dans le cadre de","P"],["לאור","à la lumière de","P"],
+["בעקבות","suite à","P"],["לקראת","en vue de / vers","P"],["לאחר","après","P"],
+["בטרם","avant (formel)","P"],["תוך","en (temps) / au sein de","P"],["במשך","pendant / durant","P"],
+["לאורך","tout au long de","P"],["מאז","depuis","P"],["עד כה","jusqu'à présent","P"],
+["בינתיים","entre-temps","P"],["בסך הכל","au total / en tout","P"],["בכלל","en général / du tout","P"],
+["בפרט","en particulier","P"],["גם כן","également","P"],
+["מצד אחד... מצד שני","d'un côté... de l'autre","P"],["ראשית","premièrement","P"],
+["שנית","deuxièmement","P"],["לבסוף","enfin / pour finir","P"],
+["יתרה מזו","qui plus est","P"],["מעל לכך","au-delà de cela","P"],
+["לעומת זאת","en revanche","P"],["בניגוד לכך","contrairement à cela","P"],
+["עם זאת","cependant / toutefois","P"],["אולם","cependant (formel)","P"],
+["ברם","toutefois (très formel)","P"],["אף על פי כן","néanmoins","P"],
+["למרות זאת","malgré cela","P"],["אלא","mais plutôt","P"],
+["כלומר","c'est-à-dire","P"],["דהיינו","à savoir (formel)","P"],
+["בכל מקרה","dans tous les cas","P"],["על כל פנים","en tout cas","P"],
+["בהחלט","absolument / certainement","P"],["ללא ספק","sans aucun doute","P"],
+["כנראה","apparemment / probablement","P"],["ייתכן","il est possible","P"],
+["כמובן","bien sûr / évidemment","P"],["מסתבר","il s'avère","P"],
+["נראה כי","il semble que","P"],["לפחות","au moins","P"],["לכל היותר","au plus","P"],
+["רוב","majorité / la plupart","P"],["מיעוט","minorité","P"],["חלק","partie / certains","P"],
+["הכלכלה","l'économie","P"],["הממשלה","le gouvernement","P"],["הבחירות","les élections","P"],
+["החקיקה","la législation","P"],["הרגולציה","la réglementation","P"],["מוסד","institution","P"],
+["ארגון","organisation","P"],["תאגיד","société / corporation","P"],["עמותה","association","P"],
+["ועדה","comité / commission","P"],["נציג","représentant","P"],["דובר","porte-parole","P"],
+["פרסום","publication / publicité","P"],["כותרת","titre","P"],["מאמר","article","P"],
+["דו\"ח","rapport","P"],["ניתוח","analyse","P"],["הערכה","évaluation / estimation","P"],
+["תחזית","prévision","P"],["נתונים","données","P"],["סטטיסטיקה","statistique","P"],
+["אחוז","pourcentage","P"],["שיעור","taux / pourcentage","P"],["מגמה","tendance","P"],
+["צמיחה","croissance","P"],["ירידה","baisse / déclin","P"],["עלייה","hausse / montée","P"],
+["ייצוג","représentation","P"],["נגישות","accessibilité","P"],["שוויון","égalité","P"],
+["אי-שוויון","inégalité","P"],["גיוון","diversité","P"],["אפליה","discrimination","P"],
+["זכויות","droits","P"],["חירות","liberté","P"],["הגנה","protection","P"],
+["ביטחון","sécurité","P"],["רווחה","bien-être","P"],["איכות חיים","qualité de vie","P"],
+["קהילה","communauté","P"],["אזרח","citoyen","P"],["תושב","résident","P"],
+["עולה חדש","nouvel immigrant","P"],["מהגר","migrant","P"],["פליט","réfugié","P"],
+["זהות","identité","P"],["שייכות","appartenance","P"],["לאומיות","nationalisme","P"],
+["חינוך","éducation","P"],["השכלה","instruction / niveau d'études","P"],
+["מיומנות","compétence / habileté","P"],["כישרון","talent","P"],["יכולת","capacité","P"],
+["רפורמה","réforme","P"],["מהפכה","révolution","P"],["פריצת דרך","percée / avancée","P"],
+["אתגר","défi","P"],["מכשול","obstacle","P"],["אלטרנטיבה","alternative","P"],
+["אסטרטגיה","stratégie","P"],["יתרון","avantage","P"],["חיסרון","inconvénient","P"],
+["השלכות","conséquences / implications","P"],["גורם","facteur / cause","P"],
+["טענה","argument / affirmation","P"],["ממצא","découverte / résultat d'étude","P"],
+["נסיבות","circonstances","P"],["הקשר","contexte","P"],["עיקרון","principe","P"],
+["תפיסה","perception / conception","P"],["השקפה","point de vue","P"],["עמדה","position","P"],
+["ציפייה","attente","P"],["תגובה","réaction","P"],["ביקורת","critique","P"],
+["הסכמה","accord","P"],["הפשרה","compromis","P"],
+
+// SECTION 6 — Santé / Science / Tech (S)
+["מחלה","maladie","S"],["תסמין","symptôme","S"],["טיפול","traitement","S"],
+["תרופה","médicament","S"],["ניתוח","chirurgie / opération","S"],["בדיקה","examen / test","S"],
+["אבחון","diagnostic","S"],["מניעה","prévention","S"],["חיסון","vaccination","S"],
+["הבראה","rétablissement","S"],["מערכת חיסון","système immunitaire","S"],
+["לחץ דם","tension artérielle","S"],["גידול","tumeur / croissance","S"],
+["תזונה","nutrition / alimentation","S"],["פעילות גופנית","activité physique","S"],
+["חלבון","protéine","S"],["נגיף","virus","S"],["חיידק","bactérie","S"],
+["גנטיקה","génétique","S"],["אבולוציה","évolution","S"],["מחשב","ordinateur","S"],
+["אינטרנט","internet","S"],["בינה מלאכותית","intelligence artificielle","S"],
+["אלגוריתם","algorithme","S"],["אבטחת מידע","cybersécurité","S"],
+["פלטפורמה","plateforme","S"],["אפליקציה","application","S"],["רשת חברתית","réseau social","S"],
+["מדיה","médias","S"],["דיגיטלי","numérique","S"],["מציאות מדומה","réalité virtuelle","S"],
+["אוטומציה","automatisation","S"],["רובוטיקה","robotique","S"],
+["אנרגיה סולארית","énergie solaire","S"],["אנרגיה מתחדשת","énergie renouvelable","S"],
+["שינוי אקלים","changement climatique","S"],["פליטות","émissions","S"],
+["אקולוגיה","écologie","S"],["מגוון ביולוגי","biodiversité","S"],["זיהום","pollution","S"],
+["קיימות","durabilité","S"],["פיתוח בר-קיימא","développement durable","S"],
+["חקלאות","agriculture","S"],["מזון","nourriture","S"],["ייצור","production","S"],
+["תעשייה","industrie","S"],["ייצוא","exportation","S"],["ייבוא","importation","S"],
+["סחר","commerce","S"],["גלובליזציה","mondialisation","S"],["אינפלציה","inflation","S"],
+["מיתון","récession","S"],["תעסוקה","emploi","S"],["אבטלה","chômage","S"],
+["שכר","salaire","S"],["הכשרה","formation","S"],["יזמות","entrepreneuriat","S"],
+
+// SECTION 7 — Société / Culture (C)
+["שלטון","gouvernance","C"],["דמוקרטיה","démocratie","C"],["שקיפות","transparence","C"],
+["שחיתות","corruption","C"],["פיקוח","supervision / contrôle","C"],
+["בית משפט","tribunal","C"],["שופט","juge","C"],["עורך דין","avocat","C"],
+["משפט","procès / droit","C"],["עבירה","infraction","C"],["עונש","peine / punition","C"],
+["צדק","justice","C"],["זכויות יסוד","droits fondamentaux","C"],
+["פלורליזם","pluralisme","C"],["סובלנות","tolérance","C"],["הקצנה","radicalisation","C"],
+["תקשורת ההמונים","médias de masse","C"],["חדשות","nouvelles / informations","C"],
+["חופש הביטוי","liberté d'expression","C"],["פרטיות","vie privée","C"],["צנזורה","censure","C"],
+["דעת קהל","opinion publique","C"],["השפעה חברתית","influence sociale","C"],
+["גיבוש תרבותי","diversité culturelle","C"],["הגירה","immigration","C"],
+["אינטגרציה","intégration","C"],["שילוב","inclusion","C"],["ניוד חברתי","mobilité sociale","C"],
+["פערים","fossés / disparités","C"],["הדרה","exclusion","C"],["עוני","pauvreté","C"],
+["מדיניות רווחה","politique sociale","C"],["ביטוח לאומי","sécurité sociale","C"],
+["דיור","logement","C"],["תחבורה ציבורית","transports en commun","C"],
+["תשתית","infrastructure","C"],["אמנות","art","C"],["ספרות","littérature","C"],
+["מורשת","patrimoine / héritage","C"],["זיכרון קולקטיבי","mémoire collective","C"],
+["שפת אם","langue maternelle","C"],["דו-לשוניות","bilinguisme","C"],
+["רב-תרבותיות","multiculturalisme","C"],["עלייה לישראל","aliyah","C"],
+["יהדות","judaïsme","C"],["חילוניות","laïcité / sécularisme","C"],["דתיות","religiosité","C"],
+["חג","fête religieuse","C"],["טקס","cérémonie","C"],["מנהג","coutume / usage","C"],
+["ערכים","valeurs","C"],["משפחה","famille","C"],["נישואים","mariage","C"],
+["גירושין","divorce","C"],["שוויון מגדרי","égalité des genres","C"],["פמיניזם","féminisme","C"],
+["אלימות","violence","C"],["אלימות במשפחה","violence domestique","C"],["שיקום","réhabilitation","C"],
+["מודעות","conscience / sensibilisation","C"],["אתיקה","éthique","C"],["מוסר","morale","C"],
+["דילמה","dilemme","C"],["חזון","vision","C"],["שאיפה","aspiration / ambition","C"],
+["מוטיבציה","motivation","C"],["מחויבות","engagement","C"],["יושרה","intégrité","C"],
+["אמינות","crédibilité / fiabilité","C"],["כנות","honnêteté / sincérité","C"],
+["אמפתיה","empathie","C"],["סולידריות","solidarité","C"],["לכידות חברתית","cohésion sociale","C"],
+["חוסן","résilience","C"],["יצירתיות","créativité","C"],["חשיבה ביקורתית","pensée critique","C"],
+["מנהיגות","leadership","C"],["השראה","inspiration","C"],["שינוי חברתי","changement social","C"],
+["מחאה","protestation","C"],["הפגנה","manifestation","C"],["שביתה","grève","C"],
+["תנועה חברתית","mouvement social","C"],["קדמה","progrès","C"],
+
+// SECTION 8 — Environnement / Économie (E)
+["התחממות גלובלית","réchauffement climatique","E"],["הסכם אקלים","accord climatique","E"],
+["דלקים מאובנים","combustibles fossiles","E"],["זיהום קרקע","pollution des sols","E"],
+["הצפה","inondation","E"],["רעידת אדמה","tremblement de terre","E"],
+["שריפת יערות","incendie de forêt","E"],["מדבור","désertification","E"],
+["שמורת טבע","réserve naturelle","E"],["פארק לאומי","parc national","E"],
+["מינים בסכנת הכחדה","espèces menacées","E"],["הכחדה","extinction","E"],
+["עיור","urbanisation","E"],["כלכלה עולמית","économie mondiale","E"],
+["שוק ההון","marché des capitaux","E"],["בורסה","bourse des valeurs","E"],
+["מניה","action en bourse","E"],["ריבית","taux d'intérêt","E"],["חוב","dette","E"],
+["תקציב המדינה","budget national","E"],["מסים","impôts","E"],["מע\"מ","TVA","E"],
+["מס הכנסה","impôt sur le revenu","E"],["פריון","productivité","E"],
+["איכות","qualité","E"],["תקן","norme / standard","E"],
+["חדשנות טכנולוגית","innovation technologique","E"],["הפצה","distribution","E"],
+["לחץ","pression","E"],["מתח","tension","E"],["קונפליקט","conflit","E"],
+["משא ומתן","négociation","E"],["הסכם","accord","E"],["חוזה","contrat","E"],
+["הפרה","violation / infraction","E"],["גישור","médiation","E"],["פיוס","réconciliation","E"],
+["שלום","paix","E"],["מלחמה","guerre","E"],["צבא","armée","E"],
+["ביטחון לאומי","sécurité nationale","E"],["מודיעין","renseignement","E"],
+["טרור","terrorisme","E"],["דיפלומטיה","diplomatie","E"],["קואליציה","coalition","E"],
+["ברית","alliance","E"],["סנקציות","sanctions","E"],["עזרה הומניטרית","aide humanitaire","E"],
+["גבול","frontière","E"],["ריבונות","souveraineté","E"],["אוטונומיה","autonomie","E"],
+["עצמאות","indépendance","E"],["שחרור","libération","E"],["כיבוש","occupation","E"],
+["ארגון בינלאומי","organisation internationale","E"],["אמנה","traité / convention","E"],
+["חוקה","constitution","E"],["תיקון חוקתי","amendement constitutionnel","E"],
+["עקרון שלטון חוק","principe de l'état de droit","E"],
+
+// SECTION 9 — Rares / avancés (R)
+["מוטה","biaisé / partial","R"],["ייחודי","unique / particulier","R"],["מקביל","parallèle","R"],
+["מצטבר","cumulatif","R"],["ניכר","notable / perceptible","R"],["אופייני","typique / caractéristique","R"],
+["מייצג","représentatif","R"],["מכריע","décisif","R"],["שיטה","méthode / système","R"],
+["מנגנון","mécanisme","R"],["מסלול","trajectoire / voie","R"],["תרחיש","scénario","R"],
+["גרסה","version","R"],["פרשנות","interprétation","R"],["הבהרה","clarification","R"],
+["דיוק","précision","R"],["ניהול משברים","gestion de crise","R"],
+["הסתגלות","adaptation","R"],["שרידות","survivabilité / résilience","R"],
+["בנייה מחדש","reconstruction","R"],["מיזוג","fusion","R"],["רכישה","acquisition","R"],
+["פיצול","scission / division","R"],["ארגון מחדש","restructuration","R"],
+["ייצוב","stabilisation","R"],["ניטור","surveillance / monitoring","R"],
+["מדד","indicateur / indice","R"],["מדרג","classement","R"],["ביצועים","performance","R"],
+["יעילות","efficacité","R"],["אפקטיביות","effectivité","R"],["כדאיות","rentabilité / viabilité","R"],
+["בר-קיימא","durable","R"],["הדדיות","réciprocité","R"],["שיתופיות","collaborativité","R"],
+["פתיחות","ouverture","R"],["אמינות","fiabilité","R"],["מהימנות","crédibilité","R"],
+["תקפות","validité","R"],["מרחב","espace","R"],["נרטיב","récit","R"],
+["ניתוח ביקורתי","analyse critique","R"],["גישה הוליסטית","approche holistique","R"],
+["ניהול ידע","gestion des connaissances","R"],["פתרונות יצירתיים","solutions créatives","R"],
+["רב-תחומיות","pluridisciplinarité","R"],["מינוף","levier / effet de levier","R"],
+["ממשל","gouvernance","R"],["אחריותיות","redevabilité","R"],
+["אמון ציבורי","confiance publique","R"],["לגיטימציה","légitimité","R"],
+["הצדקה","justification","R"],["העצמה","autonomisation / empowerment","R"],
+];
+
+// Connector exercises
+const CONNECTOR_EXERCISES = [
+  {q:"הוא עבד קשה, _______ הצליח בבחינה.",ans:"לכן",opts:["בגלל","לכן","למרות ש","כי"],exp:"<strong>לכן</strong> (donc) exprime la conséquence. 'Il a travaillé dur, donc il a réussi.'"},
+  {q:"_______ הגשם, הם ביטלו את הטיול.",ans:"בגלל",opts:["כי","למרות","בגלל","לכן"],exp:"<strong>בגלל</strong> + NOM (à cause de). 'À cause de la pluie, ils ont annulé la sortie.'"},
+  {q:"היא למדה הרבה, _______ לא עברה את הבחינה.",ans:"אבל",opts:["כי","לכן","אבל","כאשר"],exp:"<strong>אבל</strong> (mais) exprime l'opposition. 'Elle a beaucoup étudié, mais elle n'a pas réussi l'examen.'"},
+  {q:"הפרויקט הצליח _______ היו בעיות בדרך.",ans:"למרות ש",opts:["למרות ש","בגלל ש","לכן","כי"],exp:"<strong>למרות ש</strong> + VERBE (bien que). Piège : למרות + NOM, למרות ש + VERBE !"},
+  {q:"נדרשים שינויים _______ המצב ישתפר.",ans:"כדי ש",opts:["כי","לכן","כדי ש","בגלל ש"],exp:"<strong>כדי ש</strong> + VERBE (afin que). But ou finalité."},
+  {q:"_______ ההחלטה, השוק השתנה.",ans:"בעקבות",opts:["בגלל","בעקבות","לכן","אולם"],exp:"<strong>בעקבות</strong> (à la suite de) est formel. Utilisé après un événement précis."},
+  {q:"הוא לא רק חכם, _______ גם אמיץ.",ans:"אלא",opts:["אבל","אלא","לכן","כי"],exp:"<strong>לא רק... אלא גם</strong> = non seulement... mais aussi. Formule fixe !"},
+  {q:"המצב קשה, _______ הם לא מוותרים.",ans:"אף על פי כן",opts:["לכן","כי","אף על פי כן","כדי"],exp:"<strong>אף על פי כן</strong> (néanmoins) = concession. La difficulté n'empêche pas la persévérance."},
+  {q:"_______ שקיבל עזרה, הוא לא הצליח.",ans:"למרות ש",opts:["כי","מכיוון ש","למרות ש","לכן"],exp:"<strong>למרות ש</strong> + VERBE (bien que). Concession."},
+  {q:"הוא עייף, _______ הוא לא ישן.",ans:"כי",opts:["לכן","כי","אבל","אם"],exp:"<strong>כי</strong> (parce que) introduit la cause. Ici : il est fatigué parce qu'il n'a pas dormi."},
+  {q:"_______ הניסיון, הגיעו לתוצאות חדשות.",ans:"בעקבות",opts:["בגלל","לכן","בעקבות","כי"],exp:"<strong>בעקבות</strong> (suite à) est formel et suit un NOM."},
+  {q:"הוא רצה לבוא, _______ לא יכול.",ans:"אך",opts:["כי","לכן","אך","כאשר"],exp:"<strong>אך</strong> (mais / toutefois) est légèrement formel. Synonyme d'אבל."},
+  {q:"_______ תלמד, תצליח.",ans:"אם",opts:["כי","אם","לכן","למרות"],exp:"<strong>אם</strong> (si) introduit une condition réelle. 'Si tu étudies, tu réussiras.'"},
+  {q:"הם החליטו _______ לא לאחר.",ans:"כדי",opts:["בגלל","לכן","כדי","אבל"],exp:"<strong>כדי</strong> + INFINITIF (afin de). But d'une action."},
+  {q:"_______ ש הגיע, כולם שמחו.",ans:"כאשר",opts:["כי","כאשר","לכן","אבל"],exp:"<strong>כאשר</strong> (quand / lorsque) indique le temps."},
+  {q:"המצב שיפר, _______ הבעיות נשארו.",ans:"אולם",opts:["לכן","אולם","כי","כאשר"],exp:"<strong>אולם</strong> (mais / cependant) est formel. Marque une opposition."},
+  {q:"ישנן בעיות רבות, _______ הזיהום.",ans:"למשל",opts:["לכן","כי","למשל","אולם"],exp:"<strong>למשל</strong> (par exemple) introduit une illustration."},
+  {q:"_______ הנסיבות, הם החליטו לפעול.",ans:"בשל",opts:["כי","בשל","לכן","אבל"],exp:"<strong>בשל</strong> (en raison de) est formel + NOM. Similaire à עקב."},
+  {q:"הוא מצוין, _______ מעל הממוצע.",ans:"כלומר",opts:["לכן","כלומר","אבל","כי"],exp:"<strong>כלומר</strong> (c'est-à-dire) reformule ou précise ce qui vient d'être dit."},
+  {q:"_______ תלמד יותר, תרוויח יותר.",ans:"ככל ש",opts:["אם","כאשר","ככל ש","כדי ש"],exp:"<strong>ככל ש</strong> (plus... plus) exprime une corrélation progressive."},
+  {q:"יסכימו, _______ ישנו כמה תנאים.",ans:"בתנאי ש",opts:["כי","לכן","בתנאי ש","אבל"],exp:"<strong>בתנאי ש</strong> (à condition que) pose une condition nécessaire."},
+  {q:"_______ ידעתי, הייתי פועל.",ans:"לו",opts:["אם","לו","כי","כאשר"],exp:"<strong>לו</strong> = si (hypothèse irréelle). 'Si j'avais su...' — situation contraire à la réalité."},
+  {q:"גדל הביקוש, _______ עלו המחירים.",ans:"כתוצאה מכך",opts:["לכן","בגלל","כתוצאה מכך","אולם"],exp:"<strong>כתוצאה מכך</strong> (par conséquent) est formel. Utilisé après une cause exposée."},
+  {q:"_______, יש לציין את הקשיים.",ans:"כמו כן",opts:["לכן","כמו כן","כי","אם"],exp:"<strong>כמו כן</strong> (également / de même) ajoute une information. Synonyme de בנוסף."},
+  {q:"הוא חכם, _______ הוא עצלן.",ans:"אבל",opts:["לכן","כי","אבל","כדי"],exp:"<strong>אבל</strong> (mais) est le connecteur d'opposition le plus courant et le plus testé."},
+  {q:"_______ הקשיים, הצליחה.",ans:"למרות",opts:["בגלל","למרות","לכן","כי"],exp:"<strong>למרות</strong> + NOM (malgré). 'Malgré les difficultés...' Attention : NOM après למרות, VERBE après למרות ש !"},
+  {q:"הם נשארו בבית _______ הגשם ירד.",ans:"מכיוון ש",opts:["בגלל","לכן","מכיוון ש","אבל"],exp:"<strong>מכיוון ש</strong> (étant donné que) + VERBE. Exprime la cause de façon formelle."},
+  {q:"_______, הפתרון יעיל.",ans:"בסיכום",opts:["לכן","כי","בסיכום","אבל"],exp:"<strong>בסיכום</strong> (en résumé) conclut un développement."},
+  {q:"הוא לא הגיע, _______ נמשיך בלעדיו.",ans:"לפיכך",opts:["אבל","לפיכך","כי","כאשר"],exp:"<strong>לפיכך</strong> (par conséquent) est formel. Synonyme de לכן mais plus soutenu."},
+  {q:"_______ עבר לכאן, הוא שמח.",ans:"מאז ש",opts:["כאשר","לפני ש","מאז ש","כי"],exp:"<strong>מאז ש</strong> (depuis que) exprime la durée depuis un événement passé."},
+];
+
+// Category info
+const CAT_INFO = {
+  F:{name:"Fondamentaux",color:"#4257b2"},
+  V:{name:"Verbes",color:"#16a34a"},
+  N:{name:"Noms abstraits",color:"#7c3aed"},
+  A:{name:"Adjectifs",color:"#b45309"},
+  P:{name:"Presse / Académique",color:"#0891b2"},
+  S:{name:"Santé / Science",color:"#dc2626"},
+  C:{name:"Société / Culture",color:"#db2777"},
+  E:{name:"Économie / Env.",color:"#059669"},
+  R:{name:"Rares / Avancés",color:"#6d28d9"},
+};
+
+// ============================================================
+// SPACED REPETITION ENGINE
+// ============================================================
+// Each card stores: {interval, ease, dueDate, reviews, correct}
+// Intervals: 0=new,1,3,7,14,30,90,180 days
+
+const STORAGE_KEY = "yael_srs_v3";
+const HISTORY_KEY = "yael_history_v3";
+const STREAK_KEY  = "yael_streak_v3";
+
+function loadProgress(){
+  try{ return JSON.parse(localStorage.getItem(STORAGE_KEY))||{}; }catch(e){ return {}; }
+}
+function saveProgress(p){ localStorage.setItem(STORAGE_KEY, JSON.stringify(p)); }
+function loadHistory(){
+  try{ return JSON.parse(localStorage.getItem(HISTORY_KEY))||[]; }catch(e){ return []; }
+}
+function saveHistory(h){ localStorage.setItem(HISTORY_KEY, JSON.stringify(h)); }
+function loadStreak(){
+  try{ return JSON.parse(localStorage.getItem(STREAK_KEY))||{streak:0,lastDate:null}; }catch(e){ return {streak:0,lastDate:null}; }
+}
+function saveStreak(s){ localStorage.setItem(STREAK_KEY, JSON.stringify(s)); }
+
+function getCardState(progress, id){
+  return progress[id] || {interval:0, ease:2.5, dueDate:0, reviews:0, correct:0};
+}
+
+function nextIntervals(state, rating){
+  // rating: 1=don't know, 2=hard, 3=know it
+  let {interval, ease} = state;
+  if(rating===1){
+    return {interval:1, ease:Math.max(1.3, ease-0.2)};
+  } else if(rating===2){
+    const ni = Math.max(1, Math.round(interval*1.2));
+    return {interval:ni, ease:Math.max(1.3, ease-0.1)};
+  } else {
+    let ni;
+    if(interval===0) ni=1;
+    else if(interval===1) ni=3;
+    else if(interval<5) ni=7;
+    else ni=Math.round(interval*ease);
+    ni=Math.min(ni,180);
+    return {interval:ni, ease:Math.min(ease+0.05, 3.0)};
+  }
+}
+
+function rateFmt(days){
+  if(days<=1) return "Demain";
+  if(days<7) return `${days}j`;
+  if(days<30) return `${Math.round(days/7)}sem`;
+  return `${Math.round(days/30)}mois`;
+}
+
+function isDue(state){
+  return Date.now() >= state.dueDate;
+}
+
+function isDueStrict(state){
+  return state.interval===0 || Date.now() >= state.dueDate;
+}
+
+// ============================================================
+// APP STATE
+// ============================================================
+let progress = loadProgress();
+let currentCat = 'all';
+let fc = { deck:[], idx:0, flipped:false, mode:'due', sessionCorrect:0, sessionTotal:0 };
+let quiz = { qs:[], idx:0, score:0, answered:false };
+let connectorIdx = 0;
+let connectorScore = 0;
+
+// Prepare word objects
+const WORDS = RAW_WORDS.map((r,i)=>({
+  id: i,
+  he: r[0],
+  fr: r[1],
+  cat: r[2],
+  ant: r[3]||null,
+}));
+
+// ============================================================
+// UTILITY
+// ============================================================
+function shuffle(arr){
+  const a=[...arr];
+  for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
+  return a;
+}
+function pick(arr,n){ return shuffle(arr).slice(0,n); }
+function rnd(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
+function wordsForCat(cat){
+  if(cat==='all') return WORDS;
+  return WORDS.filter(w=>w.cat===cat);
+}
+
+function updateStreak(){
+  const s = loadStreak();
+  const today = new Date().toDateString();
+  if(s.lastDate===today) return;
+  const yesterday = new Date(Date.now()-86400000).toDateString();
+  s.streak = s.lastDate===yesterday ? s.streak+1 : 1;
+  s.lastDate = today;
+  saveStreak(s);
+}
+
+// ============================================================
+// DASHBOARD
+// ============================================================
+function renderHome(){
+  const words = wordsForCat(currentCat);
+  const total = words.length;
+  let due=0, learned=0, mastered=0, newCards=0;
+  words.forEach(w=>{
+    const st = getCardState(progress,w.id);
+    if(st.interval===0) newCards++;
+    else if(st.interval>=14) mastered++;
+    else learned++;
+    if(isDueStrict(st)) due++;
+  });
+
+  // Streak
+  const {streak} = loadStreak();
+  const streakArea = document.getElementById('streak-area');
+  streakArea.innerHTML = streak>0 ? `
+    <div class="streak-banner">
+      <div class="fire">🔥</div>
+      <div><h3>Série de ${streak} jour${streak>1?'s':''} !</h3><p>Continue comme ça pour atteindre 100 !</p></div>
+    </div>` : '';
+
+  // Stats
+  document.getElementById('dash-stats').innerHTML = `
+    <div class="stat-card"><div class="num">${due}</div><div class="label">📅 Cartes à revoir</div></div>
+    <div class="stat-card"><div class="num green">${mastered}</div><div class="label">✅ Maîtrisées</div></div>
+    <div class="stat-card"><div class="num orange">${learned}</div><div class="label">📖 En cours</div></div>
+    <div class="stat-card"><div class="num" style="color:var(--muted)">${newCards}</div><div class="label">🆕 Nouvelles</div></div>
+  `;
+
+  // Mastery overview
+  const mo = document.getElementById('mastery-overview');
+  mo.innerHTML = Object.entries(CAT_INFO).map(([cat,info])=>{
+    const ws = WORDS.filter(w=>w.cat===cat);
+    const tot = ws.length;
+    const mast = ws.filter(w=>getCardState(progress,w.id).interval>=14).length;
+    const pct = tot>0?Math.round(mast/tot*100):0;
+    return `<div class="mastery-bar">
+      <div class="mb-label"><span>${info.name}</span><span style="color:${info.color}">${mast}/${tot} (${pct}%)</span></div>
+      <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${pct}%;background:${info.color}"></div></div>
+    </div>`;
+  }).join('');
+}
+
+function selectCat(el, cat){
+  document.querySelectorAll('.cat-pill').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+  currentCat = cat;
+  renderHome();
+}
+
+// ============================================================
+// FLASHCARDS
+// ============================================================
+function startFlashcards(mode){
+  const words = wordsForCat(currentCat);
+  let deck;
+  if(mode==='due'){
+    deck = words.filter(w=>isDueStrict(getCardState(progress,w.id)));
+    if(deck.length===0){
+      // Show next due words anyway (up to 20)
+      deck = [...words].sort((a,b)=>{
+        const sa=getCardState(progress,a.id), sb=getCardState(progress,b.id);
+        return sa.dueDate - sb.dueDate;
+      }).slice(0,20);
+    }
+  } else {
+    deck = shuffle(words).slice(0,50);
+  }
+  fc = {deck:shuffle(deck), idx:0, flipped:false, mode, sessionCorrect:0, sessionTotal:0};
+  showScreen('flashcards');
+  renderFC();
+}
+
+function shuffleDeck(){
+  fc.deck = shuffle(fc.deck);
+  fc.idx = 0;
+  fc.flipped = false;
+  renderFC();
+}
+
+function renderFC(){
+  const card = document.getElementById('fc-card');
+  const doneScr = document.getElementById('fc-done-screen');
+  const btns = document.getElementById('fc-btns');
+
+  if(fc.idx >= fc.deck.length){
+    card.style.display='none';
+    doneScr.style.display='block';
+    btns.style.display='none';
+    const dueLeft = WORDS.filter(w=>isDueStrict(getCardState(progress,w.id))).length;
+    document.getElementById('fc-done-msg').innerHTML =
+      `<strong>${fc.sessionCorrect}/${fc.sessionTotal}</strong> bonnes réponses cette session.<br>
+       ${dueLeft>0?`Il reste encore <strong>${dueLeft} cartes</strong> à revoir.`:'✅ Toutes les cartes à jour sont révisées !'}`;
+    return;
+  }
+
+  card.style.display='block';
+  doneScr.style.display='none';
+  const w = fc.deck[fc.idx];
+  const state = getCardState(progress, w.id);
+  const total = fc.deck.length;
+  const pct = Math.round(fc.idx/total*100);
+
+  // Progress bar & text
+  document.getElementById('fc-bar').style.width = pct+'%';
+  document.getElementById('fc-progress').textContent = `${fc.idx+1} / ${total}`;
+  document.getElementById('fc-title').textContent = CAT_INFO[w.cat]?.name || 'Flashcards';
+
+  // Prepare intervals for buttons
+  const ni1 = nextIntervals(state,1);
+  const ni2 = nextIntervals(state,2);
+  const ni3 = nextIntervals(state,3);
+  document.getElementById('hard-days').textContent = rateFmt(ni2.interval);
+  document.getElementById('know-days').textContent = rateFmt(ni3.interval);
+
+  // Front
+  document.getElementById('fc-front').innerHTML = `
+    <div class="fc-tag">${CAT_INFO[w.cat]?.name||w.cat} • ${state.interval===0?'Nouveau':`Intervalle: ${rateFmt(state.interval)}`}</div>
+    <div class="fc-word">${w.he}</div>
+    ${w.ant?`<div class="fc-hint" style="margin-top:8px">Antonyme: ${w.ant}</div>`:''}
+    <div class="fc-click-hint">👆 Cliquez pour voir la traduction</div>
+  `;
+
+  // Back
+  document.getElementById('fc-back').innerHTML = `
+    <div class="fc-tag">${CAT_INFO[w.cat]?.name||w.cat}</div>
+    <div class="fc-word-small">${w.he}</div>
+    <div class="fc-translation">${w.fr}</div>
+    ${w.ant?`<div class="fc-hint">Antonyme: <strong>${w.ant}</strong></div>`:''}
+    <div class="fc-next-info" style="margin-top:10px;font-size:.8rem;color:var(--muted)">Comment était ce mot ?</div>
+  `;
+
+  // Reset flip
+  fc.flipped = false;
+  card.classList.remove('flipped');
+  btns.style.display='none';
+  document.getElementById('fc-next-info').textContent = '';
+}
+
+function flipCard(){
+  if(fc.idx >= fc.deck.length) return;
+  if(!fc.flipped){
+    fc.flipped=true;
+    document.getElementById('fc-card').classList.add('flipped');
+    document.getElementById('fc-btns').style.display='grid';
+    document.getElementById('fc-next-info').textContent = '';
+  }
+}
+
+function rateCard(rating){
+  if(fc.idx >= fc.deck.length) return;
+  const w = fc.deck[fc.idx];
+  const state = getCardState(progress,w.id);
+  const {interval,ease} = nextIntervals(state,rating);
+  const dueDate = Date.now() + interval*24*60*60*1000;
+  progress[w.id] = {
+    interval, ease, dueDate,
+    reviews: (state.reviews||0)+1,
+    correct: (state.correct||0)+(rating>=2?1:0),
+  };
+  saveProgress(progress);
+  if(rating>=2){ fc.sessionCorrect++; }
+  fc.sessionTotal++;
+  updateStreak();
+  fc.idx++;
+  renderFC();
+}
+
+// ============================================================
+// QUIZ
+// ============================================================
+function startQuiz(count=20){
+  const words = wordsForCat(currentCat);
+  const pool = shuffle(words).slice(0, Math.min(count*2, words.length));
+
+  // Weight toward due/weak cards
+  const due = pool.filter(w=>isDueStrict(getCardState(progress,w.id)));
+  const rest = pool.filter(w=>!isDueStrict(getCardState(progress,w.id)));
+  const selected = shuffle([...due, ...rest]).slice(0,count);
+
+  const qs = selected.map(w=>buildQuestion(w, words));
+  quiz = {qs, idx:0, score:0, answered:false};
+  showScreen('quiz');
+  renderQuiz();
+}
+
+function buildQuestion(word, allWords){
+  // Alternate between he→fr and fr→he
+  const dir = Math.random()<0.6 ? 'he2fr' : 'fr2he';
+  let question, correctAns, opts, isHe;
+
+  // Get 3 distractors from same category or random
+  const samecat = allWords.filter(w=>w.id!==word.id && w.cat===word.cat);
+  const othercat = allWords.filter(w=>w.id!==word.id && w.cat!==word.cat);
+  const distPool = samecat.length>=3 ? samecat : [...samecat,...othercat];
+  const distractors = pick(distPool,3);
+
+  if(dir==='he2fr'){
+    question = word.he;
+    correctAns = word.fr;
+    isHe = true;
+    opts = shuffle([{text:word.fr,correct:true}, ...distractors.map(d=>({text:d.fr,correct:false}))]);
+  } else {
+    question = word.fr;
+    correctAns = word.he;
+    isHe = false;
+    opts = shuffle([{text:word.he,correct:true}, ...distractors.map(d=>({text:d.he,correct:false}))]);
+  }
+  return {word, dir, question, correctAns, opts, isHe, answered:false, selectedIdx:-1};
+}
+
+function renderQuiz(){
+  const el = document.getElementById('quiz-content');
+  if(quiz.idx >= quiz.qs.length){
+    renderQuizResult(); return;
+  }
+  const q = quiz.qs[quiz.idx];
+  const total = quiz.qs.length;
+
+  // Timer (decorative - shows elapsed)
+  el.innerHTML = `
+    <div class="quiz-q-header">
+      <div class="quiz-q-num">Question ${quiz.idx+1} / ${total}</div>
+      <div class="quiz-timer">Score: ${quiz.score} / ${quiz.idx}</div>
+    </div>
+    <div class="quiz-q-text">
+      <div class="quiz-q-label">${q.dir==='he2fr'?'Que signifie ce mot hébreu ?':'Comment dit-on en hébreu ?'}</div>
+      <div class="quiz-q-word ${q.isHe?'':'fr'}">${q.question}</div>
+    </div>
+    <div class="quiz-opts" id="quiz-opts">
+      ${q.opts.map((o,i)=>`
+        <button class="quiz-opt ${!q.isHe?'he':''}" onclick="answerQuiz(${i})">${o.text}</button>
+      `).join('')}
+    </div>
+    <div id="quiz-explain" style="display:none" class="quiz-explain"></div>
+    <div class="quiz-next-row" id="quiz-next-row" style="display:none">
+      <button class="btn btn-primary" onclick="nextQuizQ()">Suivant →</button>
+    </div>
+  `;
+}
+
+function answerQuiz(selectedIdx){
+  if(quiz.qs[quiz.idx].answered) return;
+  const q = quiz.qs[quiz.idx];
+  q.answered = true;
+  q.selectedIdx = selectedIdx;
+  const correct = q.opts[selectedIdx].correct;
+  if(correct) quiz.score++;
+
+  // Update card progress
+  const state = getCardState(progress, q.word.id);
+  const rating = correct ? 3 : 1;
+  const {interval,ease} = nextIntervals(state,rating);
+  progress[q.word.id] = {
+    interval, ease,
+    dueDate: Date.now()+interval*86400000,
+    reviews:(state.reviews||0)+1,
+    correct:(state.correct||0)+(correct?1:0),
+  };
+  saveProgress(progress);
+  updateStreak();
+
+  // Render feedback
+  const opts = document.querySelectorAll('.quiz-opt');
+  opts.forEach((btn,i)=>{
+    btn.classList.add('disabled');
+    if(q.opts[i].correct) btn.classList.add('correct');
+    else if(i===selectedIdx) btn.classList.add('wrong');
+  });
+
+  const correctWord = q.dir==='he2fr' ? q.word.fr : q.word.he;
+  const explEl = document.getElementById('quiz-explain');
+  explEl.style.display='block';
+  explEl.innerHTML = correct
+    ? `✅ <strong>Correct !</strong> — ${q.word.he} = ${q.word.fr}${q.word.ant?` | Antonyme: ${q.word.ant}`:''}`
+    : `❌ <strong>Incorrect.</strong> La bonne réponse : <strong>${correctWord}</strong><br>${q.word.he} = ${q.word.fr}${q.word.ant?` | Antonyme: ${q.word.ant}`:''}`;
+
+  document.getElementById('quiz-next-row').style.display='flex';
+  // Update score display
+  document.querySelector('.quiz-timer').textContent = `Score: ${quiz.score} / ${quiz.idx+1}`;
+}
+
+function nextQuizQ(){
+  quiz.idx++;
+  renderQuiz();
+}
+
+function renderQuizResult(){
+  const total = quiz.qs.length;
+  const pct = Math.round(quiz.score/total*100);
+  const medal = pct>=90?'🏆':pct>=70?'🥇':pct>=50?'🥈':'💪';
+
+  // Save to history
+  const h = loadHistory();
+  h.unshift({date:new Date().toLocaleDateString('fr-FR'),score:quiz.score,total,pct,cat:currentCat});
+  if(h.length>30) h.pop();
+  saveHistory(h);
+  updateStreak();
+
+  document.getElementById('quiz-content').innerHTML = `
+    <div class="quiz-result">
+      <div class="medal">${medal}</div>
+      <div class="score">${quiz.score}/${total}</div>
+      <div class="score-sub">${pct}% de réussite — ${pct>=80?'Excellent !':pct>=60?'Bien !':pct>=40?'Continue !':'Encore un effort !'}</div>
+      <div class="btn-grid" style="max-width:400px;margin:0 auto">
+        <button class="btn btn-primary" onclick="startQuiz(20)">🔄 Nouveau quiz</button>
+        <button class="btn btn-warn" onclick="startQuiz(50)">🏆 Quiz 50 questions</button>
+        <button class="btn btn-success" onclick="startFlashcards('due')">🃏 Réviser les erreurs</button>
+        <button class="btn btn-outline" onclick="showScreen('home')">🏠 Accueil</button>
+      </div>
+    </div>
+  `;
+}
+
+// ============================================================
+// CONNECTORS
+// ============================================================
+function startConnectorQuiz(){
+  connectorIdx = 0;
+  connectorScore = 0;
+  renderConnector();
+  document.getElementById('conn-score-disp').textContent = '';
+}
+
+function renderConnector(){
+  const el = document.getElementById('conn-content');
+  if(connectorIdx >= CONNECTOR_EXERCISES.length){
+    const pct = Math.round(connectorScore/CONNECTOR_EXERCISES.length*100);
+    document.getElementById('conn-score-disp').textContent = `${connectorScore}/${CONNECTOR_EXERCISES.length} (${pct}%)`;
+    el.innerHTML = `
+      <div class="quiz-result">
+        <div class="medal">${pct>=80?'🏆':pct>=60?'🥇':'💪'}</div>
+        <div class="score">${connectorScore}/${CONNECTOR_EXERCISES.length}</div>
+        <div class="score-sub">${pct}% — ${pct>=80?'Excellent maîtrise des connecteurs !':'Révisez le fichier des connecteurs logiques.'}</div>
+        <button class="btn btn-primary" onclick="startConnectorQuiz()" style="margin:0 auto;display:block;max-width:240px">🔄 Recommencer</button>
+      </div>`;
+    return;
+  }
+
+  const ex = CONNECTOR_EXERCISES[connectorIdx];
+  const total = CONNECTOR_EXERCISES.length;
+
+  el.innerHTML = `
+    <div class="fc-bar-wrap"><div class="fc-bar" style="width:${Math.round(connectorIdx/total*100)}%"></div></div>
+    <div class="quiz-q-header">
+      <div class="quiz-q-num">Exercice ${connectorIdx+1} / ${total}</div>
+      <div class="quiz-timer" id="conn-timer">Score: ${connectorScore}/${connectorIdx}</div>
+    </div>
+    <div class="quiz-q-text" style="direction:rtl;font-size:1.4rem;font-weight:700;line-height:1.8">
+      ${ex.q}
+    </div>
+    <div class="quiz-opts" id="conn-opts">
+      ${ex.opts.map((o,i)=>`
+        <button class="quiz-opt he" onclick="answerConnector(${i},'${o}')">${o}</button>
+      `).join('')}
+    </div>
+    <div id="conn-explain" style="display:none" class="quiz-explain"></div>
+    <div style="display:none;justify-content:flex-end" id="conn-next">
+      <button class="btn btn-primary" onclick="nextConnector()">Suivant →</button>
+    </div>
+  `;
+}
+
+function answerConnector(idx, val){
+  const ex = CONNECTOR_EXERCISES[connectorIdx];
+  const correct = val===ex.ans;
+  if(correct) connectorScore++;
+
+  const opts = document.querySelectorAll('#conn-opts .quiz-opt');
+  opts.forEach((btn,i)=>{
+    btn.classList.add('disabled');
+    if(ex.opts[i]===ex.ans) btn.classList.add('correct');
+    else if(i===idx && !correct) btn.classList.add('wrong');
+  });
+
+  const expEl = document.getElementById('conn-explain');
+  expEl.style.display='block';
+  expEl.innerHTML = (correct?'✅ ':'❌ ') + ex.exp;
+  document.getElementById('conn-next').style.display='flex';
+  document.getElementById('conn-timer').textContent = `Score: ${connectorScore}/${connectorIdx+1}`;
+}
+
+function nextConnector(){
+  connectorIdx++;
+  renderConnector();
+}
+
+// ============================================================
+// STATS
+// ============================================================
+function renderStats(){
+  const total = WORDS.length;
+  let mastered=0, learning=0, newCards=0, totalReviews=0;
+  WORDS.forEach(w=>{
+    const st=getCardState(progress,w.id);
+    totalReviews+=st.reviews||0;
+    if(st.interval===0) newCards++;
+    else if(st.interval>=14) mastered++;
+    else learning++;
+  });
+
+  const {streak} = loadStreak();
+  document.getElementById('stats-grid').innerHTML = `
+    <div class="stat-card"><div class="num green">${mastered}</div><div class="label">✅ Mots maîtrisés</div></div>
+    <div class="stat-card"><div class="num orange">${learning}</div><div class="label">📖 En apprentissage</div></div>
+    <div class="stat-card"><div class="num" style="color:var(--muted)">${newCards}</div><div class="label">🆕 Nouveaux</div></div>
+    <div class="stat-card"><div class="num">${totalReviews}</div><div class="label">🔄 Révisions totales</div></div>
+    <div class="stat-card"><div class="num" style="color:var(--orange)">${streak}🔥</div><div class="label">Jours consécutifs</div></div>
+    <div class="stat-card"><div class="num">${Math.round(mastered/total*100)}%</div><div class="label">📈 Progression globale</div></div>
+  `;
+
+  // Mastery by category
+  const sm = document.getElementById('stats-mastery');
+  sm.innerHTML = Object.entries(CAT_INFO).map(([cat,info])=>{
+    const ws = WORDS.filter(w=>w.cat===cat);
+    const tot=ws.length;
+    const mast=ws.filter(w=>getCardState(progress,w.id).interval>=14).length;
+    const learn=ws.filter(w=>{const s=getCardState(progress,w.id);return s.interval>0&&s.interval<14;}).length;
+    const pct=tot>0?Math.round(mast/tot*100):0;
+    return `<div class="mastery-bar">
+      <div class="mb-label">
+        <span style="color:${info.color}">■</span> ${info.name} (${tot} mots)
+        <span>${mast} maîtrisés · ${learn} en cours · <strong>${pct}%</strong></span>
+      </div>
+      <div class="progress-bar-wrap" style="height:14px">
+        <div style="height:100%;display:flex;border-radius:99px;overflow:hidden">
+          <div style="width:${pct}%;background:${info.color};transition:.5s"></div>
+          <div style="width:${tot>0?Math.round(learn/tot*100):0}%;background:${info.color}44;transition:.5s"></div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  // History
+  const h = loadHistory();
+  const histEl = document.getElementById('stats-history');
+  if(h.length===0){
+    histEl.innerHTML='<div style="text-align:center;color:var(--muted);padding:20px">Aucun quiz effectué encore.</div>';
+  } else {
+    histEl.innerHTML = h.map(r=>`
+      <div class="history-item">
+        <span>${r.date} — <strong>${r.cat==='all'?'Tout':CAT_INFO[r.cat]?.name||r.cat}</strong></span>
+        <span class="badge ${r.pct>=80?'badge-green':r.pct>=60?'badge-orange':'badge-red'}">${r.score}/${r.total} (${r.pct}%)</span>
+      </div>
+    `).join('');
+  }
+}
+
+function resetConfirm(){
+  if(confirm('Réinitialiser TOUTE la progression ? Cette action est irréversible.')){
+    localStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem(HISTORY_KEY);
+    localStorage.removeItem(STREAK_KEY);
+    progress = {};
+    renderHome();
+    renderStats();
+    alert('Progression réinitialisée.');
+  }
+}
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+function showScreen(name){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('screen-'+name).classList.add('active');
+  const tabs = document.querySelectorAll('.nav-tab');
+  const tabMap = {home:0,flashcards:1,quiz:2,connectors:3,stats:4};
+  if(tabMap[name]!==undefined) tabs[tabMap[name]].classList.add('active');
+
+  if(name==='home') renderHome();
+  if(name==='stats') renderStats();
+  if(name==='connectors' && connectorIdx===0 && document.getElementById('conn-content').innerHTML==='')
+    startConnectorQuiz();
+  if(name==='quiz') startQuiz(20);
+}
+
+// ============================================================
+// INIT
+// ============================================================
+renderHome();
+</script>
+</body>
+</html>
