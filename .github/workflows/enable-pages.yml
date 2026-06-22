@@ -1,7 +1,8 @@
 name: Enable GitHub Pages
 
 on:
-  workflow_dispatch:
+  push:
+    branches: [master]
 
 jobs:
   enable-pages:
@@ -24,9 +25,9 @@ jobs:
           echo "HTTP Status: $RESPONSE"
           cat /tmp/pages_response.json
           if [ "$RESPONSE" = "201" ] || [ "$RESPONSE" = "409" ]; then
-            echo "Pages enabled (or already enabled)!"
+            echo "SUCCESS: Pages enabled!"
           else
-            echo "Trying to update existing Pages config..."
+            echo "Trying PUT to update existing config..."
             curl -s \
               -X PUT \
               -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
