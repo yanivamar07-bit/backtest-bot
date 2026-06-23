@@ -2350,13 +2350,309 @@ const ANNALES_DATA = [
             "s": "העמדה הרשמית של הממשלה שונה.",
             "w": "עמדה",
             "opts": [
-              "עמדה/גישה רשמית",
+              "גישה / נקודת מבט",
               "הצהרה",
               "יחס",
               "כיוון"
             ],
             "ans": 0,
-            "exp": "עולה חדש לישראל מתמודד עם אתגרים רבים. ראשית, קשיי השפה הם אתגר מרכזי. אף על פי שיש קורסי עברית, הלמידה לוקחת זמן רב ומקשה על השתלבות בעבודה ובחברה. שנית, הסתגלות תרבותית היא אתגר נוסף — הנורמות החברתיות בישראל שונות מאוד ממה שעולה חדש הכיר בארצו."
+            "exp": "עמדה = position/point de vue (officiel). Synonymes : גישה (approche/attitude), נקודת מבט (point de vue). הצהרה = déclaration (acte public). Piège : יחס = comportement/relation (plus général que עמדה)."
+          },
+          {
+            "s": "הפרלמנט אישר את הצעת החוק.",
+            "w": "אישר",
+            "opts": ["דחה","קיבל","ביטל","הציע"],
+            "ans": 1,
+            "exp": "אישר = approuver/entériner. קיבל = recevoir/accepter. Dans le contexte législatif, אישר = voter pour. Piège : דחה = rejeter (antonyme exact)."
+          },
+          {
+            "s": "הדיון שנוי במחלוקת בין המומחים.",
+            "w": "שנוי במחלוקת",
+            "opts": ["מוסכם","מוצלח","מעורר מחלוקות","פשוט"],
+            "ans": 2,
+            "exp": "שנוי במחלוקת = controversé (expression figée). מעורר מחלוקות = qui suscite des controverses. Expression incontournable au YAEL."
+          },
+          {
+            "s": "הממשלה מתכוונת לצמצם את ההוצאות הציבוריות.",
+            "w": "לצמצם",
+            "opts": ["להגדיל","להפחית","לאחד","לפתח"],
+            "ans": 1,
+            "exp": "צמצם = réduire/limiter. הפחית = diminuer. לצמצם הוצאות = réduire les dépenses. Piège : להגדיל = augmenter (antonyme)."
+          },
+          {
+            "s": "הנציג הביע דאגה ממצב הביטחון.",
+            "w": "הביע",
+            "opts": ["הסתיר","הצהיר על","שלח","הסיר"],
+            "ans": 1,
+            "exp": "הביע = exprimer (une émotion, une position). הצהיר = déclarer/exprimer formellement. הביע דאגה = exprimer une inquiétude. Synonyme : גילה את."
+          },
+          {
+            "s": "הפתרון הוצע כמוצא אחרון.",
+            "w": "מוצא",
+            "opts": ["בעיה","ניסיון","דרך / פתרון","הצעה"],
+            "ans": 2,
+            "exp": "מוצא = issue/sortie/solution. Dans 'כמוצא אחרון' = en dernier recours. Synonyme : פתרון אחרון. מוצא au sens propre = sortie physique."
+          },
+          {
+            "s": "ההסכם תרם לייצוב המצב האזורי.",
+            "w": "ייצוב",
+            "opts": ["הכרה","החמרה","הבהרה","התייצבות"],
+            "ans": 3,
+            "exp": "ייצוב = stabilisation. התייצבות = stabilisation (processus). Les deux sont proches. ייצוב est le résultat, התייצבות est le processus. Piège : החמרה = aggravation (antonyme)."
+          },
+          {
+            "s": "התחזית הכלכלית מעוררת אופטימיות.",
+            "w": "תחזית",
+            "opts": ["תוצאה","הדוח","הנחה","הערכה עתידית"],
+            "ans": 3,
+            "exp": "תחזית = prévision/pronostic (futur). הערכה עתידית = évaluation prospective. Synonymes : תחזית ≈ הערכה עתידית. תחזית s'utilise aussi pour la météo."
+          }
+        ]
+      },
+      {
+        "name": "Section B — Compréhension de vocabulaire",
+        "questions": [
+          {
+            "s": "בשנים האחרונות גוברת המודעות לחשיבות הבריאות הנפשית. מחקרים מראים כי עד 30% מהאוכלוסייה סובלים ממחלה נפשית בנקודת זמן מסוימת בחייהם. עם זאת, הסטיגמה הקשורה לבריאות הנפשית מונעת מרבים לפנות לעזרה.",
+            "w": "גוברת",
+            "opts": ["קטנה","מתפשטת","עולה","חולפת"],
+            "ans": 2,
+            "exp": "גבר = croître/s'intensifier. עלה = augmenter/monter. גוברת המודעות = la conscience s'accroît. Synonymes : מתגברת, הולכת וגדלה (progressive)."
+          },
+          {
+            "s": "בשנים האחרונות גוברת המודעות לחשיבות הבריאות הנפשית. מחקרים מראים כי עד 30% מהאוכלוסייה סובלים ממחלה נפשית בנקודת זמן מסוימת בחייהם. עם זאת, הסטיגמה הקשורה לבריאות הנפשית מונעת מרבים לפנות לעזרה.",
+            "w": "מונעת",
+            "opts": ["מעודדת","מעכבת","מציעה","מאפשרת"],
+            "ans": 1,
+            "exp": "מנע = empêcher/prévenir. עיכב = entraver/bloquer. הסטיגמה מונעת = la stigmatisation empêche. Piège : מאפשרת = permet (antonyme direct)."
+          },
+          {
+            "s": "בשנים האחרונות גוברת המודעות לחשיבות הבריאות הנפשית. מחקרים מראים כי עד 30% מהאוכלוסייה סובלים ממחלה נפשית בנקודת זמן מסוימת בחייהם. עם זאת, הסטיגמה הקשורה לבריאות הנפשית מונעת מרבים לפנות לעזרה.",
+            "w": "סובלים",
+            "opts": ["מתמודדים עם","מטופלים ב","כושלים ב","מטפלים ב"],
+            "ans": 0,
+            "exp": "סבל מ = souffrir de. מתמודד עם = faire face à/gérer. סובלים ממחלה = souffrent d'une maladie. מתמודד עם implique aussi l'effort de gestion."
+          },
+          {
+            "s": "חברות ומדינות רבות מתמודדות כעת עם האתגר של הנגשת שירותי בריאות נפש, תוך הפחתת הסטיגמה החברתית.",
+            "w": "הנגשת",
+            "opts": ["ביטול","פיתוח","נגישות","שיפור"],
+            "ans": 2,
+            "exp": "הנגשה = rendre accessible. נגישות = accessibilité. הנגשת שירותים = rendre des services accessibles. Mot dérivé de נגיש (accessible)."
+          },
+          {
+            "s": "חברות ומדינות רבות מתמודדות כעת עם האתגר של הנגשת שירותי בריאות נפש, תוך הפחתת הסטיגמה החברתית.",
+            "w": "הפחתת",
+            "opts": ["גידול","ביטול","צמצום","חיזוק"],
+            "ans": 2,
+            "exp": "הפחתה = réduction/diminution. צמצום = réduction/limitation. הפחתת הסטיגמה = réduction de la stigmatisation. Piège : גידול / חיזוק = augmentation (antonymes)."
+          }
+        ]
+      },
+      {
+        "name": "Section C — Vocabulaire académique",
+        "questions": [
+          {
+            "s": "החינוך הדיגיטלי מציע אפשרויות למידה חדשות, אולם הוא גם מייצר פערים בין תלמידים בעלי גישה לטכנולוגיה לבין אלה שאינם. בעוד שדיגיטליזציה של החינוך עשויה לצמצם פערים גיאוגרפיים, היא עלולה להחמיר פערים סוציו-אקונומיים.",
+            "w": "מייצר",
+            "opts": ["מוחק","מגדיל","יוצר","מפחית"],
+            "ans": 2,
+            "exp": "ייצר = produire/créer (connotation industrielle/systémique). יצר = créer. מייצר פערים = crée des inégalités. En contexte abstrait, les deux sont équivalents."
+          },
+          {
+            "s": "החינוך הדיגיטלי מציע אפשרויות למידה חדשות, אולם הוא גם מייצר פערים בין תלמידים בעלי גישה לטכנולוגיה לבין אלה שאינם. בעוד שדיגיטליזציה של החינוך עשויה לצמצם פערים גיאוגרפיים, היא עלולה להחמיר פערים סוציו-אקונומיים.",
+            "w": "להחמיר",
+            "opts": ["לשפר","להחריף","לנרמל","לגדל"],
+            "ans": 1,
+            "exp": "החמיר = aggraver/empirer. החריף = exacerber/aggraver. Les deux sont quasi-synonymes. פערים מחמירים = les inégalités s'aggravent. Piège : לשפר = améliorer (antonyme)."
+          },
+          {
+            "s": "לפיכך, יישום מדיניות חינוך דיגיטלי דורש התמקדות בשוויון גישה.",
+            "w": "יישום",
+            "opts": ["ביטול","שימוש","ניצול","הוצאה לפועל"],
+            "ans": 3,
+            "exp": "יישום = mise en œuvre/application. הוצאה לפועל = mise en pratique/exécution. Synonymes dans ce contexte. יישום est plus concis et plus formel au YAEL ★★★."
+          },
+          {
+            "s": "לפיכך, יישום מדיניות חינוך דיגיטלי דורש התמקדות בשוויון גישה.",
+            "w": "התמקדות",
+            "opts": ["הדגשה","שינוי","הסחה","ניהול"],
+            "ans": 0,
+            "exp": "התמקדות = se concentrer sur / focalisation. הדגשה = mise en accent/emphase. הדגשה est proche de התמקדות car les deux impliquent une attention particulière. Synonyme plus précis : מיקוד."
+          },
+          {
+            "s": "לפיכך, יישום מדיניות חינוך דיגיטלי דורש התמקדות בשוויון גישה.",
+            "w": "דורש",
+            "opts": ["מאפשר","מנע","מחייב","ממליץ"],
+            "ans": 2,
+            "exp": "דרש = exiger/requérir. חייב = obliger/nécessiter. הדבר דורש = cela exige/requiert. מחייב implique une obligation plus forte. Piège : ממליץ = recommande (plus doux)."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "exam": "Examen Blanc N°5",
+    "sections": [
+      {
+        "name": "Section A — Vocabulaire",
+        "questions": [
+          {
+            "s": "הממשלה הכריזה על רפורמה כלכלית מקיפה.",
+            "w": "הכריזה",
+            "opts": ["ביטלה","הודיעה על","פסלה","שקלה"],
+            "ans": 1,
+            "exp": "הכריז על = annoncer/déclarer (déclaration publique officielle). הודיע על = annoncer/notifier. Proches, mais הכריז met l'accent sur le caractère solennel et public de l'annonce."
+          },
+          {
+            "s": "הדוח חשף עיוותים חמורים במערכת.",
+            "w": "חשף",
+            "opts": ["הסתיר","גילה","ניתח","ביקר"],
+            "ans": 1,
+            "exp": "חשף = révéler/exposer (implique un fait caché ou scandaleux). גילה = découvrir/révéler. חשף est plus fort : suggère une mise à nu délibérée. Piège : הסתיר = cacher (antonyme)."
+          },
+          {
+            "s": "הפסיקה תומכת בפרשנות המצמצמת של החוק.",
+            "w": "פסיקה",
+            "opts": ["חקיקה","נוהל","הלכה","עמדה"],
+            "ans": 2,
+            "exp": "פסיקה = arrêt judiciaire / jurisprudence (résultat d'une décision de justice). הלכה = jurisprudence (traduit aussi l'usage rabbinique). חקיקה = législation (loi écrite par le parlement)."
+          },
+          {
+            "s": "ישראל השיגה הישגים בלתי מבוטלים בתחום הטכנולוגיה.",
+            "w": "בלתי מבוטלים",
+            "opts": ["קטנים","ניכרים","בינוניים","שגרתיים"],
+            "ans": 1,
+            "exp": "בלתי מבוטל = non négligeable = significatif. Décomposer : בלתי = non, מבוטל = négligeable/annulé. ניכר = notable/remarquable. Piège : בינוניים = médiocres (opposé de remarquables)."
+          },
+          {
+            "s": "השקעות זרות מסייעות לצמיחה הכלכלית.",
+            "w": "מסייעות",
+            "opts": ["מעכבות","מפריעות","תורמות","גורמות"],
+            "ans": 2,
+            "exp": "סייע = aider/contribuer. תרם = contribuer/apporter. מסייע ≈ תורם dans ce contexte. Nuance : מסייע évoque une assistance directe, תורם une contribution plus passive."
+          },
+          {
+            "s": "נוכחותה של ישראל בזירה הבינלאומית גדלה.",
+            "w": "זירה",
+            "opts": ["ענף","תחום","מוסד","שטח"],
+            "ans": 1,
+            "exp": "זירה = arène/scène (où quelque chose se joue). תחום = domaine/secteur. Proche en sens mais זירה a une connotation plus dynamique et conflictuelle. Ex : הזירה הפוליטית = la scène politique."
+          },
+          {
+            "s": "הסכסוך תועד בהרחבה על ידי העיתונות.",
+            "w": "תועד",
+            "opts": ["הוסתר","הוזכר","הוקלט","נחשף"],
+            "ans": 2,
+            "exp": "תיעד = documenter/enregistrer. הוקלט = fut enregistré. Synonymes dans ce contexte. תיעד implique une documentation systématique et officielle."
+          },
+          {
+            "s": "ההצהרה נחשבת לפרגמטית ומאוזנת.",
+            "w": "מאוזנת",
+            "opts": ["חד-צדדית","מגוונת","שוקלת את שני הצדדים","קיצונית"],
+            "ans": 2,
+            "exp": "מאוזן = équilibré. שוקל את שני הצדדים = qui pèse les deux côtés. Proche en sens. מאוזן est plus formel et concis. Piège : חד-צדדי = unilatéral (antonyme)."
+          },
+          {
+            "s": "המדיניות הכלכלית נמתחה ביקורת חריפה.",
+            "w": "נמתחה ביקורת",
+            "opts": ["זכתה לשבח","עוררה מחלוקת","הותקפה","זכתה לתמיכה"],
+            "ans": 2,
+            "exp": "נמתחה ביקורת = fut critiquée (passif). הותקפה = fut attaquée. Synonymes dans ce contexte. נמתחה ביקורת est plus élégant et académique."
+          },
+          {
+            "s": "הוועדה המליצה על שינויים מבניים.",
+            "w": "המליצה",
+            "opts": ["פסלה","אישרה","הציעה","ביטלה"],
+            "ans": 2,
+            "exp": "המליץ על = recommander/préconiser. הציע = proposer. Proches mais המליץ est une recommandation non-contraignante, הציע est une simple proposition."
+          }
+        ]
+      },
+      {
+        "name": "Section B — Vocabulaire en contexte",
+        "questions": [
+          {
+            "s": "הכלכלה הגלובלית עוברת שינויים מואצים. ארגונים בינלאומיים מזהירים מפני הגדלת הפערים בין מדינות עשירות לעניות. ההאטה הכלכלית מכבידה על מדינות מתפתחות, אשר רבות מהן נסמכות על ייצוא חומרי גלם.",
+            "w": "מואצים",
+            "opts": ["איטיים","מפתיעים","מהירים","מתמשכים"],
+            "ans": 2,
+            "exp": "מואץ = accéléré/accru. מהיר = rapide. שינויים מואצים = changements accélérés. מואץ implique une vitesse croissante, pas juste une vitesse rapide."
+          },
+          {
+            "s": "הכלכלה הגלובלית עוברת שינויים מואצים. ארגונים בינלאומיים מזהירים מפני הגדלת הפערים בין מדינות עשירות לעניות. ההאטה הכלכלית מכבידה על מדינות מתפתחות, אשר רבות מהן נסמכות על ייצוא חומרי גלם.",
+            "w": "מכבידה",
+            "opts": ["עוזרת","פוגעת ב","מקלה על","מפתחת"],
+            "ans": 1,
+            "exp": "הכביד על = peser sur/alourdir la charge. פגע ב = nuire à/affecter. Dans ce contexte, מכבידה ≈ פוגעת ב : les deux expriment un impact négatif. Piège : מקלה = allège (antonyme)."
+          },
+          {
+            "s": "הכלכלה הגלובלית עוברת שינויים מואצים. ארגונים בינלאומיים מזהירים מפני הגדלת הפערים בין מדינות עשירות לעניות. ההאטה הכלכלית מכבידה על מדינות מתפתחות, אשר רבות מהן נסמכות על ייצוא חומרי גלם.",
+            "w": "נסמכות",
+            "opts": ["נמנעות","תלויות","שולטות","מייצאות"],
+            "ans": 1,
+            "exp": "נסמך על = s'appuyer sur / dépendre de. תלוי ב = dépendre de. נסמכות על = s'appuient sur. Synonymes dans ce contexte. נסמך a une nuance de soutien physique ou conceptuel."
+          },
+          {
+            "s": "הדו-שיח בין הצדדים הוביל לפריצת דרך דיפלומטית. שני הצדדים הסכימו להתחיל במשא ומתן ישיר, תוך גיבוש מסגרת לפתרון הסכסוך.",
+            "w": "פריצת דרך",
+            "opts": ["כישלון","יוזמה","הישג חשוב","הסכם"],
+            "ans": 2,
+            "exp": "פריצת דרך = percée/avancée décisive. הישג חשוב = réalisation importante. Synonymes. פריצת דרך (littéralement : percer une route) désigne un progrès significatif après un blocage."
+          },
+          {
+            "s": "הדו-שיח בין הצדדים הוביל לפריצת דרך דיפלומטית. שני הצדדים הסכימו להתחיל במשא ומתן ישיר, תוך גיבוש מסגרת לפתרון הסכסוך.",
+            "w": "גיבוש",
+            "opts": ["ביטול","ניסוח","הצגה","ניהול"],
+            "ans": 1,
+            "exp": "גיבש = consolider/formuler/élaborer. ניסח = rédiger/formuler. גיבוש מסגרת = élaboration d'un cadre. גיבש implique aussi la consolidation d'une idée diffuse en quelque chose de concret."
+          },
+          {
+            "s": "הדו-שיח בין הצדדים הוביל לפריצת דרך דיפלומטית. שני הצדדים הסכימו להתחיל במשא ומתן ישיר, תוך גיבוש מסגרת לפתרון הסכסוך.",
+            "w": "מסגרת",
+            "opts": ["הגבלה","מנגנון","תוכנית","מבנה / מסגרת כללית"],
+            "ans": 3,
+            "exp": "מסגרת = cadre/structure. מבנה כללי = structure générale. Les deux désignent un cadre organisationnel. מסגרת a une nuance de limites définies, מבנה d'organisation interne."
+          }
+        ]
+      },
+      {
+        "name": "Section C — Vocabulaire formel avancé",
+        "questions": [
+          {
+            "s": "ממשלות רבות אימצו מדיניות לאומנות כלכלית כתגובה לתחרות הגלובלית. מדיניות זו כוללת הגנה מכסית על תעשיות מקומיות ותמיכה ישירה ביצרנים מקומיים. אולם, מבקרים טוענים כי גישה זו עלולה לפגוע בצמיחה הכוללת.",
+            "w": "אימצו",
+            "opts": ["דחו","קיבלו","ביטלו","שינו"],
+            "ans": 1,
+            "exp": "אימץ = adopter/embrasser. קיבל = recevoir/accepter. Dans le contexte politique, אימץ מדיניות = adopter une politique. Proche de קיבל mais אימץ implique un choix actif et une intégration."
+          },
+          {
+            "s": "ממשלות רבות אימצו מדיניות לאומנות כלכלית כתגובה לתחרות הגלובלית. מדיניות זו כוללת הגנה מכסית על תעשיות מקומיות ותמיכה ישירה ביצרנים מקומיים. אולם, מבקרים טוענים כי גישה זו עלולה לפגוע בצמיחה הכוללת.",
+            "w": "כתגובה",
+            "opts": ["כניסיון","בעקבות","כמענה","כתוצאה מ"],
+            "ans": 2,
+            "exp": "תגובה = réaction/réponse. מענה = réponse/solution. כתגובה ל ≈ כמענה ל = en réponse à. Nuance : תגובה est plus réactive, מענה implique aussi une solution à un problème."
+          },
+          {
+            "s": "ממשלות רבות אימצו מדיניות לאומנות כלכלית כתגובה לתחרות הגלובלית. מדיניות זו כוללת הגנה מכסית על תעשיות מקומיות ותמיכה ישירה ביצרנים מקומיים. אולם, מבקרים טוענים כי גישה זו עלולה לפגוע בצמיחה הכוללת.",
+            "w": "מבקרים",
+            "opts": ["תומכים","מנסים","מתנגדים","מחפשים"],
+            "ans": 2,
+            "exp": "מבקר = critique/auditeur. מתנגד = opposant/adversaire. מבקרים טוענים כי = des critiques affirment que. מבקר est plus académique (critique argumentée), מתנגד est plus politique (opposition)."
+          },
+          {
+            "s": "הממשלה הוציאה לפועל תוכנית רחבת היקף להפחתת עוני.",
+            "w": "הוציאה לפועל",
+            "opts": ["הציגה","ביטלה","יישמה","תכננה"],
+            "ans": 2,
+            "exp": "הוציא לפועל = mettre en œuvre/exécuter. יישם = appliquer/mettre en pratique. Synonymes. יישם est plus concis, הוציא לפועל est plus idiomatique en hébreu courant."
+          },
+          {
+            "s": "הממשלה הוציאה לפועל תוכנית רחבת היקף להפחתת עוני.",
+            "w": "רחבת היקף",
+            "opts": ["ממושכת","קטנה","מקיפה","מהירה"],
+            "ans": 2,
+            "exp": "רחב היקף = de grande envergure/à grande échelle. מקיף = global/exhaustif/complet. Synonymes proches. רחב היקף désigne l'ampleur géographique ou quantitative, מקיף la complétude qualitative."
           }
         ]
       }
