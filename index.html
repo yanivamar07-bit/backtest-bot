@@ -456,7 +456,7 @@ html.dark .rtab.active{background:#1e293b}
 <div id="screen-home" class="screen active">
   <div class="hero">
     <div class="hero-ttl">Révisions YAEL</div>
-    <div class="hero-sub">Apprentissage adaptatif · Répétition espacée · Infini</div>
+    <div class="hero-sub">Vocabulaire · Annales · Rédaction · Grammaire — Révision intelligente pour le YAEL</div>
     <div class="hero-stats" id="hero-stats"></div>
   </div>
   <div id="streak-area"></div>
@@ -1082,7 +1082,34 @@ const RAW_WORDS = [
 ["פוסטמודרני","postmoderne","R"],["קנוני","canonique","R"],
 ["אמביוולנטי","ambivalent","R"],["פרדוקסלי","paradoxal","R"],
 ["הדדי","mutuel/réciproque","R"],["סימביוטי","symbiotique","R"],
+// SECTION 10 — Mots spécifiques aux sujets YAEL (Y)
+["הכריזה","a déclaré / a annoncé (fém.)","Y"],["פסיקה","arrêt / verdict / jugement","Y"],
+["תועד","fut documenté","Y"],["נמתחה ביקורת","fut critiqué / essuyé des critiques","Y"],
+["המליצה","a recommandé (fém.)","Y"],["זירה","arène / scène / espace","Y"],
+["מאוזנת","équilibrée","Y"],["חשף","révéla / dévoila","Y"],
+["בלתי מבוטלים","non négligeables","Y"],["מסייעות","aident / assistent (fém. pl.)","Y"],
+["מואצים","accélérés","Y"],["מכבידה","alourdit / pèse sur (fém.)","Y"],
+["נסמכות","s'appuient sur (fém. pl.)","Y"],["פריצת דרך","percée / avancée majeure","Y"],
+["גיבוש","consolidation / élaboration","Y"],["אימצו","ont adopté","Y"],
+["הוציאה לפועל","a mis en œuvre / a exécuté (fém.)","Y"],["רחבת היקף","de grande ampleur / à grande échelle","Y"],
+["גוברת","croissant / grandissant (fém.)","Y"],["מונעת","prévient / empêche (fém.)","Y"],
+["הנגשת","accessibilité de / mise à disposition de","Y"],["הפחתת","réduction de","Y"],
+["מייצר","génère / produit","Y"],["יישום","mise en œuvre / application","Y"],
+["התמקדות","focalisation / concentration sur","Y"],["הקצאת","allocation de","Y"],
+["הטמעה","intégration / adoption (d'un système)","Y"],["היקף","ampleur / portée / envergure","Y"],
+["מיצוי","exploitation maximale / optimisation","Y"],["טיפוח","cultivation / développement / soin","Y"],
+["עידוד","encouragement","Y"],["קידום","promotion / avancement / développement","Y"],
+["מניע","mobile / moteur / facteur motivant","Y"],["מעכב","freinant / retardant","Y"],
+["מאפשר","permettant / facilitant","Y"],["מחייב","obligeant / exigeant","Y"],
+["שוחרי","partisans de / défenseurs de","Y"],["מתנגדי","opposants à","Y"],
+["דוגלים ב","prônent / défendent","Y"],["נציגי","représentants de","Y"],
+["קיטוב","polarisation","Y"],["שסע","clivage / fracture (sociale)","Y"],
+["הסלמה","escalade","Y"],["ניהול משברים","gestion de crise","Y"],
+["שיח ציבורי","débat public / discours public","Y"],["גיוס ציבורי","mobilisation publique","Y"],
+["תודעה ציבורית","conscience publique","Y"],["מודעות","sensibilisation / conscience","Y"],
+["הפנמה","intériorisation / assimilation","Y"],["עיגון","ancrage / consolidation (légale)","Y"],
 ]
+
 const CONNECTOR_EXERCISES = [
   {q:"הוא עבד קשה, _______ הצליח בבחינה.",ans:"לכן",opts:["בגלל","לכן","למרות ש","כי"],exp:"<strong>לכן</strong> (donc) exprime la conséquence. 'Il a travaillé dur, donc il a réussi.'"},
   {q:"_______ הגשם, הם ביטלו את הטיול.",ans:"בגלל",opts:["כי","למרות","בגלל","לכן"],exp:"<strong>בגלל</strong> + NOM (à cause de). 'À cause de la pluie, ils ont annulé la sortie.'"},
@@ -2706,6 +2733,88 @@ const ANNALES_DATA = [
         ]
       }
     ]
+  },
+  {
+    "exam": "Examen Blanc N°6",
+    "sections": [
+      {
+        "section": "Section A — Vocabulaire en contexte",
+        "questions": [
+          {"s":"ה_______ של הממשלה החדשה התמקדה בצמצום הפערים החברתיים.",
+           "w":"מדיניות","opts":["תוכנית","מדיניות","הצהרה","קואליציה"],"ans":1,
+           "exp":"מדיניות = politique (mesures gouvernementales). Le contexte 'התמקדה בצמצום הפערים' (se concentrait sur la réduction des inégalités) appelle un terme de politique publique, pas une simple tוכנית (plan) ou הצהרה (déclaration)."},
+          {"s":"הוועדה _______ לבחון את השלכות הרפורמה לפני יישומה.",
+           "w":"הוקמה","opts":["הוקמה","יצרה","החליטה","פרסמה"],"ans":0,
+           "exp":"הוקמה = fut établie (passif Huf'al de הקים). 'La commission fut établie pour examiner les implications de la réforme.' הוקמה est le seul passif parmi les options — les autres sont actifs."},
+          {"s":"על פי הדוח, שיעורי _______ בקרב צעירים הגיעו לשיאם.",
+           "w":"האבטלה","opts":["האבטלה","ההשקעה","הצמיחה","הרווחה"],"ans":0,
+           "exp":"האבטלה = le chômage. שיעורי האבטלה = taux de chômage. הגיעו לשיאם = ont atteint leur pic. Contexte négatif (problème chez les jeunes) → chômage, pas croissance ou investissement."},
+          {"s":"ה_______ הכלכלי הביא לירידה משמעותית ברמת החיים.",
+           "w":"מיתון","opts":["פריחה","מיתון","פיתוח","גירעון"],"ans":1,
+           "exp":"מיתון = récession économique. 'הביא לירידה ברמת החיים' (entraîna une baisse du niveau de vie) indique un phénomène négatif. פריחה = prospérité (opposé), גירעון = déficit (budgétaire, pas économique global)."},
+          {"s":"המחקר _______ כי לא קיים קשר סיבתי בין שני המשתנים.",
+           "w":"הראה","opts":["הוכיח","הראה","טען","הסיק"],"ans":1,
+           "exp":"הראה (montra) convient ici — la recherche montre une absence de lien. הוכיח (prouva) implique une preuve définitive, moins adapté à 'absence de'. הסיק (déduisit) est une conclusion logique, pas une démonstration empirique."},
+          {"s":"חברי הכנסת _______ חוק חדש שנועד לאסור פרסום מטעה.",
+           "w":"אישרו","opts":["הגישו","אישרו","דחו","פרסמו"],"ans":1,
+           "exp":"אישרו = ont approuvé / ratifié. הגישו = ont soumis (première lecture). דחו = ont rejeté. פרסמו = ont publié. Le processus législatif : הגישו → דנו → אישרו. Ici la loi est finalisée → אישרו."},
+          {"s":"ה_______ הסביבתי של הפרויקט לא נבחן כראוי לפני הביצוע.",
+           "w":"השפעה","opts":["תועלת","השפעה","עלות","ביקוש"],"ans":1,
+           "exp":"השפעה הסביבתית = impact environnemental. 'לא נבחן כראוי' (n'a pas été examiné correctement) suggère une évaluation manquante. עלות = coût (financier), ביקוש = demande (économique). השפעה est le seul terme d'impact."},
+          {"s":"ה_______ בין המדינות הוביל לפיתוח פרויקטים משותפים.",
+           "w":"שיתוף הפעולה","opts":["שיתוף הפעולה","תחרות","סכסוך","הסכם"],"ans":0,
+           "exp":"שיתוף פעולה = coopération. 'הוביל לפיתוח פרויקטים משותפים' (mena à des projets communs) implique collaboration, pas compétition ou conflit. הסכם = accord (résultat), שיתוף פעולה = processus."},
+          {"s":"ה_______ של הפרלמנט התחדדה בעקבות הבחירות האחרונות.",
+           "w":"קיטוב","opts":["שקיפות","קיטוב","לכידות","מנהיגות"],"ans":0,
+           "exp":"קיטוב = polarisation. 'התחדדה' (s'est accentuée) + contexte électoral → polarisation politique. Contraire de לכידות (cohésion). שקיפות = transparence (non lié)."},
+          {"s":"הארגון _______ להגן על זכויות עובדים ולמנוע ניצול.",
+           "w":"פועל","opts":["מנסה","פועל","מצליח","מאמין"],"ans":1,
+           "exp":"פועל (agit / œuvre) est formel et factuel — l'organisation agit concrètement. מנסה (essaie) implique incertitude. מצליח (réussit) serait trop affirmatif. פועל est le verbe standard pour décrire la mission d'une ONG."},
+        ]
+      },
+      {
+        "section": "Section B — Innovation sociale",
+        "paragraph": "החדשנות החברתית מייצגת גישה חדשה לפתרון בעיות עמוקות בחברה. בניגוד לחדשנות הטכנולוגית, הממוקדת בפיתוח מוצרים, החדשנות החברתית מתמקדת בשינוי מודלים חברתיים ומוסדיים. יזמים חברתיים מזהים פערים ומציעים פתרונות יצירתיים המשלבים יעילות כלכלית עם ערכים חברתיים.",
+        "questions": [
+          {"s":"החדשנות החברתית _______ גישה חדשה לפתרון בעיות.",
+           "w":"מייצגת","opts":["יוצרת","מייצגת","מציגה","מביאה"],"ans":1,
+           "exp":"מייצגת = représente (Pi'el de ייצג). Différent de מציגה (présente physiquement) ou יוצרת (crée). מייצג implique l'incarnation d'un concept ou d'une valeur."},
+          {"s":"בניגוד לחדשנות הטכנולוגית, החדשנות החברתית _______ בשינוי מודלים מוסדיים.",
+           "w":"מתמקדת","opts":["עוסקת","מתמקדת","מתרכזת","מסתכלת"],"ans":1,
+           "exp":"מתמקדת ב (se focalise sur — Hitpa'el de מקד). Plus précis qu'עוסקת (s'occupe de) ou מתרכזת (se concentre — moins formel). מתמקד implique une focalisation délibérée."},
+          {"s":"יזמים חברתיים _______ פערים ומציעים פתרונות יצירתיים.",
+           "w":"מזהים","opts":["רואים","מזהים","מוצאים","יודעים"],"ans":1,
+           "exp":"מזהים = identifient (Hif'il de זהה). Identification active et professionnelle d'un manque. רואים (voient) est trop passif, מוצאים (trouvent) implique une recherche aboutie plutôt qu'une identification."},
+          {"s":"הפתרונות _______ יעילות כלכלית עם ערכים חברתיים.",
+           "w":"משלבים","opts":["מחברים","משלבים","מאחדים","כוללים"],"ans":1,
+           "exp":"משלבים = combinent / intègrent de façon harmonieuse (Pi'el de שלב). מחברים = relient (liens externes). כוללים = incluent (relation de contenance). משלב implique une synthèse où les deux éléments forment un tout."},
+          {"s":"מה מבדיל חדשנות חברתית מחדשנות טכנולוגית לפי הקטע?",
+           "w":"מיקוד בשינוי מודלים חברתיים ולא בפיתוח מוצרים","opts":["הטכנולוגית עדיפה","מיקוד בשינוי מודלים חברתיים ולא בפיתוח מוצרים","שתיהן זהות","החברתית זולה יותר"],"ans":1,
+           "exp":"הטקסט אומר במפורש: 'בניגוד לחדשנות הטכנולוגית, הממוקדת בפיתוח מוצרים, החדשנות החברתית מתמקדת בשינוי מודלים'. ההבדל הוא בניגוד לפיתוח מוצרים ← שינוי מודלים מוסדיים."},
+        ]
+      },
+      {
+        "section": "Section C — Justice sociale",
+        "paragraph": "המאבק לשוויון חברתי הוא מרכיב יסודי בדמוקרטיה מודרנית. חברות המצליחות לצמצם אי-שוויון נהנות מיציבות גדולה יותר ומאמון ציבורי גבוה. עם זאת, מדיניות פיזור ההכנסות מעוררת לעיתים ויכוחים עזים בין תומכי שוק חופשי לתומכי מדינת רווחה.",
+        "questions": [
+          {"s":"המאבק לשוויון חברתי הוא _______ בדמוקרטיה מודרנית.",
+           "w":"מרכיב יסודי","opts":["חשוב מאוד","מרכיב יסודי","גורם מרכזי","אלמנט"],"ans":1,
+           "exp":"מרכיב יסודי = composante fondamentale. מרכיב (composante / ingrédient) est plus précis que גורם (facteur) dans ce contexte — il s'agit d'un élément constitutif. יסודי = fondamental (vs חשוב = important, moins précis)."},
+          {"s":"חברות המצליחות לצמצם אי-שוויון נהנות _______ גדולה יותר.",
+           "w":"מיציבות","opts":["מהצלחה","מיציבות","מצמיחה","מאחריות"],"ans":1,
+           "exp":"הטקסט אומר: 'נהנות מיציבות גדולה יותר ומאמון ציבורי גבוה'. יציבות = stabilité. Le verbe נהנות מ (bénéficient de) + le contexte positif → stabilité est la réponse directe du texte."},
+          {"s":"מה מעוררת מדיניות פיזור ההכנסות לפי הקטע?",
+           "w":"ויכוחים עזים","opts":["שוויון","ויכוחים עזים","צמיחה כלכלית","פתרונות"],"ans":1,
+           "exp":"הטקסט אומר: 'מעוררת לעיתים ויכוחים עזים'. מעורר = suscite / provoque. ויכוחים עזים = débats intenses / vifs. לעיתים = parfois (nuance importante)."},
+          {"s":"בין מי מתנהלים הוויכוחים על פי הקטע?",
+           "w":"תומכי שוק חופשי ותומכי מדינת רווחה","opts":["עשירים ועניים","תומכי שוק חופשי ותומכי מדינת רווחה","ימין ושמאל","מעסיקים ועובדים"],"ans":1,
+           "exp":"הטקסט מציין: 'בין תומכי שוק חופשי לתומכי מדינת רווחה'. שוק חופשי = marché libre (libéralisme économique), מדינת רווחה = état providence. Distinction idéologique précise."},
+          {"s":"מה ניתן להסיק לגבי מדיניות צמצום אי-שוויון מהקטע?",
+           "w":"היא חיונית אך שנויה במחלוקת","opts":["כולם מסכימים שהיא טובה","היא חיונית אך שנויה במחלוקת","היא לא יעילה","השוק הוא הפתרון"],"ans":1,
+           "exp":"הטקסט מראה שהצמצום מועיל (יציבות + אמון) אבל מעורר ויכוחים — מסקנה: חיונית אך שנויה במחלוקת. שנוי במחלוקת = controversé. 'עם זאת' בטקסט מסמן את ההסתייגות."},
+        ]
+      }
+    ]
   }
 ]
 const COURS = [
@@ -2977,6 +3086,51 @@ const COURS = [
       ["הרחבה","expansion / élargissement","★★"],
     ]},
   ]},
+  {id:"grammaire-avancee",icon:"zap",title:"Grammaire avancée YAEL",color:"#7c3aed",sections:[
+    {title:"Binyanim — Les 7 conjugaisons",rows:[
+      ["פָּעַל (Pa'al)","forme de base active","★","Ex : כָּתַב = il a écrit / קָרָא = il a lu"],
+      ["נִפְעַל (Nif'al)","passif ou réfléchi de Pa'al","★★","נ au début : נִכְתַּב = fut écrit / נִשְׁמַע = fut entendu"],
+      ["פִּיעֵל (Pi'el)","intensif actif (action répétée/intense)","★★","Daguesh au 2e radical : דִּיבֵּר = parla / פִּרְסֵם = publia"],
+      ["פּוּעַל (Pu'al)","passif de Pi'el","★★★","Toujours passif, rare : דֻּבַּר = fut discuté","Voyelle u au début"],
+      ["הִפְעִיל (Hif'il)","causatif actif","★★","הִ au début : הֶחְלִיט = décida / הִגִּיעַ = arriva"],
+      ["הֻפְעַל (Huf'al)","passif de Hif'il","★★★","הֻ/הוּ au début : הוּשַׂג = fut atteint","Rare en hébreu moderne"],
+      ["הִתְפַּעֵל (Hitpa'el)","réfléchi ou réciproque","★★","הִתְ + racine : הִתְחַבֵּר = se connecta / הִתְפַּתַּח = se développa"],
+    ]},
+    {title:"Voix passive — Formules clés au YAEL",rows:[
+      ["נאמר כי","il a été dit que","★","Passif de אמר — très fréquent dans les textes YAEL"],
+      ["נמצא כי","il a été trouvé / constaté que","★","Passif de מצא — pour résultats d'étude"],
+      ["הוחלט כי","il a été décidé que","★","Passif de החליט — officiel/gouvernemental"],
+      ["פורסם כי","il a été publié que","★","Passif de פרסם — contexte presse/rapport"],
+      ["הוכח כי","il a été prouvé que","★★","Passif de הוכיח — contexte scientifique"],
+      ["נדרש / נדרשים","il est requis / ils sont requis","★★","Passif de דרש — formel"],
+      ["מוצע כי","il est proposé que","★★","Passif de הציע — recommandation"],
+      ["הוגש","fut soumis / déposé","★★","Passif de הגיש — administratif/judiciaire"],
+      ["צוין כי","il a été noté que","★","Passif de ציין — académique/formel"],
+      ["הוטל","fut imposé / confié","★★★","Passif de הטיל — responsabilité/sanction"],
+    ]},
+    {title:"Structures grammaticales avancées",rows:[
+      ["אחד ה + pluriel","l'un des... / une parmi...","★","אחד האתגרים = l'un des défis principaux"],
+      ["ב + inf formel","en + gérondif","★★","בהגיע מועד = à l'échéance / בהישמע הידיעה = à l'annonce de la nouvelle","Niveau C1"],
+      ["על ידי + nom","par (agent passif)","★★","פורסם על ידי המוסד = publié par l'institution","Toujours après passif"],
+      ["כ + nom","en tant que / en qualité de","★","כמנהיג = en tant que dirigeant / כמדיניות = en tant que politique"],
+      ["מה ש + verbe","ce que / ce qui (relatif neutre)","★","מה שחשוב = ce qui est important"],
+      ["ככל ש... כך","plus... plus (corrélation)","★★","ככל שהבעיה גדלה, כך הפתרון דחוף — structure très testée"],
+      ["לא רק... אלא גם","non seulement... mais aussi","★★","Structure fixe — ne pas dire אבל גם"],
+      ["הן... הן","tant... que (forme formelle)","★★★","הן מבחינה חברתית הן מבחינה כלכלית = tant socialement qu'économiquement"],
+      ["אין... ש","il n'est rien qui...","★★","אין בעיה שאין לה פתרון = tout problème a une solution"],
+      ["מחד... מאידך","d'un côté... de l'autre (très formel)","★★★","Version courante : מצד אחד... מצד שני","Niveau C1/C2"],
+    ]},
+    {title:"Erreurs fréquentes à éviter",rows:[
+      ["✗ 'אני חושב'","éviter le 'je' dans l'essai YAEL","★","Utiliser : נראה כי / ניכר כי / ניתן לומר כי","Le YAEL exige l'impersonnel"],
+      ["✗ כמו ש (écrit)","préférer כפי ש (plus formel)","★★","כפי שצוין = comme il a été noté — כמו ש est oral","Erreur commune"],
+      ["✗ למרות + verbe","למרות + NOM / למרות ש + VERBE","★★","למרות הקשיים (NOM) ✓ / למרות שהיה קשה (VERBE) ✓","Erreur classique !"],
+      ["✗ בגלל ש + NOM","בגלל + NOM / בגלל ש + VERBE","★★","בגלל הגשם ✓ / בגלל שירד גשם ✓","Ne pas mélanger"],
+      ["✗ הכי + adj (écrit)","utiliser adj + ביותר","★","הגבוה ביותר ✓ / הכי גבוה ✗ (niveau oral)","Standard écrit"],
+      ["✗ יש הרבה","préférer רבים / מרבית","★★","רבים מהתלמידים ✓ = de nombreux élèves","Plus précis"],
+      ["✗ כי vs ש confusion","כי = parce que / ש = que (complétif)","★★","חשבתי שהוא צודק ✓ / לא הגעתי כי חליתי ✓","Erreur très fréquente"],
+      ["✗ 'לא יכול להיות'","préférer אין זה אפשרי / בלתי אפשרי","★★","בלתי אפשרי = impossible (formel)","Registre écrit"],
+    ]},
+  ]},
   {id:"expressions-figees",icon:"star",title:"Expressions figées YAEL",color:"#be185d",sections:[
     {title:"Collocations médiatiques et journalistiques",rows:[
       ["לפי הדיווחים","selon les rapports","★★★","Standard journalistique au YAEL. Synonyme : על פי דיווחים"],
@@ -3076,6 +3230,22 @@ const REDACTION = {
         <tr><td class='formula'>לאור הנתונים ניתן להסיק כי...</td><td>À la lumière des données, on peut conclure...</td><td class='badge-tip'>★★ Données</td></tr>
         <tr><td class='formula'>מן הראוי לפעול לשינוי...</td><td>Il convient d'agir pour changer...</td><td class='badge-tip'>★★ Appel à l'action</td></tr>
       </table>`
+    },
+    {
+      icon:"book-open",title:"Ouvertures et conclusions types",
+      content:`<div class='tip-section'><strong>Ouvertures (introductions)</strong><ul>
+<li><strong>Constat général :</strong> ניתן לומר כי X הפך לאחת הסוגיות המרכזיות של תקופתנו.</li>
+<li><strong>Question rhétorique :</strong> האם ניתן להתמודד עם X ללא Y?</li>
+<li><strong>Donnée :</strong> נתונים מראים כי... / על פי דוח X...</li>
+<li><strong>Paradoxe :</strong> על אף ש-X, עדיין קיים Y — תופעה המצריכה בחינה.</li>
+<li><strong>Définition :</strong> המונח X מתייחס ל... ותופעה זו עומדת במרכז הדיון.</li>
+</ul><strong>Conclusions</strong><ul>
+<li><strong>Synthèse :</strong> לסיכום / מכל האמור לעיל עולה כי...</li>
+<li><strong>Perspective :</strong> בטווח הארוך, יש לקוות כי... / ראוי לצפות כי...</li>
+<li><strong>Appel :</strong> לפיכך, ראוי כי הגורמים הרלוונטיים יפעלו ל...</li>
+<li><strong>Nuance :</strong> עם זאת, חשוב להכיר במגבלות הפתרון המוצע.</li>
+<li><strong>Ouverture :</strong> שאלה זו מותירה מרחב לדיון נוסף ולמחקר עתידי.</li>
+</ul></div>`
     },
     {
       icon:"award",title:"Substitutions de registre : de l'oral au formel",
