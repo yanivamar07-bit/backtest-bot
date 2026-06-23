@@ -575,7 +575,9 @@ html.dark .rtab.active{background:#1e293b}
   <div class="card" style="margin-bottom:16px" id="stats-due"></div>
   <div class="sec-ttl">Historique des quiz</div>
   <div class="card" id="stats-history"></div>
-  <div style="margin-top:18px;text-align:center">
+  <div style="margin-top:18px;text-align:center;display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
+    <button class="btn btn-primary btn-sm" onclick="exportProgress()" style="background:var(--g);border-color:var(--g)">💾 Exporter ma progression</button>
+    <button class="btn btn-primary btn-sm" onclick="importProgress()" style="background:var(--pur);border-color:var(--pur)">📂 Importer une sauvegarde</button>
     <button class="btn btn-ghost btn-sm" id="reset-btn"></button>
   </div>
 </div>
@@ -5368,6 +5370,36 @@ function resetConfirm(){
     localStorage.removeItem(SK);localStorage.removeItem(HK);localStorage.removeItem(STK);
     prog={};hist=[];showToast('Progression réinitialisée !');renderHome();
   }
+}
+function exportProgress(){
+  const data={prog,hist,streak:loadStreak(),exportDate:new Date().toISOString(),version:'yael_v1'};
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='yael-progression-'+new Date().toISOString().slice(0,10)+'.json';
+  a.click();URL.revokeObjectURL(a.href);
+  showToast('💾 Progression exportée !');
+}
+function importProgress(){
+  const input=document.createElement('input');
+  input.type='file';input.accept='.json';
+  input.onchange=e=>{
+    const file=e.target.files[0];if(!file)return;
+    const reader=new FileReader();
+    reader.onload=ev=>{
+      try{
+        const data=JSON.parse(ev.target.result);
+        if(!data.version||!data.version.startsWith('yael'))throw new Error('Fichier invalide');
+        if(!confirm('Remplacer ta progression actuelle par ce fichier ?'))return;
+        if(data.prog){prog=data.prog;localStorage.setItem(SK,JSON.stringify(prog));}
+        if(data.hist){hist=data.hist;localStorage.setItem(HK,JSON.stringify(hist));}
+        if(data.streak){localStorage.setItem(STK,JSON.stringify(data.streak));}
+        showToast('✅ Progression restaurée !');renderHome();
+      }catch(err){showToast('❌ Fichier invalide : '+err.message);}
+    };
+    reader.readAsText(file);
+  };
+  input.click();
 }
 
 // === KEYBOARD ===
