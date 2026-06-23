@@ -142,6 +142,8 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--te
     <div class="nav-tab" onclick="showScreen('quiz')">🎯 Quiz</div>
     <div class="nav-tab" onclick="showScreen('connectors')">🔗 Connecteurs</div>
     <div class="nav-tab" onclick="showScreen('stats')">📊 Progrès</div>
+    <div class="nav-tab" onclick="showScreen('phrases')">📝 Phrases</div>
+    <div class="nav-tab" onclick="showScreen('annales')">📋 Annales</div>
   </div>
 </nav>
 
@@ -248,6 +250,29 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--te
   <div style="margin-top:20px;text-align:center">
     <button class="btn btn-outline btn-sm" style="color:var(--red);border-color:var(--red)" onclick="resetConfirm()">🗑 Réinitialiser la progression</button>
   </div>
+</div>
+
+<!-- PHRASES D'EXAMEN -->
+<div id="screen-phrases" class="screen">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px">
+    <div>
+      <div style="font-size:1.2rem;font-weight:800">📝 Phrases d'examen</div>
+      <div style="font-size:.85rem;color:var(--muted)">Maîtrisez les tournures académiques du YAEL</div>
+    </div>
+    <div style="display:flex;gap:8px">
+      <span id="phrase-score-disp" style="font-weight:700;font-size:1rem;color:var(--blue)"></span>
+      <button class="btn btn-primary btn-sm" onclick="startPhraseQuiz()">🔄 Recommencer</button>
+    </div>
+  </div>
+  <div id="phrase-content"></div>
+</div>
+
+<!-- ANNALES -->
+<div id="screen-annales" class="screen">
+  <div style="font-size:1.2rem;font-weight:800;margin-bottom:8px">📋 Annales YAEL — Examens blancs</div>
+  <div style="font-size:.85rem;color:var(--muted);margin-bottom:16px">Entraînez-vous sur les vrais sujets avec corrigés détaillés</div>
+  <div id="annales-selector"></div>
+  <div id="annales-content"></div>
 </div>
 
 <script>
@@ -532,6 +557,131 @@ const RAW_WORDS = [
 ["ממשל","gouvernance","R"],["אחריותיות","redevabilité","R"],
 ["אמון ציבורי","confiance publique","R"],["לגיטימציה","légitimité","R"],
 ["הצדקה","justification","R"],["העצמה","autonomisation / empowerment","R"],
+// SECTION 2 — Verbes supplémentaires (V)
+["לאשר","confirmer / approuver","V"],["לדחות","rejeter / reporter","V"],["לכלול","inclure","V"],
+["לבחון","examiner / tester","V"],["לגרום","causer / provoquer","V"],["לשפר","améliorer","V"],
+["להפחית","réduire / diminuer","V"],["להגביר","augmenter / amplifier","V"],["לחזק","renforcer","V"],
+["לאבד","perdre","V"],["להשיג","atteindre / obtenir","V"],["לבנות","construire","V"],
+["לפתח","développer","V"],["לעמוד","se tenir / faire face","V"],["לדרוש","exiger / demander","V"],
+["להגיש","soumettre / présenter","V"],["לקבוע","déterminer / fixer","V"],["לעמוד על","insister sur","V"],
+["להתמודד","faire face à / lutter contre","V"],["לנסות","essayer / tenter","V"],
+["להיכשל","échouer","V"],["לנצח","vaincre / gagner","V"],["לאחד","unifier / unir","V"],
+["להפריד","séparer","V"],["לתכנן","planifier","V"],["לבצע","exécuter / réaliser","V"],
+["לממש","réaliser / concrétiser","V"],["לעצב","façonner / concevoir","V"],
+["לתמוך","soutenir / appuyer","V"],["להתנגד","s'opposer à","V"],
+["לכפות","imposer / forcer","V"],["להמליץ","recommander","V"],["לאלץ","contraindre / obliger","V"],
+["לסרב","refuser","V"],["להסכים","accepter / consentir","V"],["לוותר","renoncer / céder","V"],
+["להכיר","reconnaître / admettre","V"],["לפרש","interpréter","V"],["לנתח","analyser","V"],
+["להוביל","mener / conduire","V"],["לסכם","résumer / conclure","V"],["לנסח","formuler / rédiger","V"],
+["להעריך","évaluer / apprécier","V"],["לחשוף","exposer / révéler","V"],["לפרסם","publier / diffuser","V"],
+["להציג","présenter / montrer","V"],["לחשב","calculer","V"],["להודות","admettre / avouer","V"],
+["לתאר","décrire","V"],["להסביר","expliquer","V"],["להשפיע","influencer / affecter","V"],
+["לטעון","affirmer / prétendre","V"],["לציין","noter / mentionner / souligner","V"],
+["לאפשר","permettre / rendre possible","V"],["לכלול","contenir / inclure","V"],
+["לפעול","agir / opérer","V"],["לתפקד","fonctionner","V"],["להתקיים","avoir lieu / exister","V"],
+["להתפתח","se développer / évoluer","V"],["לשקול","peser / envisager","V"],
+["להאשים","accuser / blâmer","V"],["להזהיר","avertir / alerter","V"],
+// SECTION 3 — Noms supplémentaires (N)
+["תהליך","processus","N"],["מסגרת","cadre / structure","N"],["ממד","dimension","N"],
+["מרכיב","composante / élément","N"],["תכלית","finalité / but","N"],["נטייה","tendance / inclination","N"],
+["כישלון","échec","N"],["הצלחה","réussite / succès","N"],["פגיעה","préjudice / atteinte","N"],
+["הסכם","accord / entente","N"],["סכסוך","conflit","N"],["מחלוקת","désaccord / controverse","N"],
+["עמדה","position / attitude","N"],["גישה","approche / accès","N"],["גורם","facteur / cause","N"],
+["ממצא","résultat / découverte","N"],["מסקנה","conclusion","N"],["טענה","affirmation / argument","N"],
+["עדות","témoignage / preuve","N"],["ראיה","preuve / indice","N"],["פרשנות","interprétation","N"],
+["חזון","vision / perspective","N"],["מטרה","objectif / but","N"],["אסטרטגיה","stratégie","N"],
+["יעד","cible / objectif","N"],["מדיניות","politique / stratégie","N"],["תקנות","règlements","N"],
+["הנחיה","directive / instruction","N"],["שינוי","changement","N"],["מהפכה","révolution","N"],
+["רפורמה","réforme","N"],["פרדוקס","paradoxe","N"],["דילמה","dilemme","N"],
+["ממשל","gouvernement / gouvernance","N"],["שלטון","pouvoir / autorité","N"],
+["שוויון","égalité","N"],["אי-שוויון","inégalité","N"],["ניגוד","contraste / contradiction","N"],
+["הקשר","contexte","N"],["שיח","discours / dialogue","N"],["פרספקטיבה","perspective","N"],
+["אמון","confiance","N"],["יחס","relation / attitude","N"],["פשרה","compromis","N"],
+["הסתגלות","adaptation","N"],["גמישות","flexibilité","N"],["יציבות","stabilité","N"],
+["אי-ודאות","incertitude","N"],["סיכון","risque","N"],["אתגר","défi / challenge","N"],
+["מיומנות","compétence / aptitude","N"],["כשרון","talent","N"],["יצירתיות","créativité","N"],
+["זיכרון","mémoire","N"],["תודעה","conscience / awareness","N"],["זהות","identité","N"],
+["תרבות","culture","N"],["מורשת","héritage / patrimoine","N"],["מסורת","tradition","N"],
+// SECTION 4 — Adjectifs supplémentaires (A)
+["מרכזי","central / principal","A"],["שולי","marginal / périphérique","A"],
+["מהפכני","révolutionnaire","A"],["שמרני","conservateur","A"],["ליברלי","libéral","A"],
+["חד-משמעי","sans ambiguïté / clair","A"],["דו-משמעי","ambigu","A"],
+["מורכב","complexe / compliqué","A"],["פשוט","simple","A"],["יסודי","fondamental / essentiel","A"],
+["שיטתי","systématique","A"],["אקראי","aléatoire","A"],["הדרגתי","graduel / progressif","A"],
+["מיידי","immédiat","A"],["ארוך-טווח","à long terme","A"],["קצר-טווח","à court terme","A"],
+["גלובלי","global / mondial","A"],["מקומי","local","A"],["לאומי","national","A"],
+["בינלאומי","international","A"],["ייחודי","unique / particulier","A"],["אוניברסלי","universel","A"],
+["פרטי","privé / particulier","A"],["ציבורי","public","A"],["קולקטיבי","collectif","A"],
+["אינדיבידואלי","individuel","A"],["שיתופי","coopératif / collaboratif","A"],
+["תחרותי","compétitif","A"],["יעיל","efficace","A"],["לא יעיל","inefficace","A"],
+["בר-קיימא","durable","A"],["בלתי הפיך","irréversible","A"],["ניתן לשינוי","modifiable","A"],
+["אמפירי","empirique","A"],["תיאורטי","théorique","A"],["פרקטי","pratique","A"],
+["אובייקטיבי","objectif","A"],["סובייקטיבי","subjectif","A"],["ביקורתי","critique","A"],
+["אקדמי","académique","A"],["מקצועי","professionnel","A"],["אתי","éthique","A"],
+// SECTION 5 — Presse/Académique supplémentaires (P)
+["מגמה","tendance","P"],["ניתוח","analyse","P"],["מחקר","recherche / étude","P"],
+["עיתונות","journalisme / presse","P"],["תקשורת","communication / médias","P"],
+["אמצעי תקשורת","médias / moyens de communication","P"],["הקהל","le public","P"],
+["דיון","discussion / débat","P"],["פולמוס","polémique / débat","P"],["סוגיה","problématique","P"],
+["הצהרה","déclaration","P"],["ביקורת","critique / compte-rendu","P"],["פרספקטיבה","perspective","P"],
+["ממד","dimension","P"],["השלכה","implication / retombée","P"],["אמינות","crédibilité","P"],
+["אובייקטיביות","objectivité","P"],["הטיה","biais","P"],["נרטיב","narratif / récit","P"],
+["פרשנות","interprétation","P"],["עדכון","mise à jour / actualisation","P"],
+["חשיפה","exposition / révélation","P"],["סיקור","couverture médiatique","P"],
+["כותרת","titre / une","P"],["כתבה","article / reportage","P"],["עיתונאי","journaliste","P"],
+["עורך","éditeur / rédacteur en chef","P"],["מקור","source","P"],["לאחר","après / suivant","P"],
+["שיח ציבורי","discours public","P"],["אג'נדה","agenda","P"],["ממשק","interface / lien","P"],
+["פרקטיקה","pratique","P"],["מנגנון","mécanisme","P"],["תשתית","infrastructure","P"],
+["פרמטר","paramètre","P"],["מחוון","indicateur","P"],["מדד","indice / mesure","P"],
+["בנצ'מארק","référence / benchmark","P"],["מיפוי","cartographie / mapping","P"],
+// SECTION 6 — Santé/Science supplémentaires (S)
+["מחלה","maladie","S"],["תסמין","symptôme","S"],["אבחנה","diagnostic","S"],
+["טיפול","traitement / thérapie","S"],["ניתוח","opération chirurgicale","S"],["תרופה","médicament","S"],
+["מנע","prévention","S"],["חיסון","vaccin","S"],["אפידמיה","épidémie","S"],["פנדמיה","pandémie","S"],
+["בריאות הציבור","santé publique","S"],["תמותה","mortalité","S"],["תחלואה","morbidité","S"],
+["גנטיקה","génétique","S"],["DNA","ADN","S"],["אבולוציה","évolution","S"],
+["מוח","cerveau","S"],["נוירולוגיה","neurologie","S"],["פסיכולוגיה","psychologie","S"],
+["סטרס","stress","S"],["חרדה","anxiété","S"],["דיכאון","dépression","S"],
+["מחקר קליני","essai clinique","S"],["ניסוי","expérience / essai","S"],["השערה","hypothèse","S"],
+["תיאוריה","théorie","S"],["ראיות","preuves / données","S"],["מתודולוגיה","méthodologie","S"],
+["תוצאה","résultat","S"],["מדגם","échantillon","S"],["סטטיסטיקה","statistique","S"],
+["קורלציה","corrélation","S"],["סיבתיות","causalité","S"],["השפעה","effet / influence","S"],
+["בינה מלאכותית","intelligence artificielle","S"],["אלגוריתם","algorithme","S"],
+["מחשוב","informatique","S"],["נתונים","données","S"],["ביג דאטה","big data","S"],
+// SECTION 7 — Société/Culture supplémentaires (C)
+["חברה","société","C"],["קהילה","communauté","C"],["משפחה","famille","C"],
+["דור","génération","C"],["נוער","jeunesse","C"],["קשיש","personne âgée","C"],
+["אזרח","citoyen","C"],["אזרחות","citoyenneté","C"],["הגירה","immigration / migration","C"],
+["עולה","immigrant (vers Israël)","C"],["מהגר","migrant / émigrant","C"],
+["מיעוט","minorité","C"],["רוב","majorité","C"],["גיוון","diversité","C"],
+["גזענות","racisme","C"],["אפליה","discrimination","C"],["שוויון הזדמנויות","égalité des chances","C"],
+["פמיניזם","féminisme","C"],["מגדר","genre (sexe)","C"],["זכויות","droits","C"],
+["חינוך","éducation","C"],["בית ספר","école","C"],["אוניברסיטה","université","C"],
+["דת","religion","C"],["חילוני","laïque / séculier","C"],["דתי","religieux","C"],
+["ערך","valeur","C"],["נורמה","norme","C"],["מוסר","morale / éthique","C"],
+["אידיאולוגיה","idéologie","C"],["פוליטיקה","politique","C"],["דמוקרטיה","démocratie","C"],
+["חוקה","constitution","C"],["בחירות","élections","C"],["שלטון חוק","état de droit","C"],
+["שחיתות","corruption","C"],["שקיפות","transparence","C"],["אחריות","responsabilité","C"],
+["ביזור","décentralisation","C"],["ריכוזיות","centralisation","C"],["שיתוף ציבור","participation citoyenne","C"],
+["הון חברתי","capital social","C"],["רשת חברתית","réseau social","C"],
+["בידוד","isolement","C"],["לכידות חברתית","cohésion sociale","C"],
+// SECTION 8 — Économie/Environnement supplémentaires (E)
+["כלכלה","économie","E"],["שוק","marché","E"],["ייצור","production","E"],
+["צריכה","consommation","E"],["היצע","offre","E"],["ביקוש","demande","E"],
+["מחיר","prix","E"],["אינפלציה","inflation","E"],["מיתון","récession","E"],
+["תשואה","rendement / retour","E"],["השקעה","investissement","E"],["הון","capital","E"],
+["חוב","dette","E"],["תקציב","budget","E"],["מס","impôt / taxe","E"],
+["סובסידיה","subvention","E"],["רגולציה","régulation","E"],["ליברליזציה","libéralisation","E"],
+["גלובליזציה","mondialisation","E"],["ייצוא","exportation","E"],["ייבוא","importation","E"],
+["גירעון","déficit","E"],["עודף","excédent / surplus","E"],["פערים","inégalités / écarts","E"],
+["עוני","pauvreté","E"],["עושר","richesse","E"],["שכר","salaire","E"],
+["אבטלה","chômage","E"],["תעסוקה","emploi","E"],["יזמות","entrepreneuriat","E"],
+["סטארטאפ","startup","E"],["חדשנות","innovation","E"],["טכנולוגיה","technologie","E"],
+["קיימות","durabilité","E"],["אנרגיה מתחדשת","énergie renouvelable","E"],
+["פחמן","carbone","E"],["פליטות","émissions","E"],["שינוי אקלים","changement climatique","E"],
+["כלכלה מעגלית","économie circulaire","E"],["מיחזור","recyclage","E"],
+["ביזבוז","gaspillage","E"],["חסכון","économie / épargne","E"],
+["פוטנציאל","potentiel","E"],["נישה","niche","E"],["מודל עסקי","modèle économique","E"],
 ];
 
 // Connector exercises
@@ -566,7 +716,1267 @@ const CONNECTOR_EXERCISES = [
   {q:"_______, הפתרון יעיל.",ans:"בסיכום",opts:["לכן","כי","בסיכום","אבל"],exp:"<strong>בסיכום</strong> (en résumé) conclut un développement."},
   {q:"הוא לא הגיע, _______ נמשיך בלעדיו.",ans:"לפיכך",opts:["אבל","לפיכך","כי","כאשר"],exp:"<strong>לפיכך</strong> (par conséquent) est formel. Synonyme de לכן mais plus soutenu."},
   {q:"_______ עבר לכאן, הוא שמח.",ans:"מאז ש",opts:["כאשר","לפני ש","מאז ש","כי"],exp:"<strong>מאז ש</strong> (depuis que) exprime la durée depuis un événement passé."},
+  // Connecteurs supplémentaires
+  {q:"הוא הצליח, _______ הקשיים הרבים.",ans:"חרף",opts:["בגלל","חרף","לכן","כי"],exp:"<strong>חרף</strong> (malgré — très formel) + NOM. Synonyme formel de למרות. Testé souvent au YAEL."},
+  {q:"_______ שעשה טעויות, הוא לא הפסיק לנסות.",ans:"על אף ש",opts:["בגלל ש","על אף ש","לכן","כי"],exp:"<strong>על אף ש</strong> + VERBE = malgré que. Formel. Synonyme de למרות ש."},
+  {q:"הוא לא רק חכם, _______ גם עובד קשה.",ans:"אלא",opts:["ו","אבל","אלא","לכן"],exp:"<strong>לא רק... אלא גם</strong> = non seulement... mais aussi. Structure fixe très testée au YAEL !"},
+  {q:"כתוצאה מהמשבר, _______ עלתה האבטלה.",ans:"כך ש",opts:["לכן","כך ש","אבל","כי"],exp:"<strong>כך ש</strong> (de sorte que) exprime la conséquence. Plus formel que לכן."},
+  {q:"המחיר עלה, _______ הביקוש ירד.",ans:"כתוצאה מכך",opts:["לכן","כי","כתוצאה מכך","אבל"],exp:"<strong>כתוצאה מכך</strong> (par conséquent) est très formel. Suit un fait exposé."},
+  {q:"_______ אין תקציב, לא ניתן לממש את הפרויקט.",ans:"מכיוון ש",opts:["כי","מכיוון ש","לכן","אם"],exp:"<strong>מכיוון ש</strong> (étant donné que / puisque) est formel. Exprime la cause objective."},
+  {q:"הוא עשה הכל, _______ לא הצליח.",ans:"ואף על פי כן",opts:["לכן","ואף על פי כן","כי","אבל"],exp:"<strong>ואף על פי כן</strong> (et pourtant / néanmoins) — concession forte. Niveau académique."},
+  {q:"_______ הנתונים, ניתן להסיק כי...",ans:"לאור",opts:["בגלל","לאור","לכן","כי"],exp:"<strong>לאור (כל האמור)</strong> (à la lumière des données) — formule de conclusion académique."},
+  {q:"יש הסוברים כי..., _______ יש הטוענים כי...",ans:"בעוד ש",opts:["אבל","בעוד ש","לכן","כי"],exp:"<strong>בעוד ש</strong> (tandis que / alors que) exprime l'opposition simultanée. Structure classique."},
+  {q:"_______ מה שיגידו, היא תמשיך בדרכה.",ans:"ללא קשר ל",opts:["בגלל","ללא קשר ל","לכן","כי"],exp:"<strong>ללא קשר ל</strong> (indépendamment de / peu importe) — expression utile."},
+  {q:"ישנן שתי גישות: _______ גישה א', _______ גישה ב'.",ans:"הן... הן",opts:["גם...גם","הן...הן","לא...ולא","או...או"],exp:"<strong>הן... הן</strong> (tant... que) est la forme formelle de גם... גם."},
+  {q:"_______ המצב הכלכלי, הרפורמה הכרחית.",ans:"לנוכח",opts:["בגלל","לנוכח","לכן","כי"],exp:"<strong>לנוכח</strong> (face à / vu) est formel. Introduit un contexte difficile."},
+  {q:"הוא דיבר, _______ לא אמר דבר.",ans:"אלא ש",opts:["אבל","אלא ש","לכן","כי"],exp:"<strong>אלא ש</strong> (mais en fait / sauf que) nuance ou corrige ce qui précède."},
+  {q:"ה-GDP עלה; _______, הפערים גדלו.",ans:"ברם",opts:["אולם","ברם","לכן","כי"],exp:"<strong>ברם</strong> (toutefois / mais) est très formel, presque littéraire. Niveau YAEL avancé."},
+  {q:"_______ שנאמר לעיל, נדון כעת ב...",ans:"לאחר",opts:["לפני","לאחר","כאשר","כדי"],exp:"<strong>לאחר ש-/מה שנאמר</strong> (après ce qui a été dit) — transition formelle entre paragraphes."},
+  {q:"_______ כל הנ\"ל, ניתן להסיק כי...",ans:"לאור",opts:["בגלל","לאור","לכן","כי"],exp:"<strong>לאור כל האמור</strong> (à la lumière de tout ce qui précède) — formule de conclusion."},
+  {q:"הוא הצליח, _______ לא תכנן מראש.",ans:"אם כי",opts:["אבל","אם כי","למרות ש","כי"],exp:"<strong>אם כי</strong> (bien que / même si) — concession légère. Synonyme de אם כי."},
+  {q:"ראוי לציין, _______, כי הנתונים מוגבלים.",ans:"עם זאת",opts:["אבל","עם זאת","לכן","כי"],exp:"<strong>עם זאת</strong> (cependant) entre virgules — pour nuancer en milieu de phrase."},
+  {q:"_______ הנתונים מראים, מגמה חדשה מתפתחת.",ans:"כפי ש",opts:["כמו ש","כפי ש","כי","כאשר"],exp:"<strong>כפי שהנתונים מראים</strong> — formule pour citer des données. כפי ש est plus formel que כמו ש."},
+  {q:"בסיכום _______, ניתן לומר כי...",ans:"הדברים",opts:["הכל","הדברים","זאת","האמור"],exp:"<strong>בסיכום הדברים</strong> (en résumé) — formule de conclusion plus élaborée que לסיכום."},
 ];
+
+// ============================================================
+// PHRASE EXERCISES
+// ============================================================
+const PHRASE_EXERCISES = [
+  {q:"Choisissez le meilleur début d'essai sur le thème de l'éducation :",ctx:"Sujet : 'L'éducation en Israël — défis et solutions'",ans:"ניתן לומר כי מערכת החינוך בישראל עומדת בפני אתגרים משמעותיים",opts:["ניתן לומר כי מערכת החינוך בישראל עומדת בפני אתגרים משמעותיים","מערכת החינוך בישראל היא חשובה","אני חושב שחינוך הוא טוב","יש בעיות בחינוך"],exp:"<strong>ניתן לומר כי...</strong> est l'ouverture académique typique du YAEL. Elle présente le sujet sans 'je'."},
+  {q:"Quelle phrase introduit le mieux une statistique dans un essai YAEL ?",ctx:"Vous voulez citer : '40% des élèves ont des difficultés en lecture'",ans:"נתונים מראים כי 40% מהתלמידים מתקשים בקריאה",opts:["נתונים מראים כי 40% מהתלמידים מתקשים בקריאה","40% הוא מספר גדול","יש הרבה תלמידים שלא יודעים לקרוא","מחקר אומר ש-40%"],exp:"<strong>נתונים מראים כי / מחקרים מראים כי</strong> — formule standard pour citer des chiffres."},
+  {q:"Comment dit-on 'D'un côté... de l'autre côté' en hébreu formel ?",ctx:"Structure d'opposition dans un essai",ans:"מצד אחד... מצד שני",opts:["מצד אחד... מצד שני","אחד... שניים","יש... אבל יש","ראשית... שנית"],exp:"<strong>מצד אחד... מצד שני</strong> est la structure d'opposition classique. Variante formelle : מחד גיסא... מאידך גיסא."},
+  {q:"Choisissez la meilleure formule de conclusion pour un essai YAEL :",ctx:"Vous avez discuté les avantages et inconvénients de la technologie",ans:"לסיכום, ניתן לומר כי לטכנולוגיה יתרונות וחסרונות, ומאזן נכון בינהם הכרחי",opts:["לסיכום, ניתן לומר כי לטכנולוגיה יתרונות וחסרונות, ומאזן נכון בינהם הכרחי","בסיום, טכנולוגיה היא טובה","לכן, טכנולוגיה","זה הסוף"],exp:"<strong>לסיכום, ניתן לומר כי...</strong> est la formule de conclusion académique standard."},
+  {q:"Comment introduit-on une concession formelle en hébreu ?",ctx:"Vous admettez un point faible dans votre argumentation",ans:"יש להודות כי לגישה זו חסרונות",opts:["יש להודות כי לגישה זו חסרונות","אבל יש בעיות","הגישה לא טובה לגמרי","יש בעיות"],exp:"<strong>יש להודות כי</strong> (il faut admettre que) — formule de concession élégante."},
+  {q:"Quelle tournure présente le mieux un contre-argument ?",ctx:"Vous venez de donner un argument pour l'immigration",ans:"אמנם הגירה מועילה, אולם יש לה גם חסרונות",opts:["אמנם הגירה מועילה, אולם יש לה גם חסרונות","אבל הגירה יש לה גם בעיות","הגירה לפעמים לא טובה","יש כאלה שחושבים ש"],exp:"<strong>אמנם... אולם</strong> (certes... mais) est la structure de concession-contre-argument la plus testée au YAEL."},
+  {q:"Comment exprime-t-on 'comme le montre la recherche' en hébreu académique ?",ctx:"Vous citez une étude dans votre essai",ans:"כפי שמראה המחקר",opts:["כפי שמראה המחקר","מחקר אמר","יש מחקר ש","מחקרים"],exp:"<strong>כפי שמראה המחקר</strong> ou <strong>כפי שעולה מן המחקרים</strong> — formules académiques pour citer la recherche."},
+  {q:"Quelle formule utilise-t-on pour soulever une question dans un essai ?",ctx:"Vous voulez introduire une problématique",ans:"עולה השאלה האם...",opts:["עולה השאלה האם...","יש שאלה","השאלה היא","אנחנו שואלים"],exp:"<strong>עולה השאלה האם</strong> (se pose la question de savoir si) — formule académique."},
+  {q:"Comment dit-on 'à la lumière des données' pour une conclusion ?",ctx:"Vous concluez en vous basant sur des preuves",ans:"לאור הנתונים, ניתן להסיק כי",opts:["לאור הנתונים, ניתן להסיק כי","בגלל הנתונים","הנתונים אומרים","על פי הנתונים לכן"],exp:"<strong>לאור הנתונים / לאור האמור</strong> (à la lumière des données) — formule de conclusion par excellence."},
+  {q:"Comment exprime-t-on 'il convient de' dans un texte formel ?",ctx:"Vous faites une recommandation",ans:"ראוי / מן הראוי",opts:["ראוי / מן הראוי","צריך","כדאי","טוב"],exp:"<strong>ראוי ל / מן הראוי</strong> (il convient de) est formel. Plus fort que כדאי (il vaudrait mieux)."},
+  {q:"Quelle est la formule correcte pour 'non seulement... mais aussi' ?",ctx:"Structure d'amplification dans un essai",ans:"לא רק... אלא גם",opts:["לא רק... אלא גם","לא... גם","גם... גם","רק... גם"],exp:"<strong>לא רק... אלא גם</strong> (non seulement... mais aussi) — structure fixe. Ne pas dire 'לא רק... אבל גם'."},
+  {q:"Comment exprime-t-on une progression logique en trois points ?",ctx:"Organiser un développement en trois points",ans:"ראשית... שנית... לבסוף",opts:["ראשית... שנית... לבסוף","אחד... שניים... שלוש","ראשון... שני... שלישי","א... ב... ג"],exp:"<strong>ראשית... שנית... לבסוף</strong> — la tripartition classique. ראשית = premièrement, שנית = deuxièmement, לבסוף = enfin."},
+  {q:"Comment dit-on 'selon les experts' en hébreu formel ?",ctx:"Citer l'opinion des spécialistes",ans:"על פי המומחים",opts:["על פי המומחים","המומחים אומרים","לפי מומחים","כפי שמומחים"],exp:"<strong>על פי / לפי המומחים</strong> (selon les experts) — les deux sont corrects. על פי est légèrement plus formel."},
+  {q:"Quelle tournure introduit une explication dans un essai ?",ctx:"Vous allez expliquer pourquoi",ans:"הסיבה לכך היא ש",opts:["הסיבה לכך היא ש","כי","בגלל","לכן"],exp:"<strong>הסיבה לכך היא ש / מכיוון ש</strong> — formules pour introduire une explication de façon formelle."},
+  {q:"Comment dit-on 'ce phénomène a des implications importantes' ?",ctx:"Evaluer l'importance d'un phénomène",ans:"לתופעה זו השלכות משמעותיות",opts:["לתופעה זו השלכות משמעותיות","התופעה חשובה","יש תוצאות","יש לזה שלכות"],exp:"<strong>להסב השלכות</strong> (avoir des implications) — 'לתופעה יש השלכות' ou formel: 'לתופעה זו השלכות'."},
+  {q:"Quelle est la meilleure façon d'introduire un exemple ?",ctx:"Illustrer un argument",ans:"לדוגמה / כדוגמה",opts:["לדוגמה / כדוגמה","למשל בלבד","כמו","לדוגמה / למשל"],exp:"<strong>לדוגמה / למשל</strong> sont équivalents. כמו (comme) peut aussi introduire un exemple mais est moins formel."},
+  {q:"Comment dit-on 'ce qui est remarquable c'est que' ?",ctx:"Attirer l'attention sur un point important",ans:"ראוי לציין כי",opts:["ראוי לציין כי","מה שמעניין","הדבר המיוחד","כדאי לדעת"],exp:"<strong>ראוי לציין כי / יש לציין כי</strong> (il convient de noter que) — formule pour souligner un point important."},
+  {q:"Comment exprime-t-on 'en dépit de cela' dans un essai formel ?",ctx:"Concession dans un argument",ans:"על אף זאת / למרות זאת",opts:["על אף זאת / למרות זאת","אבל","ולא","ועם זאת"],exp:"<strong>על אף זאת / למרות זאת</strong> (malgré cela / en dépit de cela) — formules de concession."},
+  {q:"Quelle formule exprime 'il y a lieu de s'interroger sur' ?",ctx:"Ouvrir un questionnement dans l'essai",ans:"יש מקום לתהות על",opts:["יש מקום לתהות על","כדאי לשאול","אפשר לשאול","שואלים"],exp:"<strong>יש מקום לתהות על / עולה השאלה</strong> — formules académiques pour ouvrir un questionnement."},
+  {q:"Comment conclut-on une argumentation par des données ?",ctx:"Fin d'un paragraphe basé sur des preuves",ans:"מכל האמור לעיל עולה כי",opts:["מכל האמור לעיל עולה כי","לכן","אז","לסיכום"],exp:"<strong>מכל האמור לעיל עולה כי</strong> (de tout ce qui précède, il ressort que) — formule de conclusion très formelle."},
+  {q:"Comment dit-on 'il est difficile de nier que' ?",ctx:"Admettre un fait indiscutable",ans:"קשה להכחיש כי / אין להכחיש כי",opts:["קשה להכחיש כי / אין להכחיש כי","ברור ש","כולם יודעים","אי אפשר"],exp:"<strong>אין להכחיש כי / קשה להכחיש כי</strong> (il est difficile de nier que) — formule d'admission d'un fait fort."},
+  {q:"Quelle tournure présente deux aspects contradictoires ?",ctx:"Structure dialectique dans un paragraphe",ans:"מחד... מאידך",opts:["מחד... מאידך","ראשית... שנית","גם... גם","אמנם... אולם"],exp:"<strong>מחד (גיסא)... מאידך (גיסא)</strong> (d'un côté... de l'autre) — très formel. Version courante: מצד אחד... מצד שני."},
+  {q:"Comment dit-on 'cela soulève de sérieuses questions éthiques' ?",ctx:"Débat éthique dans l'essai",ans:"הדבר מעלה שאלות אתיות חמורות",opts:["הדבר מעלה שאלות אתיות חמורות","זה גורם בעיות","יש שאלות","זה רע מבחינה מוסרית"],exp:"<strong>הדבר מעלה שאלות אתיות</strong> — formule formelle. מעלה שאלות (soulève des questions) est plus élégant."},
+  {q:"Quelle formule utilise-t-on pour 'en d'autres termes' ?",ctx:"Reformuler une idée complexe",ans:"כלומר / דהיינו",opts:["כלומר / דהיינו","זה אומר","יותר פשוט","אז"],exp:"<strong>כלומר</strong> (c'est-à-dire) est courant. <strong>דהיינו</strong> est plus formel/littéraire."},
+  {q:"Quelle formule introduit une tendance croissante ?",ctx:"Décrire une évolution",ans:"מגמה גוברת / הולכת וגדלה",opts:["מגמה גוברת / הולכת וגדלה","יותר ויותר","גדל","הרבה יותר"],exp:"<strong>מגמה גוברת / הולכת וגדלה</strong> (une tendance croissante) — formule formelle. מגמה (tendance) est un mot-clé du YAEL."},
+  {q:"Comment dit-on 'les données indiquent clairement que' ?",ctx:"Conclusion basée sur des preuves",ans:"הנתונים מצביעים בבירור על כך ש",opts:["הנתונים מצביעים בבירור על כך ש","הנתונים אומרים ש","ברור שהנתונים","הנתונים מראים"],exp:"<strong>הנתונים מצביעים על</strong> (les données indiquent) est académique. מצביע = pointer vers, indiquer."},
+  {q:"Comment exprime-t-on une recommandation formelle ?",ctx:"Partie recommandation d'un essai YAEL",ans:"מן הראוי / ראוי / יש לפעול",opts:["מן הראוי / ראוי / יש לפעול","צריך","כדאי","טוב יהיה"],exp:"<strong>מן הראוי ל / ראוי ל</strong> (il convient de) est le niveau formel. יש ל (il faut) est aussi académique."},
+  {q:"Quelle formule montre que le sujet est controversé ?",ctx:"Présenter un sujet débattu",ans:"הנושא שנוי במחלוקת",opts:["הנושא שנוי במחלוקת","הנושא קשה","יש ויכוח","אנשים לא מסכימים"],exp:"<strong>שנוי במחלוקת</strong> (controversé / sujet à débat) — expression fixe. 'הנושא שנוי במחלוקת' est incontournable au YAEL."},
+  {q:"Comment dit-on 'ce problème ne peut être résolu sans' ?",ctx:"Introduire une condition nécessaire",ans:"לא ניתן לפתור בעיה זו ללא",opts:["לא ניתן לפתור בעיה זו ללא","צריך","בלי זה אי אפשר","חייב"],exp:"<strong>לא ניתן ל... ללא</strong> (on ne peut pas... sans) — structure de condition négative formelle."},
+  {q:"Comment introduit-on la position opposée dans un essai ?",ctx:"Présenter le point de vue adverse",ans:"יש הטוענים כי / ישנם הסוברים כי",opts:["יש הטוענים כי / ישנם הסוברים כי","אחרים חושבים","כמה אנשים אומרים","לעומת זאת"],exp:"<strong>יש הטוענים כי</strong> (certains affirment que) ou <strong>ישנם הסוברים כי</strong> — formules pour présenter l'opposition."},
+  {q:"Quelle formule montre que vous prenez position sans dire 'je' ?",ctx:"Affirmer votre point de vue sans 'je'",ans:"נראה כי / ניכר כי / עולה כי",opts:["נראה כי / ניכר כי / עולה כי","אני חושב","לדעתי","אני מאמין"],exp:"<strong>נראה כי / ניכר כי</strong> (il semble que / il apparaît que) — formules impersonnelles pour exprimer une position sans 'je'."},
+  {q:"Comment exprime-t-on 'plus X augmente, plus Y diminue' ?",ctx:"Relation inversement proportionnelle",ans:"ככל שX גדל, כך Y קטן",opts:["ככל שX גדל, כך Y קטן","אם X גדל אז Y קטן","כשX גדל Y קטן","X גדל ו-Y קטן"],exp:"<strong>ככל ש... כך</strong> (plus... plus / à mesure que) — structure de corrélation. Très testée au YAEL."},
+  {q:"Comment dit-on 'le phénomène n'est pas nouveau' formellement ?",ctx:"Donner une perspective historique",ans:"אין זו תופעה חדשה",opts:["אין זו תופעה חדשה","זה לא חדש","זה קיים מזמן","ידוע מזמן"],exp:"<strong>אין זו תופעה חדשה</strong> (ce n'est pas un phénomène nouveau) — formule élégante pour contextualiser historiquement."},
+  {q:"Comment passe-t-on d'un paragraphe au suivant de façon formelle ?",ctx:"Transition entre deux parties de l'essai",ans:"לאחר שבחנו את... נפנה כעת אל",opts:["לאחר שבחנו את... נפנה כעת אל","עכשיו...","הבא:","ועכשיו"],exp:"<strong>לאחר שבחנו את X, נפנה כעת אל Y</strong> — transition formelle entre deux parties."},
+  {q:"Quelle formule exprime 'il est important de distinguer entre' ?",ctx:"Clarification conceptuelle dans l'essai",ans:"חשוב להבחין בין X לבין Y",opts:["חשוב להבחין בין X לבין Y","צריך לדעת ש","X שונה מ-Y","X לא Y"],exp:"<strong>חשוב להבחין בין... לבין</strong> (il est important de distinguer entre... et) — clarification conceptuelle."},
+  {q:"Comment dit-on 'en fin de compte' pour conclure ?",ctx:"Clore un argument ou un essai",ans:"בסופו של דבר / בסופו של יום",opts:["בסופו של דבר / בסופו של יום","לבסוף","לסיכום","בשביל לסיים"],exp:"<strong>בסופו של דבר / בסופו של יום</strong> (en fin de compte) — formules de conclusion naturelles."},
+  {q:"Comment dit-on 'ce phénomène est au cœur du débat' ?",ctx:"Introduction d'un sujet au YAEL",ans:"תופעה זו עומדת במרכז הדיון",opts:["תופעה זו עומדת במרכז הדיון","X הוא חשוב","X הוא בדיון","מדברים על X"],exp:"<strong>עומד/ת במרכז הדיון</strong> (est au cœur du débat) — formule typique des introductions YAEL."},
+  {q:"Comment exprime-t-on 'il faut admettre que' formellement ?",ctx:"Honnêteté intellectuelle dans l'essai",ans:"יש להודות כי / אמנם",opts:["יש להודות כי / אמנם","צריך להגיד","כן","זה נכון ש"],exp:"<strong>יש להודות כי</strong> (il faut admettre que) ou l'ouverture <strong>אמנם</strong> (certes) — concession intellectuelle honnête."},
+  {q:"Comment introduit-on une citation ou une définition ?",ctx:"Définir un concept dans un essai",ans:"על פי ההגדרה / לפי הגדרתו של",opts:["על פי ההגדרה / לפי הגדרתו של","מה שזה אומר","ההגדרה היא","פירושו"],exp:"<strong>על פי ההגדרה</strong> (selon la définition) ou <strong>לפי הגדרתו של X</strong> — formules pour définir."},
+  {q:"Comment dit-on 'le problème est particulièrement aigu dans le domaine de' ?",ctx:"Délimiter la portée d'un problème",ans:"הבעיה חריפה במיוחד בתחום",opts:["הבעיה חריפה במיוחד בתחום","הבעיה גדולה בנושא","יש בעיה ב","הבעיה בתחום היא"],exp:"<strong>חריפה במיוחד</strong> (particulièrement aiguë) — adjectif précis et formel. חריף pour un problème sévère."},
+];
+
+const ANNALES_DATA = [
+  {
+    "exam": "Examen Blanc N°1",
+    "sections": [
+      {
+        "name": "Section A — Vocabulaire",
+        "questions": [
+          {
+            "s": "המשלחת הגיעה לוועידה הבינלאומית.",
+            "w": "הגיעה",
+            "opts": [
+              "עזבה",
+              "הופיעה",
+              "כישלה",
+              "נסעה"
+            ],
+            "ans": 1,
+            "exp": "Piège classique : נסעה (voyager) semble proche de הגיעה (arriver), mais נסעה = le mouvement de départ, pas l'arrivée à destination."
+          },
+          {
+            "s": "הוא אחראי לתוצאות הפרויקט.",
+            "w": "אחראי",
+            "opts": [
+              "אשם",
+              "ממונה על",
+              "מודע",
+              "זכאי"
+            ],
+            "ans": 1,
+            "exp": "Nuance importante : En hébreu, אשם (coupable) et אחראי (responsable) sont deux mots très différents. אחראי n'implique pas de faute, juste une charge."
+          },
+          {
+            "s": "הם הצליחו לשכנע את הצד השני.",
+            "w": "הצליחו",
+            "opts": [
+              "כישלו",
+              "הגיעו",
+              "עלה בידם",
+              "הסכימו"
+            ],
+            "ans": 2,
+            "exp": "À retenir : עלה בידם est une expression idiomatique très fréquente au YAEL. Elle signifie exactement \"ils ont réussi à\" / \"ils ont pu\"."
+          },
+          {
+            "s": "הדו\"ח מצביע על עלייה מתמשכת.",
+            "w": "מצביע",
+            "opts": [
+              "מוכיח",
+              "מראה",
+              "מכחיש",
+              "מסביר"
+            ],
+            "ans": 1,
+            "exp": "Nuance : מוכיח (prouve) semble proche mais il y a une différence de certitude. מצביע = \"indique/suggère\", מוכיח = \"prouve définitivement\". La question cherche le synonyme le plus proche = מראה."
+          },
+          {
+            "s": "היא מקיימת פגישות שבועיות עם הצוות.",
+            "w": "מקיימת",
+            "opts": [
+              "מבטלת",
+              "מארגנת",
+              "מתכננת",
+              "עורכת"
+            ],
+            "ans": 3,
+            "exp": "À retenir : לקיים et לערוך sont souvent interchangeables pour \"tenir une réunion\". לקיים pגישה / לערוך פגישה = les deux signifient \"tenir une réunion\"."
+          },
+          {
+            "s": "הממשלה הכריזה על תוכנית חדשה.",
+            "w": "הכריזה",
+            "opts": [
+              "ביטלה",
+              "הציגה",
+              "פרסמה",
+              "אישרה"
+            ],
+            "ans": 2,
+            "exp": "Nuance : הציגה (présenté) peut sembler synonyme, mais dans un contexte gouvernemental, הכריז a une connotation officielle et publique que פרסם capture mieux."
+          },
+          {
+            "s": "הבדיקה גילתה ממצאים מדאיגים.",
+            "w": "גילתה",
+            "opts": [
+              "הסתירה",
+              "חשפה",
+              "יצרה",
+              "השמידה"
+            ],
+            "ans": 1,
+            "exp": "À retenir : גילה et חשף sont deux synonymes très proches au YAEL. גילה = découvrir/révéler (actif), חשף = exposer/dévoiler (souvent ce qui était caché)."
+          },
+          {
+            "s": "המחקר עוסק בשאלות של זהות.",
+            "w": "עוסק",
+            "opts": [
+              "מטפל",
+              "מדגיש",
+              "מתמקד",
+              "בוחן"
+            ],
+            "ans": 2,
+            "exp": "Piège : מטפל semble proche car on dit \"טיפול בנושא\" (traitement d'un sujet), mais מטפל implique une résolution active d'un problème. עוסק = simplement \"s'occuper de\"."
+          },
+          {
+            "s": "הצעד הזה נחשב מהפכני.",
+            "w": "נחשב",
+            "opts": [
+              "מוכח",
+              "נראה",
+              "מוגדר",
+              "הוכרז"
+            ],
+            "ans": 1,
+            "exp": "Subtilité importante : נחשב = \"est considéré comme\" = opinion collective, pas fait prouvé. נראה = \"semble\" = même degré de subjectivité."
+          },
+          {
+            "s": "הוא שאף להגיע לפסגה.",
+            "w": "שאף",
+            "opts": [
+              "ניסה",
+              "רצה",
+              "שאל",
+              "שאל"
+            ],
+            "ans": 1,
+            "exp": "Note : La question avait ג et ד identiques (שאל) — c'est un piège visuel. En vrai YAEL, les options sont toujours différentes. שאף est plus fort que רצה (aspirer vs vouloir) mais c'est la meilleure option disponible."
+          },
+          {
+            "s": "ההחלטה השפיעה על כל הענף.",
+            "w": "השפיעה",
+            "opts": [
+              "פגעה",
+              "שינתה",
+              "הפריעה",
+              "שיפרה"
+            ],
+            "ans": 1,
+            "exp": "Clé : השפיעה est neutre (peut être positif ou négatif). פגעה et שיפרה ont une valence spécifique. שינתה (changer) est le plus neutre et donc le plus proche."
+          },
+          {
+            "s": "המצב הידרדר מאוד בשנה האחרונה.",
+            "w": "הידרדר",
+            "opts": [
+              "השתפר",
+              "השתנה",
+              "הפך גרוע יותר",
+              "נפתר"
+            ],
+            "ans": 2,
+            "exp": "Racine : הידרדר vient de דרדר = descendre/rouler vers le bas. Image de quelque chose qui dégringole. Antonyme : השתפר (s'est amélioré)."
+          },
+          {
+            "s": "הצוות שיתף את המידע עם הציבור.",
+            "w": "שיתף",
+            "opts": [
+              "הסתיר",
+              "חשף",
+              "נתן",
+              "ביקש"
+            ],
+            "ans": 1,
+            "exp": "Attention : שיתף מידע (partager de l'information) est plus spécifique que חשף (révéler), mais dans le contexte \"partager AVEC le public\", חשף est le meilleur synonyme."
+          },
+          {
+            "s": "הפרויקט בוטל בשל מחסור בתקציב.",
+            "w": "בוטל",
+            "opts": [
+              "הוקפא",
+              "הופסק",
+              "נדחה",
+              "קוצץ"
+            ],
+            "ans": 1,
+            "exp": "Nuances importantes : בוטל (annulé) > הופסק (arrêté) > הוקפא (gelé) > נדחה (reporté) > קוצץ (réduit). Du plus définitif au moins définitif. בוטל et הופסק sont les plus proches."
+          },
+          {
+            "s": "ישנה מחלוקת בין המומחים בנושא.",
+            "w": "מחלוקת",
+            "opts": [
+              "הסכמה",
+              "ויכוח",
+              "דיון",
+              "שאלה"
+            ],
+            "ans": 1,
+            "exp": "Nuance : ויכוח est un peu plus chargé émotionnellement (dispute) que מחלוקת (désaccord intellectuel), mais c'est la meilleure option."
+          },
+          {
+            "s": "הם השיגו את מטרתם לאחר שנים.",
+            "w": "השיגו",
+            "opts": [
+              "כישלו",
+              "הצליחו להגיע ל",
+              "ביטלו",
+              "שינו"
+            ],
+            "ans": 1,
+            "exp": "Racine : השיג vient de שׂ-ג-ה. Deux sens : 1) atteindre/obtenir 2) comprendre. Ici = atteindre un objectif."
+          },
+          {
+            "s": "המנהל הורה לצוות לפעול מיד.",
+            "w": "הורה",
+            "opts": [
+              "שאל",
+              "ביקש",
+              "הנחה",
+              "אפשר"
+            ],
+            "ans": 2,
+            "exp": "Hiérarchie d'autorité : אפשר (permis) < ביקש (demandé) < הנחה (guidé/instruit) ≈ הורה (ordonné). הנחה et הורה sont les plus proches en termes d'autorité."
+          },
+          {
+            "s": "המספרים מלמדים על שינוי חשוב.",
+            "w": "מלמדים",
+            "opts": [
+              "מראים",
+              "מסתירים",
+              "מציגים",
+              "מוכיחים"
+            ],
+            "ans": 0,
+            "exp": "Expression idiomatique : \"המספרים מלמדים\" = \"les chiffres nous apprennent / nous montrent\". C'est une expression fixe. מראים est le synonyme naturel."
+          },
+          {
+            "s": "היא חיפשה פתרון יצירתי לבעיה.",
+            "w": "חיפשה",
+            "opts": [
+              "ניסתה",
+              "מצאה",
+              "בקשה",
+              "שאלה"
+            ],
+            "ans": 0,
+            "exp": "Subtilité : חיפשה (cherché) et ניסתה (essayé) sont proches dans le sens que les deux décrivent un processus sans résultat garanti. מצאה (trouvé) = résultat, donc trop fort."
+          },
+          {
+            "s": "ההסכם הבטיח שיתוף פעולה ארוך-טווח.",
+            "w": "הבטיח",
+            "opts": [
+              "אישר",
+              "ערב ל",
+              "חייב",
+              "אפשר"
+            ],
+            "ans": 1,
+            "exp": "Précision : הבטיח = \"a promis\" (acte du sujet). ערב ל = \"s'est porté garant de\" (même sens dans un contexte formel). Les deux créent une obligation future."
+          },
+          {
+            "s": "הרפורמה מטרתה לשפר את מערכת הבריאות.",
+            "w": "מטרתה",
+            "opts": [
+              "כוונתה",
+              "תוצאתה",
+              "השפעתה",
+              "מהותה"
+            ],
+            "ans": 0,
+            "exp": "À retenir : מטרה (objectif/but) et כוונה (intention) sont quasi-synonymes dans ce contexte. La différence : מטרה = but concret ; כוונה = intention de l'acteur."
+          },
+          {
+            "s": "הניתוח הצביע על קשר בין הגורמים.",
+            "w": "הצביע",
+            "opts": [
+              "מצא",
+              "גילה",
+              "הראה",
+              "הוכיח"
+            ],
+            "ans": 2,
+            "exp": "Voir aussi Q4 : Même mot הצביע. Rappel : הצביע = indiquer (avec degré de certitude modéré), הוכיח = prouver (certitude totale), הראה = montrer (neutre)."
+          },
+          {
+            "s": "הסיבה העיקרית לכישלון הייתה חוסר תכנון.",
+            "w": "העיקרית",
+            "opts": [
+              "הנוספת",
+              "המשנית",
+              "הראשית",
+              "האחת"
+            ],
+            "ans": 2,
+            "exp": "Synonymes parfaits : עיקרי = ראשי = principal/central. Racines différentes, sens identique. ד est trop fort (unique = seule et aucune autre)."
+          },
+          {
+            "s": "הוא שמר על קשר טוב עם לקוחותיו.",
+            "w": "שמר",
+            "opts": [
+              "ניתק",
+              "יצר",
+              "קיים",
+              "פיתח"
+            ],
+            "ans": 2,
+            "exp": "Expression fixe : לשמור על קשר = לקיים קשר = \"maintenir le contact\". Les deux sont des expressions idiomatiques équivalentes."
+          },
+          {
+            "s": "הגישה החינוכית השתנתה בשנים האחרונות.",
+            "w": "גישה",
+            "opts": [
+              "שיטה",
+              "תוצאה",
+              "מטרה",
+              "בעיה"
+            ],
+            "ans": 0,
+            "exp": "Nuance : גישה (approche) est plus large que שיטה (méthode). L'approche = la philosophie générale. La méthode = les outils pratiques. Mais au YAEL, ce sont les meilleurs synonymes disponibles."
+          },
+          {
+            "s": "הם ויתרו על חלק מדרישותיהם.",
+            "w": "ויתרו",
+            "opts": [
+              "הוסיפו",
+              "אישרו",
+              "הסירו",
+              "התנגדו"
+            ],
+            "ans": 2,
+            "exp": "ויתר = concession : Renoncer à sa propre position. הסיר = enlever. Dans ce contexte (des exigences), les deux signifient \"ne plus insister sur\"."
+          },
+          {
+            "s": "הדבר מוכיח שהשיטה פועלת.",
+            "w": "מוכיח",
+            "opts": [
+              "מראה",
+              "מרמז",
+              "מאשר",
+              "מגלה"
+            ],
+            "ans": 2,
+            "exp": "Échelle de certitude : מרמז (suggère) < מראה (montre) < מגלה (révèle) < מאשר (confirme) ≈ מוכיח (prouve). Les deux derniers sont les plus proches."
+          },
+          {
+            "s": "הנזק שנגרם בלתי הפיך.",
+            "w": "בלתי הפיך",
+            "opts": [
+              "זמני",
+              "אפשרי לתיקון",
+              "בלתי ניתן לתיקון",
+              "גדול"
+            ],
+            "ans": 2,
+            "exp": "Expression à connaître : בלתי הפיך (irréversible) = ביחד ניתן לתיקון (irréparable) = deux façons de dire la même chose."
+          },
+          {
+            "s": "היא ביקשה עזרה מחבריה.",
+            "w": "ביקשה",
+            "opts": [
+              "קיבלה",
+              "נתנה",
+              "דרשה",
+              "פנתה לבקשת"
+            ],
+            "ans": 3,
+            "exp": "Nuance : דרשה (exigé) semble proche mais implique une position d'autorité. ביקשה (demandé/sollicité) est plus doux = פנתה לבקשת."
+          },
+          {
+            "s": "הממצאים התואמים להשערה הראשונית.",
+            "w": "ממצאים",
+            "opts": [
+              "תוצאות",
+              "שאלות",
+              "מסקנות",
+              "תצפיות"
+            ],
+            "ans": 0,
+            "exp": "Nuance scientifique : תצפיות (observations) → ממצאים (résultats/découvertes) → מסקנות (conclusions). Ce sont 3 étapes différentes du processus scientifique. ממצאים ≈ תוצאות dans l'usage courant."
+          }
+        ]
+      },
+      {
+        "name": "Section B — Complétion de texte",
+        "questions": [
+          {
+            "s": "חברות _______ לאמץ טכנולוגיות חדשות",
+            "w": "",
+            "opts": [
+              "מסרבות (refusent)",
+              "נדרשות (sont requises/obligées)",
+              "מצפות (s'attendent à)",
+              "יכולות (peuvent)"
+            ],
+            "ans": 1,
+            "exp": "Indice grammatical : נדרשות + לאמץ (infinitif) = \"sont tenues de...\" = structure d'obligation."
+          },
+          {
+            "s": "לאמץ טכנולוגיות חדשות _______ להישאר תחרותיות",
+            "w": "",
+            "opts": [
+              "כי (parce que)",
+              "למרות (malgré)",
+              "כדי (afin de)",
+              "לפני (avant)"
+            ],
+            "ans": 2,
+            "exp": "Règle grammaticale : כדי est toujours suivi d'un infinitif (להישאר, לעשות...). כי est suivi d'un verbe conjugué. Cette règle élimine כי."
+          },
+          {
+            "s": "_______, השינוי לא פשוט עבור כולם",
+            "w": "",
+            "opts": [
+              "לכן (donc)",
+              "כמו כן (également)",
+              "עם זאת (cependant)",
+              "בנוסף (de plus)"
+            ],
+            "ans": 2,
+            "exp": "Indice logique : Chercher la relation entre les deux phrases. Avant : avantage/obligation. Après : difficulté. = contraste → עם זאת, אבל, אולם."
+          },
+          {
+            "s": "עובדים רבים _______ איום על מקום עבודתם",
+            "w": "",
+            "opts": [
+              "שמחים על (sont contents de)",
+              "מרגישים (ressentent)",
+              "מציגים (présentent)",
+              "מתנגדים (s'opposent à)"
+            ],
+            "ans": 1,
+            "exp": "Colocation : מרגישים + איום (ressentir une menace) est une colocation naturelle en hébreu."
+          },
+          {
+            "s": "עובדים רבים מרגישים איום על מקום עבודתם _______ האוטומציה",
+            "w": "",
+            "opts": [
+              "כי (parce que)",
+              "עקב (suite à / en raison de)",
+              "בגלל (à cause de)",
+              "מכיוון שׁ (étant donné que)"
+            ],
+            "ans": 1,
+            "exp": "Règle cruciale : עקב / בגלל / בשל + NOM ; כי / מכיוון ש / מאחר ש + VERBE CONJUGUÉ"
+          },
+          {
+            "s": "כמעט/למעלה מ _______ 30% מהמשרות עשויות להשתנות",
+            "w": "",
+            "opts": [
+              "פחות מ (moins de)",
+              "בדיוק (exactement)",
+              "כמעט (presque)",
+              "למעלה מ (plus de)"
+            ],
+            "ans": 3,
+            "exp": "Indice contextuel : Le paragraphe parle de menace et d'anxiété. \"Plus de 30%\" renforce le sentiment d'urgence. C'est l'option cohérente avec le ton du texte."
+          },
+          {
+            "s": "_______, הכלכלה הדיגיטלית גם מייצרת הזדמנויות חדשות",
+            "w": "",
+            "opts": [
+              "לכן (donc)",
+              "אולם (mais / cependant)",
+              "ממילא (de toute façon)",
+              "מכאן (d'où / de là)"
+            ],
+            "ans": 1,
+            "exp": ""
+          },
+          {
+            "s": "הכלכלה הדיגיטלית גם _______ הזדמנויות חדשות",
+            "w": "",
+            "opts": [
+              "מוחקת (efface)",
+              "מייצרת (crée)",
+              "פוגמת (altère/détériore)",
+              "מסירה (enlève/retire)"
+            ],
+            "ans": 1,
+            "exp": "Indice : גם (aussi) — La phrase dit \"גם מייצרת\" = \"crée AUSSI\". Le \"aussi\" indique que c'est en plus des inconvénients, donc un aspect positif."
+          },
+          {
+            "s": "בריאות הנפש _______ לנושא מרכזי",
+            "w": "",
+            "opts": [
+              "הפכה (est devenue)",
+              "עדיין (encore/toujours)",
+              "כבר (déjà)",
+              "מעולם (jamais)"
+            ],
+            "ans": 0,
+            "exp": "Structure grammaticale : הפכה + ל + nom = \"est devenu\". C'est une structure très fréquente au YAEL. הפך לנושא / הפך לבעיה / הפך לנורמה."
+          },
+          {
+            "s": "_______ שנים רבות שבהן הנושא היה מוקף בסטיגמה",
+            "w": "",
+            "opts": [
+              "ב (dans/en)",
+              "עקב (suite à)",
+              "לאחר (après)",
+              "בזמן (pendant/au moment de)"
+            ],
+            "ans": 2,
+            "exp": ""
+          },
+          {
+            "s": "הנושא _______ בסטיגמה",
+            "w": "",
+            "opts": [
+              "נלמד (a été enseigné)",
+              "שרר (a régné)",
+              "היה מוקף (était entouré)",
+              "פסק (a cessé)"
+            ],
+            "ans": 2,
+            "exp": "Colocation : מוקף ב = entouré de. מוקף בסטיגמה / מוקף בביקורת / מוקף בבעיות = expressions naturelles."
+          },
+          {
+            "s": "כיום ישנה _______ גוברת",
+            "w": "",
+            "opts": [
+              "מחלוקת (controverse)",
+              "מודעות (prise de conscience)",
+              "בעיה (problème)",
+              "סכסוך (conflit)"
+            ],
+            "ans": 1,
+            "exp": "Logique du texte : Avant = stigmate. Aujourd'hui = la situation s'améliore. מודעות (conscience) = la seule option positive."
+          },
+          {
+            "s": "ארגוני בריאות _______ כי אחד מכל ארבעה אנשים יסבול",
+            "w": "",
+            "opts": [
+              "כופרים (nient)",
+              "מציינים (mentionnent / indiquent)",
+              "מכחישים (dément)",
+              "שואלים (demandent/questionnent)"
+            ],
+            "ans": 1,
+            "exp": ""
+          },
+          {
+            "s": "יסבול ממצוקה נפשית _______ חייו",
+            "w": "",
+            "opts": [
+              "כל (tout/chaque)",
+              "בשלב (à l'étape)",
+              "בשלב מסוים של (à un moment donné de)",
+              "לאורך (tout au long de)"
+            ],
+            "ans": 2,
+            "exp": "Nuance statistique : \"Un sur quatre souffrira à un moment de sa vie\" = statistique standard en santé mentale mondiale."
+          },
+          {
+            "s": "הפתרון _______ בנגישות לשירותים",
+            "w": "",
+            "opts": [
+              "מצוי (se trouve / réside)",
+              "גורם (cause)",
+              "קיים (existe)",
+              "חסר (manque)"
+            ],
+            "ans": 0,
+            "exp": "Expression fixe : הפתרון מצוי ב = \"la solution se trouve dans\" = expression très fréquente en hébreu académique."
+          },
+          {
+            "s": "_______, עדיין ישנן מדינות רבות שבהן התקציב זעום",
+            "w": "",
+            "opts": [
+              "לכן (donc)",
+              "כמו כן (également)",
+              "בנוסף (de plus)",
+              "עם זאת (cependant)"
+            ],
+            "ans": 3,
+            "exp": ""
+          },
+          {
+            "s": "התקציב המוקצב לבריאות הנפש _______ ביחס לצרכים",
+            "w": "",
+            "opts": [
+              "גדול (grand)",
+              "זעום (dérisoire / minuscule)",
+              "ספיק (suffisant)",
+              "יעיל (efficace)"
+            ],
+            "ans": 1,
+            "exp": "Mot à retenir : זעום = dérisoire / minuscule. Mot très fréquent dans les textes du YAEL sur les inégalités de budget."
+          },
+          {
+            "s": "הממשלה _______ לגבש מדיניות חדשה בתחום",
+            "w": "",
+            "opts": [
+              "מסרבת (refuse)",
+              "מנסה (essaie)",
+              "שוקלת (envisage / réfléchit à)",
+              "עומדת (est sur le point de)"
+            ],
+            "ans": 2,
+            "exp": ""
+          },
+          {
+            "s": "_______ הנתונים, יש עלייה בפניות לטיפול",
+            "w": "",
+            "opts": [
+              "לפי (selon / d'après)",
+              "בגלל (à cause de)",
+              "על אף (malgré)",
+              "עם (avec)"
+            ],
+            "ans": 0,
+            "exp": ""
+          },
+          {
+            "s": "המטרה היא _______ שכל אדם יקבל עזרה מתאימה",
+            "w": "",
+            "opts": [
+              "מכיוון ש (étant donné que)",
+              "לדאוג ל (veiller à)",
+              "להבטיח ש (garantir que)",
+              "ב+ג"
+            ],
+            "ans": 2,
+            "exp": ""
+          }
+        ]
+      },
+      {
+        "name": "Section C — Compréhension",
+        "questions": [
+          {
+            "s": "מה נושא הטקסט?",
+            "w": "",
+            "opts": [
+              "ישראל כמדינה מיוחדת",
+              "אתגרים וסיבות של ההגירה",
+              "בעיות כלכליות בגלל מהגרים",
+              "היסטוריה של ההגירה בלבד"
+            ],
+            "ans": 1,
+            "exp": "Stratégie : Pour le sujet principal, chercher l'option qui couvre TOUT le texte, pas juste un paragraphe."
+          },
+          {
+            "s": "כמה קטגוריות של סיבות להגירה מוזכרות?",
+            "w": "",
+            "opts": [
+              "שתיים",
+              "שלוש",
+              "ארבע",
+              "חמש"
+            ],
+            "ans": 2,
+            "exp": "Technique : Pour ce type de question, retourner DANS LE TEXTE et compter littéralement. Ne pas répondre de mémoire."
+          },
+          {
+            "s": "מה האתגר המרכזי של המדינות הקולטות?",
+            "w": "",
+            "opts": [
+              "להגביל את ההגירה",
+              "להשקיע בקליטה ובשילוב",
+              "להצמיח את הכלכלה",
+              "לשמור על התרבות המקומית"
+            ],
+            "ans": 1,
+            "exp": "Règle d'or : La bonne réponse est DANS le texte. Pas dans ta connaissance générale."
+          },
+          {
+            "s": "מה מסייע לעולים להשתלב מהר יותר?",
+            "w": "",
+            "opts": [
+              "כסף רב",
+              "ידע מקצועי",
+              "ידע בשפה ובתרבות",
+              "קשרים חברתיים"
+            ],
+            "ans": 2,
+            "exp": ""
+          },
+          {
+            "s": "מה פירוש \"מעשירות\" בהקשר זה?",
+            "w": "",
+            "opts": [
+              "הופכות לעשירות",
+              "תורמות ומוסיפות לחברה",
+              "גורמות לעושר כלכלי",
+              "מגיעות מארצות עשירות"
+            ],
+            "ans": 1,
+            "exp": "Technique pour le sens d'un mot : Lire les 2 phrases autour, puis tester chaque option dans la phrase originale. \"תרבויות שתורמות ומוסיפות לחברה\" = fonctionne parfaitement."
+          },
+          {
+            "s": "מה השינוי המרכזי שמתאר הטקסט?",
+            "w": "",
+            "opts": [
+              "עובדים עובדים יותר שעות",
+              "קריירה אחת לכל החיים כבר לא מציאות",
+              "הטכנולוגיה מחליפה עובדים",
+              "השכר ירד"
+            ],
+            "ans": 1,
+            "exp": ""
+          },
+          {
+            "s": "כמה פעמים יחליף עובד ממוצע עבודה?",
+            "w": "",
+            "opts": [
+              "פחות מ-5",
+              "בין 5 ל-8",
+              "בין 8 ל-12",
+              "יותר מ-12"
+            ],
+            "ans": 2,
+            "exp": "Conseil : Pour les questions de chiffres, retourner DANS LE TEXTE. Ne jamais répondre de mémoire."
+          },
+          {
+            "s": "מה הסיבה הראשונה שמוצגת לשינוי?",
+            "w": "",
+            "opts": [
+              "צרכים אישיים משתנים",
+              "ארגון מחדש של חברות",
+              "שינויים טכנולוגיים",
+              "לחץ כלכלי"
+            ],
+            "ans": 2,
+            "exp": "Stratégie : Quand le texte utilise ראשית / שנית / שלישית, les questions portent souvent dessus. Identifie ces connecteurs de séquence."
+          },
+          {
+            "s": "כיצד הדור הצעיר מתייחס לשינויי קריירה?",
+            "w": "",
+            "opts": [
+              "בחרדה ובסלידה",
+              "כהזדמנות",
+              "בהתנגדות",
+              "בשוויון נפש בלבד"
+            ],
+            "ans": 1,
+            "exp": "Piège : ג (anxiété) est mentionnée dans le texte mais s'applique à \"רבים\" (beaucoup de gens), pas spécifiquement aux jeunes."
+          },
+          {
+            "s": "מה הבעיה שעדיין קיימת?",
+            "w": "",
+            "opts": [
+              "העדר שינוי",
+              "חרדה בגלל חוסר יציבות",
+              "הטכנולוגיה מדאיגה",
+              "שיתוף פעולה גרוע"
+            ],
+            "ans": 1,
+            "exp": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "exam": "Examen Blanc N°2",
+    "sections": [
+      {
+        "name": "Section A — Vocabulaire",
+        "questions": [
+          {
+            "s": "הפרויקט נמצא בשלב מתקדם של פיתוח.",
+            "w": "נמצא בשלב מתקדם",
+            "opts": [
+              "סיום",
+              "ביניים",
+              "סופי",
+              "ראשוני"
+            ],
+            "ans": 1,
+            "exp": ""
+          },
+          {
+            "s": "הם התכנסו לדיון על העתיד.",
+            "w": "התכנסו",
+            "opts": [
+              "נפגשו",
+              "נפרדו",
+              "ויכחו",
+              "שיתפו"
+            ],
+            "ans": 0,
+            "exp": ""
+          },
+          {
+            "s": "ההצגה זכתה לביקורות חיוביות.",
+            "w": "זכתה",
+            "opts": [
+              "קיבלה",
+              "הרוויחה",
+              "הפסידה",
+              "חיכתה"
+            ],
+            "ans": 0,
+            "exp": ""
+          },
+          {
+            "s": "המנהל ניתח את הנתונים לעומק.",
+            "w": "ניתח",
+            "opts": [
+              "אסף",
+              "ביקר",
+              "פירק לחלקים",
+              "הציג"
+            ],
+            "ans": 2,
+            "exp": "Étymologie : ניתוח vient de la même racine que \"chirurgie\" (ניתוח כירורגי). L'idée = découper/décomposer pour comprendre."
+          },
+          {
+            "s": "הם נשארו נאמנים לעמדתם.",
+            "w": "נשארו",
+            "opts": [
+              "שינו",
+              "שמרו על",
+              "פרשו מ",
+              "אימצו"
+            ],
+            "ans": 1,
+            "exp": ""
+          },
+          {
+            "s": "הכישלון נגרם בשל תכנון לקוי.",
+            "w": "כישלון",
+            "opts": [
+              "הצלחה",
+              "תוצאה השלילית",
+              "ביקורת",
+              "פגיעה"
+            ],
+            "ans": 1,
+            "exp": ""
+          },
+          {
+            "s": "הוא מסרב לשתף פעולה.",
+            "w": "מסרב",
+            "opts": [
+              "מסכים",
+              "אינו מוכן",
+              "מנסה",
+              "מתקשה"
+            ],
+            "ans": 1,
+            "exp": ""
+          },
+          {
+            "s": "השינוי צפוי להתרחש בשנה הבאה.",
+            "w": "צפוי",
+            "opts": [
+              "סביר",
+              "בלתי ידוע",
+              "מופתע",
+              "בלתי אפשרי"
+            ],
+            "ans": 0,
+            "exp": ""
+          },
+          {
+            "s": "הוא השקיע מאמצים רבים בפרויקט.",
+            "w": "השקיע",
+            "opts": [
+              "הוציא כסף",
+              "הכניס",
+              "העסיק",
+              "הצית"
+            ],
+            "ans": 1,
+            "exp": ""
+          },
+          {
+            "s": "היא מתמחה בתחום הסייבר.",
+            "w": "מתמחה",
+            "opts": [
+              "עובדת",
+              "לומדת",
+              "מתמקצעת",
+              "מנחה"
+            ],
+            "ans": 2,
+            "exp": ""
+          },
+          {
+            "s": "ההחלטה עוררה דיון ציבורי ער.",
+            "w": "עוררה",
+            "opts": [
+              "גרמה ל",
+              "הרגיעה",
+              "ביטלה",
+              "חינכה"
+            ],
+            "ans": 0,
+            "exp": ""
+          },
+          {
+            "s": "המצב מחייב פתרון מיידי.",
+            "w": "מחייב",
+            "opts": [
+              "מאפשר",
+              "מוסיף",
+              "דורש",
+              "מציע"
+            ],
+            "ans": 2,
+            "exp": ""
+          },
+          {
+            "s": "הם הגיעו להסכמה לאחר ויכוח ארוך.",
+            "w": "הגיעו",
+            "opts": [
+              "פרשו מ",
+              "ביטלו",
+              "הגיעו ל",
+              "שינו"
+            ],
+            "ans": 2,
+            "exp": "Attention : Ici l'option ג) reprend exactement le mot הגיעו du texte. La réponse = reconnaître que c'est un synonyme de soi-même = הגיעו ל + nom = \"aboutir à\"."
+          },
+          {
+            "s": "הפרויקט הניב תוצאות מצוינות.",
+            "w": "הניב",
+            "opts": [
+              "דרש",
+              "גרם ל",
+              "הפיק",
+              "ביטל"
+            ],
+            "ans": 2,
+            "exp": "Expression fixe : הניב תוצאות / הפיק תוצאות = deux façons de dire \"a produit des résultats\". Les deux sont interchangeables."
+          },
+          {
+            "s": "הצוות ממוקד בהשגת המטרות.",
+            "w": "ממוקד",
+            "opts": [
+              "מפוזר",
+              "שקוע",
+              "מתרכז",
+              "קשוב"
+            ],
+            "ans": 2,
+            "exp": ""
+          },
+          {
+            "s": "המידע אומת על ידי מספר מקורות.",
+            "w": "אומת",
+            "opts": [
+              "נדחה",
+              "אוסף",
+              "הוכח נכון",
+              "הועבר"
+            ],
+            "ans": 2,
+            "exp": ""
+          },
+          {
+            "s": "הם תכחישו כל מעורבות.",
+            "w": "תכחישו",
+            "opts": [
+              "הודו",
+              "שינו",
+              "כפרו",
+              "הציגו"
+            ],
+            "ans": 2,
+            "exp": ""
+          },
+          {
+            "s": "הממשלה שוקלת לשנות את המדיניות.",
+            "w": "שוקלת",
+            "opts": [
+              "ביטלה",
+              "מחשבת",
+              "דחתה",
+              "הציעה"
+            ],
+            "ans": 1,
+            "exp": ""
+          },
+          {
+            "s": "הוא הכריז על פרישתו.",
+            "w": "הכריז",
+            "opts": [
+              "הסביר",
+              "הודיע על",
+              "הכחיש",
+              "שינה"
+            ],
+            "ans": 1,
+            "exp": ""
+          },
+          {
+            "s": "הגבולות בין המדינות השתנו.",
+            "w": "גבולות",
+            "opts": [
+              "יחסים",
+              "קצוות",
+              "הסכמים",
+              "הבדלים"
+            ],
+            "ans": 1,
+            "exp": ""
+          },
+          {
+            "s": "היא מסוגלת לעבוד תחת לחץ.",
+            "w": "מסוגלת",
+            "opts": [
+              "מסרבת",
+              "יכולה",
+              "נדרשת",
+              "שואפת"
+            ],
+            "ans": 1,
+            "exp": ""
+          },
+          {
+            "s": "הם שאלו שאלות קשות.",
+            "w": "שאלו",
+            "opts": [
+              "ענו",
+              "הציגו",
+              "ביקשו",
+              "קיבלו"
+            ],
+            "ans": 1,
+            "exp": ""
+          },
+          {
+            "s": "הפתרון מחייב שיתוף פעולה.",
+            "w": "מחייב",
+            "opts": [
+              "מאפשר",
+              "מונע",
+              "מצריך",
+              "מגביל"
+            ],
+            "ans": 2,
+            "exp": "Synonymes d'obligation : מחייב ≈ מצריך ≈ דורש = les trois signifient \"requiert/nécessite\"."
+          },
+          {
+            "s": "הוא ביצע את המשימה בהצלחה.",
+            "w": "ביצע",
+            "opts": [
+              "דחה",
+              "ביטל",
+              "ביצע",
+              "תכנן"
+            ],
+            "ans": 2,
+            "exp": ""
+          },
+          {
+            "s": "הנושא נמצא על סדר היום.",
+            "w": "נושא",
+            "opts": [
+              "בעיה",
+              "נושא לדיון",
+              "פתרון",
+              "שאלה"
+            ],
+            "ans": 1,
+            "exp": ""
+          },
+          {
+            "s": "הדו\"ח מגלה תמונה מורכבת.",
+            "w": "מגלה",
+            "opts": [
+              "מסתיר",
+              "מציג",
+              "מכסה",
+              "מוחק"
+            ],
+            "ans": 1,
+            "exp": ""
+          },
+          {
+            "s": "השינויים ניכרים לעין.",
+            "w": "ניכרים",
+            "opts": [
+              "גדולים",
+              "קטנים",
+              "מורגשים",
+              "גלויים לגמרי"
+            ],
+            "ans": 2,
+            "exp": "Nuance : ניכר = perceptible/notable (peut être subtil). גלוי = visible, ouvert. מורגש = ressenti = le meilleur synonyme."
+          },
+          {
+            "s": "הם פועלים לשיפור המצב.",
+            "w": "פועלים",
+            "opts": [
+              "מנסים",
+              "מתכננים",
+              "פועלים",
+              "מקווים"
+            ],
+            "ans": 2,
+            "exp": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "exam": "Examen Blanc N°3",
+    "sections": [
+      {
+        "name": "Section A — Vocabulaire",
+        "questions": [
+          {
+            "s": "המחוקק עסק בתיקון החוק.",
+            "w": "מחוקק",
+            "opts": [
+              "שופט",
+              "עורך-דין",
+              "מחוקק/חבר כנסת",
+              "מנהל"
+            ],
+            "ans": 2,
+            "exp": "Racine : מחוקק vient de ח-ק-ק = la racine de חוק (loi). מחוקק = celui qui fait la loi."
+          },
+          {
+            "s": "הביצוע של התוכנית עומד בפני אתגרים.",
+            "w": "ביצוע",
+            "opts": [
+              "כישלון",
+              "יישום",
+              "ביטול",
+              "שינוי"
+            ],
+            "ans": 1,
+            "exp": ""
+          },
+          {
+            "s": "הם הסיקו מסקנות שגויות.",
+            "w": "הסיקו",
+            "opts": [
+              "הגיעו ל",
+              "בדקו",
+              "ביטלו",
+              "שאלו"
+            ],
+            "ans": 0,
+            "exp": ""
+          },
+          {
+            "s": "החוזה מסתיים בסוף השנה.",
+            "w": "מסתיים",
+            "opts": [
+              "מתחיל",
+              "מתחדש",
+              "גומר",
+              "מבוטל"
+            ],
+            "ans": 2,
+            "exp": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "exam": "Examen Blanc N°4",
+    "sections": [
+      {
+        "name": "Section A — Vocabulaire",
+        "questions": [
+          {
+            "s": "התחיקה החדשה מחמירה את הדרישות.",
+            "w": "תחיקה",
+            "opts": [
+              "ביקורת",
+              "חקיקה",
+              "הצעת חוק",
+              "תקנות"
+            ],
+            "ans": 1,
+            "exp": "Mot rare mais fréquent au YAEL : תחיקה est un terme plus formel pour חקיקה. Les deux = \"législation\"."
+          },
+          {
+            "s": "הם השיגו הישגים בלתי מבוטלים.",
+            "w": "השיגו",
+            "opts": [
+              "קטנים",
+              "לא חשובים",
+              "גדולים",
+              "חשובים מאוד"
+            ],
+            "ans": 3,
+            "exp": "Décomposer le mot : בלתי = non / pas. מבוטל = annulé/négligeable. בלתי מבוטל = non négligeable = significatif."
+          },
+          {
+            "s": "העמדה הרשמית של הממשלה שונה.",
+            "w": "עמדה",
+            "opts": [
+              "עמדה/גישה רשמית",
+              "הצהרה",
+              "יחס",
+              "כיוון"
+            ],
+            "ans": 0,
+            "exp": "עולה חדש לישראל מתמודד עם אתגרים רבים. ראשית, קשיי השפה הם אתגר מרכזי. אף על פי שיש קורסי עברית, הלמידה לוקחת זמן רב ומקשה על השתלבות בעבודה ובחברה. שנית, הסתגלות תרבותית היא אתגר נוסף — הנורמות החברתיות בישראל שונות מאוד ממה שעולה חדש הכיר בארצו."
+          }
+        ]
+      }
+    ]
+  }
+] ;
 
 // Category info
 const CAT_INFO = {
@@ -651,6 +2061,8 @@ let fc = { deck:[], idx:0, flipped:false, mode:'due', sessionCorrect:0, sessionT
 let quiz = { qs:[], idx:0, score:0, answered:false };
 let connectorIdx = 0;
 let connectorScore = 0;
+let phraseIdx = 0, phraseScore = 0;
+let annalesState = {examIdx:0, secIdx:0, qIdx:0, score:0};
 
 // Prepare word objects
 const WORDS = RAW_WORDS.map((r,i)=>({
@@ -1150,6 +2562,162 @@ function resetConfirm(){
   }
 }
 
+
+// ============================================================
+// PHRASES D'EXAMEN
+// ============================================================
+function startPhraseQuiz(){
+  phraseIdx = 0; phraseScore = 0;
+  renderPhrase();
+}
+
+function renderPhrase(){
+  const container = document.getElementById('phrase-content');
+  const total = PHRASE_EXERCISES.length;
+  if(phraseIdx >= total){
+    const pct = Math.round(phraseScore/total*100);
+    document.getElementById('phrase-score-disp').textContent = phraseScore+'/'+total+' ('+pct+'%)';
+    container.innerHTML = `
+      <div class="card" style="text-align:center;padding:32px">
+        <div style="font-size:3rem">🎉</div>
+        <div class="score">${phraseScore}/${total}</div>
+        <div style="font-size:1.1rem;color:var(--muted);margin:8px 0">${pct >= 80 ? '🏆 Excellent ! Vous maîtrisez les tournures académiques.' : pct >= 60 ? '👍 Bon travail ! Continuez à vous entraîner.' : '💪 Révisez les formules et recommencez !'}</div>
+        <button class="btn btn-primary" onclick="startPhraseQuiz()" style="margin-top:16px">🔄 Recommencer</button>
+      </div>`;
+    return;
+  }
+  const ex = PHRASE_EXERCISES[phraseIdx];
+  const pct = Math.round(phraseIdx/total*100);
+  container.innerHTML = `
+    <div class="fc-bar-wrap"><div class="fc-bar" style="width:${pct}%"></div></div>
+    <div class="card">
+      <div style="font-size:.8rem;color:var(--muted);margin-bottom:4px">Exercice ${phraseIdx+1} / ${total} — Score: ${phraseScore}</div>
+      <div style="font-size:1.05rem;font-weight:700;margin-bottom:6px">${ex.q}</div>
+      ${ex.ctx ? `<div style="background:var(--bg2);border-radius:8px;padding:10px;margin-bottom:12px;font-size:.9rem;color:var(--muted)">${ex.ctx}</div>` : ''}
+      <div class="quiz-opts" id="phrase-opts">
+        ${ex.opts.map((o,i)=>`<div class="quiz-opt" onclick="answerPhrase(${i})">${o}</div>`).join('')}
+      </div>
+    </div>`;
+}
+
+function answerPhrase(idx){
+  const ex = PHRASE_EXERCISES[phraseIdx];
+  const correct = ex.opts[idx] === ex.ans;
+  if(correct) phraseScore++;
+  const opts = document.querySelectorAll('#phrase-opts .quiz-opt');
+  opts.forEach((o,i)=>{
+    o.onclick = null;
+    if(ex.opts[i] === ex.ans) o.style.background = 'var(--green)';
+    else if(i === idx && !correct) o.style.background = 'var(--red)';
+  });
+  document.getElementById('phrase-content').insertAdjacentHTML('beforeend',`
+    <div class="card" style="margin-top:12px">
+      <div style="font-weight:700;color:${correct?'var(--green)':'var(--red)'};margin-bottom:6px">${correct?'✅ Correct !':'❌ Incorrect'}</div>
+      <div style="font-size:.92rem">${ex.exp}</div>
+      <button class="btn btn-primary btn-sm" onclick="nextPhrase()" style="margin-top:12px">Suivant →</button>
+    </div>`);
+}
+
+function nextPhrase(){
+  phraseIdx++;
+  renderPhrase();
+}
+
+// ============================================================
+// ANNALES
+// ============================================================
+function renderAnnalesSelector(){
+  const sel = document.getElementById('annales-selector');
+  const content = document.getElementById('annales-content');
+  content.innerHTML = '';
+  let html = '';
+  ANNALES_DATA.forEach((exam,ei)=>{
+    html += `<div class="card" style="margin-bottom:12px">
+      <div style="font-weight:800;font-size:1.05rem;margin-bottom:10px">📋 ${exam.exam}</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">`;
+    exam.sections.forEach((sec,si)=>{
+      html += `<button class="btn btn-outline btn-sm" onclick="startAnnalesSection(${ei},${si})">
+        ${sec.name} <span style="color:var(--muted)">(${sec.questions.length} Q)</span>
+      </button>`;
+    });
+    html += `</div></div>`;
+  });
+  sel.innerHTML = html;
+}
+
+function startAnnalesSection(examIdx, secIdx){
+  annalesState = {examIdx, secIdx, qIdx:0, score:0};
+  document.getElementById('annales-selector').innerHTML = '';
+  renderAnnalesQ();
+}
+
+function renderAnnalesQ(){
+  const content = document.getElementById('annales-content');
+  const exam = ANNALES_DATA[annalesState.examIdx];
+  const sec = exam.sections[annalesState.secIdx];
+  const total = sec.questions.length;
+  if(annalesState.qIdx >= total){
+    const pct = Math.round(annalesState.score/total*100);
+    content.innerHTML = `
+      <div class="card" style="text-align:center;padding:32px">
+        <div style="font-size:2.5rem">📋</div>
+        <div style="font-size:1.1rem;font-weight:800;margin:8px 0">${exam.exam}</div>
+        <div style="color:var(--muted);margin-bottom:8px">${sec.name}</div>
+        <div class="score">${annalesState.score}/${total}</div>
+        <div style="color:var(--muted);margin:8px 0">${pct}% — ${pct>=80?'🏆 Excellent !':pct>=60?'👍 Bien !':'💪 Continuez !'}</div>
+        <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:16px">
+          <button class="btn btn-primary" onclick="startAnnalesSection(${annalesState.examIdx},${annalesState.secIdx})">🔄 Recommencer cette section</button>
+          <button class="btn btn-outline" onclick="renderAnnalesSelector();document.getElementById('annales-selector').scrollIntoView()">← Retour aux examens</button>
+        </div>
+      </div>`;
+    return;
+  }
+  const q = sec.questions[annalesState.qIdx];
+  const pct = Math.round(annalesState.qIdx/total*100);
+  const labels = ['א','ב','ג','ד'];
+  content.innerHTML = `
+    <div style="margin-bottom:8px;font-size:.85rem;color:var(--muted)">
+      ${exam.exam} — ${sec.name}
+      <button class="btn btn-outline btn-sm" onclick="renderAnnalesSelector()" style="margin-right:8px;float:left">← Retour</button>
+    </div>
+    <div class="fc-bar-wrap"><div class="fc-bar" style="width:${pct}%"></div></div>
+    <div class="card">
+      <div style="font-size:.8rem;color:var(--muted);margin-bottom:6px">Question ${annalesState.qIdx+1} / ${total} — Score: ${annalesState.score}</div>
+      <div style="font-size:1.05rem;margin-bottom:8px;direction:rtl;line-height:1.6">${q.s}</div>
+      ${q.w ? `<div style="background:var(--bg2);border-radius:6px;padding:6px 10px;margin-bottom:12px;font-size:.85rem">Mot en gras : <strong>${q.w}</strong></div>` : ''}
+      <div class="quiz-opts" id="annales-opts">
+        ${q.opts.map((o,i)=>`<div class="quiz-opt" onclick="answerAnnales(${i})" style="direction:rtl">
+          <span style="color:var(--muted);margin-left:6px">${labels[i]})</span> ${o}
+        </div>`).join('')}
+      </div>
+    </div>`;
+}
+
+function answerAnnales(idx){
+  const exam = ANNALES_DATA[annalesState.examIdx];
+  const sec = exam.sections[annalesState.secIdx];
+  const q = sec.questions[annalesState.qIdx];
+  const correct = idx === q.ans;
+  if(correct) annalesState.score++;
+  const opts = document.querySelectorAll('#annales-opts .quiz-opt');
+  opts.forEach((o,i)=>{
+    o.onclick = null;
+    if(i === q.ans) o.style.background = 'var(--green)';
+    else if(i === idx && !correct) o.style.background = 'var(--red)';
+  });
+  document.getElementById('annales-content').insertAdjacentHTML('beforeend',`
+    <div class="card" style="margin-top:12px">
+      <div style="font-weight:700;color:${correct?'var(--green)':'var(--red)'};margin-bottom:6px">${correct?'✅ Correct !':'❌ Incorrect — La réponse était : '+q.opts[q.ans]}</div>
+      ${q.exp ? `<div style="font-size:.9rem;margin-bottom:8px">${q.exp}</div>` : ''}
+      <button class="btn btn-primary btn-sm" onclick="nextAnnalesQ()">Suivant →</button>
+    </div>`);
+}
+
+function nextAnnalesQ(){
+  annalesState.qIdx++;
+  renderAnnalesQ();
+}
+
 // ============================================================
 // NAVIGATION
 // ============================================================
@@ -1158,14 +2726,16 @@ function showScreen(name){
   document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
   document.getElementById('screen-'+name).classList.add('active');
   const tabs = document.querySelectorAll('.nav-tab');
-  const tabMap = {home:0,flashcards:1,quiz:2,connectors:3,stats:4};
+  const tabMap = {home:0,flashcards:1,quiz:2,connectors:3,stats:4,phrases:5,annales:6};
   if(tabMap[name]!==undefined) tabs[tabMap[name]].classList.add('active');
 
   if(name==='home') renderHome();
   if(name==='stats') renderStats();
   if(name==='connectors' && connectorIdx===0 && document.getElementById('conn-content').innerHTML==='')
     startConnectorQuiz();
-  if(name==='quiz') startQuiz(20);
+  if(name==='quiz' && quiz.qs.length===0) startQuiz(20);
+  if(name==='phrases' && !document.getElementById('phrase-content').innerHTML) startPhraseQuiz();
+  if(name==='annales' && !document.getElementById('annales-selector').innerHTML) renderAnnalesSelector();
 }
 
 // ============================================================
