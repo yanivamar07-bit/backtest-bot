@@ -293,6 +293,13 @@ html.dark .ctip{color:var(--txt3);border-left-color:var(--bdr)}
 .ctable td:last-child{white-space:nowrap}
 .clvl{display:inline-block;padding:1px 6px;border-radius:99px;font-size:.65rem;font-weight:700;
   background:var(--pll);color:var(--pl);border:1px solid #bfdbfe}
+.btn-next-q{display:flex;align-items:center;gap:6px;margin:10px auto 0;padding:9px 22px;background:var(--pd);color:#fff;border:none;border-radius:8px;font-size:.85rem;font-weight:700;cursor:pointer;transition:background .15s}
+.btn-next-q:hover{background:var(--pl)}
+.progress-bar{height:8px;background:var(--bdr);border-radius:4px;overflow:hidden;margin:4px 0}
+.progress-fill{height:100%;border-radius:4px;transition:width .4s ease}
+.stat-card{background:var(--bg2);border:1px solid var(--bdr);border-radius:10px;padding:12px 16px;display:flex;flex-direction:column;gap:6px}
+.stat-num{font-size:1.6rem;font-weight:700;line-height:1}
+.stat-lbl{font-size:.75rem;color:var(--txt3);text-transform:uppercase;letter-spacing:.05em}
 .clvl-1{background:var(--accl)!important;color:var(--accd)!important;border-color:#fde68a!important}
 .clvl-2{background:var(--pll)!important;color:var(--pd)!important;border-color:#bfdbfe!important}
 .clvl-3{background:var(--purl)!important;color:var(--pur)!important;border-color:#ddd6fe!important}
@@ -1128,6 +1135,26 @@ const CONNECTOR_EXERCISES = [
   {q:"ראוי לציין, _______, כי הנתונים מוגבלים.",ans:"עם זאת",opts:["אבל","עם זאת","לכן","כי"],exp:"<strong>עם זאת</strong> (cependant) entre virgules — pour nuancer en milieu de phrase."},
   {q:"_______ הנתונים מראים, מגמה חדשה מתפתחת.",ans:"כפי ש",opts:["כמו ש","כפי ש","כי","כאשר"],exp:"<strong>כפי שהנתונים מראים</strong> — formule pour citer des données. כפי ש est plus formel que כמו ש."},
   {q:"בסיכום _______, ניתן לומר כי...",ans:"הדברים",opts:["הכל","הדברים","זאת","האמור"],exp:"<strong>בסיכום הדברים</strong> (en résumé) — formule de conclusion plus élaborée que לסיכום."},
+  // Connecteurs additionnels avancés
+  {q:"_______ הקשיים, הצוות עמד ביעדים.",ans:"על אף",opts:["בגלל","על אף","לכן","כי"],exp:"<strong>על אף</strong> + NOM (en dépit de) — très formel. Synonyme de למרות + NOM."},
+  {q:"העסק גדל, _______ גדלה גם האחריות.",ans:"ועמה",opts:["ולכן","ועמה","ואז","אבל"],exp:"<strong>ועמה</strong> (et avec elle) — connecteur élégant pour lier deux évolutions parallèles. Niveau YAEL avancé."},
+  {q:"_______ הסוגיה, הועלו פתרונות שונים.",ans:"בכל הנוגע ל",opts:["לגבי","בכל הנוגע ל","בנושא","כי"],exp:"<strong>בכל הנוגע ל</strong> (en ce qui concerne) est très formel. Équivalent de לגבי mais plus soutenu."},
+  {q:"הממשלה פעלה, _______ לא מספיק.",ans:"אך",opts:["אבל","אך","ולכן","כי"],exp:"<strong>אך</strong> (mais) est légèrement plus formel qu'אבל. Même sens, mais préféré dans les textes académiques."},
+  {q:"_______ הניסוי הצליח, הטיפול לא יושם.",ans:"אף שהניסוי הצליח, הטיפול לא יושם.",ans:"אף ש",opts:["למרות ש","אף ש","כי","אם"],exp:"<strong>אף ש</strong> (même si / bien que) — concession formelle. Plus formel que למרות ש dans certains contextes."},
+  {q:"המצב השתפר _______ לא באופן מספיק.",ans:"אם כי",opts:["אבל","אם כי","כי","לכן"],exp:"<strong>אם כי</strong> (quoique / bien que) — concession légère. 'La situation s'est améliorée, quoique insuffisamment.'"},
+  {q:"_______ כל ניסיון, הפרויקט נכשל.",ans:"חרף",opts:["למרות","חרף","בגלל","לכן"],exp:"<strong>חרף</strong> (malgré — littéraire) + NOM. Niveau très formel. Synonyme : על אף, למרות."},
+  {q:"האוכלוסייה גדלה; _______, הביקוש לדיור עלה.",ans:"בהתאמה",opts:["לכן","בהתאמה","אולם","כי"],exp:"<strong>בהתאמה</strong> (en conséquence / en correspondance) — lien de proportionnalité directe."},
+  {q:"_______ הציפיות, התוצאות אכזבו.",ans:"בניגוד ל",opts:["לפי","בניגוד ל","בהתאם ל","כי"],exp:"<strong>בניגוד ל</strong> (contrairement à) + NOM. 'Contrairement aux attentes, les résultats ont déçu.'"},
+  {q:"הממצאים _______ לנו להסיק כי...",ans:"מאפשרים",opts:["גורמים","מאפשרים","מביאים","נותנים"],exp:"<strong>הממצאים מאפשרים להסיק</strong> (les résultats permettent de déduire) — formule pour tirer une conclusion de données."},
+  {q:"הבעיה _______ משנה לשנה.",ans:"מחריפה",opts:["גדלה","מחריפה","נהיית","עולה"],exp:"<strong>מחריפה</strong> (s'aggrave) — verbe clé. מחריף = s'aggraver. Racine : ח-ר-פ."},
+  {q:"_______ מדיניות זו, שיעור ההצלחה עלה.",ans:"הודות ל",opts:["בגלל","הודות ל","בעקבות","לכן"],exp:"<strong>הודות ל</strong> (grâce à) — causalité positive. Différent de בגלל (causalité neutre/négative)."},
+  {q:"השינויים _______ בלתי נמנעים.",ans:"נראים",opts:["הם","נראים","מוכיחים","מראים"],exp:"<strong>נראים בלתי נמנעים</strong> (semblent inévitables) — נראה (il semble) + adjectif. Formule prudente."},
+  {q:"_______ שנאמר, יש להוסיף כי...",ans:"מעבר ל",opts:["בנוסף ל","מעבר ל","לאחר","בשל"],exp:"<strong>מעבר למה שנאמר</strong> (au-delà de ce qui a été dit) — transition pour ajouter une information."},
+  {q:"הטיעון _______ שיקולים רבים.",ans:"כולל",opts:["יש","כולל","מביא","נותן"],exp:"<strong>הטיעון כולל... / כולל בתוכו</strong> — 'l'argument comprend / inclut'. כולל = incluant."},
+  {q:"_______ מכן, דנו בסוגיה.",ans:"לאחר",opts:["אחרי","לאחר","בעקבות","כי"],exp:"<strong>לאחר מכן</strong> (ensuite / après cela) — transition temporelle formelle."},
+  {q:"הבעיה _______ פתרון מיידי.",ans:"מחייבת",opts:["צריכה","מחייבת","דורשת","מבקשת"],exp:"<strong>מחייבת / דורשת</strong> (exige / requiert) — מחייב est plus fort (oblige), דורש = réclame."},
+  {q:"_______ לא נפתור את הבעיה, נתמודד עמה.",ans:"גם אם",opts:["אפילו","גם אם","אם","למרות ש"],exp:"<strong>גם אם</strong> (même si) — concession sur une condition hypothétique. Plus fort qu'אם."},
+  {q:"ישנן גישות שונות; _______, כל אחת יתרונות.",ans:"לכל",opts:["לכל","לכן","ואולם","כי"],exp:"<strong>לכל גישה יתרונות</strong> — structure nominale formelle. 'Chaque approche a ses avantages.'"},
 ]
 const PHRASE_EXERCISES = [
   {q:"Choisissez le meilleur début d'essai sur le thème de l'éducation :",ctx:"Sujet : 'L'éducation en Israël — défis et solutions'",ans:"ניתן לומר כי מערכת החינוך בישראל עומדת בפני אתגרים משמעותיים",opts:["ניתן לומר כי מערכת החינוך בישראל עומדת בפני אתגרים משמעותיים","מערכת החינוך בישראל היא חשובה","אני חושב שחינוך הוא טוב","יש בעיות בחינוך"],exp:"<strong>ניתן לומר כי...</strong> est l'ouverture académique typique du YAEL. Elle présente le sujet sans 'je'."},
@@ -1170,6 +1197,28 @@ const PHRASE_EXERCISES = [
   {q:"Comment exprime-t-on 'il faut admettre que' formellement ?",ctx:"Honnêteté intellectuelle dans l'essai",ans:"יש להודות כי / אמנם",opts:["יש להודות כי / אמנם","צריך להגיד","כן","זה נכון ש"],exp:"<strong>יש להודות כי</strong> (il faut admettre que) ou l'ouverture <strong>אמנם</strong> (certes) — concession intellectuelle honnête."},
   {q:"Comment introduit-on une citation ou une définition ?",ctx:"Définir un concept dans un essai",ans:"על פי ההגדרה / לפי הגדרתו של",opts:["על פי ההגדרה / לפי הגדרתו של","מה שזה אומר","ההגדרה היא","פירושו"],exp:"<strong>על פי ההגדרה</strong> (selon la définition) ou <strong>לפי הגדרתו של X</strong> — formules pour définir."},
   {q:"Comment dit-on 'le problème est particulièrement aigu dans le domaine de' ?",ctx:"Délimiter la portée d'un problème",ans:"הבעיה חריפה במיוחד בתחום",opts:["הבעיה חריפה במיוחד בתחום","הבעיה גדולה בנושא","יש בעיה ב","הבעיה בתחום היא"],exp:"<strong>חריפה במיוחד</strong> (particulièrement aiguë) — adjectif précis et formel. חריף pour un problème sévère."},
+  // Phrases académiques supplémentaires
+  {q:"Comment dit-on 'la tendance s'inverse' formellement ?",ctx:"Décrire un retournement de situation",ans:"המגמה מתהפכת / חל היפוך מגמה",opts:["המגמה מתהפכת / חל היפוך מגמה","המגמה הפוכה","הכיוון השתנה","עכשיו זה אחרת"],exp:"<strong>חל היפוך מגמה</strong> (on observe un renversement de tendance) — formule formelle. חל שינוי = un changement s'est produit."},
+  {q:"Quelle formule introduit une nuance importante ?",ctx:"Préciser une affirmation",ans:"יש להדגיש / יש לציין",opts:["יש להדגיש / יש לציין","חשוב לדעת","צריך לזכור","כדאי לדעת"],exp:"<strong>יש להדגיש כי</strong> (il faut souligner que) — attire l'attention sur un point crucial. Plus fort que יש לציין."},
+  {q:"Comment dit-on 'il existe une corrélation entre X et Y' ?",ctx:"Établir un lien statistique",ans:"קיים קשר / מתאם בין X לבין Y",opts:["קיים קשר / מתאם בין X לבין Y","X וY קשורים","X גורם ל-Y","יש קשר"],exp:"<strong>קיים קשר / מתאם בין... לבין</strong> (il existe une corrélation entre... et) — formel. מתאם = corrélation (statistique)."},
+  {q:"Comment exprimer 'ce débat soulève des questions fondamentales' ?",ctx:"Introduction d'un sujet profond",ans:"דיון זה מעלה שאלות יסודיות",opts:["דיון זה מעלה שאלות יסודיות","הדיון קשה","יש שאלות","הנושא חשוב"],exp:"<strong>מעלה שאלות יסודיות / בסיסיות</strong> (soulève des questions fondamentales) — מעלה שאלות est une colocation clé."},
+  {q:"Comment dit-on 'la solution proposée comporte des risques' ?",ctx:"Évaluer une solution",ans:"הפתרון המוצע טומן בחובו סיכונים",opts:["הפתרון המוצע טומן בחובו סיכונים","יש סיכונים בפתרון","הפתרון סיכוני","הפתרון יכול להיות מסוכן"],exp:"<strong>טומן בחובו</strong> (recèle / comporte en son sein) — formule idiomatique formelle pour parler d'un risque latent."},
+  {q:"Comment dit-on 'il convient d'adopter une approche équilibrée' ?",ctx:"Recommandation de nuance",ans:"ראוי לאמץ גישה מאוזנת",opts:["ראוי לאמץ גישה מאוזנת","צריך להיות בשקל","כדאי לאזן","פתרון טוב הוא איזון"],exp:"<strong>ראוי לאמץ גישה מאוזנת</strong> (il convient d'adopter une approche équilibrée) — formule de recommandation typique."},
+  {q:"Comment introduit-on le contexte historique ?",ctx:"Donner une perspective temporelle",ans:"מבחינה היסטורית / על רקע היסטורי",opts:["מבחינה היסטורית / על רקע היסטורי","בהיסטוריה","לפני","בעבר"],exp:"<strong>מבחינה היסטורית</strong> (d'un point de vue historique) ou <strong>על רקע היסטורי</strong> (sur fond historique)."},
+  {q:"Comment dit-on 'ce phénomène n'est pas isolé' ?",ctx:"Généraliser un phénomène",ans:"תופעה זו אינה מבודדת",opts:["תופעה זו אינה מבודדת","זה לא לבד","הבעיה נפוצה","זה קיים בכל מקום"],exp:"<strong>אינה מבודדת</strong> (n'est pas isolée) — formule élégante. מבודד = isolé."},
+  {q:"Quelle formule utilise-t-on pour 'dans ce contexte' ?",ctx:"Ancrer un argument dans son contexte",ans:"בהקשר זה / בנסיבות אלה",opts:["בהקשר זה / בנסיבות אלה","פה","בנושא הזה","בסיטואציה"],exp:"<strong>בהקשר זה</strong> (dans ce contexte) — הקשר = contexte. <strong>בנסיבות אלה</strong> = dans ces circonstances."},
+  {q:"Comment dit-on 'à mesure que le temps passe' ?",ctx:"Décrire une évolution temporelle",ans:"עם חלוף הזמן / ככל שחולף הזמן",opts:["עם חלוף הזמן / ככל שחולף הזמן","כשהזמן עובר","לאורך הזמן","בעקבות הזמן"],exp:"<strong>עם חלוף הזמן</strong> (avec le temps qui passe) ou <strong>ככל שחולף הזמן</strong> — formules de progression temporelle."},
+  {q:"Comment exprime-t-on 'il est grand temps de' ?",ctx:"Urgence d'action",ans:"הגיעה השעה ל / הגיע הזמן ל",opts:["הגיעה השעה ל / הגיע הזמן ל","צריך כבר","סוף סוף","עכשיו"],exp:"<strong>הגיעה השעה ל</strong> (il est grand temps de) — formule d'urgence formelle."},
+  {q:"Comment dit-on 'les chiffres parlent d'eux-mêmes' ?",ctx:"Conclure par des données",ans:"הנתונים מדברים בעד עצמם",opts:["הנתונים מדברים בעד עצמם","הנתונים ברורים","כפי שנראה מהנתונים","הנתונים מוכיחים"],exp:"<strong>הנתונים מדברים בעד עצמם</strong> (les chiffres parlent d'eux-mêmes) — expression idiomatique formelle."},
+  {q:"Comment dit-on 'il est prématuré de conclure que' ?",ctx:"Exprimer la prudence dans les conclusions",ans:"מוקדם להסיק כי / עדיין מוקדם",opts:["מוקדם להסיק כי / עדיין מוקדם","לא ניתן","אי אפשר","לא יודעים"],exp:"<strong>מוקדם להסיק כי</strong> (il est prématuré de conclure que) — formule de prudence scientifique."},
+  {q:"Comment dit-on 'cette question mérite une attention particulière' ?",ctx:"Souligner l'importance d'un point",ans:"סוגיה זו ראויה לתשומת לב מיוחדת",opts:["סוגיה זו ראויה לתשומת לב מיוחדת","זה חשוב","כדאי לשים לב","הנושא מעניין"],exp:"<strong>ראויה לתשומת לב מיוחדת</strong> (mérite une attention particulière) — formule formelle. ראוי לX = mériter X."},
+  {q:"Comment formuler 'les implications sont loin d'être négligeables' ?",ctx:"Insister sur l'importance des conséquences",ans:"ההשלכות אינן מבוטלות / ניכרות",opts:["ההשלכות אינן מבוטלות / ניכרות","יש תוצאות","ההשלכות חשובות","זה גורם לבעיות"],exp:"<strong>אינן מבוטלות</strong> (ne sont pas négligeables) — formule litote. בלתי מבוטל = non négligeable, significatif."},
+  {q:"Comment dit-on 'cela va de pair avec' ?",ctx:"Lier deux phénomènes concomitants",ans:"זה מתחבר / מתכנס עם",opts:["זה מתחבר / מתכנס עם","זה קשור","יחד עם","גם"],exp:"<strong>הולך יד ביד עם</strong> (va de pair avec) — expression idiomatique. Ou : <strong>מלווה ב</strong> (est accompagné de)."},
+  {q:"Quelle formule exprime 'au vu de tout cela, il ressort que' ?",ctx:"Synthèse finale dans une conclusion",ans:"מכל האמור לעיל עולה כי",opts:["מכל האמור לעיל עולה כי","לסיכום","אז","לכן"],exp:"<strong>מכל האמור לעיל עולה כי</strong> (de tout ce qui précède, il ressort que) — formule de synthèse conclusive."},
+  {q:"Comment dit-on 'ce problème est multidimensionnel' ?",ctx:"Complexité d'une question",ans:"הבעיה היא רב-ממדית / רב-פנים",opts:["הבעיה היא רב-ממדית / רב-פנים","יש הרבה בעיות","הבעיה מורכבת","הבעיה גדולה"],exp:"<strong>רב-ממדית</strong> (multidimensionnelle) ou <strong>רב-פנים</strong> (à multiples facettes) — adjectifs de complexité formels."},
+  {q:"Comment exprime-t-on 'compte tenu de ces facteurs' ?",ctx:"Prise en compte de plusieurs éléments",ans:"בהתחשב בגורמים אלה",opts:["בהתחשב בגורמים אלה","בגלל הגורמים","על פי הגורמים","עם הגורמים"],exp:"<strong>בהתחשב ב</strong> (compte tenu de / en tenant compte de) — formule formelle pour peser les facteurs."},
+  {q:"Comment dit-on 'il serait réducteur de' ?",ctx:"Éviter une simplification abusive",ans:"יהיה זה מצמצם לומר כי / פשטני",opts:["יהיה זה מצמצם לומר כי / פשטני","לא כדאי","זה לא נכון","לא ניתן"],exp:"<strong>פשטני מדי לומר כי</strong> (réducteur de dire que) ou <strong>הגזמה לומר</strong> — formules pour éviter la simplification."},
+  {q:"Comment dit-on 'la tendance est à la hausse' ?",ctx:"Décrire une évolution positive",ans:"המגמה היא עלייה / של עלייה",opts:["המגמה היא עלייה / של עלייה","הדברים עולים","יש יותר","הכל גדל"],exp:"<strong>מגמת עלייה / מגמה של עלייה</strong> (tendance à la hausse) — colocation formelle. Ou: <strong>המגמה עולה</strong>."},
 ]
 const ANNALES_DATA = [
   {
@@ -3507,8 +3556,7 @@ function answerQuiz(idx){
   if(correct){quiz.score++;quiz.combo++;if(typeof w.id==='number')sm2Update(w.id,2);}
   else{quiz.combo=0;if(typeof w.id==='number')sm2Update(w.id,0);}
   const exp=document.getElementById('quiz-exp');
-  if(exp)exp.innerHTML=`<div class="quiz-exp">${I(correct?'check':'x',14)} ${correct?'Correct !':'Incorrect.'} <strong>${w.fr}</strong>${w.ant?' · Ant. : '+w.ant:''}${w.exp?'<br><span style="opacity:.8">'+w.exp+'</span>':''}</div>`;
-  setTimeout(()=>{quiz.idx++;renderQuiz();},correct?1000:2000);
+  if(exp)exp.innerHTML=`<div class="quiz-exp">${I(correct?'check':'x',14)} ${correct?'Correct !':'Incorrect.'} <strong>${w.fr}</strong>${w.ant?' · Ant. : '+w.ant:''}${w.exp?'<br><span style="opacity:.8">'+w.exp+'</span>':''}</div><button class="btn-next-q" onclick="quiz.idx++;renderQuiz()">${I('arrow-right',14)} Suivant</button>`;
 }
 function renderQuizResult(){
   const pct=Math.round(quiz.score/quiz.qs.length*100);
@@ -3560,8 +3608,7 @@ function answerConn(i){
     else if(j===i&&!correct)el.classList.add('wrong');
   });
   const exp=document.getElementById('conn-exp');
-  if(exp)exp.innerHTML=`<div class="ex-exp">${correct?I('check',13)+' Correct !':I('x',13)+' Réponse : <strong>'+q.ans+'</strong>'} — ${q.exp||''}</div>`;
-  setTimeout(()=>{conn.idx++;renderConnector();},correct?900:1700);
+  if(exp)exp.innerHTML=`<div class="ex-exp">${correct?I('check',13)+' Correct !':I('x',13)+' Réponse : <strong>'+q.ans+'</strong>'} — ${q.exp||''}</div><button class="btn-next-q" onclick="conn.idx++;renderConnector()">${I('arrow-right',14)} Suivant</button>`;
 }
 
 // === PHRASES (index-based onclick) ===
@@ -3597,8 +3644,7 @@ function answerPhr(i){
     else if(j===i&&!correct)el.classList.add('wrong');
   });
   const exp=document.getElementById('phr-exp');
-  if(exp)exp.innerHTML=`<div class="ex-exp">${correct?I('check',13)+' Correct !':I('x',13)+' Réponse : <strong>'+q.ans+'</strong>'} — ${q.exp||''}</div>`;
-  setTimeout(()=>{phr.idx++;renderPhrase();},correct?900:1700);
+  if(exp)exp.innerHTML=`<div class="ex-exp">${correct?I('check',13)+' Correct !':I('x',13)+' Réponse : <strong>'+q.ans+'</strong>'} — ${q.exp||''}</div><button class="btn-next-q" onclick="phr.idx++;renderPhrase()">${I('arrow-right',14)} Suivant</button>`;
 }
 
 // === ANNALES (index-based onclick) ===
@@ -3680,8 +3726,7 @@ function answerAnn(i){
   });
   const exp=document.getElementById('ann-expbox');
   const icon=correct?I('check',13)+' Correct !':(i<0?I('clock',13)+' Temps écoulé ! ':I('x',13)+' Incorrect ! ');
-  if(exp)exp.innerHTML=`<div class="ann-exp-box">${icon}Réponse : <strong>${q.opts[q.ans]}</strong>${q.exp?'<br><span style="font-size:.77rem;opacity:.85">'+q.exp+'</span>':''}</div>`;
-  setTimeout(()=>{ann.qIdx++;renderAnnalesQ();},correct?900:1700);
+  if(exp)exp.innerHTML=`<div class="ann-exp-box">${icon}Réponse : <strong>${q.opts[q.ans]}</strong>${q.exp?'<br><span style="font-size:.77rem;opacity:.85">'+q.exp+'</span>':''}</div><button class="btn-next-q" onclick="ann.qIdx++;renderAnnalesQ()">${I('arrow-right',14)} Suivant</button>`;
 }
 
 // === COURS ===
