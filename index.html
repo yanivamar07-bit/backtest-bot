@@ -409,6 +409,9 @@ html.dark .rtab.active{background:#1e293b}
   background:linear-gradient(90deg,var(--g),var(--acc))}
 .ann-timer-fill.warn{background:linear-gradient(90deg,var(--acc),var(--r))}
 .kbd-hint{font-size:.68rem;color:var(--txt3);text-align:center;margin-top:6px;opacity:.7}
+.quiz-progress{height:4px;background:var(--bdr);border-radius:99px;margin-bottom:14px;overflow:hidden}
+.quiz-progress-fill{height:100%;background:var(--pd);border-radius:99px;transition:width .3s}
+.ann-score-live{font-size:.75rem;font-weight:700;color:var(--pd);margin-left:auto}
 .kbd{display:inline-block;background:var(--bg2);border:1px solid var(--bdr);
   border-radius:4px;padding:1px 5px;font-family:monospace;font-size:.7rem}
 .ann-timer-lbl{font-size:.68rem;color:var(--txt3);text-align:right;margin-top:3px;font-weight:600}
@@ -811,6 +814,15 @@ const RAW_WORDS = [
 ["מיתון","récession","S"],["תעסוקה","emploi","S"],["אבטלה","chômage","S"],
 ["שכר","salaire","S"],["הכשרה","formation","S"],["יזמות","entrepreneuriat","S"],
 
+// SECTION 6b — Santé mentale et bien-être (S)
+["חרדה","anxiété","S"],["דיכאון","dépression","S"],["לחץ","stress","S"],
+["שחיקה","burnout / épuisement","S"],["רווחה נפשית","bien-être mental","S"],
+["תמיכה רגשית","soutien émotionnel","S"],["אוריינות רגשית","littératie émotionnelle","S"],
+["ויסות רגשי","régulation émotionnelle","S"],["חוסן נפשי","résilience psychologique","S"],
+["מוקד שליטה","lieu de contrôle (locus of control)","S"],
+["תופעת לוואי","effet secondaire","S"],["תרופה נגד","médicament contre","S"],
+["מדדי בריאות","indicateurs de santé","S"],["ניטור","monitoring / surveillance","S"],
+["טלה-רפואה","télémédecine","S"],["אבחון מוקדם","diagnostic précoce","S"],
 // SECTION 7 — Société / Culture (C)
 ["שלטון","gouvernance","C"],["דמוקרטיה","démocratie","C"],["שקיפות","transparence","C"],
 ["שחיתות","corruption","C"],["פיקוח","supervision / contrôle","C"],
@@ -1099,6 +1111,19 @@ const RAW_WORDS = [
 ["פיתוח מנהיגות","développement du leadership","R"],["העצמת קהילות","empowerment des communautés","R"],
 ["הנחלת ידע","transmission du savoir","R"],["ביסוס אמון","consolidation de la confiance","R"],
 ["הפחתת אי-שוויון","réduction des inégalités","R"],
+// SECTION 12 — Termes philosophiques et politiques avancés (R)
+["פלורליזם","pluralisme","R"],["קונסנזוס","consensus","R"],
+["לגיטימציה","légitimité","R"],["ריבונות","souveraineté","R"],
+["ביזור","décentralisation","R"],["ריכוזיות","centralisation","R"],
+["פדרליזם","fédéralisme","R"],["קונסטיטוציה","constitution","R"],
+["אימפריאליזם","impérialisme","R"],["קולוניאליזם","colonialisme","R"],
+["גלובליזם","mondialisme","R"],["לאומנות","nationalisme","R"],
+["פוסיטיביזם","positivisme","R"],["אנתרופוצנטרי","anthropocentrique","R"],
+["דיאלקטי","dialectique","R"],["אמפיריציזם","empirisme","R"],
+["רלטיביזם","relativisme","R"],["אוניברסליזם","universalisme","R"],
+["קוסמופוליטניות","cosmopolitisme","R"],["מולטילטרליזם","multilatéralisme","R"],
+["הגדרה עצמית","autodétermination","R"],["אוטונומיה","autonomie","R"],
+["סובסידיאריות","subsidiarité","R"],["פרוצדורליזם","procéduralisme","R"],
 // SECTION 10 — Mots spécifiques aux sujets YAEL (Y)
 ["הכריזה","a déclaré / a annoncé (fém.)","Y"],["פסיקה","arrêt / verdict / jugement","Y"],
 ["תועד","fut documenté","Y"],["נמתחה ביקורת","fut critiqué / essuyé des critiques","Y"],
@@ -1125,6 +1150,20 @@ const RAW_WORDS = [
 ["שיח ציבורי","débat public / discours public","Y"],["גיוס ציבורי","mobilisation publique","Y"],
 ["תודעה ציבורית","conscience publique","Y"],["מודעות","sensibilisation / conscience","Y"],
 ["הפנמה","intériorisation / assimilation","Y"],["עיגון","ancrage / consolidation (légale)","Y"],
+["עקרון","principe","Y"],["מנגנון","mécanisme","Y"],
+["מסגרת","cadre / framework","Y"],["היבט","aspect / dimension","Y"],
+["מדד","indicateur / indice","Y"],["מגמה","tendance","Y"],
+["ממד","dimension","Y"],["פרמטר","paramètre","Y"],
+["שיקול","considération / facteur","Y"],["נסיבות","circonstances","Y"],
+["השלכות","implications / conséquences","Y"],["ניתוח","analyse","Y"],
+["גישה","approche / accès","Y"],["תפישה","conception / perception","Y"],
+["רציונל","rationalité / justification","Y"],["הקשר","contexte","Y"],
+["סקרנות","curiosité","Y"],["ספקנות","scepticisme","Y"],
+["פרגמטי","pragmatique","Y"],["אידיאולוגי","idéologique","Y"],
+["מיליטנטי","militant","Y"],["ביורוקרטי","bureaucratique","Y"],
+["היררכי","hiérarchique","Y"],["סיסטמי","systémique","Y"],
+["הדרגתי","graduel / progressif","Y"],["מהותי","fondamental / essentiel","Y"],
+["מכריע","décisif / crucial","Y"],["תלוי הקשר","dépendant du contexte","Y"],
 ]
 
 const CONNECTOR_EXERCISES = [
@@ -1199,6 +1238,16 @@ const CONNECTOR_EXERCISES = [
   {q:"הבעיה _______ פתרון מיידי.",ans:"מחייבת",opts:["צריכה","מחייבת","דורשת","מבקשת"],exp:"<strong>מחייבת / דורשת</strong> (exige / requiert) — מחייב est plus fort (oblige), דורש = réclame."},
   {q:"_______ לא נפתור את הבעיה, נתמודד עמה.",ans:"גם אם",opts:["אפילו","גם אם","אם","למרות ש"],exp:"<strong>גם אם</strong> (même si) — concession sur une condition hypothétique. Plus fort qu'אם."},
   {q:"ישנן גישות שונות; _______, כל אחת יתרונות.",ans:"לכל",opts:["לכל","לכן","ואולם","כי"],exp:"<strong>לכל גישה יתרונות</strong> — structure nominale formelle. 'Chaque approche a ses avantages.'"},
+  {q:"_______ האמור לעיל, ניתן לקבוע כי...",ans:"לאור",opts:["בגלל","לאור","לכן","כי"],exp:"<strong>לאור האמור לעיל</strong> (à la lumière de ce qui précède) — formule de conclusion formelle. Niveau YAEL."},
+  {q:"_______ שיש להעיר, המצב השתפר.",ans:"עם כל זאת",opts:["עם זאת","עם כל זאת","ואולם","אבל"],exp:"<strong>עם כל זאת</strong> (malgré tout / néanmoins) — concession plus forte qu'עם זאת. Implique des réserves multiples."},
+  {q:"_______ הדבר, הצוות המשיך.",ans:"חרף כל",opts:["למרות","חרף כל","בגלל","כי"],exp:"<strong>חרף כל (זאת)</strong> (en dépit de tout) — registre très formel/littéraire. Équivalent de על אף הכל."},
+  {q:"_______ האמת, עלינו להודות כי...",ans:"לאמיתו של דבר",opts:["באמת","לאמיתו של דבר","בפועל","למעשה"],exp:"<strong>לאמיתו של דבר</strong> (à vrai dire / en vérité) — formule très formelle. Plus fort que למעשה."},
+  {q:"_______ בנושא, ניתן לזהות שלוש גישות.",ans:"כשמתעמקים",opts:["אם מסתכלים","כשמתעמקים","לפי","כאשר"],exp:"<strong>כשמתעמקים בנושא</strong> (quand on approfondit le sujet) — formule d'approfondissement. Niveau B2-C1."},
+  {q:"הגישה _______ תוצאות טובות יותר.",ans:"מביאה ל",opts:["נותנת","מביאה ל","גורמת ל","יוצרת"],exp:"<strong>מביאה לתוצאות טובות יותר</strong> (conduit à de meilleurs résultats) — הביא ל est plus formel qu'גרם ל."},
+  {q:"_______ יוצא מהאמור, יש לבחון את הנושא מחדש.",ans:"מכלל",opts:["מזה","מכלל","מן","מתוך"],exp:"<strong>מכלל האמור יוצא ש</strong> (il ressort de tout cela que) — formule de déduction logique très formelle. Niveau C1."},
+  {q:"_______ להכחיש, ישנן בעיות ביישום.",ans:"אין",opts:["אי אפשר","אין","לא ניתן","אסור"],exp:"<strong>אין להכחיש</strong> (on ne peut nier que) — formule de concession rhétorique. Très utile en essai."},
+  {q:"כפי _______, הנושא טעון בירור.",ans:"שנראה",opts:["שנראה","שרואים","שאמרנו","שהוזכר"],exp:"<strong>כפי שנראה</strong> (comme on peut le voir) — formule de transition. Autre variante : כפי שהוזכר (comme mentionné)."},
+  {q:"_______ הדברים, מהנסיון עולה כי...",ans:"מבחינת",opts:["לפי","מבחינת","בנוגע ל","מצד"],exp:"<strong>מבחינת הדברים / מבחינת הנסיון</strong> (du point de vue / en termes de) — très formel. מבחינת + NOUN = 'au niveau de'."},
 ]
 const PHRASE_EXERCISES = [
   {q:"Choisissez le meilleur début d'essai sur le thème de l'éducation :",ctx:"Sujet : 'L'éducation en Israël — défis et solutions'",ans:"ניתן לומר כי מערכת החינוך בישראל עומדת בפני אתגרים משמעותיים",opts:["ניתן לומר כי מערכת החינוך בישראל עומדת בפני אתגרים משמעותיים","מערכת החינוך בישראל היא חשובה","אני חושב שחינוך הוא טוב","יש בעיות בחינוך"],exp:"<strong>ניתן לומר כי...</strong> est l'ouverture académique typique du YAEL. Elle présente le sujet sans 'je'."},
@@ -1263,6 +1312,20 @@ const PHRASE_EXERCISES = [
   {q:"Comment exprime-t-on 'compte tenu de ces facteurs' ?",ctx:"Prise en compte de plusieurs éléments",ans:"בהתחשב בגורמים אלה",opts:["בהתחשב בגורמים אלה","בגלל הגורמים","על פי הגורמים","עם הגורמים"],exp:"<strong>בהתחשב ב</strong> (compte tenu de / en tenant compte de) — formule formelle pour peser les facteurs."},
   {q:"Comment dit-on 'il serait réducteur de' ?",ctx:"Éviter une simplification abusive",ans:"יהיה זה מצמצם לומר כי / פשטני",opts:["יהיה זה מצמצם לומר כי / פשטני","לא כדאי","זה לא נכון","לא ניתן"],exp:"<strong>פשטני מדי לומר כי</strong> (réducteur de dire que) ou <strong>הגזמה לומר</strong> — formules pour éviter la simplification."},
   {q:"Comment dit-on 'la tendance est à la hausse' ?",ctx:"Décrire une évolution positive",ans:"המגמה היא עלייה / של עלייה",opts:["המגמה היא עלייה / של עלייה","הדברים עולים","יש יותר","הכל גדל"],exp:"<strong>מגמת עלייה / מגמה של עלייה</strong> (tendance à la hausse) — colocation formelle. Ou: <strong>המגמה עולה</strong>."},
+  {q:"Comment dit-on 'il importe de souligner que' ?",ctx:"Mise en avant d'un point crucial",ans:"חשוב להדגיש כי / יש להדגיש כי",opts:["חשוב להדגיש כי / יש להדגיש כי","חשוב לדעת","יש לזכור","כדאי לציין"],exp:"<strong>יש להדגיש כי</strong> (il importe de souligner que) ou <strong>ראוי להדגיש</strong> — plus fort que ניתן לציין."},
+  {q:"Comment dit-on 'cette approche présente des avantages et des inconvénients' ?",ctx:"Évaluation équilibrée",ans:"לגישה זו יתרונות וחסרונות",opts:["לגישה זו יתרונות וחסרונות","הגישה טובה ורעה","יש יתרונות","הגישה בסדר"],exp:"<strong>לגישה זו יתרונות וחסרונות</strong> (cette approche a des avantages et des inconvénients) — structure avec ל préférer à יש ל dans un essai formel."},
+  {q:"Comment exprime-t-on 'selon toute vraisemblance' ?",ctx:"Probabilité prudente",ans:"על פי כל הסממנים / ניתן להניח כי",opts:["על פי כל הסממנים / ניתן להניח כי","בוודאות","כנראה","אולי"],exp:"<strong>ניתן להניח כי</strong> (on peut supposer que) ou <strong>על פי הסממנים</strong> (selon toute apparence) — nuance de probabilité sans certitude."},
+  {q:"Comment dit-on 'il convient de distinguer entre A et B' ?",ctx:"Distinction conceptuelle",ans:"יש להבחין בין A לבין B",opts:["יש להבחין בין A לבין B","A שונה מ-B","A וגם B","A או B"],exp:"<strong>יש להבחין בין X לבין Y</strong> (il convient de distinguer entre) — formule clé pour les distinctions conceptuelles en dissertation."},
+  {q:"Comment introduit-on un contre-argument au YAEL ?",ctx:"Structure d'argumentation",ans:"מנגד / לעומת זאת, ישנם הטוענים כי",opts:["מנגד / לעומת זאת, ישנם הטוענים כי","אבל יש שאומרים","גם יש מי שאומר","אחרים חושבים"],exp:"<strong>מנגד</strong> (à l'opposé) ou <strong>יש הטוענים כי</strong> (certains soutiennent que) — signaux de contre-argument formels."},
+  {q:"Comment exprime-t-on 'au-delà de la question' ?",ctx:"Elargissement du sujet",ans:"מעבר לשאלה זו / מעבר לכך",opts:["מעבר לשאלה זו / מעבר לכך","חוץ מהשאלה","מאחורי השאלה","לפני השאלה"],exp:"<strong>מעבר לכך</strong> (au-delà de cela) ou <strong>מעבר לשאלה זו</strong> — formule d'élargissement du cadre de réflexion."},
+  {q:"Comment dit-on 'il est difficile de nier que' ?",ctx:"Concession rhétorique",ans:"קשה להכחיש / אין להכחיש כי",opts:["קשה להכחיש / אין להכחיש כי","אי אפשר לומר","ברור ש","הכל יודעים"],exp:"<strong>אין להכחיש כי</strong> (on ne peut nier que) — concession rhétorique. Reconnaît un fait avant de le nuancer. Niveau C1."},
+  {q:"Comment dit-on 'ce phénomène appelle une réponse urgente' ?",ctx:"Appel à l'action",ans:"תופעה זו מחייבת מענה דחוף",opts:["תופעה זו מחייבת מענה דחוף","יש לפתור את זה","עלינו לעשות משהו","הבעיה גדולה"],exp:"<strong>מחייבת מענה דחוף</strong> (exige une réponse urgente) — מחייב est plus fort que דורש. Utilisé pour les appels à l'action institutionnels."},
+  {q:"Comment exprime-t-on 'à la lumière des données récentes' ?",ctx:"Référence aux sources",ans:"לאור הנתונים העדכניים",opts:["לאור הנתונים העדכניים","כי יש נתונים","לפי מחקר","בגלל הנתונים"],exp:"<strong>לאור הנתונים העדכניים</strong> (à la lumière des données récentes) — formule de citation de données. לאור + source = formule de justification académique."},
+  {q:"Comment dit-on 'à titre d'exemple' en hébreu formel ?",ctx:"Introduction d'un exemple",ans:"לדוגמה / כדוגמה לכך",opts:["לדוגמה / כדוגמה לכך","כמו","יש דוגמה","נראה דוגמה"],exp:"<strong>לדוגמה</strong> (par exemple) ou <strong>כדוגמה לכך</strong> (en voici un exemple) — plus formel que כגון (lequel peut aussi introduire une liste)."},
+  {q:"Comment exprime-t-on 'ce n'est pas sans raison que' ?",ctx:"Mise en relief d'une causalité",ans:"לא בכדי / ולא בכדי",opts:["לא בכדי / ולא בכדי","לא בגלל","בלי סיבה","לא בגלל כלום"],exp:"<strong>לא בכדי</strong> (ce n'est pas sans raison que / non sans raison) — expression soulignant qu'il y a une raison derrière un fait. Niveau C1."},
+  {q:"Comment dit-on 'd'autant plus que' ?",ctx:"Renforcement d'un argument",ans:"כל שכן / קל וחומר",opts:["כל שכן / קל וחומר","בגלל זה","וגם","אפילו"],exp:"<strong>כל שכן</strong> (d'autant plus que / à plus forte raison) — renforcement logique. <strong>קל וחומר</strong> = a fortiori (registre très formel/juridique)."},
+  {q:"Comment dit-on 'malgré les difficultés' ?",ctx:"Concession sur les obstacles",ans:"על אף הקשיים / חרף הקשיים",opts:["על אף הקשיים / חרף הקשיים","בגלל הקשיים","עם הקשיים","אחרי הקשיים"],exp:"<strong>על אף הקשיים</strong> (malgré les difficultés) — concession nominale (+ NOM, pas + verbe). <strong>חרף הקשיים</strong> = registre plus littéraire."},
+  {q:"Comment dit-on 'l'analyse révèle que' ?",ctx:"Présentation de résultats d'analyse",ans:"הניתוח מגלה / מצביע על כך ש",opts:["הניתוח מגלה / מצביע על כך ש","הניתוח אומר","אנחנו רואים","הניתוח יודע"],exp:"<strong>הניתוח מגלה כי</strong> (l'analyse révèle que) ou <strong>מצביע על</strong> (indique). מגלה = révèle (plus dramatique). מצביע על = pointe vers (plus neutre)."},
 ]
 const ANNALES_DATA = [
   {
@@ -3078,6 +3141,643 @@ const ANNALES_DATA = [
         ]
       }
     ]
+  },
+  {
+    "exam": "Examen Blanc N°10",
+    "sections": [
+      {
+        "section": "Section A — Vocabulaire en contexte",
+        "questions": [
+          {"s":"ה_______ הסביבתית של הפסולת הפלסטית על האוקיינוסים חמורה ביותר.",
+           "w":"השפעה","opts":["בעיה","השפעה","נזק","תוצאה"],"ans":1,
+           "exp":"השפעה = l'impact / l'influence. 'השפעה סביבתית' = impact environnemental (collocation formelle). נזק = dommage (résultat). תוצאה = résultat. השפעה est plus large et comprend les effets multiples sur l'écosystème."},
+          {"s":"הכנסת _______ חוק חדש להגנה על נתוני פרטיות אזרחים.",
+           "w":"חוקקה","opts":["פרסמה","חוקקה","אישרה","חתמה"],"ans":1,
+           "exp":"חוקקה = a légiféré / a promulgué (Pa'al de חקק). Le verbe technique pour créer une loi est לחוקק. אישרה (a approuvé) = ratification d'une proposition. פרסמה = publié. חוקקה implique l'acte législatif de création."},
+          {"s":"ה_______ לבית הספר הופחתה לאחר שינוי גבולות האזור.",
+           "w":"נגישות","opts":["דרך","נגישות","קרבה","גישה"],"ans":1,
+           "exp":"נגישות = accessibilité (noun d'état). הופחתה = fut réduite (passif). 'נגישות לבית ספר' = accessibilité à l'école — terme de politique sociale. גישה = accès (processus d'accéder). נגישות est plus formel et couvre la dimension systémique."},
+          {"s":"מדיניות ה_______ של ישראל מושפעת ממגמות עולמיות ומלחצים גיאופוליטיים.",
+           "w":"ביטחון","opts":["חוץ","ביטחון","הגנה","מדיניות"],"ans":1,
+           "exp":"מדיניות הביטחון = politique de sécurité / défense nationale. Contexte: מגמות עולמיות + לחצים גיאופוליטיים → sécurité nationale. מדיניות חוץ = politique étrangère (diplomatie). מדיניות הגנה est synonyme mais moins courant en hébreu formel."},
+          {"s":"ה_______ של הניסוי הביולוגי עוררה ויכוח בקרב חוקרים.",
+           "w":"ממצאים","opts":["תוצאות","ממצאים","נתונים","הוכחות"],"ans":1,
+           "exp":"ממצאים = résultats/découvertes (d'une étude). Différent de תוצאות (résultats généraux) — ממצאים implique des découvertes spécifiques issues d'une recherche scientifique. נתונים = données brutes. ממצאים = les données interprétées → 'findings'."},
+          {"s":"ה_______ של מדינות מפותחות לארצות מתפתחות נמצאת בירידה.",
+           "w":"סיוע","opts":["כסף","סיוע","תמיכה","עזרה"],"ans":1,
+           "exp":"סיוע = aide / assistance (terme formel et spécifique). סיוע זר = aide étrangère. תמיכה = soutien (plus général). עזרה = aide (informel). סיוע est le terme diplomatique et économique standard pour désigner l'aide internationale."},
+          {"s":"ה_______ הציבורי לממשלה נמוך מאי-פעם, על פי הסקר החדש.",
+           "w":"אמון","opts":["ציות","אמון","ביטחון","כבוד"],"ans":1,
+           "exp":"אמון ציבורי = confiance publique — l'indicateur central de la légitimité gouvernementale. ציות = obéissance (comportement, non sentiment). ביטחון = sécurité / confiance en soi. אמון est spécifiquement le capital de confiance politique."},
+          {"s":"ה_______ הפוליטית בין הסיעות הגיעה לנקודת שבר.",
+           "w":"מתיחות","opts":["תחרות","מתיחות","קיטוב","מחלוקת"],"ans":1,
+           "exp":"מתיחות = tension. הגיעה לנקודת שבר = a atteint un point de rupture. קיטוב = polarisation (plus structurel). מחלוקת = désaccord (sur un sujet). מתיחות est la sensation de tension avant la rupture — l'expression 'נקודת שבר' la confirme."},
+          {"s":"חוקרים _______ כי שיטת הלימוד המשולב יעילה יותר מהמסורתית.",
+           "w":"הוכיחו","opts":["טענו","הוכיחו","ראו","מצאו"],"ans":1,
+           "exp":"הוכיחו = ont prouvé (Hif'il de הוכיח). Dans un contexte de recherche concluante → הוכיחו (preuve établie). טענו = ont affirmé (sans preuve). מצאו = ont trouvé (résultat). הוכיחו implique une démonstration solide — le plus fort des verbes de conclusion."},
+          {"s":"ה_______ בין חופש הביטוי לזכות לפרטיות מורכב ורגיש.",
+           "w":"איזון","opts":["ניגוד","איזון","קשר","מתח"],"ans":1,
+           "exp":"איזון = équilibre / balance. 'האיזון בין X לY' = l'équilibre entre X et Y (formule académique pour les tensions normatives). מתח (tension) décrit le problème. איזון décrit la solution ou la difficulté de concilier les deux."},
+        ]
+      },
+      {
+        "section": "Section B — Texte sur la crise du logement",
+        "paragraph": "משבר הדיור בישראל מאיים על יכולתם של צעירים לבנות את חייהם. מחירי הדירות זינקו בכ-150% בעשור האחרון, בעוד ששכר הממוצע עלה בכ-40% בלבד. הממשלה הכריזה על תוכניות בנייה שאפתניות, אולם יישומן נתקל בביורוקרטיה, מחסור בעובדי בניין ועלויות גבוהות.",
+        "questions": [
+          {"s":"מחירי הדירות _______ בכ-150% בעשור האחרון.",
+           "w":"זינקו","opts":["עלו","זינקו","גדלו","השתפרו"],"ans":1,
+           "exp":"זינקו = ont bondi / ont explosé (Pa'al de זינק). Plus fort qu'עלו (ont augmenté) et גדלו (ont grandi). 'זינק' implique une hausse brutale et importante — adéquat ici pour 150% en 10 ans. Contraste: עלו השכר (40%) vs זינקו המחירים (150%)."},
+          {"s":"בעוד שמחירי הדירות זינקו, שכר הממוצע _______ ב-40% בלבד.",
+           "w":"עלה","opts":["זינק","עלה","גדל","השתנה"],"ans":1,
+           "exp":"עלה ב-40% = a augmenté de 40%. בלבד = seulement (nuance de limitation). Le contraste est délibéré: זינקו (150%) vs עלה (40%) — les deux verbes ne sont pas interchangeables ici. עלה est modéré; זינק est explosif."},
+          {"s":"יישום התוכניות _______ בביורוקרטיה ומחסור בעובדים.",
+           "w":"נתקל","opts":["נכשל","נתקל","עמד בפני","מצא"],"ans":1,
+           "exp":"נתקל ב = s'est heurté à / a rencontré (Pa'al de נתקל). Expression figée pour 'rencontrer un obstacle'. נכשל (a échoué) implique l'échec total. עמד בפני (a fait face à) est plus neutre. נתקל ב indique spécifiquement un obstacle inattendu."},
+          {"s":"מה הגורמים לקשיי יישום התוכניות לפי הקטע?",
+           "w":"ביורוקרטיה, מחסור בעובדים ועלויות גבוהות","opts":["ביורוקרטיה בלבד","ביורוקרטיה, מחסור בעובדים ועלויות גבוהות","חוסר רצון מדיני","מחירי קרקע"],"ans":1,
+           "exp":"הטקסט מציין שלושה גורמים מפורשים: ביורוקרטיה + מחסור בעובדי בניין + עלויות גבוהות. שלושתם חייבים להופיע בתשובה. בסוגיות של 'גורמים' יש לכלול את כל הגורמים שמוזכרים."},
+          {"s":"מה ניתן להסיק לגבי משבר הדיור מהקטע?",
+           "w":"הוא קשה, מאיים על צעירים, ויישום הפתרונות מעוכב","opts":["יש פתרון","הוא קשה, מאיים על צעירים, ויישום הפתרונות מעוכב","הממשלה מצליחה","זה בעיה זמנית"],"ans":1,
+           "exp":"הטקסט מציג: (1) מחירים זינקו 150% vs שכר 40% → פגיעה בצעירים. (2) תוכניות הוכרזו אבל 'נתקלו בקשיים' → יישום מעוכב. המסקנה המלאה מחייבת שני הממדים: חומרת הבעיה + כשל יישום."},
+        ]
+      },
+      {
+        "section": "Section C — Texte sur l'intelligence artificielle et l'éthique",
+        "paragraph": "התפתחות הבינה המלאכותית מעוררת שאלות אתיות בסיסיות על אחריות, שקיפות ונקיטת החלטות אוטומטית. כאשר אלגוריתם מחליט מי יקבל הלוואה, עבודה או ניתוח רפואי — מי אחראי לטעויות? יתרה מכך, מחקרים מראים כי אלגוריתמים רבים מגלמים הטיות שגויות שנלמדו מנתוני עבר לא מאוזנים.",
+        "questions": [
+          {"s":"התפתחות הבינה המלאכותית _______ שאלות אתיות בסיסיות.",
+           "w":"מעוררת","opts":["יוצרת","מעוררת","מביאה","גורמת"],"ans":1,
+           "exp":"מעוררת שאלות = soulève des questions (Hif'il de עורר). Expression figée: 'לעורר שאלות/ויכוח/חששות'. מעוררת est le verbe standard pour 'susciter des questions éthiques'. יוצרת (crée) est trop physique. גורמת ל (cause) implique un résultat concret."},
+          {"s":"כאשר אלגוריתם _______ — מי אחראי לטעויות?",
+           "w":"מחליט","opts":["בוחר","מחליט","קובע","פוסק"],"ans":1,
+           "exp":"מחליט = décide (Pa'al de החליט). Dans le contexte des algorithmes de décision automatique → מחליט. פוסק (statue — juridique). קובע (détermine/établit). מחליט est le terme le plus naturel pour l'acte de décision algorithmique."},
+          {"s":"אלגוריתמים רבים _______ הטיות שגויות שנלמדו מנתוני עבר.",
+           "w":"מגלמים","opts":["כוללים","מגלמים","מכילים","נושאים"],"ans":1,
+           "exp":"מגלמים = incarnent / intègrent (Pi'el de גלם). 'לגלם הטיה' = incarner un biais. מגלם implique que le biais est intégré dans la structure même. כוללים (incluent) est plus superficiel. מגלמים est le terme exact en hébreu pour 'embodiment' d'un biais."},
+          {"s":"מה מאפיין את ההטיות לפי הקטע?",
+           "w":"הן נלמדו מנתוני עבר לא מאוזנים","opts":["הן מכוונות","הן נלמדו מנתוני עבר לא מאוזנים","הן ידועות לכולם","הן ניתנות לתיקון"],"ans":1,
+           "exp":"הטקסט: 'הטיות שגויות שנלמדו מנתוני עבר לא מאוזנים'. שנלמדו = qui ont été apprises (apprentissage machine). לא מאוזנים = non équilibrés (biais dans les données d'entraînement). הטקסט מדגיש את מקור ההטיות — נתוני העבר."},
+          {"s":"מה ניתן להסיק לגבי האתיקה של הבינה המלאכותית מהקטע?",
+           "w":"היא בעיה לא פתורה הדורשת מנגנוני אחריות","opts":["הכל בסדר","היא בעיה לא פתורה הדורשת מנגנוני אחריות","יש לאסור AI","הטיות הן נורמליות"],"ans":1,
+           "exp":"הקטע מציג: שאלות אתיות על אחריות + הטיות מובנות → בעיה לא פתורה. 'מי אחראי?' = שאלה פתוחה (ללא תשובה בקטע). 'הטיות שגויות' = דורש תיקון → מנגנוני אחריות. המסקנה: אתגר אתי פתוח."},
+        ]
+      }
+    ]
+  },
+  {
+    "exam": "Examen Blanc N°11",
+    "sections": [
+      {
+        "section": "Section A — Vocabulaire en contexte",
+        "questions": [
+          {"s":"הדיון ציבורי _______ ביחס לסוגיית ההגירה.",
+           "w":"מתקצן","opts":["גדל","מתקצן","גובר","מחריף"],"ans":1,
+           "exp":"מתקצן = se radicalise / se polarise (Hitpa'el de קצן). Exprime une radicalisation des opinions. מחריף (s'aggrave) est plus général. מתקצן est spécifique à la radicalisation des positions politiques/idéologiques."},
+          {"s":"המדינה _______ מדיניות הגירה נוקשה שעוררה ביקורת.",
+           "w":"אימצה","opts":["קבעה","אימצה","החליטה","הכריזה"],"ans":1,
+           "exp":"אימצה מדיניות = a adopté une politique (Pi'el de אמץ). 'לאמץ מדיניות/גישה/עמדה' — formule officielle. החליטה = a décidé (plus général). אימצה implique un processus délibéré d'intégration d'une nouvelle politique."},
+          {"s":"דוח האו\"ם _______ כי שיעורי הפשע ירדו בעשור האחרון.",
+           "w":"קובע","opts":["אומר","קובע","מראה","מדווח"],"ans":1,
+           "exp":"קובע = établit / stipule (Pa'al de קבע). 'הדוח קובע כי' = 'le rapport établit que' — verbe formel pour les conclusions officielles. מדווח = rapporte (plus neutre). קובע implique une affirmation d'autorité."},
+          {"s":"_______ לממצאים, שיטה זו יעילה יותר.",
+           "w":"בהתאם","opts":["לפי","בהתאם","בגלל","על פי"],"ans":1,
+           "exp":"בהתאם ל = conformément à / selon. Expression de conformité. 'בהתאם לממצאים' est plus formel que 'לפי הממצאים'. Distinction fine: לפי = selon (source); בהתאם ל = en accord avec (conformité)."},
+          {"s":"הצעת החוק עוררה _______ נרחבת בקרב הציבור.",
+           "w":"התנגדות","opts":["ביקורת","התנגדות","מחאה","כעס"],"ans":1,
+           "exp":"התנגדות = opposition (nom d'état de התנגד). 'התנגדות נרחבת' = opposition généralisée. ביקורת = critique (plus légère). מחאה = protestation (action publique). התנגדות est le terme le plus neutre et formel pour l'opposition à une loi."},
+          {"s":"יש _______ בין הצהרות הממשלה לבין מדיניותה בפועל.",
+           "w":"פער","opts":["הבדל","פער","ניגוד","סתירה"],"ans":1,
+           "exp":"פער = écart / fossé (quantifiable). 'פער בין X לY' = écart entre X et Y. הבדל = différence (plus général). סתירה = contradiction (logique). פער implique une distance mesurable — souvent utilisé en économie et politique."},
+          {"s":"הכלכלה _______ סימנים של התאוששות לאחר המשבר.",
+           "w":"מציגה","opts":["מראה","מציגה","נותנת","מוכיחה"],"ans":1,
+           "exp":"מציגה סימנים = présente des signes (Pi'el de הציג). 'להציג סימנים/תוצאות' est formel. מראה (montre) est plus courant mais moins soutenu. מציגה implique une présentation structurée de données observables."},
+          {"s":"הפסיקה _______ עקרון חוקתי חשוב.",
+           "w":"עיגנה","opts":["קבעה","עיגנה","הגדירה","הביאה"],"ans":1,
+           "exp":"עיגנה = a ancré / a consacré (Pi'el de עגן). 'לעגן עיקרון/זכות' = consacrer un principe dans la loi. Terme juridique clé. קבעה = a établi (plus général). עיגנה implique une consolidation légale/constitutionnelle permanente."},
+          {"s":"ה_______ הכלכלית של המדינה הוכרה בינלאומית.",
+           "w":"יציבות","opts":["עוצמה","יציבות","חוסן","ביצועים"],"ans":1,
+           "exp":"יציבות = stabilité. 'יציבות כלכלית' = stabilité économique. חוסן = résilience (capacité à rebondir). עוצמה = puissance/force. יציבות est le terme standard pour la stabilité des indicateurs économiques."},
+          {"s":"הממשלה _______ לשאלות העיתונאים בצורה מתחמקת.",
+           "w":"הגיבה","opts":["ענתה","הגיבה","דיברה","אמרה"],"ans":1,
+           "exp":"הגיבה = a réagi / a répondu (Hif'il de גיב). 'להגיב לשאלות' = répondre à des questions (registre formel/médiatique). ענתה = a répondu (plus direct). הגיבה implique une réaction officielle à une sollicitation."},
+        ]
+      },
+      {
+        "section": "Section B — Texte sur la réforme de l'éducation",
+        "paragraph": "מערכת החינוך הישראלית עומדת בפני רפורמה מקיפה שמטרתה לצמצם פערים בין תלמידים ממגזרים שונים. הרפורמה כוללת הארכת שעות הלימוד, הוספת מקצועות מעשיים והשקעה מוגברת באזורי פריפריה. מבקרים טוענים, עם זאת, כי ללא הכשרה מספקת של המורים, שינוי המבנה לבדו לא יניב את השינוי הנדרש.",
+        "questions": [
+          {"s":"מהי מטרת הרפורמה על פי הקטע?",
+           "w":"לצמצם פערים בין תלמידים ממגזרים שונים","opts":["לשפר ציונים","לצמצם פערים בין תלמידים ממגזרים שונים","להגדיל תקציבים","לקצר שעות"],"ans":1,
+           "exp":"הטקסט: 'שמטרתה לצמצם פערים בין תלמידים ממגזרים שונים'. מטרה מפורשת. לצמצם פערים = réduire les écarts. ממגזרים שונים = de différents secteurs. המילה 'מטרתה' מציינת ישירות את המטרה."},
+          {"s":"מה אינו כלול ברפורמה לפי הקטע?",
+           "w":"הורדת תקציבים","opts":["הארכת שעות","הורדת תקציבים","מקצועות מעשיים","השקעה בפריפריה"],"ans":1,
+           "exp":"הרפורמה כוללת: (1) הארכת שעות הלימוד (2) מקצועות מעשיים (3) השקעה באזורי פריפריה. הורדת תקציבים לא מוזכרת — ההפך, 'השקעה מוגברת'. שאלות 'מה לא נכלל' בודקות קריאה מדויקת."},
+          {"s":"מה לפי המבקרים הכרחי להצלחת הרפורמה?",
+           "w":"הכשרה מספקת של המורים","opts":["יותר תקציב","הכשרה מספקת של המורים","בניית בתי ספר","שינוי תוכנית הלימודים"],"ans":1,
+           "exp":"'ללא הכשרה מספקת של המורים, שינוי המבנה לבדו לא יניב...' — המבקרים מזהים את הכשרת המורים כתנאי הכרחי. שינוי המבנה לבדו אינו מספיק. 'לבדו' = seul — מילת מפתח."},
+          {"s":"מה המשמעות של 'לא יניב את השינוי הנדרש'?",
+           "w":"לא ישיג את המטרה","opts":["יגרום לבעיות","לא ישיג את המטרה","יהיה מוצלח","ידרוש יותר כסף"],"ans":1,
+           "exp":"יניב = produira / donnera des fruits (Pa'al de ינב). 'לא יניב את השינוי' = ne produira pas le changement. מטאפורה חקלאית: ניב/יבול = récolte. כלומר: הרפורמה לא תשיג את מטרתה ללא הכשרת מורים."},
+          {"s":"מה ניתן להסיק לגבי הרפורמה מהקטע?",
+           "w":"היא נחוצה אך תלויה ביישום נכון","opts":["היא מיותרת","היא נחוצה אך תלויה ביישום נכון","היא תצליח בוודאות","היא כבר הצליחה"],"ans":1,
+           "exp":"הטקסט: הרפורמה מיועדת לצמצם פערים (חיובי/נחוצה) + מבקרים: ללא הכשרת מורים לא תצלח (תנאי יישום). המסקנה: נחוצה אבל הצלחתה תלויה ביישום. 'עם זאת' = cependant — מסמן הסתייגות."},
+        ]
+      },
+      {
+        "section": "Section C — Texte sur la démocratie et les réseaux sociaux",
+        "paragraph": "הרשתות החברתיות מייצרות בועות מידע המחזקות דעות קיימות ומונעות חשיפה לעמדות אחרות. תופעה זו, המכונה 'חדר הד', מגבירה קיטוב פוליטי וממוטטת שיח דמוקרטי. יחד עם זאת, יש הטוענים כי הרשתות מאפשרות לשוליים הפוליטיים לקבל קול ומייצרות דמוקרטיזציה של המרחב הציבורי.",
+        "questions": [
+          {"s":"מה המונח 'חדר הד' מתאר?",
+           "w":"בועה שמחזקת דעות קיימות ומונעת חשיפה לעמדות אחרות","opts":["חדר בבית כנסת","בועה שמחזקת דעות קיימות ומונעת חשיפה לעמדות אחרות","הצלחה של הרשתות","מקום לשיח"],"ans":1,
+           "exp":"הטקסט מגדיר 'חדר הד' כ'בועות מידע המחזקות דעות קיימות ומונעות חשיפה לעמדות אחרות'. שאלת הגדרה — יש לשלב שני המרכיבים: חיזוק + מניעת חשיפה."},
+          {"s":"מה הרשתות החברתיות 'ממוטטות' לפי הקטע?",
+           "w":"שיח דמוקרטי","opts":["הדמוקרטיה","שיח דמוקרטי","פוליטיקאים","העיתונות"],"ans":1,
+           "exp":"'ממוטטות שיח דמוקרטי' = détruisent / sappent le discours démocratique. ממוטט = démolir/saper (Pi'el de מוטט). שיח דמוקרטי = le discours/débat démocratique. לא 'הדמוקרטיה' עצמה אלא השיח."},
+          {"s":"מה הטוענים בעד הרשתות אומרים?",
+           "w":"הן מאפשרות לשוליים לקבל קול","opts":["הן מזיקות","הן מאפשרות לשוליים לקבל קול","הן ניטרליות","הן טובות לכלכלה"],"ans":1,
+           "exp":"'יש הטוענים כי הרשתות מאפשרות לשוליים הפוליטיים לקבל קול' — הטענה הנגדית (counter-argument). שוליים הפוליטיים = marges politiques. דמוקרטיזציה של המרחב = démocratisation de l'espace public."},
+          {"s":"מה מוגדר כ'קיטוב פוליטי' בהקשר זה?",
+           "w":"הגברת ההבדלים בין עמדות פוליטיות כתוצאה מחדרי הד","opts":["בחירות","הגברת ההבדלים בין עמדות פוליטיות כתוצאה מחדרי הד","ויכוחים","אלימות"],"ans":1,
+           "exp":"הקשר: 'חדר הד' → מגביר קיטוב פוליטי. קיטוב = polarisation. הגיון הטקסט: בועות מידע → חיזוק דעות קיימות → הגברת הפערים בין עמדות → קיטוב. שאלת הסקה מהקשר."},
+          {"s":"מה הגישה הכוללת של הקטע לנושא הרשתות?",
+           "w":"מציג גם השלכות שליליות וגם חיוביות","opts":["ביקורתי לחלוטין","מציג גם השלכות שליליות וגם חיוביות","תומך בהן","אדיש"],"ans":1,
+           "exp":"הטקסט: פסקה ראשונה — ביקורת (בועות, קיטוב, ממוטט). פסקה שנייה ('יחד עם זאת') — יתרונות (קול לשוליים, דמוקרטיזציה). הגישה האקדמית: balanced / nuancée — מצגת שני הצדדים. 'יחד עם זאת' = signal du balancement."},
+        ]
+      }
+    ]
+  },
+  {
+    "exam": "Examen Blanc N°12",
+    "sections": [
+      {
+        "section": "Section A — Vocabulaire en contexte",
+        "questions": [
+          {"s":"הפרת זכויות ה_______ מחייבת תגובה בינלאומית.",
+           "w":"אדם","opts":["עם","אדם","ציבור","חוק"],"ans":1,
+           "exp":"זכויות האדם = droits de l'homme / droits humains. ביטוי יסוד במשפט הבינלאומי. 'הפרת זכויות האדם' = violation des droits de l'homme. לא 'זכויות הציבור' (droits du public) שהוא מושג אחר."},
+          {"s":"השופט _______ פסק דין תקדימי בתחום זכויות האזרח.",
+           "w":"הוציא","opts":["נתן","הוציא","כתב","פרסם"],"ans":1,
+           "exp":"הוציא פסק דין = a rendu un jugement (expression figée juridique). לתת/להוציא פסק דין — שניהם נכונים אך 'הוציא' הוא הביטוי הטכני הנפוץ יותר בהקשרים משפטיים רשמיים."},
+          {"s":"ה_______ הכלכלי בין שכבות החברה גדל בשנים האחרונות.",
+           "w":"פער","opts":["הבדל","פער","גבול","מרחק"],"ans":1,
+           "exp":"פער כלכלי = écart économique / fossé économique. 'הפער גדל' = l'écart s'est creusé. פערים כלכליים-חברתיים = inégalités socio-économiques. הבדל = différence (plus général et moins chargé)."},
+          {"s":"המדיניות _______ לקידום שוויון הזדמנויות נכשלה.",
+           "w":"שנועדה","opts":["שמטרתה","שנועדה","שרצתה","שהחליטה"],"ans":1,
+           "exp":"שנועדה ל = destinée à / conçue pour (Nif'al de יעד). 'מדיניות שנועדה לקדם' = politique destinée à promouvoir. שנועדה implique une intention initiale de conception. שמטרתה est correct aussi mais plus nominal."},
+          {"s":"הועדה _______ את הממשלה לפעול בהקדם.",
+           "w":"קראה ל","opts":["ביקשה","קראה ל","דרשה מ","ציוותה"],"ans":1,
+           "exp":"קראה ל = a appelé à (Pa'al de קרא). 'לקרוא ל' = appeler à l'action. Expression formelle typique des rapports officiels. דרשה מ = a exigé de (plus impératif). קראה ל est plus diplomatique et courant dans les recommandations."},
+          {"s":"בישראל, מערכת ה_______ כוללת ביטוח בריאות ממלכתי.",
+           "w":"בריאות","opts":["שירותים","בריאות","רפואה","בטחון"],"ans":1,
+           "exp":"מערכת הבריאות = système de santé. ביטוח בריאות ממלכתי = assurance maladie nationale. 'מערכת בריאות' est le terme institutionnel correct (בית חולים, קופת חולים). מערכת הרפואה est possible mais moins courant."},
+          {"s":"ה_______ האנושי הוא גורם מרכזי בפריון הכלכלי.",
+           "w":"הון","opts":["כוח","הון","פוטנציאל","ערך"],"ans":1,
+           "exp":"הון אנושי = capital humain (human capital). מושג כלכלי יסוד — ההשקעה בידע, כישורים ובריאות של אנשים. 'הון אנושי' הוא ביטוי טכני מתחום הכלכלה והמדיניות."},
+          {"s":"המשפטן _______ כי החוק נוגד את חוקי היסוד.",
+           "w":"טען","opts":["אמר","טען","הסביר","גרס"],"ans":1,
+           "exp":"טען = a soutenu / a argué (Pa'al de טען). בהקשר משפטי: 'הסנגור טוען כי' = l'avocat de la défense soutient que. גרס = a prétendu (littéraire). טען implique une position argumentée dans un débat juridique."},
+          {"s":"ה_______ בין שלטון החוק לשלטון העם הוא יסוד הדמוקרטיה.",
+           "w":"איזון","opts":["מתח","איזון","קשר","ניגוד"],"ans":1,
+           "exp":"האיזון בין X לY = l'équilibre entre X et Y. 'שלטון החוק' (état de droit) + 'שלטון העם' (souveraineté populaire) — שני עמודי תווך. האיזון ביניהם = équilibre = la démocratie libérale constitutionnelle."},
+          {"s":"הדו\"ח _______ כשלים מערכתיים בשמירה על זכויות האסירים.",
+           "w":"חשף","opts":["מצא","חשף","גילה","הראה"],"ans":1,
+           "exp":"חשף = a révélé / a mis au jour (Pa'al de חשף). 'לחשוף כשלים' = révéler des défaillances. חשף est plus fort que מצא (a trouvé) et implique que l'information était cachée. גילה est synonyme mais חשף est plus dramatique et journalistique."},
+        ]
+      },
+      {
+        "section": "Section B — Texte sur les inégalités de santé",
+        "paragraph": "פערי הבריאות בין האוכלוסיות השונות בישראל משקפים פערים חברתיים-כלכליים עמוקים יותר. תוחלת החיים של תושבי הפריפריה נמוכה בכ-3-4 שנים מאשר תושבי המרכז. גורמים לכך הם נגישות מוגבלת לשירותי בריאות, עוני, עבודה בתנאים קשים ואורח חיים שמושפע מהסביבה החברתית-כלכלית.",
+        "questions": [
+          {"s":"פערי הבריאות _______ פערים חברתיים-כלכליים עמוקים.",
+           "w":"משקפים","opts":["גורמים ל","משקפים","נובעים מ","קשורים ל"],"ans":1,
+           "exp":"משקפים = reflètent (Pa'al de שיקף). 'פערי הבריאות משקפים פערים כלכליים' = les inégalités de santé reflètent des inégalités économiques. שיקף implique une relation de miroir — ביטוי מדויק לכך שהבריאות היא תסמין של בעיה כלכלית."},
+          {"s":"תוחלת החיים בפריפריה נמוכה ב_______ שנים.",
+           "w":"3-4","opts":["1-2","3-4","5-6","10"],"ans":1,
+           "exp":"הנתון המדויק: 'כ-3-4 שנים' מהטקסט. שאלת קריאה מדויקת — חשוב לזכור את הנתון הספציפי. 'כ-' = environ. 'תוחלת חיים' = espérance de vie."},
+          {"s":"מה הוא גורם לפערי הבריאות לפי הקטע?",
+           "w":"נגישות מוגבלת לשירותי בריאות","opts":["מזג האוויר","נגישות מוגבלת לשירותי בריאות","תרבות שונה","גנטיקה"],"ans":1,
+           "exp":"הטקסט מציין 4 גורמים: (1) נגישות מוגבלת לשירותי בריאות (2) עוני (3) עבודה קשה (4) אורח חיים מושפע מהסביבה. הגורם הראשון הוא נגישות מוגבלת — המישיר ביותר לפערי בריאות."},
+          {"s":"מה הביטוי 'אורח חיים שמושפע מהסביבה' מרמז?",
+           "w":"הסביבה הכלכלית-חברתית קובעת התנהגויות בריאות","opts":["אנשים בוחרים רע","הסביבה הכלכלית-חברתית קובעת התנהגויות בריאות","הטבע קובע הכל","אין קשר"],"ans":1,
+           "exp":"'אורח חיים שמושפע מהסביבה החברתית-כלכלית' = style de vie influencé par l'environnement socio-économique. הביטוי מרמז שאורח החיים אינו בחירה חופשית בלבד אלא תוצר של תנאים מבניים — גישה דטרמיניסטית-חברתית."},
+          {"s":"מה ניתן להסיק לגבי פערי הבריאות מהקטע?",
+           "w":"הם תוצר של גורמים מבניים הדורשים פתרון מדיניות","opts":["הם בלתי ניתנים לשינוי","הם תוצר של גורמים מבניים הדורשים פתרון מדיניות","הם בעיה רפואית בלבד","הם פחתו"],"ans":1,
+           "exp":"הטקסט מציג: פערים + גורמים מבניים (נגישות, עוני, תנאי עבודה) → פתרון חייב להיות מדיניות (לא רק רפואה). 'פערים חברתיים-כלכליים עמוקים' = מבניים. המסקנה: בעיה מבנית → פתרון מדיניות ציבורית."},
+        ]
+      },
+      {
+        "section": "Section C — Texte sur la justice pénale",
+        "paragraph": "מערכת המשפט הפלילי עומדת בפני ביקורת גוברת ביחס לאי-שוויון ביישומה. מחקרים מראים כי נאשמים ממוצא חברתי-כלכלי נמוך, ללא ייצוג משפטי הולם, נוטים לקבל עונשים חמורים יותר. מנגד, ישנם הרואים במגמה זו שיקוף של בעיות חברתיות רחבות יותר שמערכת המשפט לבדה אינה יכולה לפתור.",
+        "questions": [
+          {"s":"מהי הביקורת על מערכת המשפט הפלילי לפי הקטע?",
+           "w":"אי-שוויון ביישומה","opts":["היא איטית","אי-שוויון ביישומה","היא יקרה","אין מספיק שופטים"],"ans":1,
+           "exp":"'ביקורת גוברת ביחס לאי-שוויון ביישומה' — הביקורת המרכזית. אי-שוויון ביישום = inégalité dans l'application. לא ביקורת על החוקים עצמם אלא על האופן שבו הם מיושמים."},
+          {"s":"מה נוטים לקבל נאשמים ממוצא נמוך לפי הקטע?",
+           "w":"עונשים חמורים יותר","opts":["זיכוי","עונשים חמורים יותר","עונשים קלים יותר","שחרור"],"ans":1,
+           "exp":"'נוטים לקבל עונשים חמורים יותר' — תוצאת המחקרים. נוטים = ont tendance à. חמורים יותר = plus sévères. גם: ללא ייצוג משפטי הולם = sans représentation juridique adéquate — גורם מסביר."},
+          {"s":"מה 'ייצוג משפטי הולם' מסמל?",
+           "w":"עורך דין מוסמך ויעיל","opts":["כל עורך דין","עורך דין מוסמך ויעיל","עורך דין זול","עורך דין ממשלתי"],"ans":1,
+           "exp":"הולם = adéquat / convenable. 'ייצוג משפטי הולם' = représentation juridique adéquate. הביטוי מרמז שלא כל ייצוג הוא 'הולם' — ייצוג ממומן בעצמי vs סנגוריה ציבורית. ייצוג הולם = עורך דין מנוסה ויעיל."},
+          {"s":"מה הגישה החלופית שמוצגת בקטע?",
+           "w":"המגמה משקפת בעיות חברתיות שמשפט לא יכול לפתור","opts":["כולם אשמים","המגמה משקפת בעיות חברתיות שמשפט לא יכול לפתור","המשפט מושחת","אין בעיה"],"ans":1,
+           "exp":"'מנגד, ישנם הרואים' — הגישה הנגדית. 'שיקוף של בעיות חברתיות רחבות יותר' = reflet de problèmes sociaux plus larges. 'מערכת המשפט לבדה אינה יכולה לפתור' = limites du système judiciaire."},
+          {"s":"מה מאחד את שתי הגישות בקטע?",
+           "w":"שתיהן מכירות בקיום פערים במערכת","opts":["שתיהן שוללות את הבעיה","שתיהן מכירות בקיום פערים במערכת","שתיהן מציעות פתרון","שתיהן מדברות על כסף"],"ans":1,
+           "exp":"גישה 1: פערים = בעיית המשפט. גישה 2: פערים = שיקוף בעיות חברתיות. שתיהן מכירות בעובדת הפערים — רק המסקנה שונה. שאלת 'מה מאחד' בודקת הבנה מעמיקה של מבנה הטיעון."},
+        ]
+      }
+    ]
+  },
+  {
+    "exam": "Examen Blanc N°13",
+    "sections": [
+      {
+        "section": "Section A — Vocabulaire en contexte",
+        "questions": [
+          {"s":"הדיון _______ לאחרונה סביב שאלת מימון המפלגות.",
+           "w":"מתנהל","opts":["הולך","מתנהל","מתקיים","עובר"],"ans":1,
+           "exp":"מתנהל = se tient / se déroule (Hitpa'el de ניהל). 'הדיון מתנהל' = le débat se déroule. מתקיים est possible mais moins précis pour un débat (קיים = avoir lieu). מתנהל implique un processus actif de conduite du débat."},
+          {"s":"הצעת החוק _______ בוועדת הכנסת לאחר שעות של דיון.",
+           "w":"אושרה","opts":["עברה","אושרה","קיבלה","התקבלה"],"ans":1,
+           "exp":"אושרה = a été approuvée (Pu'al de אישר). Terme technique législatif. עברה = a passé (plus général). 'הצעת חוק אושרה' = le projet de loi a été approuvé. התקבלה est possible mais אושרה est le terme technique préféré."},
+          {"s":"ה_______ הציבורי כלפי המוסדות ירד לרמה שפל.",
+           "w":"אמון","opts":["כבוד","אמון","ביטחון","תמיכה"],"ans":1,
+           "exp":"אמון ציבורי = confiance publique. 'ירד לרמת שפל' = a atteint un niveau plancher. אמון est le terme exact pour le capital de légitimité politique. ביטחון = sécurité/confiance en soi (différent). תמיכה = soutien (politique)."},
+          {"s":"הדו\"ח _______ מספר כשלים מנהליים חמורים.",
+           "w":"תיעד","opts":["מצא","תיעד","כתב","הראה"],"ans":1,
+           "exp":"תיעד = a documenté (Pi'el de תיעד). 'לתעד כשלים' = documenter des défaillances. מצא = a trouvé (plus général). תיעד implique une documentation systématique et formelle — terme de rapport officiel."},
+          {"s":"ה_______ לחוק החדש מהציבור הייתה נמרצת.",
+           "w":"התנגדות","opts":["ביקורת","התנגדות","מחאה","תגובה"],"ans":1,
+           "exp":"התנגדות = opposition (formelle et structurée). נמרצת = vigoureuse. 'התנגדות נמרצת מהציבור' = forte opposition du public. מחאה = protestation (action publique). התנגדות est plus institutionnel et décrit une position."},
+          {"s":"_______ הממשלה הכריזה על תוכנית כלכלית חדשה.",
+           "w":"בתגובה ל","opts":["לאחר","בתגובה ל","כיוון ש","למרות"],"ans":1,
+           "exp":"בתגובה ל = en réponse à. 'בתגובה לביקורת' = en réponse aux critiques. Indique que l'action gouvernementale est une réaction à quelque chose. לאחר = après (simple séquence temporelle sans lien causal explicite)."},
+          {"s":"עקרון ה_______ מחייב שכל חוק יהיה ברור ונגיש.",
+           "w":"חוקיות","opts":["צדק","חוקיות","שוויון","חופש"],"ans":1,
+           "exp":"עקרון החוקיות = principe de légalité (État de droit). מחייב = exige (Hif'il de חייב). 'ברור ונגיש' = clair et accessible. החוקיות = la légalité formelle — norme juridique fondamentale."},
+          {"s":"הממשלה _______ בתקציב חינוך של 10 מיליארד שקל.",
+           "w":"הקצתה","opts":["השתמשה","הקצתה","נתנה","הוציאה"],"ans":1,
+           "exp":"הקצתה = a alloué / a consacré (Hif'il de הקצה). 'להקצות תקציב' = allouer un budget. Term budgétaire formel. הוציאה = a dépensé (après coup). הקצתה implique une décision préalable d'affectation de ressources."},
+          {"s":"ה_______ הכלכלית-חברתית של ישראל הוכרה בדוח OECD.",
+           "w":"ניידות","opts":["יציבות","ניידות","צמיחה","פיתוח"],"ans":1,
+           "exp":"ניידות כלכלית-חברתית = mobilité socio-économique (mobilité sociale). Terme technique de l'OCDE. יציבות = stabilité (différent). ניידות = mouvement entre strates sociales — la mobilité ascendante/descendante."},
+          {"s":"_______ הכישלון, הפרויקט לא בוטל.",
+           "w":"חרף","opts":["למרות ש","חרף","בגלל","על אף ש"],"ans":1,
+           "exp":"חרף + NOM = malgré (littéraire/très formel). 'חרף הכישלון' = malgré l'échec. Différence syntaxique: חרף + NOM ; למרות ש + VERBE. חרף est réservé au registre soutenu — valorisé au YAEL."},
+        ]
+      },
+      {
+        "section": "Section B — Texte sur la politique sociale",
+        "paragraph": "פערי ההכנסות בישראל הם מן הגבוהים במדינות ה-OECD. מדד ג'יני, המשמש לאמידת אי-שוויון, עמד בישראל על 0.35 — גבוה מהממוצע האירופאי. הממשלות הרצופות נקטו גישות שונות: חלק העדיפו תמריצי עבודה וצמצום ביורוקרטיה, בעוד אחרות הגדילו הטבות סוציאליות. עם זאת, הוכח כי השקעה בחינוך קדם-יסודי היא הדרך היעילה ביותר לצמצום פערים לטווח ארוך.",
+        "questions": [
+          {"s":"מה 'מדד ג'יני' מודד לפי הקטע?",
+           "w":"אי-שוויון","opts":["אי-שוויון","עושר","שמחה","בריאות"],"ans":1,
+           "exp":"הטקסט: 'המשמש לאמידת אי-שוויון'. מדד ג'יני = indice de Gini = מדד אי-שוויון בהכנסות. אמידת = mesure de. 0 = שוויון מוחלט. 1 = אי-שוויון מוחלט. ישראל: 0.35 = מעל הממוצע האירופאי."},
+          {"s":"מה גישה אחת של הממשלות לפי הקטע?",
+           "w":"תמריצי עבודה וצמצום ביורוקרטיה","opts":["תמריצי עבודה וצמצום ביורוקרטיה","הגדלת מיסים","ביטול הטבות","הקמת עסקים"],"ans":1,
+           "exp":"'חלק העדיפו תמריצי עבודה וצמצום ביורוקרטיה' — גישה ליברלית/שמרנית. תמריצי עבודה = incitations au travail. גישה שנייה: הגדלת הטבות סוציאליות (גישה סוציאל-דמוקרטית). הטקסט מציג שתי גישות — 'חלק... בעוד אחרות'."},
+          {"s":"מה הכלי היעיל ביותר לצמצום פערים לפי הקטע?",
+           "w":"השקעה בחינוך קדם-יסודי","opts":["הגדלת מינימום שכר","השקעה בחינוך קדם-יסודי","הפחתת מסים","תוכניות דיור"],"ans":1,
+           "exp":"'הוכח כי השקעה בחינוך קדם-יסודי היא הדרך היעילה ביותר' — הטקסט קובע זאת כעובדה מחקרית. 'הוכח' = il a été prouvé (עצמת שיא). קדם-יסודי = préscolaire. טווח ארוך = long terme."},
+          {"s":"מה ניתן להסיק ממדד ג'יני של 0.35 בישראל?",
+           "w":"אי-השוויון בישראל גבוה מהממוצע האירופאי","opts":["ישראל שווה לאירופה","אי-השוויון בישראל גבוה מהממוצע האירופאי","ישראל מדינת רווחה","הפערים הצטמצמו"],"ans":1,
+           "exp":"הטקסט: 0.35 'גבוה מהממוצע האירופאי'. הסקה: אי-שוויון > ממוצע אירופאי. ממוצע OECD ≈ 0.31-0.32. הדוח מציב את ישראל 'מן הגבוהים במדינות OECD'. שאלת הסקה מנתון ספציפי."},
+          {"s":"מה ניתן להסיק לגבי פתרון הפערים מהקטע?",
+           "w":"יש גישות שונות אך ההשקעה בחינוך מוכחת כיעילה",
+           "opts":["כל גישה שווה","יש גישות שונות אך ההשקעה בחינוך מוכחת כיעילה","אין פתרון","רק הממשלה יכולה לפתור"],"ans":1,
+           "exp":"הטקסט מציג: גישות שונות (ביזור + ריכוז) + ראיה מחקרית לטובת חינוך קדם-יסודי. המסקנה: ריבוי גישות + ראיה אחת ברורה. 'הוכח' = מסמן ראיה מחקרית מעל גישה אידיאולוגית."},
+        ]
+      },
+      {
+        "section": "Section C — Texte sur le marché du travail",
+        "paragraph": "שוק העבודה הישראלי עובר שינויים מבניים עמוקים בעקבות האוטומציה וכלכלת הגיג. עבודות ניהוליות ובינוניות נדחקות על ידי אלגוריתמים, בעוד שצמיחה נוצרת בעבודות יצירתיות ובמיומנויות גבוהות. תופעת ה'קיטוב' בשוק העבודה — עלייה בקצוות הגבוה והנמוך על חשבון האמצע — מאיימת על המעמד הבינוני.",
+        "questions": [
+          {"s":"מה גורם לשינויים המבניים בשוק העבודה לפי הקטע?",
+           "w":"אוטומציה וכלכלת הגיג","opts":["גלובליזציה","אוטומציה וכלכלת הגיג","מחירי נפט","מדיניות ממשלתית"],"ans":1,
+           "exp":"'בעקבות האוטומציה וכלכלת הגיג' — שני גורמים מפורשים. אוטומציה = automation. כלכלת הגיג = économie des petits boulots / gig economy ★★★. 'בעקבות' = dans le sillage de / suite à."},
+          {"s":"איזה סוג עבודות 'נדחק' על ידי אלגוריתמים?",
+           "w":"עבודות ניהוליות ובינוניות","opts":["עבודות יצירתיות","עבודות ניהוליות ובינוניות","עבודות גבוהות","עבודות פיזיות"],"ans":1,
+           "exp":"'עבודות ניהוליות ובינוניות נדחקות על ידי אלגוריתמים'. נדחקות = sont supplantées/poussées hors. המחקר: Middle-skill jobs = הסיכון הגדול ביותר לאוטומציה. עבודות יצירתיות וגבוהות דווקא גדלות."},
+          {"s":"מה 'קיטוב' שוק העבודה מתאר?",
+           "w":"עלייה בקצוות על חשבון האמצע","opts":["ירידה בכל","עלייה בקצוות על חשבון האמצע","שוויון מלא","עלייה רק בגבוה"],"ans":1,
+           "exp":"'עלייה בקצוות הגבוה והנמוך על חשבון האמצע' — הגדרה מפורשת של קיטוב בשוק עבודה. Polarisation du marché du travail = תופעה שנחקרה על ידי Autor. קצוות = extrémités."},
+          {"s":"מי מאוים ביותר על ידי קיטוב שוק העבודה?",
+           "w":"המעמד הבינוני","opts":["העניים","המעמד הבינוני","הטכנאים","הניהול הבכיר"],"ans":1,
+           "exp":"'מאיים על המעמד הבינוני' — הטקסט מפורש. המעמד הבינוני = la classe moyenne. העבודות שנעלמות = middle-skill = בסיס המעמד הבינוני. הגבוה עולה (יצירתי/מומחה), הנמוך נשאר (שירות פיזי) — האמצע נשחק."},
+          {"s":"מה ניתן להסיק לגבי עתיד שוק העבודה מהקטע?",
+           "w":"יהיה קיטוב גדל עם אתגרים למעמד הבינוני","opts":["הכל יהיה בסדר","יהיה קיטוב גדל עם אתגרים למעמד הבינוני","כולם יהיו עשירים","רק עבודות נמוכות יישארו"],"ans":1,
+           "exp":"הטקסט: אוטומציה → נדחקות עבודות אמצע → קיטוב → מאיים על מעמד בינוני. מגמה = כיוון עתידי. המסקנה: קיטוב גדל + אתגר מבני למעמד הבינוני. אין בטקסט פתרון מוצע."},
+        ]
+      }
+    ]
+  },
+  {
+    "exam": "Examen Blanc N°14",
+    "sections": [
+      {
+        "section": "Section A — Vocabulaire en contexte",
+        "questions": [
+          {"s":"הממשלה _______ את שיעור המע\"מ כדי להגביר הכנסות.",
+           "w":"העלתה","opts":["הגדילה","העלתה","שינתה","קבעה"],"ans":1,
+           "exp":"העלתה = a augmenté (Hif'il de עלה). 'להעלות שיעור' = augmenter un taux. Terme technique fiscal. הגדילה (a agrandi) est plus général. 'העלאת מע\"מ' = augmentation de la TVA — terme standard économique."},
+          {"s":"המחאה _______ על הירידה באיכות שירותי הבריאות.",
+           "w":"פרצה","opts":["התחילה","פרצה","יצאה","הגיעה"],"ans":1,
+           "exp":"פרצה = a éclaté (Pa'al de פרץ). 'מחאה פרצה' = une protestation a éclaté — expression figée journalistique. התחילה est trop neutre. פרצה implique un déclenchement soudain et intense."},
+          {"s":"ה_______ בין מדינות באגן הים התיכון מחמירה.",
+           "w":"תחרות","opts":["מלחמה","תחרות","מחלוקת","מריבה"],"ans":1,
+           "exp":"תחרות = compétition / concurrence. 'תחרות בין מדינות' = compétition interétatique. מחלוקת = désaccord (sujet/opinion). מריבה = dispute (plus personnel). מחמירה = s'intensifie (Hif'il de חמיר)."},
+          {"s":"הכלכלה מראה _______ של התאוששות אחרי שנות המשבר.",
+           "w":"סימנים","opts":["תוצאות","סימנים","נתונים","מגמות"],"ans":1,
+           "exp":"סימנים של = signes de / indices de. 'מראה סימנים' = montre des signes — expression figée. נתונים = données (chiffres concrets). מגמות = tendances (plus structurel). 'מראה סימנים של' = formule standard pour une récupération partielle."},
+          {"s":"ה_______ של הפרויקט ל-2030 מחייבת תקציב ענק.",
+           "w":"הרחבה","opts":["גידול","הרחבה","פיתוח","הרחבה"],"ans":0,
+           "exp":"הרחבה = expansion / extension (nom de Pi'el de הרחיב). 'הרחבת הפרויקט' = l'expansion du projet. גידול = croissance (plus quantitatif). הרחבה implique une extension dans l'espace ou la portée d'un programme."},
+          {"s":"ה_______ הבינלאומי הוטל על המדינה לאחר הפרת ההסכם.",
+           "w":"סנקציה","opts":["עונש","סנקציה","קנס","אמברגו"],"ans":1,
+           "exp":"סנקציה = sanction (terme diplomatique). 'הטלת סנקציות' = imposition de sanctions. קנס = amende (pécuniaire). אמברגו = embargo (commercial). סנקציה est le terme générique pour les mesures punitives interétatiques."},
+          {"s":"הוועדה _______ פגמים מהותיים בתהליך קבלת ההחלטות.",
+           "w":"זיהתה","opts":["מצאה","זיהתה","ראתה","גילתה"],"ans":1,
+           "exp":"זיהתה = a identifié (Pi'el de זיהה). 'לזהות פגמים' = identifier des défauts. Implique une analyse qui permet l'identification. מצאה = a trouvé (plus passif). גילתה = a découvert (plus de surprise). זיהתה est le terme technique pour l'identification systématique."},
+          {"s":"הצהרת ה_______ זכויות האדם מ-1948 היא אבן יסוד במשפט הבינלאומי.",
+           "w":"אוניברסלית","opts":["גדולה","אוניברסלית","עולמית","כוללת"],"ans":1,
+           "exp":"'הצהרה האוניברסלית על זכויות האדם' = la Déclaration universelle des droits de l'homme (1948). אוניברסלית = universel (pas juste mondial). אוניברסלי implique valable pour tous sans exception — terme de droit international."},
+          {"s":"המדינה _______ ב-2022 תהליך שאפתני לחיסון המוני.",
+           "w":"השיקה","opts":["התחילה","השיקה","פתחה","ביצעה"],"ans":1,
+           "exp":"השיקה = a lancé (Hif'il de שוק). 'להשיק תהליך/קמפיין' = lancer un processus. Expression standard pour le lancement officiel d'un programme gouvernemental. התחילה est trop basique. השיקה implique un lancement formel et planifié."},
+          {"s":"ה_______ של המחקר מושתתת על ניסויים קליניים מבוקרים.",
+           "w":"מהימנות","opts":["איכות","מהימנות","חשיבות","תוצאות"],"ans":1,
+           "exp":"מהימנות = fiabilité / crédibilité (de מהימן). 'מהימנות מחקר' = la fiabilité d'une étude. 'ניסויים קליניים מבוקרים' = essais cliniques contrôlés — le gold standard de la recherche médicale. מהימנות est le terme exact pour la fiabilité méthodologique."},
+        ]
+      },
+      {
+        "section": "Section B — Texte sur le système de santé",
+        "paragraph": "מערכת הבריאות הישראלית נחשבת לאחת הטובות בעולם, אולם היא סובלת ממחסור חמור בכוח אדם רפואי. ישראל מדורגת במקום נמוך יחסית ביחס רופא לאוכלוסייה בקרב מדינות ה-OECD. בנוסף, פערים גיאוגרפיים ניכרים בין מרכז לפריפריה: כ-40% מהרופאים ממוקדים בגוש דן בלבד. תכניות לפיתוח רפואה כפרית ותמריצי גיוס לפריפריה הוצגו, אולם יישומן איטי.",
+        "questions": [
+          {"s":"מהי הבעיה המרכזית שמצוינת לגבי מערכת הבריאות?",
+           "w":"מחסור בכוח אדם רפואי","opts":["מחסור בכסף","מחסור בכוח אדם רפואי","מחסור בטכנולוגיה","מחסור בבתי חולים"],"ans":1,
+           "exp":"'סובלת ממחסור חמור בכוח אדם רפואי' — הבעיה המרכזית המוזכרת. מחסור חמור = pénurie grave. כוח אדם רפואי = personnel médical. 'סובלת מ' = souffre de — ביטוי לבעיה כרונית."},
+          {"s":"כמה אחוזים מהרופאים ממוקדים בגוש דן?",
+           "w":"כ-40%","opts":["כ-10%","כ-20%","כ-40%","כ-60%"],"ans":2,
+           "exp":"'כ-40% מהרופאים ממוקדים בגוש דן בלבד' — נתון ספציפי מהקטע. 'בלבד' מדגיש את הריכוזיות. שאלת נתון ספציפי — יש לקרוא בקפידה."},
+          {"s":"מה ניתן להסיק לגבי מצב הרפואה בפריפריה?",
+           "w":"היא סובלת מחוסר רופאים","opts":["היא מצוינת","היא סובלת מחוסר רופאים","היא מקבלת תקציב גדול","היא אחת הטובות"],"ans":1,
+           "exp":"60% מהרופאים שלא בגוש דן = פריפריה עם פחות כיסוי. 'פערים גיאוגרפיים ניכרים בין מרכז לפריפריה' + 40% בגוש דן → הסקה: פריפריה עם מחסור. 'תמריצי גיוס לפריפריה' מאשרים את הבעיה."},
+          {"s":"מה ניתן להסיק לגבי תכניות לפיתוח רפואה כפרית?",
+           "w":"הן הוצגו אך יישומן איטי","opts":["הן לא קיימות","הן הוצגו אך יישומן איטי","הן הצליחו","הן בוטלו"],"ans":1,
+           "exp":"'תכניות... הוצגו, אולם יישומן איטי' — מבנה של הכרה+אבל = הוצג ≠ יושם. 'אולם' = cependant — מסמן פנייה שלילית. שאלת פרשנות: מה ניתן להסיק = הסקה מעבר למה שנכתב."},
+          {"s":"מה ניתן להסיק לגבי מערכת הבריאות הישראלית בסך הכל?",
+           "w":"איכות גבוהה אך עם אתגרים מבניים משמעותיים","opts":["גרועה לחלוטין","איכות גבוהה אך עם אתגרים מבניים משמעותיים","מושלמת","ממוצעת"],"ans":1,
+           "exp":"הטקסט: 'נחשבת לאחת הטובות בעולם' (חיובי) + 'מחסור חמור/פערים גיאוגרפיים' (שלילי). המסקנה הנכונה משלבת שני הממדים: טובה + עם אתגרים. הכרזה על 'מושלמת' — שגויה. 'גרועה' — שגויה."},
+        ]
+      },
+      {
+        "section": "Section C — Texte sur les droits des minorités",
+        "paragraph": "זכויות המיעוטים הן בסיס לכל דמוקרטיה ליברלית: הרוב אינו רשאי לרמוס את זכויות המיעוט, גם אם לרוב יש לכך תמיכה עממית. עקרון זה, המכונה 'עריצות הרוב', מעוגן בחוקות ליברליות. עם זאת, מתח קיים בין הגנה על מיעוטים לבין ריבונות עממית, ואין נוסחה פשוטה ליישוב מתח זה.",
+        "questions": [
+          {"s":"מה 'עריצות הרוב' מתארת?",
+           "w":"שהרוב לא יכול לפגוע בזכויות המיעוט","opts":["שהמיעוט שולט","שהרוב לא יכול לפגוע בזכויות המיעוט","שהרוב תמיד צודק","שאין זכויות"],"ans":1,
+           "exp":"'הרוב אינו רשאי לרמוס את זכויות המיעוט' — הגדרת 'עריצות הרוב'. עריצות = tyrannie. הביטוי מתאר את הסכנה שהדמוקרטיה הרובנית תפגע במיעוטים. מעוגן בחוקות = ancré dans les constitutions."},
+          {"s":"איפה עקרון זה מעוגן?",
+           "w":"בחוקות ליברליות","opts":["בחוקת ישראל","בחוקות ליברליות","בהכרזת העצמאות","בדת"],"ans":1,
+           "exp":"'מעוגן בחוקות ליברליות' — הטקסט מפורש. מעוגן = ancré. ליברליות = libérales. לא רק 'חוקת ישראל' (יותר מדי ספציפי) אלא בחוקות ליברליות בכלל."},
+          {"s":"מה המתח שמצוין בקטע?",
+           "w":"בין הגנה על מיעוטים לריבונות עממית","opts":["בין עשירים לעניים","בין הגנה על מיעוטים לריבונות עממית","בין מדינות","בין דת לחוק"],"ans":1,
+           "exp":"'מתח קיים בין הגנה על מיעוטים לבין ריבונות עממית' — מפורש בטקסט. ריבונות עממית = souveraineté populaire. הגנה על מיעוטים = protection des minorités. זהו המתח הקלאסי בין-ליברליזם לדמוקרטיה."},
+          {"s":"מה ניתן להסיק מהמשפט 'אין נוסחה פשוטה'?",
+           "w":"הפתרון מורכב ותלוי הקשר","opts":["אין פתרון","הפתרון מורכב ותלוי הקשר","הבעיה פתורה","המשפט לא יכול לפתור"],"ans":1,
+           "exp":"'אין נוסחה פשוטה ליישוב מתח זה' = il n'y a pas de formule simple. המסקנה: אין פתרון אחד — הפתרון הוא תלוי הקשר ומורכב. לא 'אין פתרון' (יותר מדי פסימי) — יש פתרונות ספציפיים לכל מקרה."},
+          {"s":"מה הגישה הכוללת של הקטע?",
+           "w":"תיאורטית ומאוזנת — מציגה עקרון ואת מגבלותיו","opts":["שמרנית","תיאורטית ומאוזנת — מציגה עקרון ואת מגבלותיו","ביקורתית כלפי דמוקרטיה","דתית"],"ans":1,
+           "exp":"הטקסט: (1) מציג עקרון — עריצות הרוב. (2) מסביר איפה מעוגן. (3) מכיר במתח ובמגבלה. זוהי גישה אקדמית מאוזנת — לא פשוטנית ולא ביקורתית. 'מאוזנת' = équilibrée."},
+        ]
+      }
+    ]
+  },
+  {
+    "exam": "Examen Blanc N°15",
+    "sections": [
+      {
+        "section": "Section A — Vocabulaire en contexte",
+        "questions": [
+          {"s":"הפרויקט _______ עיכובים בשל בעיות מימון.",
+           "w":"סבל מ","opts":["היה עם","סבל מ","נתקל ב","עמד בפני"],"ans":1,
+           "exp":"סבל מ = a souffert de (Pa'al de סבל). 'הפרויקט סבל מעיכובים' = le projet a souffert de retards. Expression figée: 'לסבול מ' + problème. נתקל ב = s'est heurté à (obstacle). סבל מ implique une souffrance prolongée."},
+          {"s":"המדיניות _______ ביקורת חריפה מצד מומחים.",
+           "w":"ספגה","opts":["קיבלה","ספגה","שמעה","חוותה"],"ans":1,
+           "exp":"ספגה = a essuyé / a reçu (Pa'al de ספג). 'ספגה ביקורת' = a essuyé des critiques. 'לספוג ביקורת/מכה/נזק' — collocations figées. ספג implique une absorption passive d'impact négatif."},
+          {"s":"ה_______ של האוכלוסייה הזקנה מהווה אתגר דמוגרפי.",
+           "w":"הזדקנות","opts":["גידול","הזדקנות","ירידה","שינוי"],"ans":1,
+           "exp":"הזדקנות = vieillissement (nom d'état de הזדקן). 'הזדקנות האוכלוסייה' = vieillissement de la population — terme démographique standard. גידול = croissance (quantitatif). הזדקנות implique un processus de vieillissement structurel."},
+          {"s":"ה_______ הבינלאומי לאחר עזיבת ישראל את ועדת ה-UNESCO.",
+           "w":"הד","opts":["תגובה","הד","פרסום","דיון"],"ans":1,
+           "exp":"הד = écho / répercussion. 'הד בינלאומי' = écho international — l'effet médiatique d'un événement. תגובה = réaction (directe). הד implique la résonance d'un événement dans un espace plus large."},
+          {"s":"הדו\"ח _______ כי ישראל עמדה בכל מחויבויות ההסכם.",
+           "w":"קבע","opts":["אמר","קבע","הוכיח","מצא"],"ans":1,
+           "exp":"קבע = a établi / a stipulé (Pa'al de קבע). 'הדוח קובע כי' = le rapport stipule que — formule officielle. קבע est plus fort qu'אמר (déclaration d'autorité vs simple énoncé). הוכיח = a prouvé (avec preuve)."},
+          {"s":"הרפורמה _______ על ידי הממשלה בגלל לחצים פוליטיים.",
+           "w":"נסוגה","opts":["בוטלה","נסוגה","נדחתה","הופסקה"],"ans":1,
+           "exp":"נסוגה = fut retirée / fit marche arrière (Nif'al de נסוג). 'הרפורמה נסוגה' = la réforme a été retirée. נדחתה = fut reportée (temporaire). בוטלה = fut annulée (définitif). נסוגה implique un recul stratégique face à la pression."},
+          {"s":"המסקנה _______ לאחר ניתוח של מאות מקרים.",
+           "w":"הוסקה","opts":["נמצאה","הוסקה","כתובה","הופיעה"],"ans":1,
+           "exp":"הוסקה = fut déduite / fut tirée (Huf'al de הסיק). מסקנה הוסקה = conclusion déduite. Binyan Huf'al (passif de Hif'il). 'להסיק מסקנה' → 'המסקנה הוסקה' — passive formelle."},
+          {"s":"הצ'ק הממשלתי _______ לחשבון של הפרויקט.",
+           "w":"הועבר","opts":["נשלח","הועבר","ניתן","הגיע"],"ans":1,
+           "exp":"הועבר = a été transféré (Huf'al de העביר). 'הועבר לחשבון' = a été transféré sur le compte. Terme financier formel. Huf'al de העביר (transfer passif). נשלח = a été envoyé (plus général)."},
+          {"s":"מדיניות זו _______ את הצמיחה הכלכלית.",
+           "w":"מעכבת","opts":["עוצרת","מעכבת","פוגעת ב","מפריעה ל"],"ans":1,
+           "exp":"מעכבת = freine / entrave (Pi'el de עיכב). 'מעכבת צמיחה' = freine la croissance. עיכב implique un ralentissement intentionnel ou structurel. עוצרת = arrête (complet). מעכבת est le terme technique pour les obstacles à la croissance économique."},
+          {"s":"הסכסוך _______ על רקע מחלוקת גבולות.",
+           "w":"פרץ","opts":["התחיל","פרץ","יצא","עלה"],"ans":1,
+           "exp":"פרץ = a éclaté (Pa'al de פרץ). 'הסכסוך פרץ' = le conflit a éclaté. 'על רקע' = sur fond de (expression journalistique ★★★). פרץ implique un déclenchement soudain. 'על רקע מחלוקת גבולות' = contexte causal du déclenchement."},
+        ]
+      },
+      {
+        "section": "Section B — Texte sur l'éducation numérique",
+        "paragraph": "החינוך הדיגיטלי, שצבר תאוצה בעקבות מגפת הקורונה, מעלה שאלות על עתיד הלמידה. מחד גיסא, פלטפורמות כ-Coursera ו-Khan Academy הנגישו ידע לאוכלוסיות שלא ניגשו אליו קודם. מאידך גיסא, מחקרים מראים כי הפגיעה הגדולה ביותר ב'פערי הדיגיטל' נופלת על תלמידים מרקע סוציו-אקונומי נמוך שאין להם גישה לאינטרנט מהיר.",
+        "questions": [
+          {"s":"מה הניע את הצמיחה בחינוך הדיגיטלי?",
+           "w":"מגפת הקורונה","opts":["טכנולוגיה חדשה","מגפת הקורונה","דרישות שוק","ממשלה"],"ans":1,
+           "exp":"'שצבר תאוצה בעקבות מגפת הקורונה' — הגורם המפורש. צבר תאוצה = a pris de la vitesse / s'est accéléré. בעקבות = dans le sillage de / suite à. מגפת הקורונה = pandémie du COVID."},
+          {"s":"מה היתרון שמוזכר של פלטפורמות כ-Coursera?",
+           "w":"הנגשת ידע לאוכלוסיות שלא ניגשו אליו","opts":["הן זולות","הנגשת ידע לאוכלוסיות שלא ניגשו אליו","הן מהירות","הן פשוטות"],"ans":1,
+           "exp":"'הנגישו ידע לאוכלוסיות שלא ניגשו אליו קודם' — היתרון המרכזי. הנגישו = ont rendu accessible (Pi'el de הנגיש). דמוקרטיזציה של הידע = démocratisation du savoir."},
+          {"s":"מי נפגע ביותר מ'פערי הדיגיטל'?",
+           "w":"תלמידים מרקע סוציו-אקונומי נמוך","opts":["תלמידים מבוגרים","תלמידים מרקע סוציו-אקונומי נמוך","מורים","הורים"],"ans":1,
+           "exp":"'הפגיעה הגדולה ביותר נופלת על תלמידים מרקע סוציו-אקונומי נמוך שאין להם גישה לאינטרנט מהיר'. פערי דיגיטל = fracture numérique. רקע סוציו-אקונומי נמוך = origine socio-économique défavorisée."},
+          {"s":"מה 'פערי הדיגיטל' מתאר?",
+           "w":"הפער בין מי שיש להם גישה לטכנולוגיה לבין מי שאין","opts":["שנאת טכנולוגיה","הפער בין מי שיש להם גישה לטכנולוגיה לבין מי שאין","עלות טכנולוגיה","מהירות אינטרנט"],"ans":1,
+           "exp":"מהקטע: 'אין להם גישה לאינטרנט מהיר' + פגיעה בתלמידים נמוכי מעמד → פערי הדיגיטל = fracture numérique = הפער בגישה לטכנולוגיה. המונח כולל גם הבדלים ביכולת שימוש."},
+          {"s":"מה ניתן להסיק לגבי חינוך דיגיטלי מהקטע?",
+           "w":"הוא מכיל פוטנציאל אך גם מגביר אי-שוויון קיים","opts":["הוא פתרון מושלם","הוא מכיל פוטנציאל אך גם מגביר אי-שוויון קיים","אין לו יתרונות","הוא יקר מדי"],"ans":1,
+           "exp":"מחד: הנגשת ידע (חיובי). מאידך: פגיעה בתלמידים חלשים (שלילי). המבנה 'מחד גיסא... מאידך גיסא' = מסגרת בלתי-חד-צדדית. המסקנה: פוטנציאל + אי-שוויון. הקטע לא מציע פתרון."},
+        ]
+      },
+      {
+        "section": "Section C — Texte sur la santé mentale",
+        "paragraph": "בריאות הנפש הפכה לנושא מרכזי בשיח הציבורי הישראלי, ובמיוחד לאחר שנות הקורונה. מחקרים מראים כי שיעורי החרדה והדיכאון עלו בכ-25% בקרב בני נוער בשנים 2020-2022. מנגנוני ההתמודדות המסורתיים — כגון קשרים משפחתיים ותמיכה קהילתית — נחלשו, בעוד שמערכת בריאות הנפש ממוצה מעבר לקיבולתה.",
+        "questions": [
+          {"s":"מה הגדיל את תשומת הלב לבריאות הנפש?",
+           "w":"שנות הקורונה","opts":["מחקרים חדשים","שנות הקורונה","טלוויזיה","פוליטיקאים"],"ans":1,
+           "exp":"'ובמיוחד לאחר שנות הקורונה' — הגורם המוזכר. 'בעיקר' + 'לאחר' = גורם מזרז. שנות הקורונה = les années COVID. הטקסט לא מזכיר מחקרים כגורם — אלא כממצאים."},
+          {"s":"כמה עלו שיעורי החרדה בקרב בני נוער?",
+           "w":"כ-25%","opts":["כ-10%","כ-25%","כ-50%","כ-75%"],"ans":1,
+           "exp":"'שיעורי החרדה והדיכאון עלו בכ-25% בקרב בני נוער בשנים 2020-2022' — נתון ספציפי. כ- = environ. שאלת נתון מדויק — יש להבחין בין 'עלו ב-25%' (עלייה יחסית) לבין 'עמדו על 25%' (שיעור מוחלט)."},
+          {"s":"מה 'מנגנוני ההתמודדות' כוללים לפי הקטע?",
+           "w":"קשרים משפחתיים ותמיכה קהילתית","opts":["טיפול פסיכולוגי","קשרים משפחתיים ותמיכה קהילתית","תרופות","ספורט"],"ans":1,
+           "exp":"'מנגנוני ההתמודדות המסורתיים — כגון קשרים משפחתיים ותמיכה קהילתית'. כגון = tel que (exemples). מנגנוני התמודדות = mécanismes d'adaptation (coping mechanisms ★★★). 'מסורתיים' = traditionnels (non professionnels)."},
+          {"s":"מה המצב של מערכת בריאות הנפש?",
+           "w":"ממוצה מעבר לקיבולתה","opts":["פועלת היטב","ממוצה מעבר לקיבולתה","מתרחבת","מקבלת תקציב"],"ans":1,
+           "exp":"'מערכת בריאות הנפש ממוצה מעבר לקיבולתה' — מפורש. ממוצה = épuisée / à bout. קיבולת = capacité. 'מעבר לקיבולתה' = au-delà de sa capacité → הצרכים עולים על הכיסוי."},
+          {"s":"מה ניתן להסיק לגבי בריאות הנפש בישראל מהקטע?",
+           "w":"משבר גדל שהמערכת אינה מוכנה לו","opts":["הכל בסדר","משבר גדל שהמערכת אינה מוכנה לו","יש פתרון","הבעיה יציבה"],"ans":1,
+           "exp":"הטקסט: (1) עלייה ב-25% (גדל). (2) נחלשו מנגנוני התמודדות. (3) המערכת ממוצה. שלושת הגורמים = משבר גדל + מערכת לא מוכנה. אין בטקסט פתרון → לא 'יש פתרון'. הקטע מציג אבחנה, לא תרופה."},
+        ]
+      }
+    ]
+  },
+  {
+    "exam": "Examen Blanc N°16",
+    "sections": [
+      {
+        "section": "Section A — Vocabulaire en contexte",
+        "questions": [
+          {"s":"המדיניות _______ של ישראל כלפי השכנים שנויה במחלוקת.",
+           "w":"הביטחונית","opts":["החיצונית","הביטחונית","הכלכלית","הפנימית"],"ans":1,
+           "exp":"מדיניות ביטחונית = politique sécuritaire / de défense. 'שנויה במחלוקת' = controversée (expression figée). מדיניות חוץ = politique étrangère (diplomatie). מדיניות ביטחונית couvre la dimension militaire et stratégique."},
+          {"s":"הממשלה _______ מהסכם לאחר לחצים פנימיים.",
+           "w":"נסוגה","opts":["יצאה","נסוגה","עזבה","פרשה"],"ans":1,
+           "exp":"נסוגה = a fait marche arrière (Nif'al de נסוג). 'נסוג מהסכם' = se retirer d'un accord. פרשה = s'est retirée (définitif). נסוגה implique un recul tactique face à la pression politique."},
+          {"s":"ה_______ הלאומית של ישראל נמצאת בלב הדיון הציבורי.",
+           "w":"זהות","opts":["תרבות","זהות","מסורת","חברה"],"ans":1,
+           "exp":"זהות לאומית = identité nationale. 'בלב הדיון' = au cœur du débat. זהות = identité (qui je suis). תרבות = culture (pratiques). זהות est le terme le plus précis pour la question d'appartenance collective."},
+          {"s":"ה_______ של המדיניות מותנה בשיתוף פעולה בינלאומי.",
+           "w":"הצלחה","opts":["ביצוע","הצלחה","יישום","תוצאה"],"ans":1,
+           "exp":"הצלחה = succès. 'הצלחת מדיניות' = réussite d'une politique. 'מותנה ב' = est conditionnée par (Pu'al). יישום = mise en œuvre (processus). הצלחה = le résultat positif visé — différent du processus."},
+          {"s":"ה_______ הכלכלי חייב להביא בחשבון גם שיקולים סביבתיים.",
+           "w":"פיתוח","opts":["גידול","פיתוח","צמיחה","שינוי"],"ans":1,
+           "exp":"פיתוח כלכלי = développement économique. 'פיתוח בר-קיימא' = développement durable. פיתוח = processus planifié et structuré incluant la qualité. צמיחה = croissance (quantitatif). פיתוח inclut les dimensions qualitatives."},
+          {"s":"הפסיקה _______ תקדים חשוב בתחום זכויות הפרט.",
+           "w":"קבעה","opts":["הכריזה","קבעה","פרסמה","הביאה"],"ans":1,
+           "exp":"קבעה תקדים = a établi un précédent (expression juridique figée). 'לקבוע תקדים' = set a precedent. הכריזה = a déclaré (solennel). קבעה implique une décision créant une norme jurisprudentielle."},
+          {"s":"ה_______ העממית לממשלה קרסה לאחר הפרשה.",
+           "w":"תמיכה","opts":["אמון","תמיכה","כבוד","תגובה"],"ans":1,
+           "exp":"תמיכה עממית = soutien populaire. 'קרסה' = s'est effondrée. אמון = confiance (abstrait). תמיכה = soutien actif (sondages, votes). 'קרסה' implique un effondrement soudain."},
+          {"s":"ה_______ בין שאיפות הסביבה לצרכי הכלכלה מוביל להכרעות קשות.",
+           "w":"מתח","opts":["ניגוד","מתח","סכסוך","מחלוקת"],"ans":1,
+           "exp":"מתח = tension (état persistant entre deux forces). 'מוביל להכרעות קשות' = conduit à des arbitrages difficiles. ניגוד = contradiction (logique, absolu). מתח implique une coexistence sous pression sans rupture nécessaire."},
+          {"s":"ה_______ הדמוגרפי של המדינות המפותחות מציב אתגרים.",
+           "w":"שינוי","opts":["שינוי","גידול","ירידה","פיתוח"],"ans":0,
+           "exp":"שינוי דמוגרפי = changement démographique (vieillissement, migration, fécondité). גידול = croissance (seul aspect). שינוי est le terme le plus générique — couvre toutes les transformations démographiques."},
+          {"s":"הדיון _______ לאחרונה סביב שאלת ניהול המשאבים הטבעיים.",
+           "w":"מתנהל","opts":["הולך","מתנהל","מתקיים","עובר"],"ans":1,
+           "exp":"מתנהל = se tient / se déroule (Hitpa'el de ניהל). 'הדיון מתנהל' = le débat se déroule. מתקיים est possible (כנס מתקיים). מתנהל implique un processus actif de gestion du débat."},
+        ]
+      },
+      {
+        "section": "Section B — Texte sur l'immigration et l'intégration",
+        "paragraph": "הגירה היא תופעה עולמית שמציבה אתגרים ותלות גוברים. מחד גיסא, מהגרים תורמים לכלכלות המארחות, ממלאים מקצות בשוק העבודה ומגוונים את הרקמה התרבותית. מאידך גיסא, חלק מהחברות המארחות חוות קשיי שילוב, לחצים תרבותיים ותחרות על משאבים ציבוריים. המפתח הוא מדיניות הגירה שקולה המאזנת בין פתיחות לניהול.",
+        "questions": [
+          {"s":"מה שתי ה'גישות' שהקטע מציג לגבי ההגירה?",
+           "w":"מחד - תרומה כלכלית ותרבותית; מאידך - קשיי שילוב ולחצים","opts":["רק שלילית","מחד - תרומה כלכלית ותרבותית; מאידך - קשיי שילוב ולחצים","רק חיובית","ניטרלית"],"ans":1,
+           "exp":"מחד גיסא... מאידך גיסא = deux perspectives. מחד: תרומה לכלכלה + גיוון. מאידך: קשיי שילוב + לחצים. הקטע מאוזן — לא חד-צדדי."},
+          {"s":"מה מהגרים 'ממלאים' לפי הקטע?",
+           "w":"מקצות בשוק העבודה","opts":["תפקידים פוליטיים","מקצות בשוק העבודה","מקומות באוניברסיטאות","תפקידים תרבותיים"],"ans":1,
+           "exp":"'ממלאים מקצות בשוק העבודה' — ממלאים מקצות = comblent des lacunes. מקצות = manques / carences. ביטוי כלכלי: immigrés compensent les pénuries de main-d'œuvre."},
+          {"s":"מה 'רקמה תרבותית' מסמל?",
+           "w":"מכלול התרבויות והקבוצות בחברה","opts":["אריג","מכלול התרבויות והקבוצות בחברה","ארגון תרבותי","מסורת"],"ans":1,
+           "exp":"'רקמה תרבותית' = tissu culturel (métaphore du tissu/textile). מגוון את הרקמה = diversifie le tissu. מהגרים מוסיפים חוטים חדשים לתרבות."},
+          {"s":"מה הפתרון שמוצע בקטע?",
+           "w":"מדיניות הגירה שקולה המאזנת בין פתיחות לניהול","opts":["לסגור גבולות","מדיניות הגירה שקולה המאזנת בין פתיחות לניהול","לפתוח לכולם","לבטל הגירה"],"ans":1,
+           "exp":"'המפתח הוא מדיניות הגירה שקולה המאזנת בין פתיחות לניהול'. שקולה = pondérée. מאזנת בין X לY = qui équilibre. 'פתיחות לניהול' = ouverture ET gestion — synthèse dialectique."},
+          {"s":"מה המבנה הרטורי של הקטע?",
+           "w":"הצגת שני צדדים ואחר כך המלצה","opts":["הצגת בעיה ופתרון","הצגת שני צדדים ואחר כך המלצה","ניתוח היסטורי","רשימת עובדות"],"ans":1,
+           "exp":"מחד/מאידך = שני צדדים. 'המפתח הוא' = המלצה. מבנה: thesis/antithesis/synthesis. זהו מבנה קלאסי של טקסט אקדמי מאוזן — מוכר ל-YAEL."},
+        ]
+      },
+      {
+        "section": "Section C — Texte sur les technologies vertes",
+        "paragraph": "טכנולוגיות ירוקות — כאנרגיה סולארית, טורבינות רוח ואחסון אנרגיה — הפכו לעמוד השדרה של מהפכת האקלים. ישראל, עם שמש שופעת, נחשבת לפוטנציאל עצום בתחום, אולם היא עדיין מפגרת אחר מדינות כגרמניה ודנמרק בשיעורי האנרגיה המתחדשת. מכשולים עיקריים הם מערכת רגולציה מסורבלת ותשתית רשת חשמל ישנה.",
+        "questions": [
+          {"s":"מה הדוגמאות לטכנולוגיות ירוקות שמוזכרות?",
+           "w":"אנרגיה סולארית, טורבינות רוח, אחסון אנרגיה","opts":["אנרגיה גרעינית","אנרגיה סולארית, טורבינות רוח, אחסון אנרגיה","ביו-גז","פחם נקי"],"ans":1,
+           "exp":"הטקסט: 'אנרגיה סולארית, טורבינות רוח ואחסון אנרגיה'. שלוש דוגמאות מפורשות. אנרגיה גרעינית לא מוזכרת — לא נכלל."},
+          {"s":"מה מוגדר כ'פוטנציאל' של ישראל?",
+           "w":"שמש שופעת = בסיס לאנרגיה סולארית","opts":["אין פוטנציאל","שמש שופעת = בסיס לאנרגיה סולארית","כוח אדם","מיקום"],"ans":1,
+           "exp":"'ישראל, עם שמש שופעת, נחשבת לפוטנציאל עצום'. שמש שופעת = soleil abondant = המשאב הטבעי. 'נחשבת ל' = est considérée comme."},
+          {"s":"מה שני המכשולים שמוזכרים?",
+           "w":"רגולציה מסורבלת ותשתית רשת חשמל ישנה","opts":["עלות ומזג אוויר","רגולציה מסורבלת ותשתית רשת חשמל ישנה","חוסר ידע ותקציב","פוליטיקה ושכנים"],"ans":1,
+           "exp":"'מכשולים עיקריים: (1) רגולציה מסורבלת (2) תשתית רשת חשמל ישנה'. שני מכשולים מפורשים. מסורבלת = lourde / bureaucratique. ישנה = vétuste."},
+          {"s":"ישראל מפגרת אחר אילו מדינות?",
+           "w":"גרמניה ודנמרק","opts":["ארה\"ב וסין","גרמניה ודנמרק","ספרד ואיטליה","שוודיה ונורווגיה"],"ans":1,
+           "exp":"'מפגרת אחר מדינות כגרמניה ודנמרק'. 'כ-' = tel que / comme. גרמניה ודנמרק = המדינות שהפכו לדגמי מופת של אנרגיה מתחדשת. שאלת פרט ספציפי."},
+          {"s":"מה ניתן להסיק לגבי ישראל?",
+           "w":"פוטנציאל גבוה אך מכשולים מבניים מונעים ניצולו","opts":["היא מובילה עולמית","פוטנציאל גבוה אך מכשולים מבניים מונעים ניצולו","אין עתיד","היא מפגרת בטכנולוגיה"],"ans":1,
+           "exp":"הטקסט: שמש שופעת (פוטנציאל) + מפגרת (בפועל) + מכשולים. המסקנה: פוטנציאל גבוה + מכשולים מבניים = פער בין אפשרות לביצוע."},
+        ]
+      }
+    ]
+  },
+  {
+    "exam": "Examen Blanc N°17",
+    "sections": [
+      {
+        "section": "Section A — Vocabulaire : Santé publique",
+        "questions": [
+          {"s":"מה פירוש 'תוחלת חיים'?","w":"גיל ממוצע צפוי שאדם יחיה","opts":["גיל המוות","גיל ממוצע צפוי שאדם יחיה","בריאות כללית","מחלה כרונית"],"ans":1,
+           "exp":"תוחלת חיים = espérance de vie ★★★. גיל ממוצע = âge moyen. אחד המדדים החשובים לבריאות הציבור. הופיע ב-YAEL בהקשר פערים דמוגרפיים."},
+          {"s":"'אבחון מוקדם' — מה זה?","w":"זיהוי מחלה בשלב מוקדם לפני שמחמירה","opts":["טיפול לאחר מחלה","זיהוי מחלה בשלב מוקדם לפני שמחמירה","ניתוח","חיסון"],"ans":1,
+           "exp":"אבחון מוקדם = diagnostic précoce ★★★. מוקדם = précoce. זיהוי = identification / détection. שלב מוקדם = stade précoce."},
+          {"s":"'גורמי סיכון' לבריאות — הכוונה היא:","w":"גורמים המגבירים הסתברות למחלה","opts":["טיפולים רפואיים","גורמים המגבירים הסתברות למחלה","גנטיקה בלבד","סימפטומים"],"ans":1,
+           "exp":"גורמי סיכון = facteurs de risque. המגבירים = qui augmentent. הסתברות = probabilité. מחלה = maladie. ביטוי מרכזי בשאלות YAEL על בריאות."},
+          {"s":"'מחלה כרונית' לעומת 'מחלה חריפה' — מה נכון?","w":"כרונית: לטווח ארוך; חריפה: פתאומית וקשה","opts":["כרונית: קלה; חריפה: ידועה","כרונית: לטווח ארוך; חריפה: פתאומית וקשה","זהות לחלוטין","כרונית: מידבקת; חריפה: גנטית"],"ans":1,
+           "exp":"מחלה כרונית = maladie chronique (longue durée, comme le diabète). מחלה חריפה = maladie aiguë (soudaine, grave). חריפה = aiguë. כרונית = chronique."},
+          {"s":"'פערים בריאותיים' — מה המשמעות?","w":"הבדלים בגישה לבריאות בין קבוצות חברתיות","opts":["רפואה בחינם","הבדלים בגישה לבריאות בין קבוצות חברתיות","מחיר תרופות","מספר רופאים"],"ans":1,
+           "exp":"פערים בריאותיים = inégalités de santé ★★★. גישה לבריאות = accès aux soins. בין קבוצות חברתיות = entre groupes sociaux. נושא מרכזי ב-YAEL: שוויוניות מול אי-שוויוניות."},
+          {"s":"'טלה-רפואה' מוגדרת כ:","w":"מתן שירותים רפואיים מרחוק באמצעות טכנולוגיה","opts":["ניתוח רובוטי","מתן שירותים רפואיים מרחוק באמצעות טכנולוגיה","רפואה ניסיונית","רפואה אלטרנטיבית"],"ans":1,
+           "exp":"טלה-רפואה = télémédecine. מרחוק = à distance. מאפשרת גישה לרפואה ללא עזיבת הבית. פתרון לפערים גאוגרפיים. 'טלה-' = tele- (à distance)."},
+          {"s":"'כוח אדם רפואי' כולל:","w":"רופאים, אחיות, פרמדיקים וכל עובדי הבריאות","opts":["רופאים בלבד","רופאים, אחיות, פרמדיקים וכל עובדי הבריאות","חולים","ציוד רפואי"],"ans":1,
+           "exp":"כוח אדם רפואי = personnel médical / ressources humaines médicales. כוח אדם = main-d'œuvre / personnel. מחסור בכוח אדם = pénurie de personnel médical."},
+          {"s":"'הוצאות רפואיות מכיס' אומר:","w":"תשלומים שהחולה משלם ישירות מכספו הפרטי","opts":["תשלומי ביטוח","תשלומים שהחולה משלם ישירות מכספו הפרטי","תקציב ממשלתי","קרן חולים"],"ans":1,
+           "exp":"הוצאות מכיס = dépenses de poche. מכיס = de sa poche (paiement direct). מדד לנטל הכספי על הפרט. מנוגד לביטוח לאומי (assurance nationale)."},
+          {"s":"'עוזר סיעוד' — מהי תפקידו?","w":"סיוע לקשישים ונכים בפעולות יומיומיות","opts":["ניתוחים","סיוע לקשישים ונכים בפעולות יומיומיות","ייעוץ נפשי","מחקר רפואי"],"ans":1,
+           "exp":"עוזר סיעוד = aide-soignant. סיעוד = soins infirmiers / aide à la personne. קשישים = personnes âgées. נכים = personnes handicapées. פעולות יומיומיות = activités quotidiennes."},
+          {"s":"'אי-שוויון בבריאות' הוא תוצאה של:","w":"שילוב של גורמים חברתיים, כלכליים וגאוגרפיים","opts":["גנטיקה בלבד","שילוב של גורמים חברתיים, כלכליים וגאוגרפיים","מזל","החלטות אישיות"],"ans":1,
+           "exp":"אי-שוויון = inégalité. גורמים חברתיים = facteurs sociaux. כלכליים = économiques. גאוגרפיים = géographiques. 'קביעות חברתיות של בריאות' = déterminants sociaux de la santé."}
+        ]
+      },
+      {
+        "section": "Section B — Texte : Inégalités de santé en Israël",
+        "paragraph": "מחקר שפורסם לאחרונה מגלה כי ישראל נאבקת בפערים בריאותיים משמעותיים. תוחלת החיים של תושבים בפריפריה נמוכה בכשלוש שנים בממוצע בהשוואה לאלה בגוש דן. גורמים רבים תורמים לאי-השוויון: ריחוק גיאוגרפי, מחסור בכוח אדם רפואי, ועוני. ממשלת ישראל הכריזה על תכנית 'בריאות השוויונית' שמטרתה לצמצם פערים אלה באמצעות תוספת רופאים לפריפריה, בניית מרפאות ועידוד שימוש בטלה-רפואה.",
+        "questions": [
+          {"s":"מה גודל הפער בתוחלת החיים בין פריפריה למרכז?","w":"כשלוש שנים","opts":["שנה אחת","שנתיים","כשלוש שנים","חמש שנים"],"ans":2,
+           "exp":"'תוחלת החיים נמוכה בכשלוש שנים'. כ- = environ. שלוש שנים = trois ans. השוואה = comparaison entre périphérie et Grand Tel-Aviv."},
+          {"s":"שלושת הגורמים לאי-שוויון הבריאותי הם:","w":"ריחוק גיאוגרפי, מחסור בכוח אדם רפואי, עוני","opts":["גנטיקה + גזע + מין","ריחוק גיאוגרפי + מחסור בכוח אדם רפואי + עוני","מזג אוויר + תזונה + ספורט","ביטוח + גיל + תרופות"],"ans":1,
+           "exp":"שלושה גורמים מפורשים: (1) ריחוק גיאוגרפי = éloignement. (2) מחסור בכוח אדם = pénurie de personnel. (3) עוני = pauvreté. שלושה = trilogie argumentative."},
+          {"s":"טלה-רפואה היא פתרון ל:","w":"ריחוק גיאוגרפי ומחסור בגישה לרפואה","opts":["יוקר התרופות","ריחוק גיאוגרפי ומחסור בגישה לרפואה","מחסור ברופאים עירוניים","ביטוח לאומי"],"ans":1,
+           "exp":"טלה-רפואה = télémédecine. מאפשרת גישה מרחוק = accès à distance. תשובה לריחוק גיאוגרפי + מחסור בכוח אדם מקומי. 'עידוד שימוש בטלה-רפואה' = promote telemedicine."},
+          {"s":"מה מטרת תכנית 'בריאות השוויונית'?","w":"לצמצם פערים בריאותיים בין אזורים","opts":["לבנות בתי חולים חדשים","לצמצם פערים בריאותיים בין אזורים","להפחית עלויות בריאות","לשפר ביטוח לאומי"],"ans":1,
+           "exp":"'מטרתה לצמצם פערים'. לצמצם = réduire / combler. פערים = écarts. שלושה כלים: (1) רופאים לפריפריה (2) מרפאות (3) טלה-רפואה. מטרה = objectif."},
+          {"s":"מה המבנה הרטורי של הקטע?","w":"הצגת בעיה, גורמים, ופתרון ממשלתי","opts":["הצגת פתרון בלבד","הצגת בעיה + גורמים + פתרון ממשלתי","ביקורת ממשלה","רשימת עובדות סטטיסטיות"],"ans":1,
+           "exp":"מבנה: בעיה (פערים) → גורמים (3) → פתרון (תכנית). מבנה קלאסי: problem-cause-solution. הממשלה מוצגת כגורם פעיל. מבנה נפוץ בטקסטים אקדמיים ב-YAEL."}
+        ]
+      },
+      {
+        "section": "Section C — Texte : Le vieillissement de la population",
+        "paragraph": "זקנת האוכלוסייה היא אחד האתגרים הדמוגרפיים הגדולים של המאה ה-21. בישראל, שיעור האוכלוסייה מעל גיל 65 צפוי להכפיל עצמו עד שנת 2050. עלייה זו תגדיל את הביקוש לשירותי בריאות, דיור מותאם ועוזרי סיעוד. מחד גיסא, אורך חיים ממושך הוא הישג חברתי. מאידך גיסא, הוא מציב לחץ תקציבי אדיר על מערכת הבריאות ועל תשלומי הפנסיה.",
+        "questions": [
+          {"s":"מה יקרה לשיעור מעל גיל 65 עד 2050?","w":"יכפיל עצמו","opts":["ישאר זהה","יכפיל עצמו","יגדל ב-10%","יקטן"],"ans":1,
+           "exp":"'צפוי להכפיל עצמו עד 2050'. להכפיל = doubler. צפוי ל- = prévu de / devrait. עד 2050 = d'ici 2050. 'להכפיל עצמו' = se doubler."},
+          {"s":"שלושת הביקושים שיגדלו בגלל הזדקנות האוכלוסייה:","w":"שירותי בריאות, דיור מותאם, עוזרי סיעוד","opts":["חינוך + תחבורה + ביטחון","שירותי בריאות + דיור מותאם + עוזרי סיעוד","תעסוקה + תיירות + תקשורת","מזון + טכנולוגיה + בגדים"],"ans":1,
+           "exp":"'יגדיל את הביקוש ל: שירותי בריאות, דיור מותאם, עוזרי סיעוד'. עוזרי סיעוד = aides-soignants. מותאם = adapté. שלושה ביקושים = trois demandes."},
+          {"s":"מה הצד החיובי של אורך חיים ממושך?","w":"הישג חברתי","opts":["אין צד חיובי","הישג חברתי","פחות עלויות","יותר עובדים"],"ans":1,
+           "exp":"'מחד גיסא, אורך חיים ממושך הוא הישג חברתי'. הישג = réalisation / accomplissement. מחד גיסא = d'un côté. אורך חיים ממושך = longévité."},
+          {"s":"שני הלחצים התקציביים שמוזכרים הם:","w":"מערכת הבריאות ותשלומי הפנסיה","opts":["ביטחון ותחבורה","מערכת הבריאות ותשלומי הפנסיה","חינוך ודיור","תעסוקה ורווחה"],"ans":1,
+           "exp":"'לחץ תקציבי על מערכת הבריאות ועל תשלומי הפנסיה'. שני לחצים. פנסיה = retraite. מאידך גיסא = d'un autre côté."},
+          {"s":"מה הכותב מסיק לגבי זקנת האוכלוסייה?","w":"תופעה בעלת שני פנים — חיובי ושלילי","opts":["בעיה בלבד","הישג ללא קשיים","תופעה בעלת שני פנים — חיובי ושלילי","תופעה שניתן להתעלם ממנה"],"ans":2,
+           "exp":"מבנה: מחד (חיובי) / מאידך (שלילי). מבנה דיאלקטי = structure dialectique. המסקנה: שני פנים — longévité = accomplissement ET fardeau. 'מחד/מאידך' = structure rhétorique classique du YAEL."}
+        ]
+      }
+    ]
   }
 ]
 const COURS = [
@@ -3479,6 +4179,115 @@ const COURS = [
       ["מקיף","complet / global / exhaustif","★★★","פתרון מקיף = solution globale. גישה מקיפה = approche globale."],
     ]},
   ]},
+  {id:"verbes-academiques",icon:"edit",title:"Verbes académiques YAEL",color:"#0369a1",sections:[
+    {title:"Verbes d'affirmation et de preuve",rows:[
+      ["לקבוע","établir / stipuler / fixer","★★★","הדוח קובע כי = le rapport stipule que. הכנסת קבעה = la Knesset a établi. Plus fort que לאמר."],
+      ["לטעון","affirmer / prétendre / argumenter","★★★","טוען = affirme (sans preuve nécessaire). Neutre ou légèrement sceptique."],
+      ["להוכיח","prouver / démontrer","★★★","מחקרים הוכיחו כי = des études ont prouvé que. Plus fort que לטעון."],
+      ["לאשר","confirmer / approuver","★★","מחקר זה מאשר את ההשערה = cette étude confirme l'hypothèse."],
+      ["לשלול","nier / réfuter","★★★","הנתונים שוללים את הטענה = les données réfutent l'argument."],
+      ["להדגים","illustrer / démontrer par exemples","★★","ניתן להדגים זאת על ידי... = on peut l'illustrer par..."],
+    ]},
+    {title:"Verbes de discours académique",rows:[
+      ["לציין","noter / mentionner / souligner","★★★","ראוי לציין כי = il convient de noter que. כפי שצוין = comme mentionné."],
+      ["להדגיש","souligner / mettre en avant","★★★","יש להדגיש כי = il faut souligner que. עם הדגשה על = avec emphase sur."],
+      ["לנתח","analyser","★★★","לאחר ניתוח הנתונים = après analyse des données."],
+      ["להעריך","estimer / évaluer","★★","על פי ההערכות = selon les estimations."],
+      ["להצביע","indiquer / pointer vers","★★★","הנתונים מצביעים על = les données indiquent. מצביע = indique (forme active)."],
+      ["לאפיין","caractériser / définir","★★","תופעה זו מאופיינת על ידי = ce phénomène est caractérisé par."],
+    ]},
+    {title:"Verbes de cause et conséquence",rows:[
+      ["לגרום ל","causer / provoquer","★★★","גרם לעלייה ב = a causé une hausse de. גרם ל + NOM."],
+      ["להוביל ל","conduire à / mener à","★★★","מדיניות זו הובילה לירידה = cette politique a conduit à une baisse."],
+      ["להביא ל","amener à / entraîner","★★","מחקר זה הביא לשינוי = cette étude a entraîné un changement."],
+      ["לנבוע מ","découler de / résulter de","★★★","הבעיה נובעת מ = le problème découle de. Passif logique élégant."],
+      ["לייצר","générer / produire / créer","★★","הרשת מייצרת קיטוב = le réseau génère de la polarisation."],
+      ["לתרום ל","contribuer à","★★★","הפרויקט תרם לצמיחה = le projet a contribué à la croissance."],
+    ]},
+    {title:"Verbes de changement et processus",rows:[
+      ["לצמצם","réduire / diminuer","★★★","לצמצם פערים = réduire les écarts. לצמצם אי-שוויון."],
+      ["להגביר","augmenter / renforcer","★★★","להגביר מודעות = renforcer la prise de conscience."],
+      ["לחזק","renforcer / consolider","★★","לחזק את הקשר = renforcer le lien. לחזק עמדה = consolider une position."],
+      ["לשפר","améliorer","★★★","לשפר את איכות החיים = améliorer la qualité de vie."],
+      ["להחריף","aggraver / exacerber","★★★","המשבר החריף = la crise s'est aggravée. הצעד הזה יחריף = cette mesure aggravera."],
+      ["להעמיק","approfondir / approfondir","★★","להעמיק את ההבנה = approfondir la compréhension."],
+    ]},
+    {title:"Formules de rédaction YAEL",rows:[
+      ["ניתן לומר כי","on peut dire que / il est possible de dire que","★★★","Ouverture standard. Ne jamais commencer par 'אני חושב'."],
+      ["מן הראוי ש","il convient que / il serait souhaitable que","★★★","+ subjonctif hébreu (שיעשה). Recommandation formelle."],
+      ["לאור האמור לעיל","à la lumière de ce qui précède","★★★","Formule de conclusion. Plus élégant que לסיכום seul."],
+      ["ניתן להסיק כי","on peut conclure que","★★★","Formule de déduction logique. Valorisé en fin de paragraphe."],
+      ["כפי שעולה מהאמור","comme il ressort de ce qui précède","★★","Transition vers la conclusion. Niveau C1."],
+      ["מכל האמור לעיל","de tout ce qui précède","★★★","Résume avant la conclusion. 'מכל האמור לעיל עולה כי...'"],
+    ]},
+  ]},
+  {id:"binyanim",icon:"layers",title:"Binyanim — Les 7 conjugaisons",color:"#92400e",sections:[
+    {title:"Pa'al (פָּעַל) — actif simple",rows:[
+      ["כתב — Pa'al","écrire (forme de base)","★★★","Le binyan le plus fréquent. Sujet = agent actif. כָּתַב (passé) / כּוֹתֵב (présent) / יִכְתּוֹב (futur)."],
+      ["הלך — Pa'al","aller","★★★","הָלַךְ (passé). Présent: הוֹלֵךְ. Futur: יֵלֵךְ. Irrégulier."],
+      ["קרא — Pa'al","lire / appeler","★★★","קָרָא = a lu/appelé. La vocalisation détermine le sens (homographes)."],
+      ["ישב — Pa'al","s'asseoir / habiter","★★","יָשַׁב (passé) → יוֹשֵׁב (présent). En YAEL: 'תושב' = habitant (nominalisé)."],
+    ]},
+    {title:"Nif'al (נִפְעַל) — passif et réfléchi",rows:[
+      ["נכתב — Nif'al","être écrit","★★★","Passif de כתב. 'הספר נכתב ב-1990' = le livre a été écrit en 1990."],
+      ["נמצא — Nif'al","se trouver / être trouvé","★★★","Très fréquent. נִמְצָא = se trouve. 'נמצא כי' = il a été trouvé que (résultats d'étude)."],
+      ["נראה — Nif'al","sembler / être vu","★★★","נִרְאֶה כי = il semble que. 'כפי שנראה' = comme on peut le voir."],
+      ["נקבע — Nif'al","être établi / être fixé","★★","נִקְבַּע = a été établi. 'נקבע כי' = il a été établi que (décision officielle)."],
+    ]},
+    {title:"Pi'el (פִּיעֵל) — intensif / transitif",rows:[
+      ["דיבר — Pi'el","parler","★★★","Pi'el de ד.ב.ר. La double médiane = intensité. 'דיבר בשם' = a parlé au nom de."],
+      ["גילם — Pi'el","incarner / jouer (rôle)","★★★","מְגַלֵּם הטיות = incarne des biais. Terme clé YAEL pour 'embodiment'."],
+      ["עיגן — Pi'el","ancrer / consacrer (légal)","★★★","עִיגֵּן את הזכות = a ancré le droit. Terme juridique fondamental."],
+      ["אפיין — Pi'el","caractériser","★★","מְאַפְיֵן = caractérise. 'תופעה המאפיינת' = un phénomène qui caractérise."],
+      ["תמרץ — Pi'el","inciter / incentiver","★★★","מְתַמְרֵץ = incite. 'מדיניות שמתמרצת חברות' = politique qui incite les entreprises."],
+    ]},
+    {title:"Hif'il (הִפְעִיל) — causatif",rows:[
+      ["הוכיח — Hif'il","prouver / démontrer","★★★","הוֹכִיחַ = a prouvé. Causatif: 'faire que quelque chose soit clair'. Niveau B2-C1."],
+      ["הגביר — Hif'il","augmenter / renforcer","★★★","מַגְבִּיר = augmente. 'מגביר את הסיכון' = augmente le risque."],
+      ["הצביע — Hif'il","indiquer / pointer / voter","★★★","מַצְבִּיעַ עַל = indique. 'הנתונים מצביעים על' = les données indiquent."],
+      ["הגיב — Hif'il","réagir / répondre","★★","הגיב ל = a réagi à. Contexte: déclarations officielles et réponses médiatiques."],
+      ["העיד — Hif'il","témoigner","★★","מֵעִיד על = témoigne de. 'הנתונים מעידים על' = les données témoignent de."],
+    ]},
+    {title:"Hitpa'el (הִתְפַּעֵל) — réfléchi / réciproque",rows:[
+      ["התפתח — Hitpa'el","se développer","★★★","מִתְפַּתֵּחַ = se développe. 'תחום מתפתח' = domaine en développement."],
+      ["התגבר — Hitpa'el","augmenter / l'emporter sur","★★★","הבעיה מתגברת = le problème s'intensifie."],
+      ["התמודד — Hitpa'el","faire face à / se confronter","★★★","מִתְמוֹדֵד עִם = fait face à. Très fréquent : 'להתמודד עם אתגרים' = relever les défis."],
+      ["התקצן — Hitpa'el","se radicaliser","★★","מִתְקַצֵּן = se radicalise. דיון מתקצן = débat qui se polarise."],
+    ]},
+  ]},
+  {id:"strategies-lecture",icon:"book-open",title:"Stratégies de Lecture YAEL",color:"#b45309",sections:[
+    {title:"Mots-clés de la structure du texte",rows:[
+      ["מחד גיסא... מאידך גיסא","D'un côté... de l'autre — Structure bipartite","★★★","Signal d'un texte équilibré avec deux perspectives. Toujours en paire."],
+      ["עם זאת / אולם / ברם","Cependant / Toutefois — Pivot d'opposition","★★★","Signal: la phrase suivante va nuancer ou contredire. Cherchez le retournement."],
+      ["יתרה מכך","Qui plus est / De surcroît — Renforcement","★★★","Signal: argument plus fort que le précédent. Hiérarchie d'importance."],
+      ["לפיכך / כתוצאה מכך","Par conséquent / En conséquence","★★★","Signal: conclusion logique à venir. La phrase suivante = résultat."],
+      ["בעוד ש","Tandis que / Alors que — Contraste simultané","★★★","Deux faits simultanés mais opposés. Ex: prix montent PENDANT QUE salaires baissent."],
+      ["בעקבות / לאחר","Suite à / Après — Séquence causale","★★","Signal temporel avec implication causale. L'événement A a déclenché B."],
+    ]},
+    {title:"Stratégies pour répondre aux questions",rows:[
+      ["שאלת הגדרה","Qu'est-ce que X? → chercher la définition dans le texte","★★★","Stratégie: chercher 'המכונה', 'כלומר', 'שהוא', '—' (tiret explicatif)."],
+      ["שאלת גורם","Pourquoi? Quelles causes? → repérer 'בגלל','בשל','מאחר ש'","★★★","Stratégie: repérer les connecteurs de cause dans le texte."],
+      ["שאלת תוצאה","Quelle conséquence? → repérer 'לפיכך','הביא ל','לכן'","★★★","Stratégie: repérer les connecteurs de conséquence."],
+      ["שאלת הסקה","Qu'est-ce qu'on peut déduire? → aller au-delà du texte","★★★","Stratégie: combiner deux faits du texte pour en tirer une conclusion logique."],
+      ["שאלת גישה","Quelle est la position de l'auteur? → chercher le ton","★★","Stratégie: repérer les adjectifs évaluatifs, le registre, les concessions."],
+      ["שאלת 'מה לא נאמר'","Ce qui N'EST PAS dit → vérifier chaque option","★★","Stratégie: Élimination — tester chaque option par rapport au texte."],
+    ]},
+    {title:"Pièges classiques des QCM de lecture",rows:[
+      ["פח 1: תשובה 'יותר מדי'","Option 'trop précise' ou avec détail absent du texte","★★★","Si une option contient un fait vrai mais non mentionné dans LE PASSAGE — éliminée."],
+      ["פח 2: תשובה 'כללית מדי'","Option trop vague qui ne répond pas à la question","★★","'Il y a des problèmes' sans précision = trop vague si le texte précise les problèmes."],
+      ["פח 3: בלבול סיבה ותוצאה","Confondre cause et conséquence","★★★","Le texte dit 'X causé par Y'. QCM piège: option inverse 'Y causé par X'."],
+      ["פח 4: מה שמתבקש מרמז עליו","Option qui 'semble logique' mais n'est pas dans le texte","★★★","La bonne réponse doit être dans le texte — pas dans vos connaissances générales."],
+      ["פח 5: ראשית/שנית ושלישית","Ne pas oublier TOUS les éléments d'une liste","★★","Si le texte liste 3 causes et la question demande 'quelles causes' → toutes les 3."],
+    ]},
+    {title:"Vocabulaire de la critique de texte",rows:[
+      ["לטעון","soutenir / arguer — ce que fait l'auteur avec une thèse","★★★"],
+      ["להדגים","illustrer — ce que font les exemples","★★★"],
+      ["לסייג","nuancer / mettre des réserves","★★","לסייג טענה = nuancer une affirmation. Mot clé: 'עם זאת / בתנאי ש'"],
+      ["לסתור","contredire / réfuter","★★★","לסתור טענה = réfuter une affirmation. Signal: 'ברם / לעומת זאת'."],
+      ["לציין","noter / mentionner","★★★","ציין = a noté / a mentionné (plus neutre que 'טען')."],
+      ["להסיק","déduire / conclure","★★★","ניתן להסיק מכך ש = on peut en déduire que."],
+    ]},
+  ]},
 ]
 const REDACTION = {
   tips:[
@@ -3586,6 +4395,40 @@ const REDACTION = {
         <div class='error-row'><span class='error-bad'>FAUX: בגלל זה</span><span class='error-arrow'>→</span><span class='error-good'>JUSTE: לפיכך / כתוצאה מכך / על כן</span></div>
         <div class='error-row'><span class='error-bad'>FAUX: אבל</span><span class='error-arrow'>→</span><span class='error-good'>JUSTE: אולם / ברם / לעומת זאת</span></div>
       </div>`
+    },
+    {
+      icon:"layers",title:"Structure d'un paragraphe d'argumentation YAEL",
+      content:`<div class='tip-section'><strong>Méthode P.E.E (Point → Evidence → Explication)</strong>
+<ol>
+<li><strong>Point (טענה) :</strong> formuler la thèse du paragraphe.<br>
+<span style="direction:rtl;display:block;font-size:.85rem">ניתן לטעון כי X מהווה גורם מכריע ב...</span></li>
+<li><strong>Evidence (ראיה) :</strong> citer données, étude ou exemple concret.<br>
+<span style="direction:rtl;display:block;font-size:.85rem">מחקר שנערך ב-2023 מראה כי... / לדוגמה, ב-X הוכח כי...</span></li>
+<li><strong>Explication (הסבר) :</strong> relier la preuve à la thèse.<br>
+<span style="direction:rtl;display:block;font-size:.85rem">הדבר מצביע על כך ש... / מנתונים אלה ניתן להסיק כי...</span></li>
+</ol>
+<strong>Formules de transition entre paragraphes :</strong><ul>
+<li><strong>Ajout :</strong> יתרה מכך / בנוסף לכך / כמו כן</li>
+<li><strong>Opposition :</strong> אולם / מנגד / לעומת זאת / מאידך גיסא</li>
+<li><strong>Concession :</strong> אמנם... אולם / עם כל זאת / על אף האמור</li>
+<li><strong>Cause :</strong> לנוכח / בשל / מאחר ש / לאור</li>
+<li><strong>Conséquence :</strong> לפיכך / כתוצאה מכך / על כן</li>
+<li><strong>Illustration :</strong> כדוגמה לכך / למשל / ניתן להמחיש זאת ב...</li>
+</ul></div>`
+    },
+    {
+      icon:"check",title:"Verbes de Binyan à retenir pour le YAEL",
+      content:`<table class='tip-table'>
+        <tr><th>Verbe</th><th>Binyan</th><th>Sens</th><th>Usage YAEL</th></tr>
+        <tr><td class='formula'>לקבוע</td><td>Pa'al</td><td>établir/stipuler</td><td class='badge-tip'>הדוח קובע כי ★★★</td></tr>
+        <tr><td class='formula'>להצביע</td><td>Hif'il</td><td>indiquer/pointer</td><td class='badge-tip'>הנתונים מצביעים ★★★</td></tr>
+        <tr><td class='formula'>לגלם</td><td>Pi'el</td><td>incarner/intégrer</td><td class='badge-tip'>מגלם הטיות ★★★</td></tr>
+        <tr><td class='formula'>לעגן</td><td>Pi'el</td><td>ancrer/consacrer</td><td class='badge-tip'>עיגן את הזכות ★★★</td></tr>
+        <tr><td class='formula'>לנבוע</td><td>Pa'al</td><td>découler/résulter</td><td class='badge-tip'>נובע מ... ★★★</td></tr>
+        <tr><td class='formula'>להחריף</td><td>Hif'il</td><td>aggraver/exacerber</td><td class='badge-tip'>החריף את הבעיה ★★</td></tr>
+        <tr><td class='formula'>לממש</td><td>Pi'el</td><td>concrétiser/réaliser</td><td class='badge-tip'>לממש פוטנציאל ★★</td></tr>
+        <tr><td class='formula'>להתמודד</td><td>Hitpa'el</td><td>faire face / gérer</td><td class='badge-tip'>להתמודד עם ★★★</td></tr>
+      </table>`
     },
   ],
   essays:[
@@ -3709,6 +4552,40 @@ const REDACTION = {
       ]
     },
     {
+      title:"שינוי האקלים: מאיום ציבורי לפעולה גלובלית",
+      fr_title:"Le changement climatique : de la menace à l'action",
+      topic:"כשלי השוק ופתרונות מדיניות לאתגר האקלים",
+      level:"Niveau C1",
+      color:"#059669",
+      text:[
+        {type:"label",text:"מבוא (Introduction)"},
+        {type:"para",he:`שינוי האקלים מהווה אתגר קיומי ללא תקדים בהיסטוריה האנושית. ניתן לומר כי לאחר עשורים של כחשנות והכחשה, קונצנזוס מדעי חד-משמעי נוצר: הפעילות האנושית גורמת להתחממות גלובלית עם השלכות הרות גורל לאקוסיסטמות ולחברות האנושיות. עם זאת, המעבר מהכרה בבעיה לפעולה אפקטיבית עומד בפני מכשולים פוליטיים, כלכליים ותרבותיים כבדים.`,ann:"קיומי = existentiel ★★★. ללא תקדים = sans précédent. כחשנות = négationnisme. הרות גורל = fatidiques/aux conséquences graves ★★★. מעבר מ... ל = transition de... à."},
+        {type:"label",text:"גוף א׳ (כשלי השוק)"},
+        {type:"para",he:`מחד גיסא, הכלכלה הנאו-קלאסית מסבירה את משבר האקלים ככשל שוק קלאסי: פחמן דו-חמצני הוא 'דיסאקונומיה חיצונית' — עלות שהיצרן אינו משלם ואילו החברה כולה נושאת בה. הפתרון הכלכלי הנפוץ הוא מיסוי פחמן, אשר מתמרץ חברות לעבור לאנרגיות נקיות. מדינות כשבדיה הוכיחו כי מדיניות אקלים שאפתנית אינה בהכרח פוגעת בצמיחה הכלכלית.`,ann:"כשל שוק = défaillance du marché ★★★. חיצוניות שלילית = externalité négative. מתמרץ = incite / pousse (Hif'il de תמרץ). הוכיחו כי = ont prouvé que (avec exemples)."},
+        {type:"label",text:"גוף ב׳ (מכשולי הפעולה הגלובלית)"},
+        {type:"para",he:`מאידך גיסא, ה'בעיית מרכב הנוסעים' (Free-rider problem) מאיימת לסכל את שיתוף הפעולה הבינלאומי: כל מדינה מעדיפה שאחרות יישאו בעלות המעבר לאנרגיה ירוקה, תוך שהיא עצמה נהנית מהתועלות. בנוסף, לובי הדלקים המאובנים מפעיל לחץ פוליטי משמעותי ברחבי העולם. לפיכך, הסכמי אקלים כהסכם פריז חיוניים — אולם יישומם דורש מנגנוני אכיפה שהאמנה הנוכחית אינה מספקת.`,ann:"בעיית מרכב הנוסעים = problème du passager clandestin ★★★. לסכל = faire échouer/contrecarrer. לפיכך = par conséquent (très formel ★★). מנגנוני אכיפה = mécanismes d'application."},
+        {type:"label",text:"סיכום (Conclusion)"},
+        {type:"para",he:`לסיכום, מכל האמור לעיל עולה כי פתרון משבר האקלים מצריך שילוב של מדיניות מחירי פחמן, השקעה בטכנולוגיה ירוקה ושיתוף פעולה בינלאומי מחייב. מן הראוי שמנהיגי העולם יבינו כי עלות הפעולה — גבוהה ככל שתהיה — נמוכה בהרבה מעלות חוסר הפעולה. בסופו של דבר, שינוי האקלים הוא לא בעיה של 'אם לפעול', אלא של 'כמה מהר'.`,ann:"עלות הפעולה vs עלות חוסר הפעולה = coût de l'action vs coût de l'inaction ★★★. מחייב = contraignant/obligatoire. מן הראוי ש = il convient que. סיום עם אנטיתזה: 'אם לפעול' vs 'כמה מהר' — style C1."},
+      ]
+    },
+    {
+      title:"אלימות ברשת: אתגר חדש לדמוקרטיה",
+      fr_title:"La violence en ligne : un défi pour la démocratie",
+      topic:"הגדרות, השלכות ופתרונות לתופעת ההסתה ברשת",
+      level:"Niveau B2-C1",
+      color:"#dc2626",
+      text:[
+        {type:"label",text:"מבוא (Introduction)"},
+        {type:"para",he:`האלימות המילולית ברשת — המכונה 'הסתה' או 'hate speech' — הפכה לאחד האתגרים המרכזיים של הדמוקרטיה המודרנית. ניתן לומר כי בעידן שבו כל אדם הפך לבעל פלטפורמה ציבורית, הגבולות בין חופש הביטוי לבין הסתה פוגענית נעשו מטושטשים. שאלת היסוד היא: כיצד מאזנים בין ערכים דמוקרטיים יסודיים — חופש הביטוי מחד, וכבוד האדם מאידך?`,ann:"הסתה = incitation à la haine / hate speech ★★★. פלטפורמה ציבורית = plateforme publique. מטושטשים = flous / brouillés. מחד... מאידך = d'un côté... de l'autre (formule de balancement ★★★)."},
+        {type:"label",text:"גוף א׳ (ההגדרה והשלכות)"},
+        {type:"para",he:`מחד גיסא, הסתה ברשת אינה רק עניין של טעם רע — מחקרים מראים כי קיים קשר סטטיסטי מובהק בין הסתה מקוונת לבין אלימות פיזית בפועל. יתרה מכך, הסתה ממוקדת כלפי קבוצות מיעוט — על בסיס מין, גזע, דת או נטייה מינית — יוצרת 'אפקט הצללה' המרתיע מיעוטים מלהשתתף בשיח הציבורי. תופעה זו שוחקת את יסודות הדמוקרטיה השתתפותית.`,ann:"מובהק = significatif/évident ★★. אפקט הצללה = effet de silençage (chilling effect) ★★★. מרתיע = dissuade / décourage. שוחקת = érode / use. הסתה ממוקדת = ciblée."},
+        {type:"label",text:"גוף ב׳ (הפתרונות והמגבלות)"},
+        {type:"para",he:`מאידך גיסא, הסדרת האלימות המקוונת על ידי המדינה כרוכה בסיכונים. ראשית, מי שיקבע מהי 'הסתה'? ממשלות אוטוריטריות עשויות להשתמש בחוקים כאלה להשתקת אופוזיציה. שנית, אלגוריתמי ביקורת-תוכן אינם מושלמים ועלולים לסנן דיון לגיטימי. לפיכך, הגישה הרצויה היא שילוב של חינוך לאזרחות דיגיטלית, ממשל רשתות חברתיות עצמאי ומנגנוני דיווח יעילים.`,ann:"כרוכה בסיכונים = comporte des risques. אוטוריטרי = autoritaire. ממשל עצמאי = gouvernance indépendante. אלגוריתמי ביקורת-תוכן = algorithmes de modération de contenu ★★★. להשתיק אופוזיציה = réduire l'opposition au silence."},
+        {type:"label",text:"סיכום (Conclusion)"},
+        {type:"para",he:`לסיכום, מכל האמור לעיל עולה כי אלימות ברשת היא תופעה רב-ממדית הדורשת מענה רב-שכבתי. מן הראוי שחברות הרשת, המדינות והחברה האזרחית יפעלו בשיתוף פעולה — כל אחד בגדרי תפקידו — כדי ליצור מרחב דיגיטלי שבו חופש הביטוי וכבוד האדם מתקיימים זה לצד זה. בסופו של דבר, שמירה על הדמוקרטיה בעידן הדיגיטלי היא לא אתגר טכנולוגי אלא ערכי.`,ann:"רב-ממדי = multidimensionnel. רב-שכבתי = à plusieurs niveaux/multi-couches ★★. בגדרי תפקידו = dans les limites de son rôle. מתקיימים זה לצד זה = coexistent. ערכי = axiologique/de valeurs."},
+      ]
+    },
+    {
       title:"הזכות לפרטיות בעידן הדיגיטלי",
       fr_title:"Le droit à la vie privée à l'ère numérique",
       topic:"האיזון בין פרטיות לשקיפות בחברה הדיגיטלית",
@@ -3757,6 +4634,125 @@ const REDACTION = {
         {type:"para",he:`מנגד, ישנם הסוברים כי ריבוי תרבויות הוא מקור כוח ועושר חברתי. מחקרים מראים כי חברות מגוונות נוטות להיות יצירתיות ועמידות יותר בפני שינויים. כמו כן, ניסיון ההגירה לישראל — עם עלייתם של מיליוני יהודים מרקעים שונים — מלמד כי זהות לאומית יכולה לשמש כגשר המחבר בין תרבויות שונות, לא כחומה המפרידה ביניהן.`,ann:"מנגד = en revanche ★★. נוטות להיות = ont tendance à être. גשר המחבר / חומה המפרידה = métaphore du pont vs mur ★★★."},
         {type:"label",text:"סיכום (Conclusion)"},
         {type:"para",he:`לסיכום, לאור הנתונים ניתן להסיק כי אין סתירה מוחלטת בין זהות לאומית לרב-תרבותיות — אולם הדבר מצריך דיאלוג מתמשך ומדיניות שילוב מחושבת. מן הראוי שמדינות ישקיעו בחינוך לאזרחות משותפת, תוך שמירה על מרחב לביטוי תרבותי מגוון. בסופו של דבר, החוזק של חברה דמוקרטית טמון ביכולתה להחזיק במקביל זהות משותפת וגיוון.`,ann:"אין סתירה מוחלטת = il n'y a pas de contradiction absolue. תוך שמירה על = tout en préservant ★★. החוזק טמון ב = la force réside dans ★★."},
+      ]
+    },
+    {
+      title:"שוויון הזדמנויות: מיתוס או מטרה?",
+      fr_title:"L'égalité des chances : mythe ou objectif ?",
+      topic:"פערים מבניים, מדיניות חברתית ומגבלות המריטוקרטיה",
+      level:"Niveau C1",
+      color:"#7c3aed",
+      text:[
+        {type:"label",text:"מבוא (Introduction)"},
+        {type:"para",he:`שוויון הזדמנויות הוא ערך יסוד של הדמוקרטיה הליברלית המודרנית. ניתן לומר כי האידיאל המריטוקרטי — לפיו כל אדם יכול להצליח בזכות כישרונותיו ועמלו — מהווה את הסיפור המייסד של החברה המסחרית המודרנית. ברם, ראיות אמפיריות מראות כי הפער בין האידיאל למציאות הוא עמוק: גורמים מבניים כמוצא חברתי, אזור מגורים ומין קובעים אחוז ניכר מגורל האינדיווידואל.`,ann:"מריטוקרטיה = méritocratie ★★★. סיפור מייסד = récit fondateur. ראיות אמפיריות = preuves empiriques ★★★. אחוז ניכר = pourcentage significatif. גורל = destin."},
+        {type:"label",text:"גוף א׳ (הפערים המבניים)"},
+        {type:"para",he:`מחקרים סוציו-אקונומיים מצביעים על כך שמיקוד ה'כישרון' כגורם הצלחה מסתיר את הגורמים המבניים: ילדים שנולדו לרובע עשיר ובתיה"ס מגויסים נוטים להגיע לאוניברסיטאות יוקרתיות — לא בהכרח בשל כישרון עדיף, אלא בשל הון תרבותי, חברתי וכלכלי שורשי. יתרה מכך, הוכח כי מוביליות חברתית — כלומר הסיכוי לעלות ממעמד חברתי נמוך לגבוה — נמוכה יותר ממה שהשיח הציבורי מניח.`,ann:"הון תרבותי = capital culturel (terme de Bourdieu ★★★). מוביליות חברתית = mobilité sociale ★★★. שורשי = enraciné / profond. מניח = suppose / présuppose. הגה = conçu."},
+        {type:"label",text:"גוף ב׳ (מדיניות ומגבלות)"},
+        {type:"para",he:`לנוכח פערים אלה, מדינות רבות נוקטות מדיניות 'פעולה מתקנת' (Affirmative Action) — כלומר קידום קבוצות חלשות באמצעות העדפה מתקנת בקבלה לאוניברסיטאות ולתעסוקה. מדיניות זו שנויה במחלוקת: תומכיה טוענים שהיא חיונית לתיקון עיוות היסטורי; מבקריה גורסים כי היא פוגעת בשוויון פורמלי ויוצרת קיטוב חברתי. לפיכך, פתרון מקיף חייב לשלב התערבות מוקדמת בחינוך עם מדיניות כלכלית שיוצרת הזדמנויות לכלל.`,ann:"פעולה מתקנת = action positive / affirmative action ★★★. העדפה מתקנת = discrimination positive. עיוות היסטורי = distorsion historique. גורסים = soutiennent/prétendent (littéraire, synonyme de טוענים). התערבות מוקדמת = intervention précoce."},
+        {type:"label",text:"סיכום (Conclusion)"},
+        {type:"para",he:`לסיכום, מכל האמור לעיל עולה כי שוויון הזדמנויות אינו מצב קיים אלא מטרה שיש לשאוף אליה באמצעות מדיניות מכוונת ומשאבים. מן הראוי שהשיח הציבורי יעבור מהסיסמה ל'הזדמנות שווה' לניתוח כן של המכשולים המבניים שמונעים אותה. בסופו של דבר, חברה שמאמינה במריטוקרטיה ומתעלמת מחסמי הכניסה — מרמה את עצמה ואת אזרחיה.`,ann:"שוויון הזדמנויות כמטרה לא כמצב = égalité des chances comme objectif non comme état ★★★. חסמי כניסה = barrières à l'entrée. מרמה את עצמה = se leurre elle-même. סיום עם האשמה רטורית — style C1 bold."},
+      ]
+    },
+    {
+      title:"הסביבה הבנויה ואיכות החיים",
+      fr_title:"L'environnement bâti et la qualité de vie",
+      topic:"עיר מגורים בת-קיימא ורווחה אורבנית",
+      level:"Niveau B2-C1",
+      color:"#047857",
+      text:[
+        {type:"label",text:"מבוא (Introduction)"},
+        {type:"para",he:`הסביבה הפיזית שבה גרים בני אדם משפיעה באופן עמוק על רווחתם הנפשית והגופנית. ניתן לומר כי תכנון העיר — מרחבים ירוקים, תשתיות ציבוריות, תחבורה, צפיפות ורעש — אינו רק עניין אסתטי אלא שאלה של בריאות ציבורית וצדק חברתי. אזורים מוחלשים בערים לרוב נאלצים להסתפק בסביבה פחות בריאה ופחות נגישה.`,ann:"סביבה בנויה = environnement bâti. בת-קיימא = durable. מרחבים ירוקים = espaces verts ★★. צפיפות = densité. צדק חברתי = justice sociale ★★★. נאלצים = sont contraints / forcés."},
+        {type:"label",text:"גוף א׳ (הקשר בין סביבה לבריאות)"},
+        {type:"para",he:`מחקרים מוכיחים כי נגישות לפארקים ושטחים פתוחים מפחיתה מתח נפשי, מגבירה פעילות גופנית ומשפרת בריאות הלב. בניגוד לכך, ריכוז תחבורה כבדה, מפעלים מזהמים ושכונות ללא שטחי ציבור מגדיל תחלואה ומקצר תוחלת חיים. יתרה מכך, 'אפקט ה-NIMBY' — 'לא בחצר שלי' — מביא לכך שמתקנים בלתי רצויים מוקמים בשכונות מוחלשות.`,ann:"NIMBY = Not In My Backyard. 'לא בחצר שלי' ★★★. תחלואה = morbidité. מפחיתה מתח = réduit le stress. מוחלשות = défavorisées / affaiblies."},
+        {type:"label",text:"גוף ב׳ (פתרונות עירוניים)"},
+        {type:"para",he:`לנוכח אתגרים אלה, תכנון עירוני בר-קיימא שואף ליצור 'ערים ב-15 דקות' — שכונות שבהן ניתן להגיע לכל שירות הכרחי ברגל או באופניים. גישה זו, שיושמה בפריז ובברצלונה, מצמצמת תלות ברכב פרטי, מפחיתה פגיעה סביבתית ומגבירה לכידות חברתית. כמו כן, השקעה בתחבורה ציבורית מאיכותית היא צעד מרכזי ביצירת עיר הוגנת ונגישה לכלל תושביה.`,ann:"ערים ב-15 דקות = villes du quart d'heure (concept urbanistique ★★★). לכידות חברתית = cohésion sociale ★★★. בר-קיימא = durable. תלות ברכב = dépendance à la voiture. הוגנת = juste / équitable."},
+        {type:"label",text:"סיכום (Conclusion)"},
+        {type:"para",he:`לסיכום, לאור האמור לעיל ניתן להסיק כי תכנון עירוני הוא מדיניות ציבורית עם השלכות עמוקות על בריאות, שוויון ואיכות חיים. מן הראוי שמקבלי ההחלטות ישלבו שיקולי בריאות ציבורית ושוויון חברתי בכל החלטת תכנון. בסופו של דבר, עיר שתכננה מחדש את עצמה כדי לשרת את תושביה — לא רק את הרכבים — היא עיר שהבינה שבריאות ציבורית מתחילה ברחוב.`,ann:"השלכות עמוקות = implications profondes ★★. מקבלי ההחלטות = les décideurs. שיקולי בריאות ציבורית = considérations de santé publique. הסיום: אנטיתזה 'שרת את תושביה לא את הרכבים' — style B2-C1."},
+      ]
+    },
+    {
+      title:"אוטומציה ועתיד העבודה",
+      fr_title:"L'automatisation et l'avenir du travail",
+      topic:"ההשפעה הכלכלית-חברתית של המהפכה הרובוטית",
+      level:"Niveau C1",
+      color:"#0369a1",
+      text:[
+        {type:"label",text:"מבוא (Introduction)"},
+        {type:"para",he:`המהפכה הטכנולוגית הרביעית — המאופיינת בבינה מלאכותית, אוטומציה ורובוטיקה — מאיימת לשנות את מבנה שוק העבודה הגלובלי בקצב שלא ראינו מאז המהפכה התעשייתית. ניתן לומר כי השאלה אינה עוד האם מכונות יחליפו עבודות אנושיות, אלא אילו עבודות יחליפו — ומה תהיה העלות החברתית. אמנם המחקרים אינם חד-משמעיים, אולם הקונצנזוס הגדל הוא כי "מיומנויות גבוהות" ו"מיומנויות נמוכות" יישרדו, בעוד "העבודות של האמצע" נמצאות בסיכון גבוה.`,ann:"מהפכה טכנולוגית רביעית = quatrième révolution industrielle ★★★. מאופיינת ב = caractérisée par. אמנם... אולם = certes... mais (structure de concession ★★★). קונצנזוס גדל = consensus croissant."},
+        {type:"label",text:"גוף א׳ (הסיכונים)"},
+        {type:"para",he:`מחקר של אוקספורד משנת 2013 הגיע למסקנה כי 47% ממקצועות ארה"ב נמצאים בסיכון גבוה לאוטומציה. מיומנויות כגון עיבוד מידע שגרתי, ניהול לוגיסטי בסיסי וייצור תעשייתי — כבר מוחלפות בקצב מואץ. הדבר מוביל לתופעת 'קיטוב שוק העבודה': בעוד שהעבודות הגבוהות (מנהלים, מדענים, יוצרים) מתרבות, העבודות הבינוניות נשחקות. כתוצאה מכך, נשחק גם המעמד הבינוני — הסוכן ההיסטורי של הדמוקרטיה היציבה.`,ann:"נמצאים בסיכון גבוה = à haut risque ★★. מואץ = accéléré. קיטוב שוק העבודה = polarisation du marché du travail ★★★. הסוכן ההיסטורי = l'agent historique. נשחק = s'érode."},
+        {type:"label",text:"גוף ב׳ (ההזדמנויות והפתרונות)"},
+        {type:"para",he:`מאידך גיסא, יש הטוענים כי האוטומציה — כמו כל מהפכה טכנולוגית בעבר — תיצור יותר עבודות ממה שתבטל. ה"כלכלה הירוקה", האנרגיה המתחדשת, בריאות דיגיטלית וחינוך מותאם אישית הם תחומים שהבינה המלאכותית לא תוכל להחליף לחלוטין. לפיכך, הפתרון הנדרש הוא השקעה ב"ל.מ.מ" — למידה מחדש (reskilling), הכשרה מקצועית ומדיניות רשת ביטחון חברתי — כדי להבטיח שהמעבר הטכנולוגי יהיה הוגן ומשתף.`,ann:"כלכלה ירוקה = économie verte ★★. ל.מ.מ = reskilling (acronyme inventé). מדיניות רשת ביטחון = politique de filet de sécurité ★★★. הוגן ומשתף = juste et inclusif."},
+        {type:"label",text:"סיכום (Conclusion)"},
+        {type:"para",he:`לסיכום, מכל האמור לעיל עולה כי האוטומציה אינה גזירה גורלית בלתי ניתנת לשינוי, אלא תהליך שניתן לנהל ולכוון — ובלבד שהחברה תפעל בצורה יזומה ומכוונת. מן הראוי שממשלות, מוסדות חינוך ומגזר פרטי ישתפו פעולה ביצירת תשתית כלכלית שבה הרובוטיקה תעצים את האדם — ולא תחליפו. בסופו של דבר, השאלה המרכזית אינה 'מה יכולות המכונות לעשות' אלא 'מה אנחנו רוצים שיעשו'.`,ann:"גזירה גורלית = sentence fatale / fatalité. בלבד ש = à condition que. יזומה = proactive ★★. תעצים = va autonomiser / va augmenter (Hif'il de עצם). הסיום: שאלה מחדדת את הבחירה החברתית — style C1."},
+      ]
+    },
+    {
+      title:"בריאות הנפש: מנחלות לנורמה",
+      fr_title:"La santé mentale : de la stigmatisation à la normalisation",
+      topic:"שינוי יחסה של החברה לבריאות הנפש ומשמעויותיו",
+      level:"Niveau B2-C1",
+      color:"#7c3aed",
+      text:[
+        {type:"label",text:"מבוא (Introduction)"},
+        {type:"para",he:`המהפכה השקטה של המאה ה-21 אינה טכנולוגית אלא תרבותית: בריאות הנפש עברה מנושא טאבו לסוגיה לגיטימית בשיח הציבורי. ניתן לומר כי הגל האחרון של מודעות נפשית — שניתח לחייו על ידי ספורטאים, שחקנים ואישי ציבור שהתוודו על מאבקיהם — הביא לשינוי פרדיגמה בהיחס לבריאות הנפש. אמנם הסטיגמה לא נעלמה לחלוטין, אולם מגמת הנורמליזציה ניכרת.`,ann:"שינוי פרדיגמה = changement de paradigme ★★★. נורמליזציה = normalisation. טאבו = tabou. התוודו = ont avoué / se sont confessés. ניתח לחייו = a été donné de la vie (expression figée)."},
+        {type:"label",text:"גוף א׳ (הנזק של הסטיגמה)"},
+        {type:"para",he:`מחקרים מראים כי הסטיגמה המוטחת כלפי אנשים הסובלים מהפרעות נפשיות מובילה לדחייה של פנייה לעזרה. בישראל, כ-75% מהמתמודדים עם בעיות נפשיות אינם מקבלים טיפול. יתרה מכך, הדה-סטיגמטיזציה אינה שאלה של 'אווירה' בלבד — אלא של חיים ומוות: בוחרי האנשים שמצאו אבדן מוות עקב מחלות נפש לא פנו לעזרה בשל בושה.`,ann:"מוטחת כלפי = imposée à / dirigée contre. דה-סטיגמטיזציה = déstigmatisation ★★★. הפרעות נפשיות = troubles mentaux. אינם מקבלים טיפול = ne reçoivent pas de soins. אבדן מוות = décès par suicide (terme formel מועדף)."},
+        {type:"label",text:"גוף ב׳ (השינוי ופתרונות)"},
+        {type:"para",he:`לנוכח כישלון הגישה המסורתית, שתי מגמות מבטיחות מתגבשות. ראשית, טיפול דיגיטלי ואפליקציות בריאות נפשיות הפכו לנגישים ואנונימיים — ועוקפים חלקית את חסם הסטיגמה. שנית, תוכניות לבריאות נפש בבתי ספר — שמלמדות אוריינות רגשית ומיומנויות ויסות — מוכיחות תוצאות חיוביות. מן הראוי שממשלות יכפילו את ההשקעה הן בשירותים נפשיים פיזיים והן בחינוך מונע.`,ann:"מתגבשות = se consolidant / émergent. אוריינות רגשית = littératie émotionnelle ★★★. ויסות = régulation (émotionnelle). חינוך מונע = prévention éducative. עוקפים את חסם הסטיגמה = contournent la barrière de la stigmatisation."},
+        {type:"label",text:"סיכום (Conclusion)"},
+        {type:"para",he:`לסיכום, לאור כל האמור ניתן לקבוע כי הנורמליזציה של בריאות הנפש היא צעד הכרחי — לא רק מוסרי אלא גם כלכלי, שכן מחלות נפש בלתי מטופלות עולות מיליארדים למשק. מן הראוי שהמדינה תגביר את ההשקעה בשירותי בריאות נפש ותמשיך בקמפיינים להסרת סטיגמה. בסופו של דבר, חברה שמתייחסת לבריאות הנפש כאל בריאות גוף — היא חברה בריאה יותר.`,ann:"מחלות נפש בלתי מטופלות = troubles mentaux non traités. עולות מיליארדים = coûtent des milliards. הסרת סטיגמה = levée/élimination de la stigmatisation. הסיום: אנלוגיה בין נפש לגוף — style B2-C1. שכן = car (registre soutenu)."},
+      ]
+    },
+    {
+      title:"הפיצול המוחי של ישראל: חברה מפולגת?",
+      fr_title:"Les fractures de la société israélienne",
+      topic:"קיטוב פוליטי, חברתי ותרבותי בישראל",
+      level:"Niveau C1",
+      color:"#dc2626",
+      text:[
+        {type:"label",text:"מבוא (Introduction)"},
+        {type:"para",he:`ישראל היא אחת החברות הדמוקרטיות המפולגות ביותר בעולם. ניתן לומר כי המדינה פועלת על מספר ציר-שסעים בו-זמנית: חילוני-דתי, ימין-שמאל, יהודי-ערבי, ואשכנזי-מזרחי. שסעים אלה אינם רק אידיאולוגיים — הם נוגעים לזהות, לזיכרון ולעתיד. ברם, חשוב להבחין בין 'קיטוב' שהוא הגברת מרחק בין עמדות, לבין 'שסע' שהוא בקעה תרבותית-עמוקה יותר.`,ann:"ציר-שסעים = axes de clivage ★★★. בו-זמנית = simultanément. שסע = clivage / fracture (sociale) ★★★. קיטוב = polarisation. בקעה = fissure / gouffre. הבחנה בין X לY = distinction entre X et Y."},
+        {type:"label",text:"גוף א׳ (ממדי הפיצול)"},
+        {type:"para",he:`מחקרים סוציולוגיים מראים כי הישראלים חיים ב'בועות זהות': חברויות מדיה חברתית, שכונות מגורים ואף בתי ספר נפרדים בין קבוצות. כשל המידע מחריף את הקיטוב: כל קבוצה חשופה לנרטיב אחר על אותה מציאות. יתרה מכך, קיטוב הביא להיחלשות הנורמות הפוליטיות: מנהיגים מחפשים ניצחון אלקטורלי מהיר על פני קונצנזוס ארוך-טווח.`,ann:"בועות זהות = bulles identitaires ★★★. כשל המידע = échec informationnel / fracture informationnelle. נרטיב = récit/narrative ★★★. נורמות פוליטיות = normes politiques. היחלשות = affaiblissement."},
+        {type:"label",text:"גוף ב׳ (מה מאחד ומה מפריד)"},
+        {type:"para",he:`מאידך גיסא, יש לזכור כי ישראל שרדה מלחמות, אינתיפאדות ומשברים — ובכולם, החברה הגלתה יכולת לכידות מרשימה. מחקרים מראים כי על אף הקיטוב הפוליטי, ישנם ערכים משותפים: כ-75% מהיהודים הישראלים מזהים עצמם כ"גאים להיות ישראלים". ה'ייחודיות הישראלית' — מיזוג ייחודי של פלורליזם ותרבות משותפת — עדיין מהווה בסיס לדיאלוג.`,ann:"לכידות = cohésion ★★★. ייחודיות = singularité / particularité. מיזוג = fusion / alliage. שרדה = a survécu. גאים = fiers. עדיין מהווה = constitue encore."},
+        {type:"label",text:"סיכום (Conclusion)"},
+        {type:"para",he:`לסיכום, מכל האמור לעיל עולה כי הפיצול הישראלי הוא אמיתי ועמוק — אולם אינו גזירה גורלית. מן הראוי שמנהיגי ישראל יבינו כי הקיטוב הוא בחירה — וכי שיח מכבד, חינוך לאזרחות משותפת ומוסדות בוררות חזקים הם הכלים לאחד. בסופו של דבר, חברה מפולגת שמכירה בפיצוליה ומחפשת גשרים — היא חברה שבחרה לא להתפרק.`,ann:"גזירה גורלית = fatalité ★★★. מוסדות בוררות = institutions d'arbitrage. שיח מכבד = discours respectueux. הסיום: קריאה לפעולה + אנטיתזה 'מפולגת אבל בוחרת שלא להתפרק' — style C1 rhétorique."},
+      ]
+    },
+    {
+      title:"הבינה המלאכותית ושוק העבודה: הזדמנות או איום?",
+      fr_title:"L'intelligence artificielle et le marché du travail",
+      topic:"השפעת ה-AI על תעסוקה ועתיד העבודה",
+      level:"Niveau C1",
+      color:"#0369a1",
+      text:[
+        {type:"label",text:"מבוא (Introduction)"},
+        {type:"para",he:`בעשור האחרון, הבינה המלאכותית (AI) שינתה את פני שוק העבודה ברחבי העולם. ניתן לומר כי אנו עדים למהפכה תעשייתית רביעית שמאתגרת לא רק כלכלות אלא גם זהויות מקצועיות. עולה השאלה האם הטכנולוגיה הזו תיצור מקומות עבודה חדשים, או תחסל מיליוני משרות ותחריף פערים חברתיים קיימים.`,ann:"מהפכה תעשייתית = révolution industrielle ★★★. זהויות מקצועיות = identités professionnelles ★★. תיצור = créer (futur). תחסל = éliminer. פתיחה עם 'ניתן לומר כי' + שאלה רטורית — style classique YAEL."},
+        {type:"label",text:"גוף א׳ (ההזדמנויות)"},
+        {type:"para",he:`מחד גיסא, לבינה המלאכותית פוטנציאל ליצור תעשיות שלמות שטרם הומצאו. כשם שהאינטרנט הוליד מקצועות כ'מפתח אתרים' ו'מנהל מדיה חברתית', כך ה-AI עשויה ליצור מקצועות חדשים — 'מאמן AI', 'מומחה אתיקה דיגיטלית', 'מנתח נתונים'. יתרה מכך, שחרור עובדים ממשימות שגרתיות ורפטיטיביות מאפשר להם להתמקד ביצירתיות, אמפתיה ומנהיגות — כישורים שה-AI אינו יכול לשכפל.`,ann:"שטרם הומצאו = qui n'existent pas encore ★★★. שגרתיות = routinières. רפטיטיביות = répétitives. יצירתיות = créativité. אמפתיה = empathie. כישורים = compétences. לשכפל = dupliquer / reproduire."},
+        {type:"label",text:"גוף ב׳ (הסיכונים)"},
+        {type:"para",he:`מאידך גיסא, מחקרי McKinsey ו-Oxford מצביעים כי עד 30% מהמשרות הנוכחיות עשויות להיות ממוכנות עד 2030. הפגיעה לא תהיה אחידה: עובדים בשכר נמוך ובמקצועות שגרתיים — עמדות קופה, נהגים, עובדי ייצור — יינזקו יותר ממנהלים ויוצרים. כך, ה-AI עלולה להחריף את פערי השכר ולהעמיק את הפער בין עשירים לעניים.`,ann:"ממוכנות = automatisées ★★★. פגיעה לא אחידה = impact non uniforme. עמדות קופה = caisses (de caissiers). יינזקו = seront lésés. להחריף = aggraver ★★★. להעמיק = approfondir. פערי השכר = écarts salariaux."},
+        {type:"label",text:"סיכום (Conclusion)"},
+        {type:"para",he:`לסיכום, מכל האמור לעיל עולה כי הבינה המלאכותית אינה גזירה גורלית — לא חיובית ולא שלילית. האתגר האמיתי הוא מדיניות: הכשרה מקצועית מחדש (re-skilling), רשת ביטחון חברתי מחוזקת ורגולציה שמבטיחה כי פירות הטכנולוגיה יתחלקו באופן שוויוני. מן הראוי שממשלות יאמצו 'מדיניות AI הוגנת' כדי למנוע מצב שבו הכלכלה הדיגיטלית מייצרת עושר לבודדים תוך הדרה של הרוב.`,ann:"הכשרה מחדש = re-skilling ★★★. רשת ביטחון = filet de sécurité. פירות הטכנולוגיה = fruits de la technologie. שוויוני = équitable. הדרה = exclusion ★★★. 'לא חיובית ולא שלילית' = ni positive ni négative — nuance C1. 'מן הראוי ש-' = il convient que."},
+      ]
+    },
+    {
+      title:"החינוך הפרטי ושוויון ההזדמנויות",
+      fr_title:"L'éducation privée et l'égalité des chances",
+      topic:"השפעת החינוך הפרטי על פערים חברתיים",
+      level:"Niveau B2-C1",
+      color:"#7c3aed",
+      text:[
+        {type:"label",text:"מבוא (Introduction)"},
+        {type:"para",he:`מערכת החינוך נחשבת לאחת מנדבכי הדמוקרטיה — מנגנון שמאפשר לכל ילד, ללא קשר לרקע כלכלי, לממש את פוטנציאלו. אולם בפועל, הצמיחה של החינוך הפרטי — בתי ספר עם שכר לימוד גבוה, שיעורי פרטיים וקורסי העשרה — מעוררת שאלה יסודית: האם החינוך הפרטי מחמיר פערים חברתיים או שמא מעלה את רף האיכות לכולם?`,ann:"נדבך = pilier / fondation ★★★. מנגנון = mécanisme ★★★. לממש = réaliser / concrétiser. צמיחה = croissance. שכר לימוד = frais de scolarité. שאלה יסודית = question fondamentale. 'האם... או שמא' = structure rhétorique de problématique."},
+        {type:"label",text:"גוף א׳ (החינוך הפרטי מחמיר פערים)"},
+        {type:"para",he:`מחד גיסא, עדויות אמפיריות מראות כי ילדים ממשפחות אמידות נהנים מגישה להוראה מותאמת אישית, טכנולוגיה עדכנית ומרשתות חברתיות מובילות — יתרונות שאינם נגישים לילדים ממשפחות מוחלשות. כך, מנגנון הבחירה בחינוך פרטי מייצר 'בריחת מוחות מהציבורי': ההורים החזקים מוצאים מהמערכת, מחלישים את הלגיטימציה ואת מימון החינוך הציבורי.`,ann:"עדויות אמפיריות = preuves empiriques ★★★. אמידות = aisées (familles aisées). הוראה מותאמת = enseignement individualisé. מוחלשות = défavorisées. בריחת מוחות = fuite des cerveaux. מחלישים את הלגיטימציה = affaiblissent la légitimité."},
+        {type:"label",text:"גוף ב׳ (ויכוח הנגדי)"},
+        {type:"para",he:`מאידך גיסא, יש הטוענים כי תחרות בין מוסדות חינוך מגבירה איכות — ובתי ספר ציבוריים מחויבים לשפר את עצמם כדי להתמודד. יתרה מכך, חינוך פרטי מפחית לחץ ממשלתי ומאפשר ניסויים פדגוגיים. ברם, ניסיון מדינות כצ'ילה וסקוטלנד מראה כי ללא רגולציה, שוק החינוך מייצר ריבוד חברתי קיצוני.`,ann:"תחרות = concurrence ★★. מחויבים = obligés / contraints. ניסויים פדגוגיים = expériences pédagogiques. ריבוד חברתי = stratification sociale ★★★. 'יש הטוענים' = certains affirment. 'ברם' = cependant (registre soutenu ★★★)."},
+        {type:"label",text:"סיכום (Conclusion)"},
+        {type:"para",he:`לסיכום, לאור כל האמור ניתן לקבוע כי חינוך פרטי לכשעצמו אינו בעיה — הבעיה היא היעדר רגולציה ואי-מימון מספק לחינוך הציבורי. מן הראוי כי מדינות יאמצו מודל שבו חינוך פרטי מתקיים לצד מערכת ציבורית חזקה, עם מנגנוני פיצוי שמבטיחים שוויון הזדמנויות. בסופו של דבר, חינוך שאינו מאפשר ניידות חברתית — אינו חינוך, אלא שימור פריבילגיה.`,ann:"לכשעצמו = en soi ★★★. היעדר = absence de. מנגנוני פיצוי = mécanismes compensatoires. ניידות חברתית = mobilité sociale ★★★. שימור פריבילגיה = préservation des privilèges. הסיום: אמירה חדה עם אנטיתזה — 'אינו חינוך, אלא...' — style C1."},
       ]
     },
   ]
@@ -4085,6 +5081,7 @@ function renderQuiz(){
         ${opts.map((o,i)=>`<button class="quiz-opt" onclick="answerQuiz(${i})">${o}</button>`).join('')}
       </div>
       <div id="quiz-exp"></div>
+      <div class="kbd-hint"><kbd class="kbd">1</kbd>–<kbd class="kbd">4</kbd> ou clic pour répondre · <kbd class="kbd">→</kbd> suivant</div>
     </div>`;
 }
 function answerQuiz(idx){
@@ -4382,6 +5379,30 @@ function onKey(e){
     else if(e.key==='1')rateCard(0);
     else if(e.key==='2')rateCard(1);
     else if(e.key==='3')rateCard(2);
+  } else if(scr==='screen-quiz'){
+    const n=parseInt(e.key);
+    if(n>=1&&n<=4&&quiz&&!quiz.answered){e.preventDefault();answerQuiz(n-1);}
+    else if((e.key==='ArrowRight'||e.key==='Enter')&&quiz&&quiz.answered){
+      e.preventDefault();quiz.idx++;renderQuiz();
+    }
+  } else if(scr==='screen-connecteurs'){
+    const n=parseInt(e.key);
+    if(n>=1&&n<=4&&conn&&!conn.answered){e.preventDefault();answerConn(n-1);}
+    else if((e.key==='ArrowRight'||e.key==='Enter')&&conn&&conn.answered){
+      e.preventDefault();conn.idx++;renderConnector();
+    }
+  } else if(scr==='screen-phrases'){
+    const n=parseInt(e.key);
+    if(n>=1&&n<=4&&phr&&!phr.answered){e.preventDefault();answerPhr(n-1);}
+    else if((e.key==='ArrowRight'||e.key==='Enter')&&phr&&phr.answered){
+      e.preventDefault();phr.idx++;renderPhrase();
+    }
+  } else if(scr==='screen-annales'){
+    const n=parseInt(e.key);
+    if(n>=1&&n<=4&&ann&&!ann.answered){e.preventDefault();answerAnn(n-1);}
+    else if((e.key==='ArrowRight'||e.key==='Enter')&&ann&&ann.answered){
+      e.preventDefault();ann.qIdx++;renderAnnalesQ();
+    }
   }
 }
 
