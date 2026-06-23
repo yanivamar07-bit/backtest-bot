@@ -2,286 +2,321 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>YAEL — Révisions Intelligentes</title>
 <style>
-:root{
-  --blue:#4257b2;--blue-dark:#2d3e8f;--blue-light:#e8ebf7;
-  --green:#23af79;--red:#ef4444;--yellow:#ffcd1f;--orange:#f59e0b;
-  --bg:#f6f7fb;--card:#fff;--text:#1a1a2e;--muted:#6b7280;
-  --radius:12px;--shadow:0 2px 12px rgba(0,0,0,.08);
+
+:root {
+  --primary:#1e3a8a;--primary-l:#2d55c8;--primary-d:#152b6e;
+  --accent:#f59e0b;--accent-l:#fef3c7;--accent-d:#d97706;
+  --green:#059669;--green-l:#d1fae5;
+  --red:#dc2626;--red-l:#fee2e2;
+  --purple:#7c3aed;--purple-l:#ede9fe;
+  --bg:#f0f4f8;--bg2:#e2e8f0;--card:#fff;
+  --text:#0f172a;--text2:#334155;--muted:#64748b;--muted-l:#94a3b8;
+  --border:#e2e8f0;
+  --r:14px;--r-sm:8px;--r-lg:20px;
+  --sh:0 4px 16px rgba(0,0,0,.08),0 1px 4px rgba(0,0,0,.05);
+  --sh-sm:0 1px 4px rgba(0,0,0,.06);
+  --sh-lg:0 10px 40px rgba(0,0,0,.12);
+  --sh-col:0 4px 20px rgba(30,58,138,.18);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:15px;line-height:1.5}
 
 /* NAV */
-.nav{background:var(--blue);color:#fff;padding:0 20px;display:flex;align-items:center;gap:0;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.2)}
-.nav-logo{font-size:1.3rem;font-weight:800;padding:14px 20px 14px 0;letter-spacing:1px;white-space:nowrap}
-.nav-logo span{color:var(--yellow)}
-.nav-tabs{display:flex;gap:0;flex:1;overflow-x:auto}
-.nav-tab{padding:14px 18px;cursor:pointer;font-size:.9rem;font-weight:600;border-bottom:3px solid transparent;white-space:nowrap;transition:.2s;color:rgba(255,255,255,.75)}
-.nav-tab:hover{color:#fff;background:rgba(255,255,255,.1)}
-.nav-tab.active{color:#fff;border-bottom-color:var(--yellow)}
+.nav{background:linear-gradient(135deg,var(--primary-d) 0%,var(--primary) 60%,var(--primary-l) 100%);color:#fff;padding:0 16px;display:flex;align-items:center;position:sticky;top:0;z-index:200;box-shadow:0 2px 20px rgba(15,23,42,.3);height:56px}
+.nav-logo{font-size:1.35rem;font-weight:900;padding-right:18px;letter-spacing:2px;white-space:nowrap;background:linear-gradient(135deg,#fff 20%,var(--accent) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0}
+.nav-tabs{display:flex;flex:1;overflow-x:auto;scrollbar-width:none;height:100%}
+.nav-tabs::-webkit-scrollbar{display:none}
+.nav-tab{padding:0 15px;height:100%;cursor:pointer;font-size:.82rem;font-weight:600;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s;color:rgba(255,255,255,.6);display:flex;align-items:center;gap:5px;user-select:none}
+.nav-tab:hover{color:#fff;background:rgba(255,255,255,.08)}
+.nav-tab.active{color:#fff;border-bottom-color:var(--accent);background:rgba(255,255,255,.07)}
 
 /* SCREENS */
-.screen{display:none;padding:24px 20px;max-width:960px;margin:0 auto}
+.screen{display:none;padding:20px 16px 48px;max-width:880px;margin:0 auto;animation:fadeIn .2s ease}
 .screen.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
-/* DASHBOARD */
-.dash-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:24px}
-.stat-card{background:var(--card);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);text-align:center}
-.stat-card .num{font-size:2.2rem;font-weight:800;color:var(--blue)}
-.stat-card .num.green{color:var(--green)}
-.stat-card .num.orange{color:var(--orange)}
-.stat-card .num.red{color:var(--red)}
-.stat-card .label{font-size:.85rem;color:var(--muted);margin-top:4px}
-.section-title{font-size:1.1rem;font-weight:700;margin:20px 0 12px;color:var(--blue-dark)}
-.btn-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
-.btn{border:none;border-radius:var(--radius);padding:14px 20px;font-size:.95rem;font-weight:700;cursor:pointer;transition:.18s;display:flex;align-items:center;justify-content:center;gap:8px}
-.btn-primary{background:var(--blue);color:#fff}
-.btn-primary:hover{background:var(--blue-dark)}
-.btn-success{background:var(--green);color:#fff}
-.btn-success:hover{background:#1a8f60}
-.btn-warn{background:var(--orange);color:#fff}
-.btn-warn:hover{background:#d97706}
-.btn-outline{background:#fff;color:var(--blue);border:2px solid var(--blue)}
-.btn-outline:hover{background:var(--blue-light)}
-.btn-sm{padding:8px 14px;font-size:.82rem}
-.progress-bar-wrap{background:#e5e7eb;border-radius:99px;height:10px;margin-top:8px;overflow:hidden}
-.progress-bar-fill{height:100%;background:var(--green);border-radius:99px;transition:.5s}
-.cat-grid{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
-.cat-pill{padding:6px 14px;border-radius:99px;font-size:.8rem;font-weight:600;cursor:pointer;border:2px solid transparent;transition:.15s}
-.cat-pill.active{background:var(--blue);color:#fff}
-.cat-pill:not(.active){background:#fff;color:var(--blue);border-color:var(--blue)}
+/* CARD */
+.card{background:var(--card);border-radius:var(--r);padding:18px;box-shadow:var(--sh);border:1px solid rgba(255,255,255,.9)}
+.card-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px}
+.card-title{font-size:1.05rem;font-weight:800;color:var(--text)}
+.card-subtitle{font-size:.8rem;color:var(--muted);margin-top:2px}
 
-/* FLASHCARD */
-.fc-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px}
-.fc-progress{font-size:.85rem;color:var(--muted);font-weight:600}
-.fc-bar-wrap{background:#e5e7eb;border-radius:99px;height:6px;margin-bottom:20px;overflow:hidden}
-.fc-bar{background:var(--blue);height:100%;border-radius:99px;transition:.4s}
-.fc-scene{width:100%;perspective:1200px;margin-bottom:20px}
-.fc-card-wrap{position:relative;width:100%;min-height:300px;cursor:pointer;transform-style:preserve-3d;transition:transform .5s}
-.fc-card-wrap.flipped{transform:rotateY(180deg)}
-.fc-face{position:absolute;width:100%;min-height:300px;backface-visibility:hidden;background:var(--card);border-radius:16px;box-shadow:var(--shadow);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 30px;text-align:center}
-.fc-face.back{transform:rotateY(180deg)}
-.fc-tag{font-size:.75rem;font-weight:700;text-transform:uppercase;color:var(--muted);letter-spacing:1px;margin-bottom:16px}
-.fc-word{font-size:2.4rem;font-weight:800;color:var(--text);direction:rtl;line-height:1.3;margin-bottom:8px}
-.fc-word-small{font-size:1.5rem;font-weight:700;color:var(--text);direction:rtl}
-.fc-translation{font-size:1.6rem;font-weight:700;color:var(--blue);margin-bottom:12px}
-.fc-hint{font-size:.85rem;color:var(--muted);margin-top:8px}
-.fc-example{font-size:.9rem;color:var(--muted);direction:rtl;margin-top:12px;background:var(--blue-light);padding:8px 14px;border-radius:8px;font-style:italic;max-width:100%}
-.fc-click-hint{font-size:.8rem;color:var(--muted);margin-top:16px;display:flex;align-items:center;gap:4px}
-.fc-btns{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;max-width:500px;margin:0 auto}
-.fc-btn-dk{background:#fee2e2;color:var(--red);border:none;border-radius:var(--radius);padding:14px;font-size:.9rem;font-weight:700;cursor:pointer;transition:.15s}
-.fc-btn-dk:hover{background:var(--red);color:#fff}
-.fc-btn-hard{background:#fef3c7;color:var(--orange);border:none;border-radius:var(--radius);padding:14px;font-size:.9rem;font-weight:700;cursor:pointer;transition:.15s}
-.fc-btn-hard:hover{background:var(--orange);color:#fff}
-.fc-btn-know{background:#d1fae5;color:var(--green);border:none;border-radius:var(--radius);padding:14px;font-size:.9rem;font-weight:700;cursor:pointer;transition:.15s}
-.fc-btn-know:hover{background:var(--green);color:#fff}
-.fc-next-info{text-align:center;font-size:.8rem;color:var(--muted);margin-top:10px}
+/* BUTTONS */
+.btn{border:none;border-radius:var(--r-sm);padding:10px 17px;font-size:.87rem;font-weight:700;cursor:pointer;transition:all .18s;display:inline-flex;align-items:center;justify-content:center;gap:6px;white-space:nowrap;letter-spacing:.1px}
+.btn:active{transform:scale(.96)}
+.btn-primary{background:linear-gradient(135deg,var(--primary),var(--primary-l));color:#fff;box-shadow:0 2px 10px rgba(30,58,138,.28)}
+.btn-primary:hover{box-shadow:0 4px 18px rgba(30,58,138,.4);transform:translateY(-1px)}
+.btn-success{background:linear-gradient(135deg,#047857,var(--green));color:#fff;box-shadow:0 2px 10px rgba(5,150,105,.28)}
+.btn-success:hover{box-shadow:0 4px 18px rgba(5,150,105,.4);transform:translateY(-1px)}
+.btn-accent{background:linear-gradient(135deg,var(--accent-d),var(--accent));color:#fff;box-shadow:0 2px 10px rgba(245,158,11,.28)}
+.btn-accent:hover{box-shadow:0 4px 18px rgba(245,158,11,.4);transform:translateY(-1px)}
+.btn-purple{background:linear-gradient(135deg,#5b21b6,var(--purple));color:#fff}
+.btn-outline{background:var(--card);color:var(--primary);border:2px solid var(--border)}
+.btn-outline:hover{border-color:var(--primary);background:var(--accent-l)}
+.btn-ghost{background:transparent;color:var(--muted);padding:8px 12px}
+.btn-ghost:hover{background:var(--bg2);color:var(--text)}
+.btn-sm{padding:7px 12px;font-size:.78rem}
+.btn-lg{padding:13px 22px;font-size:.95rem}
+.btn-block{width:100%}
+.btn-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:10px}
+
+/* STAT CARDS */
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:18px}
+.scard{background:var(--card);border-radius:var(--r);padding:14px;box-shadow:var(--sh-sm);text-align:center;position:relative;overflow:hidden}
+.scard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.scard.c-blue::before{background:linear-gradient(90deg,var(--primary),var(--primary-l))}
+.scard.c-green::before{background:linear-gradient(90deg,#047857,var(--green))}
+.scard.c-orange::before{background:linear-gradient(90deg,var(--accent-d),var(--accent))}
+.scard.c-purple::before{background:linear-gradient(90deg,#5b21b6,var(--purple))}
+.scard.c-red::before{background:linear-gradient(90deg,#b91c1c,var(--red))}
+.scard-num{font-size:2rem;font-weight:900;line-height:1.1;margin-bottom:3px}
+.c-blue .scard-num{color:var(--primary)}.c-green .scard-num{color:var(--green)}.c-orange .scard-num{color:var(--accent-d)}.c-purple .scard-num{color:var(--purple)}.c-red .scard-num{color:var(--red)}
+.scard-lbl{font-size:.72rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+
+/* PROGRESS */
+.prog-wrap{background:var(--bg2);border-radius:99px;height:6px;overflow:hidden}
+.prog-fill{height:100%;border-radius:99px;transition:width .5s ease}
+.prog-blue{background:linear-gradient(90deg,var(--primary),var(--primary-l))}
+.prog-green{background:linear-gradient(90deg,#047857,var(--green))}
+.prog-accent{background:linear-gradient(90deg,var(--accent-d),var(--accent))}
+
+/* CAT PILLS */
+.cat-grid{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.cpill{padding:5px 12px;border-radius:99px;font-size:.78rem;font-weight:700;cursor:pointer;border:2px solid var(--border);transition:all .15s;background:#fff;color:var(--text2)}
+.cpill:hover{border-color:var(--primary);color:var(--primary)}
+.cpill.active{background:var(--primary);color:#fff;border-color:var(--primary);box-shadow:0 2px 8px rgba(30,58,138,.25)}
+
+/* SECTION TITLE */
+.sec-title{font-size:.75rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin:18px 0 9px}
+
+/* STREAK */
+.streak-banner{background:linear-gradient(135deg,var(--primary-d),#2563eb);color:#fff;border-radius:var(--r);padding:14px 18px;margin-bottom:14px;display:flex;align-items:center;gap:14px;box-shadow:var(--sh-col)}
+.streak-fire{font-size:2.2rem;flex-shrink:0}
+.streak-text h3{font-size:.95rem;font-weight:800}
+.streak-text p{font-size:.78rem;opacity:.82;margin-top:2px}
+
+/* MASTERY */
+.mastery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:8px}
+.mcard{background:var(--card);border-radius:var(--r-sm);padding:11px 14px;box-shadow:var(--sh-sm)}
+.mcard-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px}
+.mcat{font-size:.78rem;font-weight:700;color:var(--text2)}
+.mpct{font-size:.78rem;font-weight:900}
+.mastery-row{margin-bottom:10px}
+.mastery-row-head{display:flex;justify-content:space-between;font-size:.83rem;font-weight:700;margin-bottom:4px}
+
+/* FLASHCARDS */
+.fc-scene{perspective:1400px;margin:14px 0}
+.fc-wrap{position:relative;width:100%;min-height:300px;cursor:pointer;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.4,0,.2,1)}
+.fc-wrap.flipped{transform:rotateY(180deg)}
+.fc-face{position:absolute;inset:0;min-height:300px;backface-visibility:hidden;background:var(--card);border-radius:var(--r-lg);box-shadow:var(--sh-lg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:36px 26px;text-align:center;border:1px solid var(--border)}
+.fc-face.front{background:linear-gradient(145deg,#fff 0%,#f8fafc 100%)}
+.fc-face.back{transform:rotateY(180deg);background:linear-gradient(145deg,#f0f4ff 0%,#fff 100%)}
+.fc-tag{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted-l);margin-bottom:12px}
+.fc-he{font-size:2.5rem;font-weight:900;direction:rtl;line-height:1.25;color:var(--text);margin-bottom:6px}
+.fc-fr{font-size:1.6rem;font-weight:800;color:var(--primary);margin-bottom:10px}
+.fc-cat-chip{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:99px;font-size:.72rem;font-weight:800;margin-bottom:10px}
+.fc-ant{font-size:.85rem;color:var(--muted);direction:rtl;margin-top:6px}
+.fc-ant strong{color:var(--red)}
+.fc-hint{font-size:.78rem;color:var(--muted-l);margin-top:16px}
+.fc-kbd-hint{font-size:.74rem;color:var(--muted-l);margin-top:6px;display:flex;align-items:center;gap:4px;justify-content:center}
+.kbd{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:1px 5px;font-size:.68rem;font-family:monospace;color:var(--text2)}
+
+.fc-actions{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:7px;max-width:520px;margin:10px auto 0}
+@media(max-width:480px){.fc-actions{grid-template-columns:1fr 1fr}}
+.fc-btn{border:none;border-radius:var(--r-sm);padding:11px 7px;font-size:.8rem;font-weight:800;cursor:pointer;transition:all .15s;text-align:center;line-height:1.3}
+.fc-btn:hover{transform:translateY(-2px)}
+.fc-btn:active{transform:scale(.95)}
+.fc-btn-again{background:#fee2e2;color:var(--red)}
+.fc-btn-again:hover{background:var(--red);color:#fff}
+.fc-btn-hard{background:#fef3c7;color:var(--accent-d)}
+.fc-btn-hard:hover{background:var(--accent-d);color:#fff}
+.fc-btn-good{background:var(--green-l);color:var(--green)}
+.fc-btn-good:hover{background:var(--green);color:#fff}
+.fc-btn-easy{background:var(--purple-l);color:var(--purple)}
+.fc-btn-easy:hover{background:var(--purple);color:#fff}
+.fc-interval-info{text-align:center;font-size:.74rem;color:var(--muted);margin-top:7px}
 .fc-done{text-align:center;padding:40px 20px}
-.fc-done h2{font-size:1.8rem;color:var(--green);margin-bottom:8px}
-.fc-done p{color:var(--muted);margin-bottom:20px}
+.fc-done h2{font-size:1.5rem;font-weight:900;color:var(--green);margin-bottom:8px}
 
 /* QUIZ */
-.quiz-q-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
-.quiz-timer{font-size:1.1rem;font-weight:800;color:var(--orange);background:#fff;border-radius:8px;padding:6px 14px;box-shadow:var(--shadow)}
-.quiz-q-num{font-size:.85rem;color:var(--muted);font-weight:600}
-.quiz-q-text{background:var(--card);border-radius:var(--radius);padding:28px 24px;box-shadow:var(--shadow);margin-bottom:16px;text-align:center}
-.quiz-q-label{font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;font-weight:600}
-.quiz-q-word{font-size:2rem;font-weight:800;direction:rtl;color:var(--text)}
-.quiz-q-word.fr{font-size:1.6rem;direction:ltr;color:var(--blue-dark)}
-.quiz-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
-@media(max-width:500px){.quiz-opts{grid-template-columns:1fr}}
-.quiz-opt{background:var(--card);border:2px solid #e5e7eb;border-radius:var(--radius);padding:14px 18px;font-size:1rem;font-weight:600;cursor:pointer;text-align:left;transition:.15s;color:var(--text)}
-.quiz-opt:hover:not(.disabled){border-color:var(--blue);background:var(--blue-light)}
-.quiz-opt.correct{border-color:var(--green);background:#d1fae5;color:#065f46}
-.quiz-opt.wrong{border-color:var(--red);background:#fee2e2;color:#7f1d1d}
-.quiz-opt.disabled{cursor:default}
-.quiz-opt.he{direction:rtl;text-align:right}
-.quiz-explain{background:#fffbeb;border:1px solid var(--yellow);border-radius:var(--radius);padding:14px 18px;margin-bottom:16px;font-size:.9rem;line-height:1.6}
-.quiz-explain strong{color:var(--blue-dark)}
-.quiz-next-row{display:flex;justify-content:flex-end}
-.quiz-result{text-align:center;padding:32px 16px}
-.quiz-result .score{font-size:3.5rem;font-weight:900;color:var(--blue)}
-.quiz-result .score-sub{font-size:1rem;color:var(--muted);margin-bottom:20px}
-.quiz-result .medal{font-size:4rem;margin-bottom:8px}
+.quiz-score-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.quiz-score-pill{background:var(--primary);color:#fff;border-radius:99px;padding:5px 13px;font-size:.82rem;font-weight:800}
+.quiz-qnum{font-size:.8rem;color:var(--muted);font-weight:700}
+.quiz-qcard{background:var(--card);border-radius:var(--r-lg);padding:26px 22px;box-shadow:var(--sh);margin-bottom:12px;text-align:center;border:1px solid var(--border)}
+.quiz-qtype{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:10px}
+.quiz-qword{font-size:2.1rem;font-weight:900;direction:rtl;color:var(--text)}
+.quiz-qword.fr{font-size:1.55rem;direction:ltr;color:var(--primary-d)}
+.quiz-opts{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:12px}
+@media(max-width:480px){.quiz-opts{grid-template-columns:1fr}}
+.quiz-opt{background:var(--card);border:2px solid var(--border);border-radius:var(--r-sm);padding:12px 15px;font-size:.9rem;font-weight:600;cursor:pointer;transition:all .15s;text-align:right;color:var(--text);direction:rtl}
+.quiz-opt.fr-opt{direction:ltr;text-align:left}
+.quiz-opt:hover:not([disabled]){border-color:var(--primary);background:#eef2ff;transform:translateY(-1px)}
+.quiz-opt.correct{border-color:var(--green);background:var(--green-l);color:#065f46}
+.quiz-opt.wrong{border-color:var(--red);background:var(--red-l);color:#7f1d1d}
+.quiz-opt[disabled]{cursor:default;transform:none}
+.explain-box{background:#fffbeb;border-left:4px solid var(--accent);border-radius:0 var(--r-sm) var(--r-sm) 0;padding:11px 15px;font-size:.87rem;line-height:1.6;margin-top:8px}
+.quiz-result{text-align:center;padding:40px 16px}
+.big-score{font-size:3.8rem;font-weight:900;color:var(--primary);line-height:1}
+.medal{font-size:3.2rem;margin-bottom:8px}
+
+/* EXERCISES (connectors / phrases / annales) */
+.ex-card{background:var(--card);border-radius:var(--r);padding:18px;box-shadow:var(--sh);border:1px solid var(--border)}
+.ex-q{font-size:.97rem;font-weight:700;margin-bottom:12px;line-height:1.5}
+.ex-ctx{background:var(--bg2);border-radius:var(--r-sm);padding:9px 13px;margin-bottom:11px;font-size:.85rem;color:var(--muted)}
+.opt-list{display:flex;flex-direction:column;gap:6px}
+.opt-item{background:var(--bg);border:2px solid var(--border);border-radius:var(--r-sm);padding:10px 14px;font-size:.9rem;font-weight:600;cursor:pointer;transition:all .15s;color:var(--text)}
+.opt-item:hover:not([disabled]){border-color:var(--primary);background:#eef2ff}
+.opt-item.correct{border-color:var(--green);background:var(--green-l);color:#065f46}
+.opt-item.wrong{border-color:var(--red);background:var(--red-l);color:#7f1d1d}
+.opt-item[disabled]{cursor:default}
+
+/* ANNALES */
+.annales-exam{background:var(--card);border-radius:var(--r);padding:16px 18px;box-shadow:var(--sh);margin-bottom:10px;border-left:4px solid var(--primary)}
+.annales-exam-title{font-size:.97rem;font-weight:800;margin-bottom:9px;color:var(--primary)}
+.annales-qtext{font-size:.97rem;font-weight:600;direction:rtl;line-height:1.6;margin-bottom:10px}
+.word-chip{display:inline-block;background:var(--accent-l);color:var(--accent-d);padding:3px 10px;border-radius:6px;font-size:.8rem;font-weight:800;margin-bottom:10px;direction:rtl}
+.ann-opt{background:var(--bg);border:2px solid var(--border);border-radius:var(--r-sm);padding:10px 14px;font-size:.9rem;font-weight:600;cursor:pointer;transition:all .15s;direction:rtl;display:flex;align-items:center;gap:10px;color:var(--text)}
+.ann-opt:hover:not([disabled]){border-color:var(--primary);background:#eef2ff}
+.ann-opt.correct{border-color:var(--green);background:var(--green-l);color:#065f46}
+.ann-opt.wrong{border-color:var(--red);background:var(--red-l);color:#7f1d1d}
+.ann-opt[disabled]{cursor:default}
+.opt-label{font-size:.8rem;font-weight:900;color:var(--muted);min-width:22px;direction:ltr;flex-shrink:0}
 
 /* STATS */
-.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:24px}
-.mastery-bar{margin-bottom:12px}
-.mastery-bar .mb-label{display:flex;justify-content:space-between;font-size:.85rem;font-weight:600;margin-bottom:4px}
-.mb-fill{height:12px;border-radius:99px;transition:.5s}
-.history-list{background:var(--card);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
-.history-item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #f3f4f6;font-size:.88rem}
-.history-item:last-child{border:none}
-.badge{display:inline-block;padding:2px 10px;border-radius:99px;font-size:.75rem;font-weight:700}
-.badge-green{background:#d1fae5;color:#065f46}
-.badge-orange{background:#fef3c7;color:#92400e}
-.badge-red{background:#fee2e2;color:#7f1d1d}
+.hist-item{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--border);font-size:.83rem}
+.hist-item:last-child{border:none}
+.badge{display:inline-block;padding:2px 9px;border-radius:99px;font-size:.72rem;font-weight:800}
+.badge-g{background:var(--green-l);color:#065f46}
+.badge-o{background:#fef3c7;color:#92400e}
+.badge-r{background:var(--red-l);color:#7f1d1d}
 
-/* UTIL */
-.flex{display:flex}.gap-8{gap:8px}.gap-12{gap:12px}.mt-8{margin-top:8px}.mt-16{margin-top:16px}.text-center{text-align:center}
-.streak-banner{background:linear-gradient(135deg,var(--blue),var(--blue-dark));color:#fff;border-radius:var(--radius);padding:16px 20px;margin-bottom:20px;display:flex;align-items:center;gap:14px}
-.streak-banner .fire{font-size:2rem}
-.streak-banner h3{font-size:1.1rem;font-weight:800}
-.streak-banner p{font-size:.85rem;opacity:.85;margin-top:2px}
+/* TOAST */
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(70px);background:#0f172a;color:#fff;padding:9px 20px;border-radius:99px;font-size:.85rem;font-weight:700;box-shadow:var(--sh-lg);z-index:9999;transition:transform .3s ease;pointer-events:none}
+.toast.show{transform:translateX(-50%) translateY(0)}
 
-/* RTL support */
-[lang="he"]{direction:rtl}
-.chip{background:var(--blue-light);color:var(--blue);padding:3px 10px;border-radius:99px;font-size:.78rem;font-weight:700;display:inline-block}
+/* SCORE */
+.score-big{font-size:2.8rem;font-weight:900;color:var(--primary);line-height:1}
+
+@media(max-width:600px){.screen{padding:14px 12px 32px}.fc-he{font-size:1.9rem}.big-score{font-size:3rem}}
+
 </style>
 </head>
 <body>
 
 <nav class="nav">
-  <div class="nav-logo">Y<span>AEL</span></div>
-  <div class="nav-tabs">
-    <div class="nav-tab active" onclick="showScreen('home')">🏠 Accueil</div>
-    <div class="nav-tab" onclick="showScreen('flashcards')">🃏 Flashcards</div>
-    <div class="nav-tab" onclick="showScreen('quiz')">🎯 Quiz</div>
-    <div class="nav-tab" onclick="showScreen('connectors')">🔗 Connecteurs</div>
-    <div class="nav-tab" onclick="showScreen('stats')">📊 Progrès</div>
-    <div class="nav-tab" onclick="showScreen('phrases')">📝 Phrases</div>
-    <div class="nav-tab" onclick="showScreen('annales')">📋 Annales</div>
+  <div class="nav-logo">YAEL</div>
+  <div class="nav-tabs" id="nav-tabs">
+    <div class="nav-tab active" data-screen="home">🏠 Accueil</div>
+    <div class="nav-tab" data-screen="flashcards">🃏 Flashcards</div>
+    <div class="nav-tab" data-screen="quiz">🎯 Quiz</div>
+    <div class="nav-tab" data-screen="connectors">🔗 Connecteurs</div>
+    <div class="nav-tab" data-screen="phrases">📝 Phrases</div>
+    <div class="nav-tab" data-screen="annales">📋 Annales</div>
+    <div class="nav-tab" data-screen="stats">📊 Progrès</div>
   </div>
 </nav>
 
-<!-- HOME -->
 <div id="screen-home" class="screen active">
   <div id="streak-area"></div>
-  <div class="dash-grid" id="dash-stats"></div>
-
-  <div class="section-title">📚 Étudier par catégorie</div>
-  <div class="cat-grid" id="cat-filter">
-    <span class="cat-pill active" data-cat="all" onclick="selectCat(this,'all')">Tout (1000 mots)</span>
-    <span class="cat-pill" data-cat="F" onclick="selectCat(this,'F')">🔑 Fondamentaux (1-50)</span>
-    <span class="cat-pill" data-cat="V" onclick="selectCat(this,'V')">⚡ Verbes (51-150)</span>
-    <span class="cat-pill" data-cat="N" onclick="selectCat(this,'N')">💡 Noms (151-250)</span>
-    <span class="cat-pill" data-cat="A" onclick="selectCat(this,'A')">🎨 Adjectifs (251-350)</span>
-    <span class="cat-pill" data-cat="P" onclick="selectCat(this,'P')">📰 Presse/Acad. (351-550)</span>
-    <span class="cat-pill" data-cat="S" onclick="selectCat(this,'S')">🔬 Santé/Science (551-650)</span>
-    <span class="cat-pill" data-cat="C" onclick="selectCat(this,'C')">🏛 Société/Culture (651-800)</span>
-    <span class="cat-pill" data-cat="E" onclick="selectCat(this,'E')">🌍 Env./Économie (801-900)</span>
-    <span class="cat-pill" data-cat="R" onclick="selectCat(this,'R')">⭐ Rares/Avancés (901+)</span>
-  </div>
-
-  <div class="btn-grid">
-    <button class="btn btn-primary" onclick="startFlashcards('due')">🃏 Réviser les cartes DUE</button>
-    <button class="btn btn-success" onclick="startFlashcards('all')">📖 Étudier tout</button>
-    <button class="btn btn-warn" onclick="startQuiz()">🎯 Quiz rapide (20 Q)</button>
-    <button class="btn btn-outline" onclick="startQuiz(50)">🏆 Examen blanc (50 Q)</button>
-  </div>
-
-  <div class="section-title" style="margin-top:24px">📈 Maîtrise par catégorie</div>
-  <div id="mastery-overview"></div>
+  <div class="stat-grid" id="dash-stats"></div>
+  <div class="sec-title">Étudier par catégorie</div>
+  <div class="cat-grid" id="cat-grid"></div>
+  <div class="btn-grid" id="home-btns"></div>
+  <div class="sec-title" style="margin-top:16px">Maîtrise par catégorie</div>
+  <div class="mastery-grid" id="mastery-grid"></div>
 </div>
 
-<!-- FLASHCARDS -->
 <div id="screen-flashcards" class="screen">
-  <div class="fc-header">
+  <div class="card-header" style="margin-bottom:10px">
     <div>
-      <div style="font-size:1.1rem;font-weight:800" id="fc-title">Flashcards</div>
-      <div class="fc-progress" id="fc-progress"></div>
+      <div class="card-title" id="fc-title">Flashcards</div>
+      <div class="card-subtitle" id="fc-meta"></div>
     </div>
-    <div style="display:flex;gap:8px">
-      <button class="btn btn-outline btn-sm" onclick="shuffleDeck()">🔀 Mélanger</button>
-      <button class="btn btn-outline btn-sm" onclick="showScreen('home')">✕ Quitter</button>
+    <div style="display:flex;gap:7px">
+      <button class="btn btn-outline btn-sm" onclick="shuffleDeck()">🔀</button>
+      <button class="btn btn-ghost btn-sm" onclick="showScreen('home')">✕</button>
     </div>
   </div>
-  <div class="fc-bar-wrap"><div class="fc-bar" id="fc-bar" style="width:0%"></div></div>
-
+  <div class="prog-wrap" style="margin-bottom:14px"><div class="prog-fill prog-blue" id="fc-bar" style="width:0%"></div></div>
   <div class="fc-scene">
-    <div class="fc-card-wrap" id="fc-card" onclick="flipCard()">
+    <div class="fc-wrap" id="fc-wrap" onclick="flipCard()">
       <div class="fc-face front" id="fc-front"></div>
       <div class="fc-face back" id="fc-back"></div>
     </div>
   </div>
-  <p class="fc-next-info" id="fc-next-info"></p>
-
-  <div class="fc-btns" id="fc-btns" style="display:none">
-    <button class="fc-btn-dk" onclick="rateCard(1)">✗ Je ne sais pas<br><small>Demain</small></button>
-    <button class="fc-btn-hard" onclick="rateCard(2)">~ Difficile<br><small id="hard-days"></small></button>
-    <button class="fc-btn-know" onclick="rateCard(3)">✓ Je sais !<br><small id="know-days"></small></button>
+  <div class="fc-interval-info" id="fc-interval-info"></div>
+  <div class="fc-actions" id="fc-actions" style="display:none">
+    <button class="fc-btn fc-btn-again" onclick="rateCard(1)">✗ À revoir<br><small id="lbl-1"></small></button>
+    <button class="fc-btn fc-btn-hard" onclick="rateCard(2)">~ Difficile<br><small id="lbl-2"></small></button>
+    <button class="fc-btn fc-btn-good" onclick="rateCard(3)">✓ Bien<br><small id="lbl-3"></small></button>
+    <button class="fc-btn fc-btn-easy" onclick="rateCard(4)">⚡ Facile<br><small id="lbl-4"></small></button>
   </div>
-
-  <div id="fc-done-screen" style="display:none" class="fc-done">
-    <div style="font-size:3rem">🎉</div>
+  <div id="fc-done" class="fc-done" style="display:none">
+    <div style="font-size:2.8rem">🎉</div>
     <h2>Session terminée !</h2>
-    <p id="fc-done-msg"></p>
-    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-      <button class="btn btn-primary" onclick="startFlashcards('due')">🔄 Continuer les due</button>
+    <p id="fc-done-msg" style="color:var(--muted);margin-bottom:18px"></p>
+    <div style="display:flex;gap:9px;justify-content:center;flex-wrap:wrap">
+      <button class="btn btn-primary" onclick="startFlashcards('due')">🔄 Continuer</button>
       <button class="btn btn-outline" onclick="showScreen('home')">🏠 Accueil</button>
     </div>
   </div>
 </div>
 
-<!-- QUIZ -->
 <div id="screen-quiz" class="screen">
   <div id="quiz-content"></div>
 </div>
 
-<!-- CONNECTEURS -->
 <div id="screen-connectors" class="screen">
-  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px">
-    <div>
-      <div style="font-size:1.2rem;font-weight:800">🔗 Exercices de connecteurs</div>
-      <div style="font-size:.85rem;color:var(--muted)">Choisissez le bon connecteur logique</div>
-    </div>
-    <div style="display:flex;gap:8px">
-      <span id="conn-score-disp" style="font-weight:700;font-size:1rem;color:var(--blue)"></span>
+  <div class="card-header">
+    <div><div class="card-title">🔗 Connecteurs logiques</div><div class="card-subtitle">Choisissez le bon connecteur</div></div>
+    <div style="display:flex;gap:7px;align-items:center">
+      <span id="conn-score-disp" style="font-weight:800;font-size:.9rem;color:var(--primary)"></span>
       <button class="btn btn-primary btn-sm" onclick="startConnectorQuiz()">🔄 Recommencer</button>
     </div>
   </div>
   <div id="conn-content"></div>
 </div>
 
-<!-- STATS -->
-<div id="screen-stats" class="screen">
-  <div style="font-size:1.2rem;font-weight:800;margin-bottom:16px">📊 Mes progrès</div>
-  <div class="stats-grid" id="stats-grid"></div>
-
-  <div class="section-title">Maîtrise par catégorie</div>
-  <div id="stats-mastery"></div>
-
-  <div class="section-title" style="margin-top:20px">Historique des quiz</div>
-  <div class="history-list" id="stats-history"></div>
-
-  <div style="margin-top:20px;text-align:center">
-    <button class="btn btn-outline btn-sm" style="color:var(--red);border-color:var(--red)" onclick="resetConfirm()">🗑 Réinitialiser la progression</button>
-  </div>
-</div>
-
-<!-- PHRASES D'EXAMEN -->
 <div id="screen-phrases" class="screen">
-  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px">
-    <div>
-      <div style="font-size:1.2rem;font-weight:800">📝 Phrases d'examen</div>
-      <div style="font-size:.85rem;color:var(--muted)">Maîtrisez les tournures académiques du YAEL</div>
-    </div>
-    <div style="display:flex;gap:8px">
-      <span id="phrase-score-disp" style="font-weight:700;font-size:1rem;color:var(--blue)"></span>
+  <div class="card-header">
+    <div><div class="card-title">📝 Phrases académiques</div><div class="card-subtitle">Tournures formelles du YAEL</div></div>
+    <div style="display:flex;gap:7px;align-items:center">
+      <span id="phrase-score-disp" style="font-weight:800;font-size:.9rem;color:var(--primary)"></span>
       <button class="btn btn-primary btn-sm" onclick="startPhraseQuiz()">🔄 Recommencer</button>
     </div>
   </div>
   <div id="phrase-content"></div>
 </div>
 
-<!-- ANNALES -->
 <div id="screen-annales" class="screen">
-  <div style="font-size:1.2rem;font-weight:800;margin-bottom:8px">📋 Annales YAEL — Examens blancs</div>
-  <div style="font-size:.85rem;color:var(--muted);margin-bottom:16px">Entraînez-vous sur les vrais sujets avec corrigés détaillés</div>
-  <div id="annales-selector"></div>
-  <div id="annales-content"></div>
+  <div class="card-header">
+    <div><div class="card-title">📋 Annales YAEL</div><div class="card-subtitle">Examens blancs avec corrigés</div></div>
+    <button class="btn btn-outline btn-sm" id="ann-back" onclick="renderAnnalesSelector()" style="display:none">← Retour</button>
+  </div>
+  <div id="ann-selector"></div>
+  <div id="ann-content"></div>
 </div>
 
-<script>
-// ============================================================
-// DATA
-// ============================================================
+<div id="screen-stats" class="screen">
+  <div class="card-title" style="margin-bottom:14px">📊 Mes progrès</div>
+  <div class="stat-grid" id="stats-grid"></div>
+  <div class="sec-title">Maîtrise par catégorie</div>
+  <div class="card" style="margin-bottom:14px" id="stats-mastery"></div>
+  <div class="sec-title">Historique des sessions</div>
+  <div class="card" id="stats-history"></div>
+  <div style="margin-top:14px;text-align:center">
+    <button class="btn btn-ghost btn-sm" style="color:var(--red)" onclick="resetConfirm()">🗑 Réinitialiser la progression</button>
+  </div>
+</div>
 
-// Format: [hebrew, french, category, antonym_hebrew?]
-// Categories: F=fondamentaux, V=verbes, N=noms, A=adjectifs, P=presse, S=santé/science, C=société, E=économie/env, R=rares
+<div class="toast" id="toast"></div>
+
+<script>
+// === DATA ===
 const RAW_WORDS = [
 // SECTION 1 — Fondamentaux (F)
 ["לדעת","savoir","F"],["לחשוב","penser","F"],["להבין","comprendre","F"],["לרצות","vouloir","F"],
@@ -683,8 +718,6 @@ const RAW_WORDS = [
 ["ביזבוז","gaspillage","E"],["חסכון","économie / épargne","E"],
 ["פוטנציאל","potentiel","E"],["נישה","niche","E"],["מודל עסקי","modèle économique","E"],
 ];
-
-// Connector exercises
 const CONNECTOR_EXERCISES = [
   {q:"הוא עבד קשה, _______ הצליח בבחינה.",ans:"לכן",opts:["בגלל","לכן","למרות ש","כי"],exp:"<strong>לכן</strong> (donc) exprime la conséquence. 'Il a travaillé dur, donc il a réussi.'"},
   {q:"_______ הגשם, הם ביטלו את הטיול.",ans:"בגלל",opts:["כי","למרות","בגלל","לכן"],exp:"<strong>בגלל</strong> + NOM (à cause de). 'À cause de la pluie, ils ont annulé la sortie.'"},
@@ -738,10 +771,6 @@ const CONNECTOR_EXERCISES = [
   {q:"_______ הנתונים מראים, מגמה חדשה מתפתחת.",ans:"כפי ש",opts:["כמו ש","כפי ש","כי","כאשר"],exp:"<strong>כפי שהנתונים מראים</strong> — formule pour citer des données. כפי ש est plus formel que כמו ש."},
   {q:"בסיכום _______, ניתן לומר כי...",ans:"הדברים",opts:["הכל","הדברים","זאת","האמור"],exp:"<strong>בסיכום הדברים</strong> (en résumé) — formule de conclusion plus élaborée que לסיכום."},
 ];
-
-// ============================================================
-// PHRASE EXERCISES
-// ============================================================
 const PHRASE_EXERCISES = [
   {q:"Choisissez le meilleur début d'essai sur le thème de l'éducation :",ctx:"Sujet : 'L'éducation en Israël — défis et solutions'",ans:"ניתן לומר כי מערכת החינוך בישראל עומדת בפני אתגרים משמעותיים",opts:["ניתן לומר כי מערכת החינוך בישראל עומדת בפני אתגרים משמעותיים","מערכת החינוך בישראל היא חשובה","אני חושב שחינוך הוא טוב","יש בעיות בחינוך"],exp:"<strong>ניתן לומר כי...</strong> est l'ouverture académique typique du YAEL. Elle présente le sujet sans 'je'."},
   {q:"Quelle phrase introduit le mieux une statistique dans un essai YAEL ?",ctx:"Vous voulez citer : '40% des élèves ont des difficultés en lecture'",ans:"נתונים מראים כי 40% מהתלמידים מתקשים בקריאה",opts:["נתונים מראים כי 40% מהתלמידים מתקשים בקריאה","40% הוא מספר גדול","יש הרבה תלמידים שלא יודעים לקרוא","מחקר אומר ש-40%"],exp:"<strong>נתונים מראים כי / מחקרים מראים כי</strong> — formule standard pour citer des chiffres."},
@@ -784,7 +813,6 @@ const PHRASE_EXERCISES = [
   {q:"Comment introduit-on une citation ou une définition ?",ctx:"Définir un concept dans un essai",ans:"על פי ההגדרה / לפי הגדרתו של",opts:["על פי ההגדרה / לפי הגדרתו של","מה שזה אומר","ההגדרה היא","פירושו"],exp:"<strong>על פי ההגדרה</strong> (selon la définition) ou <strong>לפי הגדרתו של X</strong> — formules pour définir."},
   {q:"Comment dit-on 'le problème est particulièrement aigu dans le domaine de' ?",ctx:"Délimiter la portée d'un problème",ans:"הבעיה חריפה במיוחד בתחום",opts:["הבעיה חריפה במיוחד בתחום","הבעיה גדולה בנושא","יש בעיה ב","הבעיה בתחום היא"],exp:"<strong>חריפה במיוחד</strong> (particulièrement aiguë) — adjectif précis et formel. חריף pour un problème sévère."},
 ];
-
 const ANNALES_DATA = [
   {
     "exam": "Examen Blanc N°1",
@@ -1976,772 +2004,568 @@ const ANNALES_DATA = [
       }
     ]
   }
-] ;
+];
 
-// Category info
+
+// === CAT INFO ===
 const CAT_INFO = {
-  F:{name:"Fondamentaux",color:"#4257b2"},
-  V:{name:"Verbes",color:"#16a34a"},
-  N:{name:"Noms abstraits",color:"#7c3aed"},
-  A:{name:"Adjectifs",color:"#b45309"},
-  P:{name:"Presse / Académique",color:"#0891b2"},
-  S:{name:"Santé / Science",color:"#dc2626"},
-  C:{name:"Société / Culture",color:"#db2777"},
-  E:{name:"Économie / Env.",color:"#059669"},
-  R:{name:"Rares / Avancés",color:"#6d28d9"},
+  F:{name:"Fondamentaux",color:"#1e3a8a",icon:"🔑"},
+  V:{name:"Verbes",color:"#059669",icon:"⚡"},
+  N:{name:"Noms",color:"#7c3aed",icon:"💡"},
+  A:{name:"Adjectifs",color:"#d97706",icon:"🎨"},
+  P:{name:"Presse/Acad.",color:"#0891b2",icon:"📰"},
+  S:{name:"Santé/Science",color:"#dc2626",icon:"🔬"},
+  C:{name:"Société/Culture",color:"#be185d",icon:"🏛"},
+  E:{name:"Économie/Env.",color:"#15803d",icon:"🌍"},
+  R:{name:"Rares/Avancés",color:"#92400e",icon:"⭐"},
 };
 
-// ============================================================
-// SPACED REPETITION ENGINE
-// ============================================================
-// Each card stores: {interval, ease, dueDate, reviews, correct}
-// Intervals: 0=new,1,3,7,14,30,90,180 days
+// === WORDS ===
+const WORDS = RAW_WORDS.map((r,i)=>({id:i, he:r[0], fr:r[1], cat:r[2], ant:r[3]||null}));
 
-const STORAGE_KEY = "yael_srs_v3";
-const HISTORY_KEY = "yael_history_v3";
-const STREAK_KEY  = "yael_streak_v3";
+// === STORAGE ===
+const S_KEY='yael_srs_v4', H_KEY='yael_hist_v4', ST_KEY='yael_streak_v4';
+const MS_DAY = 86400000;
 
-function loadProgress(){
-  try{ return JSON.parse(localStorage.getItem(STORAGE_KEY))||{}; }catch(e){ return {}; }
-}
-function saveProgress(p){ localStorage.setItem(STORAGE_KEY, JSON.stringify(p)); }
-function loadHistory(){
-  try{ return JSON.parse(localStorage.getItem(HISTORY_KEY))||[]; }catch(e){ return []; }
-}
-function saveHistory(h){ localStorage.setItem(HISTORY_KEY, JSON.stringify(h)); }
-function loadStreak(){
-  try{ return JSON.parse(localStorage.getItem(STREAK_KEY))||{streak:0,lastDate:null}; }catch(e){ return {streak:0,lastDate:null}; }
-}
-function saveStreak(s){ localStorage.setItem(STREAK_KEY, JSON.stringify(s)); }
+function loadProg(){try{return JSON.parse(localStorage.getItem(S_KEY)||'{}')}catch{return {}}}
+function saveProg(){try{localStorage.setItem(S_KEY,JSON.stringify(prog))}catch{}}
+function loadHist(){try{return JSON.parse(localStorage.getItem(H_KEY)||'[]')}catch{return []}}
+function saveHist(){try{localStorage.setItem(H_KEY,JSON.stringify(hist.slice(-30)))}catch{}}
+function loadStreak(){try{return JSON.parse(localStorage.getItem(ST_KEY)||'{}')}catch{return {}}}
+function saveStreak(s){try{localStorage.setItem(ST_KEY,JSON.stringify(s))}catch{}}
 
-function getCardState(progress, id){
-  return progress[id] || {interval:0, ease:2.5, dueDate:0, reviews:0, correct:0};
-}
-
-function nextIntervals(state, rating){
-  // rating: 1=don't know, 2=hard, 3=know it
-  let {interval, ease} = state;
-  if(rating===1){
-    return {interval:1, ease:Math.max(1.3, ease-0.2)};
-  } else if(rating===2){
-    const ni = Math.max(1, Math.round(interval*1.2));
-    return {interval:ni, ease:Math.max(1.3, ease-0.1)};
-  } else {
-    let ni;
-    if(interval===0) ni=1;
-    else if(interval===1) ni=3;
-    else if(interval<5) ni=7;
-    else ni=Math.round(interval*ease);
-    ni=Math.min(ni,180);
-    return {interval:ni, ease:Math.min(ease+0.05, 3.0)};
-  }
-}
-
-function rateFmt(days){
-  if(days<=1) return "Demain";
-  if(days<7) return `${days}j`;
-  if(days<30) return `${Math.round(days/7)}sem`;
-  return `${Math.round(days/30)}mois`;
-}
-
-function isDue(state){
-  return Date.now() >= state.dueDate;
-}
-
-function isDueStrict(state){
-  return state.interval===0 || Date.now() >= state.dueDate;
-}
-
-// ============================================================
-// APP STATE
-// ============================================================
-let progress = loadProgress();
+// === STATE ===
+let prog = loadProg();
+let hist = loadHist();
 let currentCat = 'all';
-let fc = { deck:[], idx:0, flipped:false, mode:'due', sessionCorrect:0, sessionTotal:0 };
-let quiz = { qs:[], idx:0, score:0, answered:false };
-let connectorIdx = 0;
-let connectorScore = 0;
-let phraseIdx = 0, phraseScore = 0;
-let annalesState = {examIdx:0, secIdx:0, qIdx:0, score:0};
+let fc = {deck:[],idx:0,flipped:false,mode:'due',ok:0,total:0};
+let quiz = {qs:[],idx:0,score:0};
+let conn = {idx:0,score:0,answered:false};
+let phrase = {idx:0,score:0,answered:false};
+let ann = {examIdx:0,secIdx:0,qIdx:0,score:0,answered:false};
 
-// Prepare word objects
-const WORDS = RAW_WORDS.map((r,i)=>({
-  id: i,
-  he: r[0],
-  fr: r[1],
-  cat: r[2],
-  ant: r[3]||null,
-}));
+// === UTILS ===
+function today(){return new Date().toDateString()}
+function shuffle(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function pick(arr,n){if(!arr.length)return[];if(arr.length<=n)return shuffle(arr);return shuffle(arr).slice(0,n);}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2200);}
+function wordsForCat(cat){return cat==='all'?WORDS:WORDS.filter(w=>w.cat===cat);}
 
-// ============================================================
-// UTILITY
-// ============================================================
-function shuffle(arr){
-  const a=[...arr];
-  for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
-  return a;
+// === SM-2 (4 ratings) ===
+function getState(id){const s=prog[id];if(!s)return{interval:0,ease:2.5,reps:0,dueDate:0};return s;}
+function nextSM2(state,rating){
+  let{interval,ease,reps}=state;
+  if(rating===1){return{interval:1,ease:Math.max(1.3,ease-0.2),reps:0};}
+  if(rating===2){return{interval:Math.max(1,Math.round(interval*0.6)),ease:Math.max(1.3,ease-0.15),reps:reps+1};}
+  if(rating===3){const ni=reps===0?1:reps===1?3:Math.round(interval*ease);return{interval:Math.min(ni,180),ease,reps:reps+1};}
+  if(rating===4){const ni=reps===0?4:Math.round(interval*ease*1.3);return{interval:Math.min(ni,180),ease:Math.min(3.0,ease+0.15),reps:reps+1};}
 }
-function pick(arr,n){ return shuffle(arr).slice(0,n); }
-function rnd(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
-
-function wordsForCat(cat){
-  if(cat==='all') return WORDS;
-  return WORDS.filter(w=>w.cat===cat);
+function updateCard(id,rating){
+  const s=getState(id);
+  const n=nextSM2(s,rating);
+  prog[id]={...n,dueDate:Date.now()+n.interval*MS_DAY,lastRating:rating,lastReview:Date.now()};
+  saveProg();
+  bumpStreak();
 }
-
-function updateStreak(){
-  const s = loadStreak();
-  const today = new Date().toDateString();
-  if(s.lastDate===today) return;
-  const yesterday = new Date(Date.now()-86400000).toDateString();
-  s.streak = s.lastDate===yesterday ? s.streak+1 : 1;
-  s.lastDate = today;
-  saveStreak(s);
+function isDue(id){const s=prog[id];if(!s||s.interval===0)return true;return Date.now()>=s.dueDate;}
+function getLevel(id){const s=prog[id];if(!s||s.interval===0)return'new';if(s.interval>=21)return'mastered';if(s.interval>=4)return'learning';return'reviewing';}
+function fmtInterval(d){if(d<=1)return'demain';if(d<7)return d+'j';if(d<30)return Math.round(d/7)+'sem';return Math.round(d/30)+'mois';}
+function bumpStreak(){
+  const sk=loadStreak();const td=today();
+  if(sk.lastDate===td)return;
+  const yest=new Date();yest.setDate(yest.getDate()-1);
+  sk.streak=(sk.lastDate===yest.toDateString())?((sk.streak||0)+1):1;
+  sk.lastDate=td;saveStreak(sk);
 }
 
-// ============================================================
-// DASHBOARD
-// ============================================================
+// === NAVIGATION ===
+function showScreen(name){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  const s=document.getElementById('screen-'+name);
+  if(s)s.classList.add('active');
+  const tab=document.querySelector('.nav-tab[data-screen="'+name+'"]');
+  if(tab)tab.classList.add('active');
+  if(name==='home')renderHome();
+  else if(name==='stats')renderStats();
+  else if(name==='quiz'&&quiz.qs.length===0)startQuiz(20);
+  else if(name==='connectors'&&!document.getElementById('conn-content').children.length)startConnectorQuiz();
+  else if(name==='phrases'&&!document.getElementById('phrase-content').children.length)startPhraseQuiz();
+  else if(name==='annales'&&!document.getElementById('ann-selector').children.length)renderAnnalesSelector();
+}
+document.querySelectorAll('.nav-tab').forEach(t=>{t.onclick=()=>showScreen(t.dataset.screen);});
+
+// === HOME ===
 function renderHome(){
-  const words = wordsForCat(currentCat);
-  const total = words.length;
-  let due=0, learned=0, mastered=0, newCards=0;
-  words.forEach(w=>{
-    const st = getCardState(progress,w.id);
-    if(st.interval===0) newCards++;
-    else if(st.interval>=14) mastered++;
-    else learned++;
-    if(isDueStrict(st)) due++;
-  });
+  const ws=wordsForCat(currentCat);
+  const due=ws.filter(w=>isDue(w.id));
+  const mastered=ws.filter(w=>getLevel(w.id)==='mastered');
+  const newW=ws.filter(w=>getLevel(w.id)==='new');
+  const pct=ws.length?Math.round(mastered.length/ws.length*100):0;
+  const sk=loadStreak();
 
-  // Streak
-  const {streak} = loadStreak();
-  const streakArea = document.getElementById('streak-area');
-  streakArea.innerHTML = streak>0 ? `
-    <div class="streak-banner">
-      <div class="fire">🔥</div>
-      <div><h3>Série de ${streak} jour${streak>1?'s':''} !</h3><p>Continue comme ça pour atteindre 100 !</p></div>
-    </div>` : '';
+  document.getElementById('streak-area').innerHTML=sk.streak>=2?
+    `<div class="streak-banner"><div class="streak-fire">🔥</div><div class="streak-text"><h3>${sk.streak} jours consécutifs !</h3><p>La régularité est la clé — continuez comme ça !</p></div></div>`:'';
 
-  // Stats
-  document.getElementById('dash-stats').innerHTML = `
-    <div class="stat-card"><div class="num">${due}</div><div class="label">📅 Cartes à revoir</div></div>
-    <div class="stat-card"><div class="num green">${mastered}</div><div class="label">✅ Maîtrisées</div></div>
-    <div class="stat-card"><div class="num orange">${learned}</div><div class="label">📖 En cours</div></div>
-    <div class="stat-card"><div class="num" style="color:var(--muted)">${newCards}</div><div class="label">🆕 Nouvelles</div></div>
-  `;
+  document.getElementById('dash-stats').innerHTML=`
+    <div class="scard c-blue"><div class="scard-num">${ws.length}</div><div class="scard-lbl">Mots total</div></div>
+    <div class="scard c-orange"><div class="scard-num">${due.length}</div><div class="scard-lbl">À réviser</div></div>
+    <div class="scard c-green"><div class="scard-num">${mastered.length}</div><div class="scard-lbl">Maîtrisés</div></div>
+    <div class="scard c-blue"><div class="scard-num">${pct}%</div><div class="scard-lbl">Progression</div></div>
+    <div class="scard c-purple"><div class="scard-num">${newW.length}</div><div class="scard-lbl">Nouveaux</div></div>`;
 
-  // Mastery overview
-  const mo = document.getElementById('mastery-overview');
-  mo.innerHTML = Object.entries(CAT_INFO).map(([cat,info])=>{
-    const ws = WORDS.filter(w=>w.cat===cat);
-    const tot = ws.length;
-    const mast = ws.filter(w=>getCardState(progress,w.id).interval>=14).length;
-    const pct = tot>0?Math.round(mast/tot*100):0;
-    return `<div class="mastery-bar">
-      <div class="mb-label"><span>${info.name}</span><span style="color:${info.color}">${mast}/${tot} (${pct}%)</span></div>
-      <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${pct}%;background:${info.color}"></div></div>
+  document.getElementById('cat-grid').innerHTML=
+    `<span class="cpill ${currentCat==='all'?'active':''}" onclick="selectCat('all')">📚 Tout (${WORDS.length})</span>`+
+    Object.entries(CAT_INFO).map(([k,v])=>{
+      const n=WORDS.filter(w=>w.cat===k).length;
+      return `<span class="cpill ${currentCat===k?'active':''}" onclick="selectCat('${k}')">${v.icon} ${v.name} (${n})</span>`;
+    }).join('');
+
+  document.getElementById('home-btns').innerHTML=`
+    <button class="btn btn-primary btn-lg" onclick="startFlashcards('due')">🃏 Réviser (${due.length} dues)</button>
+    <button class="btn btn-success btn-lg" onclick="startFlashcards('all')">📖 Étudier tout</button>
+    <button class="btn btn-accent btn-lg" onclick="showScreen('quiz')">🎯 Quiz rapide</button>
+    <button class="btn btn-outline btn-lg" onclick="startQuiz(50);showScreen('quiz')">🏆 Examen (50Q)</button>`;
+
+  document.getElementById('mastery-grid').innerHTML=Object.entries(CAT_INFO).map(([k,v])=>{
+    const wc=WORDS.filter(w=>w.cat===k);
+    const mc=wc.filter(w=>getLevel(w.id)==='mastered').length;
+    const p=wc.length?Math.round(mc/wc.length*100):0;
+    return `<div class="mcard">
+      <div class="mcard-head"><span class="mcat">${v.icon} ${v.name}</span><span class="mpct" style="color:${v.color}">${p}%</span></div>
+      <div class="prog-wrap"><div class="prog-fill" style="width:${p}%;background:${v.color}"></div></div>
     </div>`;
   }).join('');
 }
+function selectCat(cat){currentCat=cat;renderHome();}
 
-function selectCat(el, cat){
-  document.querySelectorAll('.cat-pill').forEach(p=>p.classList.remove('active'));
-  el.classList.add('active');
-  currentCat = cat;
-  renderHome();
-}
-
-// ============================================================
-// FLASHCARDS
-// ============================================================
+// === FLASHCARDS ===
 function startFlashcards(mode){
-  const words = wordsForCat(currentCat);
+  const ws=wordsForCat(currentCat);
   let deck;
   if(mode==='due'){
-    deck = words.filter(w=>isDueStrict(getCardState(progress,w.id)));
-    if(deck.length===0){
-      // Show next due words anyway (up to 20)
-      deck = [...words].sort((a,b)=>{
-        const sa=getCardState(progress,a.id), sb=getCardState(progress,b.id);
-        return sa.dueDate - sb.dueDate;
-      }).slice(0,20);
-    }
+    const due=ws.filter(w=>isDue(w.id));
+    deck=due.length?shuffle(due):ws.slice().sort((a,b)=>(prog[a.id]?.dueDate||0)-(prog[b.id]?.dueDate||0)).slice(0,20);
   } else {
-    deck = shuffle(words).slice(0,50);
+    deck=shuffle(ws);
   }
-  fc = {deck:shuffle(deck), idx:0, flipped:false, mode, sessionCorrect:0, sessionTotal:0};
+  fc={deck,idx:0,flipped:false,mode,ok:0,total:0};
+  document.getElementById('fc-done').style.display='none';
+  document.getElementById('fc-wrap').style.display='';
+  document.getElementById('fc-actions').style.display='none';
   showScreen('flashcards');
-  renderFC();
+  renderCard();
 }
 
-function shuffleDeck(){
-  fc.deck = shuffle(fc.deck);
-  fc.idx = 0;
-  fc.flipped = false;
-  renderFC();
-}
+function renderCard(){
+  if(fc.idx>=fc.deck.length){showFcDone();return;}
+  const w=fc.deck[fc.idx];
+  const s=getState(w.id);
+  const cat=CAT_INFO[w.cat]||{name:w.cat,color:'#666',icon:'📚'};
+  const total=fc.deck.length;
+  document.getElementById('fc-title').textContent=cat.icon+' '+cat.name;
+  document.getElementById('fc-meta').textContent=`${fc.idx+1}/${total} — ✓${fc.ok} ✗${fc.total-fc.ok}`;
+  document.getElementById('fc-bar').style.width=Math.round(fc.idx/total*100)+'%';
 
-function renderFC(){
-  const card = document.getElementById('fc-card');
-  const doneScr = document.getElementById('fc-done-screen');
-  const btns = document.getElementById('fc-btns');
+  document.getElementById('fc-front').innerHTML=`
+    <div class="fc-tag">${cat.icon} ${cat.name}</div>
+    <div class="fc-he">${w.he}</div>
+    <div class="fc-hint">Cliquez pour voir la traduction</div>
+    <div class="fc-kbd-hint"><span class="kbd">Espace</span> pour retourner</div>`;
 
-  if(fc.idx >= fc.deck.length){
-    card.style.display='none';
-    doneScr.style.display='block';
-    btns.style.display='none';
-    const dueLeft = WORDS.filter(w=>isDueStrict(getCardState(progress,w.id))).length;
-    document.getElementById('fc-done-msg').innerHTML =
-      `<strong>${fc.sessionCorrect}/${fc.sessionTotal}</strong> bonnes réponses cette session.<br>
-       ${dueLeft>0?`Il reste encore <strong>${dueLeft} cartes</strong> à revoir.`:'✅ Toutes les cartes à jour sont révisées !'}`;
-    return;
-  }
+  const n1=nextSM2(s,1),n2=nextSM2(s,2),n3=nextSM2(s,3),n4=nextSM2(s,4);
+  document.getElementById('fc-back').innerHTML=`
+    <div class="fc-cat-chip" style="background:${cat.color}22;color:${cat.color}">${cat.icon} ${cat.name}</div>
+    <div class="fc-he" style="font-size:1.55rem;color:var(--muted-l)">${w.he}</div>
+    <div class="fc-fr">${w.fr}</div>
+    ${w.ant?`<div class="fc-ant">Antonyme : <strong>${w.ant}</strong></div>`:''}
+    <div class="fc-hint">Intervalle actuel : ${s.interval===0?'Nouveau':fmtInterval(s.interval)}</div>`;
 
-  card.style.display='block';
-  doneScr.style.display='none';
-  const w = fc.deck[fc.idx];
-  const state = getCardState(progress, w.id);
-  const total = fc.deck.length;
-  const pct = Math.round(fc.idx/total*100);
+  ['1','2','3','4'].forEach((i,x)=>{
+    const n=[n1,n2,n3,n4][x];
+    document.getElementById('lbl-'+i).textContent=fmtInterval(n.interval);
+  });
 
-  // Progress bar & text
-  document.getElementById('fc-bar').style.width = pct+'%';
-  document.getElementById('fc-progress').textContent = `${fc.idx+1} / ${total}`;
-  document.getElementById('fc-title').textContent = CAT_INFO[w.cat]?.name || 'Flashcards';
-
-  // Prepare intervals for buttons
-  const ni1 = nextIntervals(state,1);
-  const ni2 = nextIntervals(state,2);
-  const ni3 = nextIntervals(state,3);
-  document.getElementById('hard-days').textContent = rateFmt(ni2.interval);
-  document.getElementById('know-days').textContent = rateFmt(ni3.interval);
-
-  // Front
-  document.getElementById('fc-front').innerHTML = `
-    <div class="fc-tag">${CAT_INFO[w.cat]?.name||w.cat} • ${state.interval===0?'Nouveau':`Intervalle: ${rateFmt(state.interval)}`}</div>
-    <div class="fc-word">${w.he}</div>
-    ${w.ant?`<div class="fc-hint" style="margin-top:8px">Antonyme: ${w.ant}</div>`:''}
-    <div class="fc-click-hint">👆 Cliquez pour voir la traduction</div>
-  `;
-
-  // Back
-  document.getElementById('fc-back').innerHTML = `
-    <div class="fc-tag">${CAT_INFO[w.cat]?.name||w.cat}</div>
-    <div class="fc-word-small">${w.he}</div>
-    <div class="fc-translation">${w.fr}</div>
-    ${w.ant?`<div class="fc-hint">Antonyme: <strong>${w.ant}</strong></div>`:''}
-    <div class="fc-next-info" style="margin-top:10px;font-size:.8rem;color:var(--muted)">Comment était ce mot ?</div>
-  `;
-
-  // Reset flip
-  fc.flipped = false;
-  card.classList.remove('flipped');
-  btns.style.display='none';
-  document.getElementById('fc-next-info').textContent = '';
+  fc.flipped=false;
+  const wrap=document.getElementById('fc-wrap');
+  wrap.classList.remove('flipped');
+  document.getElementById('fc-actions').style.display='none';
+  document.getElementById('fc-interval-info').textContent='';
 }
 
 function flipCard(){
-  if(fc.idx >= fc.deck.length) return;
-  if(!fc.flipped){
-    fc.flipped=true;
-    document.getElementById('fc-card').classList.add('flipped');
-    document.getElementById('fc-btns').style.display='grid';
-    document.getElementById('fc-next-info').textContent = '';
+  if(!fc.deck.length)return;
+  fc.flipped=!fc.flipped;
+  document.getElementById('fc-wrap').classList.toggle('flipped',fc.flipped);
+  if(fc.flipped){
+    document.getElementById('fc-actions').style.display='grid';
+    const s=getState(fc.deck[fc.idx].id);
+    document.getElementById('fc-interval-info').textContent=s.interval===0?'Nouveau mot — première révision':
+      `Intervalle actuel : ${fmtInterval(s.interval)} | Facilité : ${s.ease?.toFixed(1)||2.5}`;
   }
 }
 
 function rateCard(rating){
-  if(fc.idx >= fc.deck.length) return;
-  const w = fc.deck[fc.idx];
-  const state = getCardState(progress,w.id);
-  const {interval,ease} = nextIntervals(state,rating);
-  const dueDate = Date.now() + interval*24*60*60*1000;
-  progress[w.id] = {
-    interval, ease, dueDate,
-    reviews: (state.reviews||0)+1,
-    correct: (state.correct||0)+(rating>=2?1:0),
-  };
-  saveProgress(progress);
-  if(rating>=2){ fc.sessionCorrect++; }
-  fc.sessionTotal++;
-  updateStreak();
+  if(!fc.flipped||!fc.deck.length)return;
+  const w=fc.deck[fc.idx];
+  updateCard(w.id,rating);
+  fc.total++;
+  if(rating>=3)fc.ok++;
   fc.idx++;
-  renderFC();
+  setTimeout(renderCard,40);
 }
 
-// ============================================================
-// QUIZ
-// ============================================================
+function shuffleDeck(){fc.deck=shuffle(fc.deck);fc.idx=0;renderCard();showToast('🔀 Deck mélangé');}
+
+function showFcDone(){
+  const ws=wordsForCat(currentCat);
+  const dueLeft=ws.filter(w=>isDue(w.id)).length;
+  document.getElementById('fc-wrap').style.display='none';
+  document.getElementById('fc-actions').style.display='none';
+  document.getElementById('fc-bar').style.width='100%';
+  document.getElementById('fc-done').style.display='block';
+  document.getElementById('fc-done-msg').textContent=
+    `${fc.ok}/${fc.total} bonnes réponses.${dueLeft>0?' '+dueLeft+' cartes restent à réviser.':' Toutes les cartes ont été révisées !'}`;
+}
+
+// === QUIZ ===
 function startQuiz(count=20){
-  const words = wordsForCat(currentCat);
-  const pool = shuffle(words).slice(0, Math.min(count*2, words.length));
+  const ws=wordsForCat(currentCat);
+  if(!ws.length)return;
+  const n=Math.min(count,ws.length);
+  const due=ws.filter(w=>isDue(w.id));
+  const rest=ws.filter(w=>!isDue(w.id));
+  const nDue=Math.min(Math.ceil(n*0.6),due.length);
+  const nRest=Math.min(n-nDue,rest.length);
+  const nExtra=n-nDue-nRest;
+  const pool=shuffle([...pick(due,nDue+nExtra),...pick(rest,nRest)]).slice(0,n);
 
-  // Weight toward due/weak cards
-  const due = pool.filter(w=>isDueStrict(getCardState(progress,w.id)));
-  const rest = pool.filter(w=>!isDueStrict(getCardState(progress,w.id)));
-  const selected = shuffle([...due, ...rest]).slice(0,count);
-
-  const qs = selected.map(w=>buildQuestion(w, words));
-  quiz = {qs, idx:0, score:0, answered:false};
-  showScreen('quiz');
+  const qs=pool.map(w=>{
+    const isHe=Math.random()<0.5;
+    const samecat=ws.filter(x=>x.id!==w.id&&x.cat===w.cat);
+    const other=ws.filter(x=>x.id!==w.id&&x.cat!==w.cat);
+    let dist=pick(samecat,3);
+    if(dist.length<3)dist=[...dist,...pick(other,3-dist.length)];
+    const opts=shuffle([w,...dist.slice(0,3)]);
+    return{word:w,isHe,opts,ansIdx:opts.findIndex(o=>o.id===w.id),answered:false};
+  });
+  quiz={qs,idx:0,score:0};
   renderQuiz();
-}
-
-function buildQuestion(word, allWords){
-  // Alternate between he→fr and fr→he
-  const dir = Math.random()<0.6 ? 'he2fr' : 'fr2he';
-  let question, correctAns, opts, isHe;
-
-  // Get 3 distractors from same category or random
-  const samecat = allWords.filter(w=>w.id!==word.id && w.cat===word.cat);
-  const othercat = allWords.filter(w=>w.id!==word.id && w.cat!==word.cat);
-  const distPool = samecat.length>=3 ? samecat : [...samecat,...othercat];
-  const distractors = pick(distPool,3);
-
-  if(dir==='he2fr'){
-    question = word.he;
-    correctAns = word.fr;
-    isHe = true;
-    opts = shuffle([{text:word.fr,correct:true}, ...distractors.map(d=>({text:d.fr,correct:false}))]);
-  } else {
-    question = word.fr;
-    correctAns = word.he;
-    isHe = false;
-    opts = shuffle([{text:word.he,correct:true}, ...distractors.map(d=>({text:d.he,correct:false}))]);
-  }
-  return {word, dir, question, correctAns, opts, isHe, answered:false, selectedIdx:-1};
 }
 
 function renderQuiz(){
-  const el = document.getElementById('quiz-content');
-  if(quiz.idx >= quiz.qs.length){
-    renderQuizResult(); return;
-  }
-  const q = quiz.qs[quiz.idx];
-  const total = quiz.qs.length;
-
-  // Timer (decorative - shows elapsed)
-  el.innerHTML = `
-    <div class="quiz-q-header">
-      <div class="quiz-q-num">Question ${quiz.idx+1} / ${total}</div>
-      <div class="quiz-timer">Score: ${quiz.score} / ${quiz.idx}</div>
+  const el=document.getElementById('quiz-content');
+  if(!quiz.qs.length){el.innerHTML='<div class="card" style="text-align:center;padding:40px">Aucun mot disponible dans cette catégorie.</div>';return;}
+  if(quiz.idx>=quiz.qs.length){renderQuizResult();return;}
+  const q=quiz.qs[quiz.idx];
+  const total=quiz.qs.length;
+  const pct=Math.round(quiz.idx/total*100);
+  el.innerHTML=`
+    <div class="quiz-score-bar">
+      <div class="quiz-score-pill">Score : ${quiz.score} / ${quiz.idx}</div>
+      <span class="quiz-qnum">Q${quiz.idx+1}/${total}</span>
     </div>
-    <div class="quiz-q-text">
-      <div class="quiz-q-label">${q.dir==='he2fr'?'Que signifie ce mot hébreu ?':'Comment dit-on en hébreu ?'}</div>
-      <div class="quiz-q-word ${q.isHe?'':'fr'}">${q.question}</div>
+    <div class="prog-wrap" style="margin-bottom:14px"><div class="prog-fill prog-accent" style="width:${pct}%"></div></div>
+    <div class="quiz-qcard">
+      <div class="quiz-qtype">${q.isHe?'Hébreu → Français':'Français → Hébreu'}</div>
+      <div class="quiz-qword ${q.isHe?'':'fr'}">${q.isHe?q.word.he:q.word.fr}</div>
     </div>
     <div class="quiz-opts" id="quiz-opts">
-      ${q.opts.map((o,i)=>`
-        <button class="quiz-opt ${!q.isHe?'he':''}" onclick="answerQuiz(${i})">${o.text}</button>
-      `).join('')}
+      ${q.opts.map((o,i)=>`<div class="quiz-opt${q.isHe?'':' fr-opt'}" onclick="answerQuiz(${i})">${q.isHe?o.fr:o.he}</div>`).join('')}
     </div>
-    <div id="quiz-explain" style="display:none" class="quiz-explain"></div>
-    <div class="quiz-next-row" id="quiz-next-row" style="display:none">
-      <button class="btn btn-primary" onclick="nextQuizQ()">Suivant →</button>
-    </div>
-  `;
+    <div id="q-explain" style="display:none"></div>
+    <div id="q-next" style="display:none;margin-top:10px;text-align:right">
+      <button class="btn btn-primary btn-sm" onclick="nextQ()">Suivant →</button>
+    </div>`;
 }
 
-function answerQuiz(selectedIdx){
-  if(quiz.qs[quiz.idx].answered) return;
-  const q = quiz.qs[quiz.idx];
-  q.answered = true;
-  q.selectedIdx = selectedIdx;
-  const correct = q.opts[selectedIdx].correct;
-  if(correct) quiz.score++;
-
-  // Update card progress
-  const state = getCardState(progress, q.word.id);
-  const rating = correct ? 3 : 1;
-  const {interval,ease} = nextIntervals(state,rating);
-  progress[q.word.id] = {
-    interval, ease,
-    dueDate: Date.now()+interval*86400000,
-    reviews:(state.reviews||0)+1,
-    correct:(state.correct||0)+(correct?1:0),
-  };
-  saveProgress(progress);
-  updateStreak();
-
-  // Render feedback
-  const opts = document.querySelectorAll('.quiz-opt');
-  opts.forEach((btn,i)=>{
-    btn.classList.add('disabled');
-    if(q.opts[i].correct) btn.classList.add('correct');
-    else if(i===selectedIdx) btn.classList.add('wrong');
+function answerQuiz(idx){
+  const q=quiz.qs[quiz.idx];
+  if(q.answered)return;
+  q.answered=true;
+  const ok=idx===q.ansIdx;
+  if(ok)quiz.score++;
+  updateCard(q.word.id,ok?3:1);
+  document.querySelectorAll('#quiz-opts .quiz-opt').forEach((el,i)=>{
+    el.setAttribute('disabled','');
+    el.onclick=null;
+    if(i===q.ansIdx)el.classList.add('correct');
+    else if(i===idx&&!ok)el.classList.add('wrong');
   });
-
-  const correctWord = q.dir==='he2fr' ? q.word.fr : q.word.he;
-  const explEl = document.getElementById('quiz-explain');
-  explEl.style.display='block';
-  explEl.innerHTML = correct
-    ? `✅ <strong>Correct !</strong> — ${q.word.he} = ${q.word.fr}${q.word.ant?` | Antonyme: ${q.word.ant}`:''}`
-    : `❌ <strong>Incorrect.</strong> La bonne réponse : <strong>${correctWord}</strong><br>${q.word.he} = ${q.word.fr}${q.word.ant?` | Antonyme: ${q.word.ant}`:''}`;
-
-  document.getElementById('quiz-next-row').style.display='flex';
-  // Update score display
-  document.querySelector('.quiz-timer').textContent = `Score: ${quiz.score} / ${quiz.idx+1}`;
+  const ans=q.isHe?q.opts[q.ansIdx].fr:q.opts[q.ansIdx].he;
+  document.getElementById('q-explain').style.display='block';
+  document.getElementById('q-explain').innerHTML=`<div class="explain-box">${ok?'✅ <strong>Correct !</strong>':'❌ <strong>Incorrect.</strong> La réponse était :'} <strong>${ans}</strong></div>`;
+  document.getElementById('q-next').style.display='block';
 }
 
-function nextQuizQ(){
-  quiz.idx++;
-  renderQuiz();
-}
+function nextQ(){quiz.idx++;renderQuiz();}
 
 function renderQuizResult(){
-  const total = quiz.qs.length;
-  const pct = Math.round(quiz.score/total*100);
-  const medal = pct>=90?'🏆':pct>=70?'🥇':pct>=50?'🥈':'💪';
-
-  // Save to history
-  const h = loadHistory();
-  h.unshift({date:new Date().toLocaleDateString('fr-FR'),score:quiz.score,total,pct,cat:currentCat});
-  if(h.length>30) h.pop();
-  saveHistory(h);
-  updateStreak();
-
-  document.getElementById('quiz-content').innerHTML = `
+  const tot=quiz.qs.length,pct=Math.round(quiz.score/tot*100);
+  const medal=pct>=90?'🏆':pct>=70?'🥇':pct>=50?'🥈':'🥉';
+  hist.push({date:new Date().toLocaleDateString('fr-FR'),score:quiz.score,total:tot,pct,cat:currentCat});
+  saveHist();
+  document.getElementById('quiz-content').innerHTML=`
     <div class="quiz-result">
       <div class="medal">${medal}</div>
-      <div class="score">${quiz.score}/${total}</div>
-      <div class="score-sub">${pct}% de réussite — ${pct>=80?'Excellent !':pct>=60?'Bien !':pct>=40?'Continue !':'Encore un effort !'}</div>
-      <div class="btn-grid" style="max-width:400px;margin:0 auto">
-        <button class="btn btn-primary" onclick="startQuiz(20)">🔄 Nouveau quiz</button>
-        <button class="btn btn-warn" onclick="startQuiz(50)">🏆 Quiz 50 questions</button>
-        <button class="btn btn-success" onclick="startFlashcards('due')">🃏 Réviser les erreurs</button>
+      <div class="big-score">${quiz.score}/${tot}</div>
+      <div style="font-size:.95rem;color:var(--muted);margin:8px 0 22px">${pct}% de bonnes réponses</div>
+      <div style="display:flex;gap:9px;justify-content:center;flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="startQuiz(${tot})">🔄 Recommencer (${tot}Q)</button>
+        <button class="btn btn-accent" onclick="startQuiz(50)">🏆 Examen (50Q)</button>
         <button class="btn btn-outline" onclick="showScreen('home')">🏠 Accueil</button>
       </div>
-    </div>
-  `;
+    </div>`;
 }
 
-// ============================================================
-// CONNECTORS
-// ============================================================
+// === CONNECTORS ===
 function startConnectorQuiz(){
-  connectorIdx = 0;
-  connectorScore = 0;
+  conn={idx:0,score:0,answered:false};
+  document.getElementById('conn-content').innerHTML='';
+  document.getElementById('conn-score-disp').textContent='';
   renderConnector();
-  document.getElementById('conn-score-disp').textContent = '';
 }
-
 function renderConnector(){
-  const el = document.getElementById('conn-content');
-  if(connectorIdx >= CONNECTOR_EXERCISES.length){
-    const pct = Math.round(connectorScore/CONNECTOR_EXERCISES.length*100);
-    document.getElementById('conn-score-disp').textContent = `${connectorScore}/${CONNECTOR_EXERCISES.length} (${pct}%)`;
-    el.innerHTML = `
-      <div class="quiz-result">
-        <div class="medal">${pct>=80?'🏆':pct>=60?'🥇':'💪'}</div>
-        <div class="score">${connectorScore}/${CONNECTOR_EXERCISES.length}</div>
-        <div class="score-sub">${pct}% — ${pct>=80?'Excellent maîtrise des connecteurs !':'Révisez le fichier des connecteurs logiques.'}</div>
-        <button class="btn btn-primary" onclick="startConnectorQuiz()" style="margin:0 auto;display:block;max-width:240px">🔄 Recommencer</button>
-      </div>`;
+  const el=document.getElementById('conn-content');
+  const total=CONNECTOR_EXERCISES.length;
+  if(conn.idx>=total){
+    const pct=Math.round(conn.score/total*100);
+    document.getElementById('conn-score-disp').textContent=`${conn.score}/${total} (${pct}%)`;
+    el.innerHTML=`<div class="ex-card" style="text-align:center;padding:32px">
+      <div style="font-size:2.8rem">🎉</div>
+      <div class="score-big" style="margin:12px 0">${conn.score}/${total}</div>
+      <div style="color:var(--muted);margin-bottom:16px">${pct>=80?'Excellent !':pct>=60?'Bien !':'Continuez à vous entraîner.'}</div>
+      <button class="btn btn-primary" onclick="startConnectorQuiz()">🔄 Recommencer</button></div>`;
     return;
   }
-
-  const ex = CONNECTOR_EXERCISES[connectorIdx];
-  const total = CONNECTOR_EXERCISES.length;
-
-  el.innerHTML = `
-    <div class="fc-bar-wrap"><div class="fc-bar" style="width:${Math.round(connectorIdx/total*100)}%"></div></div>
-    <div class="quiz-q-header">
-      <div class="quiz-q-num">Exercice ${connectorIdx+1} / ${total}</div>
-      <div class="quiz-timer" id="conn-timer">Score: ${connectorScore}/${connectorIdx}</div>
-    </div>
-    <div class="quiz-q-text" style="direction:rtl;font-size:1.4rem;font-weight:700;line-height:1.8">
-      ${ex.q}
-    </div>
-    <div class="quiz-opts" id="conn-opts">
-      ${ex.opts.map((o,i)=>`
-        <button class="quiz-opt he" onclick="answerConnector(${i},'${o}')">${o}</button>
-      `).join('')}
-    </div>
-    <div id="conn-explain" style="display:none" class="quiz-explain"></div>
-    <div style="display:none;justify-content:flex-end" id="conn-next">
-      <button class="btn btn-primary" onclick="nextConnector()">Suivant →</button>
-    </div>
-  `;
+  const ex=CONNECTOR_EXERCISES[conn.idx];
+  const pct=Math.round(conn.idx/total*100);
+  el.innerHTML=`
+    <div class="prog-wrap" style="margin-bottom:12px"><div class="prog-fill prog-blue" style="width:${pct}%"></div></div>
+    <div class="ex-card">
+      <div style="font-size:.75rem;color:var(--muted);font-weight:700;margin-bottom:8px">Exercice ${conn.idx+1}/${total}</div>
+      <div class="ex-q">${ex.q}</div>
+      ${ex.ctx?`<div class="ex-ctx">${ex.ctx}</div>`:''}
+      <div class="opt-list" id="conn-opts">
+        ${ex.opts.map((o,i)=>`<div class="opt-item" onclick="answerConn(${i})">${o}</div>`).join('')}
+      </div>
+      <div id="conn-explain" style="display:none"></div>
+      <div id="conn-next" style="display:none;margin-top:10px;text-align:right">
+        <button class="btn btn-primary btn-sm" onclick="nextConn()">Suivant →</button>
+      </div>
+    </div>`;
 }
-
-function answerConnector(idx, val){
-  const ex = CONNECTOR_EXERCISES[connectorIdx];
-  const correct = val===ex.ans;
-  if(correct) connectorScore++;
-
-  const opts = document.querySelectorAll('#conn-opts .quiz-opt');
-  opts.forEach((btn,i)=>{
-    btn.classList.add('disabled');
-    if(ex.opts[i]===ex.ans) btn.classList.add('correct');
-    else if(i===idx && !correct) btn.classList.add('wrong');
+function answerConn(idx){
+  if(conn.answered)return;conn.answered=true;
+  const ex=CONNECTOR_EXERCISES[conn.idx];
+  const ok=ex.opts[idx]===ex.ans;
+  if(ok)conn.score++;
+  document.querySelectorAll('#conn-opts .opt-item').forEach((el,i)=>{
+    el.setAttribute('disabled','');el.onclick=null;
+    if(ex.opts[i]===ex.ans)el.classList.add('correct');
+    else if(i===idx&&!ok)el.classList.add('wrong');
   });
-
-  const expEl = document.getElementById('conn-explain');
-  expEl.style.display='block';
-  expEl.innerHTML = (correct?'✅ ':'❌ ') + ex.exp;
-  document.getElementById('conn-next').style.display='flex';
-  document.getElementById('conn-timer').textContent = `Score: ${connectorScore}/${connectorIdx+1}`;
+  const exEl=document.getElementById('conn-explain');
+  exEl.style.display='block';
+  exEl.innerHTML=`<div class="explain-box">${ok?'✅ Correct ! ':''}<strong>${ex.ans}</strong>${ex.exp?' — '+ex.exp:''}</div>`;
+  document.getElementById('conn-next').style.display='block';
 }
+function nextConn(){conn.idx++;conn.answered=false;renderConnector();}
 
-function nextConnector(){
-  connectorIdx++;
-  renderConnector();
+// === PHRASES ===
+function startPhraseQuiz(){
+  phrase={idx:0,score:0,answered:false};
+  document.getElementById('phrase-content').innerHTML='';
+  document.getElementById('phrase-score-disp').textContent='';
+  renderPhrase();
 }
+function renderPhrase(){
+  const el=document.getElementById('phrase-content');
+  const total=PHRASE_EXERCISES.length;
+  if(phrase.idx>=total){
+    const pct=Math.round(phrase.score/total*100);
+    document.getElementById('phrase-score-disp').textContent=`${phrase.score}/${total} (${pct}%)`;
+    el.innerHTML=`<div class="ex-card" style="text-align:center;padding:32px">
+      <div style="font-size:2.8rem">🎉</div>
+      <div class="score-big" style="margin:12px 0">${phrase.score}/${total}</div>
+      <div style="color:var(--muted);margin-bottom:16px">${pct>=80?'Excellent ! Vous maîtrisez les tournures académiques.':pct>=60?'Bien ! Continuez.':'Révisez les formules et recommencez.'}</div>
+      <button class="btn btn-primary" onclick="startPhraseQuiz()">🔄 Recommencer</button></div>`;
+    return;
+  }
+  const ex=PHRASE_EXERCISES[phrase.idx];
+  const pct=Math.round(phrase.idx/total*100);
+  el.innerHTML=`
+    <div class="prog-wrap" style="margin-bottom:12px"><div class="prog-fill prog-accent" style="width:${pct}%"></div></div>
+    <div class="ex-card">
+      <div style="font-size:.75rem;color:var(--muted);font-weight:700;margin-bottom:8px">Exercice ${phrase.idx+1}/${total}</div>
+      <div class="ex-q">${ex.q}</div>
+      ${ex.ctx?`<div class="ex-ctx">${ex.ctx}</div>`:''}
+      <div class="opt-list" id="phrase-opts">
+        ${ex.opts.map((o,i)=>`<div class="opt-item" onclick="answerPhrase(${i})" style="direction:rtl">${o}</div>`).join('')}
+      </div>
+      <div id="phrase-explain" style="display:none"></div>
+      <div id="phrase-next" style="display:none;margin-top:10px;text-align:right">
+        <button class="btn btn-primary btn-sm" onclick="nextPhrase()">Suivant →</button>
+      </div>
+    </div>`;
+}
+function answerPhrase(idx){
+  if(phrase.answered)return;phrase.answered=true;
+  const ex=PHRASE_EXERCISES[phrase.idx];
+  const ok=ex.opts[idx]===ex.ans;
+  if(ok)phrase.score++;
+  document.querySelectorAll('#phrase-opts .opt-item').forEach((el,i)=>{
+    el.setAttribute('disabled','');el.onclick=null;
+    if(ex.opts[i]===ex.ans)el.classList.add('correct');
+    else if(i===idx&&!ok)el.classList.add('wrong');
+  });
+  const exEl=document.getElementById('phrase-explain');
+  exEl.style.display='block';
+  exEl.innerHTML=`<div class="explain-box">${ok?'✅ Correct ! ':''}${ex.exp}</div>`;
+  document.getElementById('phrase-next').style.display='block';
+}
+function nextPhrase(){phrase.idx++;phrase.answered=false;renderPhrase();}
 
-// ============================================================
-// STATS
-// ============================================================
+// === ANNALES ===
+function renderAnnalesSelector(){
+  ann={examIdx:0,secIdx:0,qIdx:0,score:0,answered:false};
+  document.getElementById('ann-back').style.display='none';
+  document.getElementById('ann-content').innerHTML='';
+  document.getElementById('ann-selector').innerHTML=ANNALES_DATA.map((exam,ei)=>`
+    <div class="annales-exam">
+      <div class="annales-exam-title">📋 ${exam.exam}</div>
+      <div style="display:flex;flex-wrap:wrap;gap:7px">
+        ${exam.sections.map((sec,si)=>`<button class="btn btn-outline btn-sm" onclick="startAnnalesSection(${ei},${si})">${sec.name} <span style="opacity:.55">(${sec.questions.length}Q)</span></button>`).join('')}
+      </div>
+    </div>`).join('');
+}
+function startAnnalesSection(ei,si){
+  ann={examIdx:ei,secIdx:si,qIdx:0,score:0,answered:false};
+  document.getElementById('ann-selector').innerHTML='';
+  document.getElementById('ann-back').style.display='';
+  renderAnnalesQ();
+}
+function renderAnnalesQ(){
+  const el=document.getElementById('ann-content');
+  const exam=ANNALES_DATA[ann.examIdx];
+  const sec=exam.sections[ann.secIdx];
+  const total=sec.questions.length;
+  if(ann.qIdx>=total){
+    const pct=Math.round(ann.score/total*100);
+    el.innerHTML=`<div class="ex-card" style="text-align:center;padding:32px">
+      <div style="font-size:2.5rem">📋</div>
+      <div style="font-weight:800;font-size:1rem;margin:8px 0">${exam.exam} — ${sec.name}</div>
+      <div class="score-big" style="margin:12px 0">${ann.score}/${total}</div>
+      <div style="color:var(--muted);margin-bottom:16px">${pct}% — ${pct>=80?'🏆 Excellent !':pct>=60?'👍 Bien !':'💪 Continuez !'}</div>
+      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="startAnnalesSection(${ann.examIdx},${ann.secIdx})">🔄 Recommencer</button>
+        <button class="btn btn-outline" onclick="renderAnnalesSelector()">← Autres examens</button>
+      </div></div>`;
+    return;
+  }
+  const q=sec.questions[ann.qIdx];
+  const pct=Math.round(ann.qIdx/total*100);
+  const labels=['א','ב','ג','ד'];
+  el.innerHTML=`
+    <div class="prog-wrap" style="margin-bottom:10px"><div class="prog-fill prog-blue" style="width:${pct}%"></div></div>
+    <div style="font-size:.73rem;color:var(--muted);font-weight:700;margin-bottom:10px">${exam.exam} — ${sec.name} — Q${ann.qIdx+1}/${total} — Score : ${ann.score}</div>
+    <div class="ex-card">
+      ${q.w?`<div class="word-chip">מילה : ${q.w}</div>`:''}
+      <div class="annales-qtext">${q.s}</div>
+      <div style="display:flex;flex-direction:column;gap:6px" id="ann-opts">
+        ${q.opts.map((o,i)=>`<div class="ann-opt" onclick="answerAnn(${i})">
+          <span class="opt-label">${labels[i]||i+1})</span><span>${o}</span>
+        </div>`).join('')}
+      </div>
+      <div id="ann-explain" style="display:none"></div>
+      <div id="ann-next" style="display:none;margin-top:10px;text-align:right">
+        <button class="btn btn-primary btn-sm" onclick="nextAnn()">Suivant →</button>
+      </div>
+    </div>`;
+}
+function answerAnn(idx){
+  if(ann.answered)return;ann.answered=true;
+  const sec=ANNALES_DATA[ann.examIdx].sections[ann.secIdx];
+  const q=sec.questions[ann.qIdx];
+  const ok=idx===q.ans;
+  if(ok)ann.score++;
+  document.querySelectorAll('#ann-opts .ann-opt').forEach((el,i)=>{
+    el.setAttribute('disabled','');el.onclick=null;
+    if(i===q.ans)el.classList.add('correct');
+    else if(i===idx&&!ok)el.classList.add('wrong');
+  });
+  const exEl=document.getElementById('ann-explain');
+  exEl.style.display='block';
+  exEl.innerHTML=`<div class="explain-box">${ok?'✅ Correct ! ':'❌ Réponse correcte : <strong>'+(q.opts[q.ans]||'')+'</strong><br>'}${q.exp||''}</div>`;
+  document.getElementById('ann-next').style.display='block';
+}
+function nextAnn(){ann.qIdx++;ann.answered=false;renderAnnalesQ();}
+
+// === STATS ===
 function renderStats(){
-  const total = WORDS.length;
-  let mastered=0, learning=0, newCards=0, totalReviews=0;
-  WORDS.forEach(w=>{
-    const st=getCardState(progress,w.id);
-    totalReviews+=st.reviews||0;
-    if(st.interval===0) newCards++;
-    else if(st.interval>=14) mastered++;
-    else learning++;
-  });
+  const total=WORDS.length;
+  const mastered=WORDS.filter(w=>getLevel(w.id)==='mastered').length;
+  const learning=WORDS.filter(w=>getLevel(w.id)==='learning').length;
+  const due=WORDS.filter(w=>isDue(w.id)).length;
+  const sk=loadStreak();
+  document.getElementById('stats-grid').innerHTML=`
+    <div class="scard c-green"><div class="scard-num">${mastered}</div><div class="scard-lbl">Maîtrisés</div></div>
+    <div class="scard c-blue"><div class="scard-num">${learning}</div><div class="scard-lbl">En cours</div></div>
+    <div class="scard c-orange"><div class="scard-num">${due}</div><div class="scard-lbl">À réviser</div></div>
+    <div class="scard c-purple"><div class="scard-num">${sk.streak||0}</div><div class="scard-lbl">Jours consécutifs</div></div>
+    <div class="scard c-blue"><div class="scard-num">${Math.round(mastered/total*100)}%</div><div class="scard-lbl">Progression</div></div>`;
 
-  const {streak} = loadStreak();
-  document.getElementById('stats-grid').innerHTML = `
-    <div class="stat-card"><div class="num green">${mastered}</div><div class="label">✅ Mots maîtrisés</div></div>
-    <div class="stat-card"><div class="num orange">${learning}</div><div class="label">📖 En apprentissage</div></div>
-    <div class="stat-card"><div class="num" style="color:var(--muted)">${newCards}</div><div class="label">🆕 Nouveaux</div></div>
-    <div class="stat-card"><div class="num">${totalReviews}</div><div class="label">🔄 Révisions totales</div></div>
-    <div class="stat-card"><div class="num" style="color:var(--orange)">${streak}🔥</div><div class="label">Jours consécutifs</div></div>
-    <div class="stat-card"><div class="num">${Math.round(mastered/total*100)}%</div><div class="label">📈 Progression globale</div></div>
-  `;
-
-  // Mastery by category
-  const sm = document.getElementById('stats-mastery');
-  sm.innerHTML = Object.entries(CAT_INFO).map(([cat,info])=>{
-    const ws = WORDS.filter(w=>w.cat===cat);
-    const tot=ws.length;
-    const mast=ws.filter(w=>getCardState(progress,w.id).interval>=14).length;
-    const learn=ws.filter(w=>{const s=getCardState(progress,w.id);return s.interval>0&&s.interval<14;}).length;
-    const pct=tot>0?Math.round(mast/tot*100):0;
-    return `<div class="mastery-bar">
-      <div class="mb-label">
-        <span style="color:${info.color}">■</span> ${info.name} (${tot} mots)
-        <span>${mast} maîtrisés · ${learn} en cours · <strong>${pct}%</strong></span>
-      </div>
-      <div class="progress-bar-wrap" style="height:14px">
-        <div style="height:100%;display:flex;border-radius:99px;overflow:hidden">
-          <div style="width:${pct}%;background:${info.color};transition:.5s"></div>
-          <div style="width:${tot>0?Math.round(learn/tot*100):0}%;background:${info.color}44;transition:.5s"></div>
-        </div>
-      </div>
+  document.getElementById('stats-mastery').innerHTML=Object.entries(CAT_INFO).map(([k,v])=>{
+    const wc=WORDS.filter(w=>w.cat===k);
+    const mc=wc.filter(w=>getLevel(w.id)==='mastered').length;
+    const p=wc.length?Math.round(mc/wc.length*100):0;
+    return `<div class="mastery-row">
+      <div class="mastery-row-head"><span>${v.icon} ${v.name}</span><span style="color:${v.color}">${mc}/${wc.length} (${p}%)</span></div>
+      <div class="prog-wrap"><div class="prog-fill" style="width:${p}%;background:${v.color}"></div></div>
     </div>`;
   }).join('');
 
-  // History
-  const h = loadHistory();
-  const histEl = document.getElementById('stats-history');
-  if(h.length===0){
-    histEl.innerHTML='<div style="text-align:center;color:var(--muted);padding:20px">Aucun quiz effectué encore.</div>';
-  } else {
-    histEl.innerHTML = h.map(r=>`
-      <div class="history-item">
-        <span>${r.date} — <strong>${r.cat==='all'?'Tout':CAT_INFO[r.cat]?.name||r.cat}</strong></span>
-        <span class="badge ${r.pct>=80?'badge-green':r.pct>=60?'badge-orange':'badge-red'}">${r.score}/${r.total} (${r.pct}%)</span>
-      </div>
-    `).join('');
-  }
+  const histEl=document.getElementById('stats-history');
+  if(!hist.length){histEl.innerHTML='<p style="color:var(--muted);text-align:center;padding:16px">Aucun quiz effectué</p>';return;}
+  histEl.innerHTML=[...hist].reverse().slice(0,15).map(h=>{
+    const b=h.pct>=80?'badge-g':h.pct>=60?'badge-o':'badge-r';
+    const cn=h.cat==='all'?'Tout':(CAT_INFO[h.cat]?.name||h.cat);
+    return `<div class="hist-item"><span>${h.date} — ${cn}</span><span class="badge ${b}">${h.score}/${h.total} (${h.pct}%)</span></div>`;
+  }).join('');
 }
-
 function resetConfirm(){
-  if(confirm('Réinitialiser TOUTE la progression ? Cette action est irréversible.')){
-    localStorage.removeItem(STORAGE_KEY);
-    localStorage.removeItem(HISTORY_KEY);
-    localStorage.removeItem(STREAK_KEY);
-    progress = {};
+  if(confirm('Effacer toute la progression ? Cette action est irréversible.')){
+    [S_KEY,H_KEY,ST_KEY].forEach(k=>localStorage.removeItem(k));
+    prog={};hist=[];
+    showToast('Progression réinitialisée');
     renderHome();
-    renderStats();
-    alert('Progression réinitialisée.');
   }
 }
 
-
-// ============================================================
-// PHRASES D'EXAMEN
-// ============================================================
-function startPhraseQuiz(){
-  phraseIdx = 0; phraseScore = 0;
-  renderPhrase();
-}
-
-function renderPhrase(){
-  const container = document.getElementById('phrase-content');
-  const total = PHRASE_EXERCISES.length;
-  if(phraseIdx >= total){
-    const pct = Math.round(phraseScore/total*100);
-    document.getElementById('phrase-score-disp').textContent = phraseScore+'/'+total+' ('+pct+'%)';
-    container.innerHTML = `
-      <div class="card" style="text-align:center;padding:32px">
-        <div style="font-size:3rem">🎉</div>
-        <div class="score">${phraseScore}/${total}</div>
-        <div style="font-size:1.1rem;color:var(--muted);margin:8px 0">${pct >= 80 ? '🏆 Excellent ! Vous maîtrisez les tournures académiques.' : pct >= 60 ? '👍 Bon travail ! Continuez à vous entraîner.' : '💪 Révisez les formules et recommencez !'}</div>
-        <button class="btn btn-primary" onclick="startPhraseQuiz()" style="margin-top:16px">🔄 Recommencer</button>
-      </div>`;
-    return;
+// === KEYBOARD SHORTCUTS ===
+document.addEventListener('keydown',e=>{
+  if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')return;
+  const active=document.querySelector('.screen.active')?.id;
+  if(active==='screen-flashcards'){
+    if(e.code==='Space'){e.preventDefault();flipCard();}
+    if(fc.flipped){
+      if(e.key==='1')rateCard(1);else if(e.key==='2')rateCard(2);
+      else if(e.key==='3')rateCard(3);else if(e.key==='4')rateCard(4);
+    }
   }
-  const ex = PHRASE_EXERCISES[phraseIdx];
-  const pct = Math.round(phraseIdx/total*100);
-  container.innerHTML = `
-    <div class="fc-bar-wrap"><div class="fc-bar" style="width:${pct}%"></div></div>
-    <div class="card">
-      <div style="font-size:.8rem;color:var(--muted);margin-bottom:4px">Exercice ${phraseIdx+1} / ${total} — Score: ${phraseScore}</div>
-      <div style="font-size:1.05rem;font-weight:700;margin-bottom:6px">${ex.q}</div>
-      ${ex.ctx ? `<div style="background:var(--bg2);border-radius:8px;padding:10px;margin-bottom:12px;font-size:.9rem;color:var(--muted)">${ex.ctx}</div>` : ''}
-      <div class="quiz-opts" id="phrase-opts">
-        ${ex.opts.map((o,i)=>`<div class="quiz-opt" onclick="answerPhrase(${i})">${o}</div>`).join('')}
-      </div>
-    </div>`;
-}
-
-function answerPhrase(idx){
-  const ex = PHRASE_EXERCISES[phraseIdx];
-  const correct = ex.opts[idx] === ex.ans;
-  if(correct) phraseScore++;
-  const opts = document.querySelectorAll('#phrase-opts .quiz-opt');
-  opts.forEach((o,i)=>{
-    o.onclick = null;
-    if(ex.opts[i] === ex.ans) o.style.background = 'var(--green)';
-    else if(i === idx && !correct) o.style.background = 'var(--red)';
-  });
-  document.getElementById('phrase-content').insertAdjacentHTML('beforeend',`
-    <div class="card" style="margin-top:12px">
-      <div style="font-weight:700;color:${correct?'var(--green)':'var(--red)'};margin-bottom:6px">${correct?'✅ Correct !':'❌ Incorrect'}</div>
-      <div style="font-size:.92rem">${ex.exp}</div>
-      <button class="btn btn-primary btn-sm" onclick="nextPhrase()" style="margin-top:12px">Suivant →</button>
-    </div>`);
-}
-
-function nextPhrase(){
-  phraseIdx++;
-  renderPhrase();
-}
-
-// ============================================================
-// ANNALES
-// ============================================================
-function renderAnnalesSelector(){
-  const sel = document.getElementById('annales-selector');
-  const content = document.getElementById('annales-content');
-  content.innerHTML = '';
-  let html = '';
-  ANNALES_DATA.forEach((exam,ei)=>{
-    html += `<div class="card" style="margin-bottom:12px">
-      <div style="font-weight:800;font-size:1.05rem;margin-bottom:10px">📋 ${exam.exam}</div>
-      <div style="display:flex;flex-wrap:wrap;gap:8px">`;
-    exam.sections.forEach((sec,si)=>{
-      html += `<button class="btn btn-outline btn-sm" onclick="startAnnalesSection(${ei},${si})">
-        ${sec.name} <span style="color:var(--muted)">(${sec.questions.length} Q)</span>
-      </button>`;
-    });
-    html += `</div></div>`;
-  });
-  sel.innerHTML = html;
-}
-
-function startAnnalesSection(examIdx, secIdx){
-  annalesState = {examIdx, secIdx, qIdx:0, score:0};
-  document.getElementById('annales-selector').innerHTML = '';
-  renderAnnalesQ();
-}
-
-function renderAnnalesQ(){
-  const content = document.getElementById('annales-content');
-  const exam = ANNALES_DATA[annalesState.examIdx];
-  const sec = exam.sections[annalesState.secIdx];
-  const total = sec.questions.length;
-  if(annalesState.qIdx >= total){
-    const pct = Math.round(annalesState.score/total*100);
-    content.innerHTML = `
-      <div class="card" style="text-align:center;padding:32px">
-        <div style="font-size:2.5rem">📋</div>
-        <div style="font-size:1.1rem;font-weight:800;margin:8px 0">${exam.exam}</div>
-        <div style="color:var(--muted);margin-bottom:8px">${sec.name}</div>
-        <div class="score">${annalesState.score}/${total}</div>
-        <div style="color:var(--muted);margin:8px 0">${pct}% — ${pct>=80?'🏆 Excellent !':pct>=60?'👍 Bien !':'💪 Continuez !'}</div>
-        <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:16px">
-          <button class="btn btn-primary" onclick="startAnnalesSection(${annalesState.examIdx},${annalesState.secIdx})">🔄 Recommencer cette section</button>
-          <button class="btn btn-outline" onclick="renderAnnalesSelector();document.getElementById('annales-selector').scrollIntoView()">← Retour aux examens</button>
-        </div>
-      </div>`;
-    return;
+  if(active==='screen-quiz'){
+    const q=quiz.qs[quiz.idx];
+    if(q&&q.answered&&e.code==='Space'){e.preventDefault();nextQ();}
+    if(q&&!q.answered){
+      if(e.key==='1')answerQuiz(0);else if(e.key==='2')answerQuiz(1);
+      else if(e.key==='3')answerQuiz(2);else if(e.key==='4')answerQuiz(3);
+    }
   }
-  const q = sec.questions[annalesState.qIdx];
-  const pct = Math.round(annalesState.qIdx/total*100);
-  const labels = ['א','ב','ג','ד'];
-  content.innerHTML = `
-    <div style="margin-bottom:8px;font-size:.85rem;color:var(--muted)">
-      ${exam.exam} — ${sec.name}
-      <button class="btn btn-outline btn-sm" onclick="renderAnnalesSelector()" style="margin-right:8px;float:left">← Retour</button>
-    </div>
-    <div class="fc-bar-wrap"><div class="fc-bar" style="width:${pct}%"></div></div>
-    <div class="card">
-      <div style="font-size:.8rem;color:var(--muted);margin-bottom:6px">Question ${annalesState.qIdx+1} / ${total} — Score: ${annalesState.score}</div>
-      <div style="font-size:1.05rem;margin-bottom:8px;direction:rtl;line-height:1.6">${q.s}</div>
-      ${q.w ? `<div style="background:var(--bg2);border-radius:6px;padding:6px 10px;margin-bottom:12px;font-size:.85rem">Mot en gras : <strong>${q.w}</strong></div>` : ''}
-      <div class="quiz-opts" id="annales-opts">
-        ${q.opts.map((o,i)=>`<div class="quiz-opt" onclick="answerAnnales(${i})" style="direction:rtl">
-          <span style="color:var(--muted);margin-left:6px">${labels[i]})</span> ${o}
-        </div>`).join('')}
-      </div>
-    </div>`;
-}
+});
 
-function answerAnnales(idx){
-  const exam = ANNALES_DATA[annalesState.examIdx];
-  const sec = exam.sections[annalesState.secIdx];
-  const q = sec.questions[annalesState.qIdx];
-  const correct = idx === q.ans;
-  if(correct) annalesState.score++;
-  const opts = document.querySelectorAll('#annales-opts .quiz-opt');
-  opts.forEach((o,i)=>{
-    o.onclick = null;
-    if(i === q.ans) o.style.background = 'var(--green)';
-    else if(i === idx && !correct) o.style.background = 'var(--red)';
-  });
-  document.getElementById('annales-content').insertAdjacentHTML('beforeend',`
-    <div class="card" style="margin-top:12px">
-      <div style="font-weight:700;color:${correct?'var(--green)':'var(--red)'};margin-bottom:6px">${correct?'✅ Correct !':'❌ Incorrect — La réponse était : '+q.opts[q.ans]}</div>
-      ${q.exp ? `<div style="font-size:.9rem;margin-bottom:8px">${q.exp}</div>` : ''}
-      <button class="btn btn-primary btn-sm" onclick="nextAnnalesQ()">Suivant →</button>
-    </div>`);
-}
-
-function nextAnnalesQ(){
-  annalesState.qIdx++;
-  renderAnnalesQ();
-}
-
-// ============================================================
-// NAVIGATION
-// ============================================================
-function showScreen(name){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
-  document.getElementById('screen-'+name).classList.add('active');
-  const tabs = document.querySelectorAll('.nav-tab');
-  const tabMap = {home:0,flashcards:1,quiz:2,connectors:3,stats:4,phrases:5,annales:6};
-  if(tabMap[name]!==undefined) tabs[tabMap[name]].classList.add('active');
-
-  if(name==='home') renderHome();
-  if(name==='stats') renderStats();
-  if(name==='connectors' && connectorIdx===0 && document.getElementById('conn-content').innerHTML==='')
-    startConnectorQuiz();
-  if(name==='quiz' && quiz.qs.length===0) startQuiz(20);
-  if(name==='phrases' && !document.getElementById('phrase-content').innerHTML) startPhraseQuiz();
-  if(name==='annales' && !document.getElementById('annales-selector').innerHTML) renderAnnalesSelector();
-}
-
-// ============================================================
-// INIT
-// ============================================================
+// === INIT ===
 renderHome();
+
 </script>
 </body>
 </html>
