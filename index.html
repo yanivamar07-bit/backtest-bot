@@ -33,6 +33,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-seri
 
 /* DOTS */
 .bdot{width:11px;height:11px;border-radius:2px;display:inline-block;flex-shrink:0;vertical-align:middle}
+.ctip{font-size:.7rem;color:var(--txt3);margin-top:3px;font-style:italic;line-height:1.4;padding-left:4px;border-left:2px solid var(--bdr2)}
+html.dark .ctip{color:var(--txt3);border-left-color:var(--bdr)}
 .d0{background:var(--b0)}.d1{background:var(--b1);border-radius:50%}.d2{background:var(--b2);border-radius:50%}
 
 /* NAV */
@@ -1617,7 +1619,7 @@ const ANNALES_DATA = [
               "מכאן (d'où / de là)"
             ],
             "ans": 1,
-            "exp": ""
+            "exp": "Relation logique : la phrase précédente parle de menaces sur l'emploi. Celle-ci introduit un contraste (nouvelles opportunités) → אולם (cependant/mais). Piège : לכן serait une conséquence logique, pas un retournement."
           },
           {
             "s": "הכלכלה הדיגיטלית גם _______ הזדמנויות חדשות",
@@ -1653,7 +1655,7 @@ const ANNALES_DATA = [
               "בזמן (pendant/au moment de)"
             ],
             "ans": 2,
-            "exp": ""
+            "exp": "Règle temporelle : לאחר + durée ou proposition = 'après'. La phrase = 'Après de nombreuses années où le sujet était entouré de stigmate'. Piège : עקב + NOM de cause (pas une durée) ; בזמן = simultanéité, pas succession."
           },
           {
             "s": "הנושא _______ בסטיגמה",
@@ -1689,7 +1691,7 @@ const ANNALES_DATA = [
               "שואלים (demandent/questionnent)"
             ],
             "ans": 1,
-            "exp": ""
+            "exp": "Registre académique : מציינים (indiquent/mentionnent) est le verbe approprié pour citer une statistique officielle. כופרים/מכחישים = nient = sémantiquement opposé. שואלים = questionnent = illogique ici (une organisation de santé 'rapporte', elle ne 'questionne' pas)."
           },
           {
             "s": "יסבול ממצוקה נפשית _______ חייו",
@@ -1725,7 +1727,7 @@ const ANNALES_DATA = [
               "עם זאת (cependant)"
             ],
             "ans": 3,
-            "exp": ""
+            "exp": "Signal de contraste : עדיין (encore/toujours) + budget dérisoire = obstacle qui persiste malgré les progrès évoqués. עם זאת (cependant) marque ce retournement. Piège : כמו כן et בנוסף = addition, pas contraste."
           },
           {
             "s": "התקציב המוקצב לבריאות הנפש _______ ביחס לצרכים",
@@ -1749,7 +1751,7 @@ const ANNALES_DATA = [
               "עומדת (est sur le point de)"
             ],
             "ans": 2,
-            "exp": ""
+            "exp": "Gradation de certitude : מסרבת (refuse) < שוקלת (pèse/envisage) < עומדת ל (est sur le point de). שוקלת = délibère encore = implique une décision non encore prise. C'est la nuance la plus neutre entre refus et action."
           },
           {
             "s": "_______ הנתונים, יש עלייה בפניות לטיפול",
@@ -1761,7 +1763,7 @@ const ANNALES_DATA = [
               "עם (avec)"
             ],
             "ans": 0,
-            "exp": ""
+            "exp": "Formule académique : לפי / על פי הנתונים = 'selon les données'. Utilisé pour introduire une information sourcée. Piège : בגלל = 'à cause des données' = relation causale incorrecte ici ; על אף = 'malgré' = sens opposé."
           },
           {
             "s": "המטרה היא _______ שכל אדם יקבל עזרה מתאימה",
@@ -1773,7 +1775,7 @@ const ANNALES_DATA = [
               "ב+ג"
             ],
             "ans": 2,
-            "exp": ""
+            "exp": "Structure : המטרה היא + infinitif = 'le but est de'. להבטיח ש + VERBE conjugué = 'garantir que'. לדאוג ל = veiller à + infinitif/NOM. Ici la subordonnée en ש qui suit impose להבטיח ש. מכיוון ש = cause, pas but."
           }
         ]
       },
@@ -1826,7 +1828,7 @@ const ANNALES_DATA = [
               "קשרים חברתיים"
             ],
             "ans": 2,
-            "exp": ""
+            "exp": "Stratégie de lecture : Chercher dans le texte les mots עולים (immigrants) + השתלבות (intégration) + מהרה/מהר (rapidement). La réponse est DANS le texte, pas dans votre connaissance générale de l'immigration."
           },
           {
             "s": "מה פירוש \"מעשירות\" בהקשר זה?",
@@ -1850,7 +1852,7 @@ const ANNALES_DATA = [
               "השכר ירד"
             ],
             "ans": 1,
-            "exp": ""
+            "exp": "Stratégie : Pour trouver le 'changement central', chercher le thème récurrent dans TOUT le texte, pas un détail d'un seul paragraphe. La technologie (ג) est mentionnée, mais c'est une cause, pas le changement central lui-même."
           },
           {
             "s": "כמה פעמים יחליף עובד ממוצע עבודה?",
@@ -1898,7 +1900,7 @@ const ANNALES_DATA = [
               "שיתוף פעולה גרוע"
             ],
             "ans": 1,
-            "exp": ""
+            "exp": "Signal : עדיין (encore) = problème persistant malgré les progrès. Chercher dans le texte un adversatif (אולם / עם זאת / אבל) qui introduit ce problème résiduel. L'anxiété face à l'instabilité = le revers de la flexibilité."
           }
         ]
       }
@@ -1920,7 +1922,7 @@ const ANNALES_DATA = [
               "ראשוני"
             ],
             "ans": 1,
-            "exp": ""
+            "exp": "Nuance : שלב מתקדם (stade avancé) = bien engagé, mais PAS encore terminé. ביניים (intermédiaire) = entre le début et la fin = le plus précis. Piège : סופי (final) impliquerait que c'est presque fini, ce que 'מתקדם' ne garantit pas."
           },
           {
             "s": "הם התכנסו לדיון על העתיד.",
@@ -1932,7 +1934,7 @@ const ANNALES_DATA = [
               "שיתפו"
             ],
             "ans": 0,
-            "exp": ""
+            "exp": "Synonymes : התכנסו (se sont rassemblés — formel, implique un lieu et un but précis) ≈ נפגשו (se sont rencontrés/réunis — plus neutre). Piège : ויכחו (ont débattu) décrit ce qui se passe DANS la réunion, pas le fait de se réunir."
           },
           {
             "s": "ההצגה זכתה לביקורות חיוביות.",
@@ -1944,7 +1946,7 @@ const ANNALES_DATA = [
               "חיכתה"
             ],
             "ans": 0,
-            "exp": ""
+            "exp": "Structure : זכה ב/ל = mériter/obtenir (implique une valeur méritée). קיבלה = a reçu (neutre). Expression courante : זכה בפרס (a remporté un prix), זכה בביקורות = a obtenu des critiques. Les deux sont ici synonymes."
           },
           {
             "s": "המנהל ניתח את הנתונים לעומק.",
@@ -1968,7 +1970,7 @@ const ANNALES_DATA = [
               "אימצו"
             ],
             "ans": 1,
-            "exp": ""
+            "exp": "Expression fixe : נשארו נאמנים ל = sont restés fidèles à ≈ שמרו על נאמנות ל = ont maintenu leur fidélité à. À retenir : לשמור על עמדה (maintenir une position) est très fréquent au YAEL."
           },
           {
             "s": "הכישלון נגרם בשל תכנון לקוי.",
@@ -1980,7 +1982,7 @@ const ANNALES_DATA = [
               "פגיעה"
             ],
             "ans": 1,
-            "exp": ""
+            "exp": "Définition : כישלון (échec) = résultat négatif d'une tentative. תוצאה שלילית = résultat négatif = la définition la plus directe. Piège : ביקורת (critique) et פגיעה (dommage) sont des conséquences possibles d'un échec, mais pas des synonymes."
           },
           {
             "s": "הוא מסרב לשתף פעולה.",
@@ -1992,7 +1994,7 @@ const ANNALES_DATA = [
               "מתקשה"
             ],
             "ans": 1,
-            "exp": ""
+            "exp": "Gradation : מסרב (refuse activement — forte volonté) → אינו מוכן (n'est pas disposé — neutre) → מתקשה (a du mal à — implique une incapacité, pas un refus). מסרב est le plus fort. Piège : מתקשה ≠ refus, c'est une difficulté."
           },
           {
             "s": "השינוי צפוי להתרחש בשנה הבאה.",
@@ -2004,7 +2006,7 @@ const ANNALES_DATA = [
               "בלתי אפשרי"
             ],
             "ans": 0,
-            "exp": ""
+            "exp": "Nuance : צפוי = attendu/prévu (basé sur une prévision concrète, une projection). סביר = probable/raisonnable (jugement de vraisemblance). Les deux sont très proches ; ici, la meilleure option disponible est סביר."
           },
           {
             "s": "הוא השקיע מאמצים רבים בפרויקט.",
@@ -2016,7 +2018,7 @@ const ANNALES_DATA = [
               "הצית"
             ],
             "ans": 1,
-            "exp": ""
+            "exp": "Expression : השקיע מאמצים (investir des efforts) = הכניס מאמצים (mettre des efforts dans). השקיע est métaphorique (investissement de ressources humaines, pas seulement financières). Piège : הוציא כסף = dépenser de l'argent = trop littéral."
           },
           {
             "s": "היא מתמחה בתחום הסייבר.",
@@ -2028,7 +2030,7 @@ const ANNALES_DATA = [
               "מנחה"
             ],
             "ans": 2,
-            "exp": ""
+            "exp": "Synonymes : מתמחה ב (se spécialise dans — implique expertise pointue) ≈ מתמקצעת ב (se professionnalise dans). Les noms correspondants : מומחה (expert) et מקצוען (professionnel). Piège : עובדת et לומדת = trop généraux."
           },
           {
             "s": "ההחלטה עוררה דיון ציבורי ער.",
@@ -2040,7 +2042,7 @@ const ANNALES_DATA = [
               "חינכה"
             ],
             "ans": 0,
-            "exp": ""
+            "exp": "Expression : עורר (susciter/déclencher) est très courant avec : עורר דיון, עורר שאלות, עורר ביקורת, עורר ויכוח. גרמה ל = a causé = synonyme direct. עורר est plus dynamique — il 'éveille' quelque chose qui sommeillait."
           },
           {
             "s": "המצב מחייב פתרון מיידי.",
@@ -2052,7 +2054,7 @@ const ANNALES_DATA = [
               "מציע"
             ],
             "ans": 2,
-            "exp": ""
+            "exp": "Trio d'obligation : מחייב ≈ דורש ≈ מצריך = exige/requiert/nécessite. מחייב est le plus fort (oblige). מאפשר (permet) et מציע (propose) sont les antonymes à éliminer en premier."
           },
           {
             "s": "הם הגיעו להסכמה לאחר ויכוח ארוך.",
@@ -2088,7 +2090,7 @@ const ANNALES_DATA = [
               "קשוב"
             ],
             "ans": 2,
-            "exp": ""
+            "exp": "Synonymes : ממוקד (focalisé) ≈ מתרכז (concentré). Piège : שקוע ב (plongé dans) = trop fort, implique être submergé ; מפוזר (dispersé) = antonyme ; קשוב (attentif) = qualité différente."
           },
           {
             "s": "המידע אומת על ידי מספר מקורות.",
@@ -2100,7 +2102,7 @@ const ANNALES_DATA = [
               "הועבר"
             ],
             "ans": 2,
-            "exp": ""
+            "exp": "Racine : אימות = vérification/authentification. אומת (passif) = a été authentifié/vérifié. הוכח נכון = a été prouvé exact. Les deux certifient l'exactitude. À retenir : אימות מידע = vérification de l'information, très fréquent en presse."
           },
           {
             "s": "הם תכחישו כל מעורבות.",
@@ -2112,7 +2114,7 @@ const ANNALES_DATA = [
               "הציגו"
             ],
             "ans": 2,
-            "exp": ""
+            "exp": "Registres : הכחיש (nier — moderne, courant) ≈ כפר ב (renier/nier — formel, souvent juridique). Antonyme : הודה ב (a admis/avoué). À retenir dans la presse : 'הנאשם כפר באשמה' = 'l'accusé a nié l'accusation'."
           },
           {
             "s": "הממשלה שוקלת לשנות את המדיניות.",
@@ -2124,7 +2126,7 @@ const ANNALES_DATA = [
               "הציעה"
             ],
             "ans": 1,
-            "exp": ""
+            "exp": "Nuance : שוקלת = pèse/délibère (réflexion active avec pour et contre). מחשבת = pense à (moins formel, plus passif). Dans un contexte institutionnel, שוקלת implique une phase de délibération en cours."
           },
           {
             "s": "הוא הכריז על פרישתו.",
@@ -2136,19 +2138,19 @@ const ANNALES_DATA = [
               "שינה"
             ],
             "ans": 1,
-            "exp": ""
+            "exp": "Nuance d'annonce : הכריז = a proclamé/déclaré (solennel, public, officiel). הודיע על = a annoncé (neutre). Les deux = rendre une information publique, mais הכריז est plus théâtral et formel."
           },
           {
             "s": "הגבולות בין המדינות השתנו.",
             "w": "גבולות",
             "opts": [
               "יחסים",
-              "קצוות",
               "הסכמים",
+              "קצוות",
               "הבדלים"
             ],
-            "ans": 1,
-            "exp": ""
+            "ans": 2,
+            "exp": "Sens étendu : גבול (frontière/limite) partage avec קצה (extrémité/bord) l'idée de 'là où quelque chose se termine'. Les deux désignent une limite physique ou abstraite. Piège : יחסים (relations) et הסכמים (accords) = concepts diplomatiques, pas géographiques."
           },
           {
             "s": "היא מסוגלת לעבוד תחת לחץ.",
@@ -2160,7 +2162,7 @@ const ANNALES_DATA = [
               "שואפת"
             ],
             "ans": 1,
-            "exp": ""
+            "exp": "Nuance de capacité : מסוגל ל = est capable de (capacité acquise, compétence développée). יכול ל = peut (capacité générale ou circonstancielle). Au YAEL, les deux sont quasi-synonymes dans ce contexte professionnel."
           },
           {
             "s": "הם שאלו שאלות קשות.",
@@ -2172,7 +2174,7 @@ const ANNALES_DATA = [
               "קיבלו"
             ],
             "ans": 1,
-            "exp": ""
+            "exp": "Expression formelle : הציגו שאלות = ont présenté/posé des questions (plus formel que שאלו). Dans les contextes académiques et politiques, on dira : 'הנציג הציג שאלות קשות' = 'le représentant a posé des questions difficiles'."
           },
           {
             "s": "הפתרון מחייב שיתוף פעולה.",
@@ -2192,11 +2194,11 @@ const ANNALES_DATA = [
             "opts": [
               "דחה",
               "ביטל",
-              "ביצע",
+              "מימש",
               "תכנן"
             ],
             "ans": 2,
-            "exp": ""
+            "exp": "Synonymes : ביצע (exécuta/accomplit) ≈ מימש (réalisa/concrétisa). מימש est plus formel et implique la réalisation d'un potentiel. Piège : תכנן (planfia) = avant l'action ; ביצע = l'action elle-même."
           },
           {
             "s": "הנושא נמצא על סדר היום.",
@@ -2208,7 +2210,7 @@ const ANNALES_DATA = [
               "שאלה"
             ],
             "ans": 1,
-            "exp": ""
+            "exp": "Expression fixe : על סדר היום = à l'ordre du jour (institutionnel/politique). נושא (sujet) dans ce contexte = נושא לדיון (point de discussion à l'agenda). À retenir : 'הנושא עלה על סדר היום' = 'le sujet est à l'ordre du jour' ★★★."
           },
           {
             "s": "הדו\"ח מגלה תמונה מורכבת.",
@@ -2220,7 +2222,7 @@ const ANNALES_DATA = [
               "מוחק"
             ],
             "ans": 1,
-            "exp": ""
+            "exp": "Nuance : מגלה (révèle) implique que l'information était cachée ou méconnue. מציג (présente/montre) = neutre. Dans le contexte d'un rapport, גילוי = révélation = מציג est le synonyme le plus neutre. Antonymes : מסתיר et מכסה."
           },
           {
             "s": "השינויים ניכרים לעין.",
@@ -2240,11 +2242,11 @@ const ANNALES_DATA = [
             "opts": [
               "מנסים",
               "מתכננים",
-              "פועלים",
+              "עוסקים",
               "מקווים"
             ],
             "ans": 2,
-            "exp": ""
+            "exp": "Synonymes : פועלים (agissent/œuvrent) ≈ עוסקים (s'occupent de/s'efforcent de). Piège : מנסים (essaient) = effort sans résultat garanti ; פועלים = action concrète engagée."
           }
         ]
       }
@@ -2278,7 +2280,7 @@ const ANNALES_DATA = [
               "שינוי"
             ],
             "ans": 1,
-            "exp": ""
+            "exp": "Synonymes parfaits : ביצוע (exécution) ≈ יישום (mise en œuvre/application). Les deux désignent la phase de réalisation concrète d'un plan. Très fréquents dans les textes YAEL sur politiques publiques. Piège : כישלון = résultat négatif, pas la phase."
           },
           {
             "s": "הם הסיקו מסקנות שגויות.",
@@ -2290,7 +2292,7 @@ const ANNALES_DATA = [
               "שאלו"
             ],
             "ans": 0,
-            "exp": ""
+            "exp": "Expressions idiomatiques : להסיק מסקנה = tirer une conclusion ≈ להגיע למסקנה = arriver à une conclusion. Les deux sont des expressions fixes. הסיק est plus formel et académique. À retenir : 'מסקנה' (conclusion) = mot-clé YAEL ★★★."
           },
           {
             "s": "החוזה מסתיים בסוף השנה.",
@@ -2302,7 +2304,7 @@ const ANNALES_DATA = [
               "מבוטל"
             ],
             "ans": 2,
-            "exp": ""
+            "exp": "Nuance importante : מסתיים (se termine — fin naturelle, prévue, neutre) vs מבוטל (annulé — fin prématurée, décision active). גומר = finit = synonyme direct mais moins formel. Piège classique : ne pas confondre annulation et expiration naturelle."
           }
         ]
       }
@@ -2365,22 +2367,22 @@ const COURS = [
       ["כמו כן","également / de même","Standard ★"],
     ]},
     {title:"Opposition et concession",rows:[
-      ["אבל","mais","Basique"],
+      ["אבל","mais","Basique","Niveau oral/B2 — En style formel, préférer אולם"],
       ["אולם","cependant / toutefois","Formel ★"],
       ["ברם","or / mais","Très formel ★★"],
       ["לעומת זאת","en revanche / par contre","Standard ★★"],
-      ["אמנם... אולם","certes... mais","Structure de concession ★★★"],
-      ["על אף זאת / למרות זאת","malgré cela / néanmoins","Concession forte ★★"],
+      ["אמנם... אולם","certes... mais","Structure de concession ★★★","Structure fixe testée ★★★. Ne jamais omettre le אולם final !"],
+      ["על אף זאת / למרות זאת","malgré cela / néanmoins","Concession forte ★★","למרות + NOM ; למרות ש + VERBE — distinction cruciale au YAEL !"],
       ["אף על פי כן","néanmoins / pourtant","Très formel ★"],
       ["מחד גיסא... מאידך גיסא","d'un côté... de l'autre","Très formel ★★"],
     ]},
     {title:"Cause",rows:[
-      ["בגלל / כי","à cause de / parce que","Basique"],
+      ["בגלל / כי","à cause de / parce que","Basique","Règle d'or : בגלל + NOM ; כי + VERBE conjugué"],
       ["משום ש","parce que (formel)","Formel ★"],
       ["מאחר ש","étant donné que / du fait que","Formel ★★"],
       ["לנוכח","face à / compte tenu de","Formel ★★"],
-      ["בשל","en raison de","Formel ★"],
-      ["לאור","à la lumière de / en raison de","Très formel ★★"],
+      ["בשל","en raison de","Formel ★","+ NOM seulement (comme בגלל mais plus soutenu)"],
+      ["לאור","à la lumière de / en raison de","Très formel ★★","Surtout dans לאור הנתונים / לאור האמור = formule de conclusion"],
     ]},
     {title:"Conséquence",rows:[
       ["לכן / אז","donc / alors","Basique"],
@@ -2398,16 +2400,16 @@ const COURS = [
     {title:"Conclusion / Résumé",rows:[
       ["לסיכום","en résumé / pour résumer","Standard ★★"],
       ["לבסוף","enfin / finalement","Standard"],
-      ["מן האמור לעיל","de ce qui précède","Très formel ★★★"],
+      ["מן האמור לעיל","de ce qui précède","Très formel ★★★","Formule de conclusion ★★★. Variante : מכל האמור לעיל עולה כי..."],
       ["בסופו של דבר","en fin de compte","Courant ★"],
       ["לסיכום הדברים","pour conclure","Formel ★"],
     ]},
   ]},
   {id:"argumentation",icon:"pen",title:"Argumentation formelle",color:"#7c3aed",sections:[
     {title:"Ouvrir / Introduire une thèse",rows:[
-      ["ניתן לומר כי","on peut dire que","Ouverture classique YAEL ★★★"],
+      ["ניתן לומר כי","on peut dire que","Ouverture classique YAEL ★★★","Évite le 'je' — forme impersonnelle indispensable en style académique"],
       ["עולה השאלה האם","se pose la question de savoir si","Problématique ★★★"],
-      ["יש לציין כי","il convient de noter que","Standard ★★"],
+      ["יש לציין כי","il convient de noter que","Standard ★★","Synonymes : ראוי לציין כי (plus fort) ; יצוין כי (passif formel)"],
       ["נראה כי","il semble que","Position sans 'je' ★★"],
       ["ניכר כי","il apparaît clairement que","Position affirmée ★"],
       ["תופעה זו עומדת במרכז הדיון","ce phénomène est au cœur du débat","Introduction ★★"],
@@ -2427,13 +2429,13 @@ const COURS = [
       ["אין להכחיש כי","il est indéniable que","Affirmation forte ★"],
     ]},
     {title:"Présenter l'opposition",rows:[
-      ["יש הטוענים כי","certains affirment que","Standard ★★★"],
+      ["יש הטוענים כי","certains affirment que","Standard ★★★","Pour présenter l'opposition sans 'je'. Variante formelle : ישנם הסוברים כי"],
       ["ישנם הסוברים כי","certains estiment que (formel)","Formel ★"],
       ["קיימת גישה הגורסת כי","une approche soutient que","Très formel ★"],
       ["לטענת המבקרים","selon les critiques","Presse/académique ★"],
     ]},
     {title:"Conclure un argument",rows:[
-      ["מכל האמור לעיל עולה כי","de tout ce qui précède, il ressort que","Très formel ★★★"],
+      ["מכל האמור לעיל עולה כי","de tout ce qui précède, il ressort que","Très formel ★★★","La formule de conclusion la plus formelle et la plus valorisée au YAEL"],
       ["לסיכום ניתן לומר כי","pour résumer, on peut dire que","Classique YAEL ★★★"],
       ["לאור הנתונים ניתן להסיק כי","à la lumière des données, on peut conclure","Formel ★★"],
       ["ראוי לציין לסיום כי","il convient de souligner pour conclure","Très formel ★"],
@@ -2441,7 +2443,7 @@ const COURS = [
   ]},
   {id:"grammaire",icon:"book",title:"Grammaire formelle",color:"#d97706",sections:[
     {title:"Structures impersonnelles formelles",rows:[
-      ["ניתן ל + infinitif","on peut / il est possible de","Passif formel ★★★"],
+      ["ניתן ל + infinitif","on peut / il est possible de","Passif formel ★★★","La structure impersonnelle la plus fréquente au YAEL. Plus formel que אפשר ל"],
       ["יש ל + infinitif","il faut / on doit","Obligation ★★"],
       ["ראוי ל + infinitif","il convient de","Recommandation ★★"],
       ["מן הראוי ל + infinitif","il serait approprié de","Très formel ★★"],
@@ -2449,15 +2451,15 @@ const COURS = [
       ["אין להכחיש / אין להתעלם","il ne faut pas nier / ignorer","Structure forte ★★"],
     ]},
     {title:"Subordonnées et relatifs formels",rows:[
-      ["אשר","qui / que / lequel (formel)","Remplace ש en formel ★"],
+      ["אשר","qui / que / lequel (formel)","Remplace ש en formel ★","Dans tout texte formel, ש → אשר. Ex : הדוח אשר פורסם au lieu de הדוח שפורסם"],
       ["כאשר","lorsque / quand (formel)","Préférable à כש ★★"],
       ["בעוד ש","tandis que / alors que","Opposition ★★"],
-      ["ככל ש... כך","plus... plus / à mesure que","Corrélation ★★★"],
+      ["ככל ש... כך","plus... plus / à mesure que","Corrélation ★★★","Structure figée : ככל ש + verbe/adj, כך + verbe. Très testée aux annales !"],
       ["לאחר ש","après que","Temporel formel ★"],
       ["בטרם","avant que / avant de","Très formel ★"],
     ]},
     {title:"Passif formel essentiel",rows:[
-      ["הוחלט כי","il a été décidé que","Décision officielle ★★"],
+      ["הוחלט כי","il a été décidé que","Décision officielle ★★","Passif impersonnel : on ne sait pas QUI a décidé. Registre officiel/administratif"],
       ["נמצא כי","il s'est avéré que / on a trouvé que","Recherche ★★"],
       ["נקבע כי","il a été établi que","Académique ★"],
       ["דווח כי","il a été rapporté que","Presse ★★"],
@@ -3174,7 +3176,7 @@ function renderCours(){
     if(!rows.length)return'';
     return '<h3>'+s.title+'</h3><table class="ctable">'+rows.map(r=>`<tr>
         <td style="direction:rtl">${r[0]}</td>
-        <td style="color:var(--pl)">${r[1]}</td>
+        <td style="color:var(--pl)">${r[1]}${r[3]?'<div class="ctip">'+r[3]+'</div>':''}</td>
         <td><span class="clvl">${r[2]}</span></td>
       </tr>`).join('')+'</table>';
   }).join('');
