@@ -163,6 +163,17 @@ html.dark .ctip{color:var(--txt3);border-left-color:var(--bdr)}
 .mcard-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;font-size:.82rem}
 .mcat{display:flex;align-items:center;gap:5px;font-weight:600;color:var(--txt2)}
 
+/* BACKUP CARD */
+.backup-card{background:linear-gradient(135deg,#f0fdf4,#ecfdf5);border:1px solid #86efac;border-radius:var(--rads);padding:16px 18px;margin-top:20px;margin-bottom:8px}
+.backup-card-title{font-size:.78rem;font-weight:800;color:#166534;text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.backup-btns{display:flex;gap:10px;flex-wrap:wrap}
+.btn-export{background:#16a34a;color:#fff;border:none;border-radius:8px;padding:9px 16px;font-size:.82rem;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;transition:opacity .15s}
+.btn-import{background:#7c3aed;color:#fff;border:none;border-radius:8px;padding:9px 16px;font-size:.82rem;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;transition:opacity .15s}
+.btn-export:hover,.btn-import:hover{opacity:.85}
+.backup-hint{font-size:.73rem;color:#166534;margin-top:8px;opacity:.8}
+html.dark .backup-card{background:linear-gradient(135deg,#052e16,#064e3b);border-color:#166534}
+html.dark .backup-card-title,.dark .backup-hint{color:#86efac}
+
 /* FLASHCARD */
 .fc-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
 .fc-prog-wrap{flex:1;margin:0 14px}
@@ -479,6 +490,7 @@ html.dark .rtab.active{background:#1e293b}
   <div class="btn-grid" id="home-btns" style="margin-bottom:22px"></div>
   <div class="sec-ttl">Maîtrise par catégorie</div>
   <div id="mastery-grid"></div>
+  <div id="home-backup"></div>
 </div>
 
 <div id="screen-flashcards" class="screen">
@@ -4960,6 +4972,16 @@ function renderHome(){
       <span style="font-size:.78rem;font-weight:800;color:${v.color}">${p}%</span></div>
       <div class="prog"><div class="prog-fill" style="width:${p}%;background:${v.color}"></div></div></div>`;
   }).join('');
+  const lastExport=localStorage.getItem('yael_last_export');
+  document.getElementById('home-backup').innerHTML=`
+    <div class="backup-card">
+      <div class="backup-card-title">${I('save',14)} Sauvegarde de progression</div>
+      <div class="backup-btns">
+        <button class="btn-export" onclick="exportProgress()">💾 Exporter</button>
+        <button class="btn-import" onclick="importProgress()">📂 Importer</button>
+      </div>
+      <div class="backup-hint">${lastExport?'Dernière sauvegarde : '+lastExport:'Aucune sauvegarde — pense à exporter ta progression !'}</div>
+    </div>`;
 }
 function selectCat(cat){currentCat=cat;renderHome();}
 
@@ -5378,6 +5400,9 @@ function exportProgress(){
   a.href=URL.createObjectURL(blob);
   a.download='yael-progression-'+new Date().toISOString().slice(0,10)+'.json';
   a.click();URL.revokeObjectURL(a.href);
+  const dateStr=new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
+  localStorage.setItem('yael_last_export',dateStr);
+  renderHome();
   showToast('💾 Progression exportée !');
 }
 function importProgress(){
