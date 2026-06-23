@@ -293,6 +293,12 @@ html.dark .ctip{color:var(--txt3);border-left-color:var(--bdr)}
 .ctable td:last-child{white-space:nowrap}
 .clvl{display:inline-block;padding:1px 6px;border-radius:99px;font-size:.65rem;font-weight:700;
   background:var(--pll);color:var(--pl);border:1px solid #bfdbfe}
+.clvl-1{background:var(--accl)!important;color:var(--accd)!important;border-color:#fde68a!important}
+.clvl-2{background:var(--pll)!important;color:var(--pd)!important;border-color:#bfdbfe!important}
+.clvl-3{background:var(--purl)!important;color:var(--pur)!important;border-color:#ddd6fe!important}
+.clvl-0{background:var(--bg2)!important;color:var(--txt3)!important;border-color:var(--bdr)!important}
+.ctable tr:nth-child(even) td{background:var(--bg2)}
+.ctable tr:hover td{background:var(--pll)!important}
 
 /* REDACTION */
 .redac-tabs{display:flex;gap:4px;margin-bottom:18px;background:var(--bg2);padding:4px;border-radius:var(--rads);width:fit-content}
@@ -525,7 +531,7 @@ html.dark .rtab.active{background:#1e293b}
 <div id="screen-cours" class="screen">
   <div class="card-hd"><div>
     <div class="card-ttl" id="cours-ttl"></div>
-    <div class="card-sub">Connecteurs · Argumentation · Grammaire · Vocabulaire thématique</div>
+    <div class="card-sub">Connecteurs · Argumentation · Grammaire · Vocabulaire · Verbes formels · Expressions figées</div>
   </div></div>
   <div class="search-wrap"><input type="text" id="cours-search" placeholder="Rechercher dans les cours..." oninput="filterCours(this.value)" autocomplete="off"><span class="s-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span></div>
   <div class="search-results" id="cours-count"></div>
@@ -2362,19 +2368,19 @@ const COURS = [
     {title:"Addition et renforcement",rows:[
       ["גם","aussi / également","Basique"],
       ["בנוסף לכך","de plus / en outre","Formel ★"],
-      ["יתרה מכך / יתר על כן","qui plus est / de surcroît","Très formel ★★"],
+      ["יתרה מכך / יתר על כן","qui plus est / de surcroît","Très formel ★★","Hiérarchie : גם < כמו כן < בנוסף < יתרה מכך. Le plus fort pour ajouter un argument décisif."],
       ["אף","même / voire","Renforcement"],
       ["כמו כן","également / de même","Standard ★"],
     ]},
     {title:"Opposition et concession",rows:[
       ["אבל","mais","Basique","Niveau oral/B2 — En style formel, préférer אולם"],
       ["אולם","cependant / toutefois","Formel ★"],
-      ["ברם","or / mais","Très formel ★★"],
+      ["ברם","or / mais","Très formel ★★","D'origine biblique/talmudique. Quasi-synonyme de אולם mais plus littéraire. Rare à l'oral, très apprécié en prose académique."],
       ["לעומת זאת","en revanche / par contre","Standard ★★"],
       ["אמנם... אולם","certes... mais","Structure de concession ★★★","Structure fixe testée ★★★. Ne jamais omettre le אולם final !"],
       ["על אף זאת / למרות זאת","malgré cela / néanmoins","Concession forte ★★","למרות + NOM ; למרות ש + VERBE — distinction cruciale au YAEL !"],
       ["אף על פי כן","néanmoins / pourtant","Très formel ★"],
-      ["מחד גיסא... מאידך גיסא","d'un côté... de l'autre","Très formel ★★"],
+      ["מחד גיסא... מאידך גיסא","d'un côté... de l'autre","Très formel ★★","Toujours en paire obligatoire. Plus formel que מצד אחד...מצד שני. Ne jamais omettre גיסא !"],
     ]},
     {title:"Cause",rows:[
       ["בגלל / כי","à cause de / parce que","Basique","Règle d'or : בגלל + NOM ; כי + VERBE conjugué"],
@@ -2386,14 +2392,14 @@ const COURS = [
     ]},
     {title:"Conséquence",rows:[
       ["לכן / אז","donc / alors","Basique"],
-      ["לפיכך","par conséquent","Formel ★★"],
+      ["לפיכך","par conséquent","Formel ★★","Hiérarchie de formalité : לכן (oral) < על כן (soutenu) < לפיכך (très formel, valorisé au YAEL)."],
       ["על כן","c'est pourquoi / dès lors","Formel ★★"],
       ["כתוצאה מכך","en conséquence / par suite","Formel ★"],
-      ["הדבר מוביל ל","cela conduit à / cela mène à","Formule utile ★"],
+      ["הדבר מוביל ל","cela conduit à / cela mène à","Formule utile ★","+ NOM. Variantes : הדבר גורם ל, הדבר מביא ל. Structure : X → Y (conséquence directe)."],
     ]},
     {title:"Illustration / Exemple",rows:[
       ["למשל / לדוגמה","par exemple","Standard ★★"],
-      ["כגון","tel que / comme par exemple","Formel ★"],
+      ["כגון","tel que / comme par exemple","Formel ★","כגון + liste de NOMS uniquement. Contrairement à למשל qui peut aussi commencer une phrase complète."],
       ["כפי ש","comme / ainsi que","Standard"],
       ["ניתן לראות זאת ב","on peut le voir dans","Formule ★"],
     ]},
@@ -2408,9 +2414,9 @@ const COURS = [
   {id:"argumentation",icon:"pen",title:"Argumentation formelle",color:"#7c3aed",sections:[
     {title:"Ouvrir / Introduire une thèse",rows:[
       ["ניתן לומר כי","on peut dire que","Ouverture classique YAEL ★★★","Évite le 'je' — forme impersonnelle indispensable en style académique"],
-      ["עולה השאלה האם","se pose la question de savoir si","Problématique ★★★"],
+      ["עולה השאלה האם","se pose la question de savoir si","Problématique ★★★","Formule de problématique ★★★. Toujours suivi de האם (jamais ש). Ex : עולה השאלה האם ניתן לפתור את הבעיה."],
       ["יש לציין כי","il convient de noter que","Standard ★★","Synonymes : ראוי לציין כי (plus fort) ; יצוין כי (passif formel)"],
-      ["נראה כי","il semble que","Position sans 'je' ★★"],
+      ["נראה כי","il semble que","Position sans 'je' ★★","Degré de certitude : נראה כי (il semble) = faible. ניכר כי (il apparaît clairement) = fort. Choisir selon la certitude du propos."],
       ["ניכר כי","il apparaît clairement que","Position affirmée ★"],
       ["תופעה זו עומדת במרכז הדיון","ce phénomène est au cœur du débat","Introduction ★★"],
     ]},
@@ -2422,7 +2428,7 @@ const COURS = [
       ["הנתונים מצביעים על","les données indiquent","Académique ★★"],
     ]},
     {title:"Nuancer / Concéder",rows:[
-      ["יש להודות כי","il faut admettre que","Concession intellectuelle ★★★"],
+      ["יש להודות כי","il faut admettre que","Concession intellectuelle ★★★","Marque la maturité intellectuelle. Très valorisé au YAEL car montre la capacité à nuancer sa propre thèse."],
       ["אמנם... אולם","certes... mais","Structure de base ★★★"],
       ["מחד גיסא... מאידך גיסא","d'un côté... de l'autre (très formel)","Très formel ★★"],
       ["מצד אחד... מצד שני","d'un côté... de l'autre (courant)","Standard ★★★"],
@@ -2436,15 +2442,15 @@ const COURS = [
     ]},
     {title:"Conclure un argument",rows:[
       ["מכל האמור לעיל עולה כי","de tout ce qui précède, il ressort que","Très formel ★★★","La formule de conclusion la plus formelle et la plus valorisée au YAEL"],
-      ["לסיכום ניתן לומר כי","pour résumer, on peut dire que","Classique YAEL ★★★"],
-      ["לאור הנתונים ניתן להסיק כי","à la lumière des données, on peut conclure","Formel ★★"],
+      ["לסיכום ניתן לומר כי","pour résumer, on peut dire que","Classique YAEL ★★★","Combinaison de deux formules classiques. À préférer à לסיכום אני חושב ש (style oral)."],
+      ["לאור הנתונים ניתן להסיק כי","à la lumière des données, on peut conclure","Formel ★★","Formule de conclusion basée sur des preuves. לאור = à la lumière de. להסיק = déduire/conclure."],
       ["ראוי לציין לסיום כי","il convient de souligner pour conclure","Très formel ★"],
     ]},
   ]},
   {id:"grammaire",icon:"book",title:"Grammaire formelle",color:"#d97706",sections:[
     {title:"Structures impersonnelles formelles",rows:[
       ["ניתן ל + infinitif","on peut / il est possible de","Passif formel ★★★","La structure impersonnelle la plus fréquente au YAEL. Plus formel que אפשר ל"],
-      ["יש ל + infinitif","il faut / on doit","Obligation ★★"],
+      ["יש ל + infinitif","il faut / on doit","Obligation ★★","ATTENTION : יש לי = j'ai (possession). יש ל + infinitif = il faut (obligation impersonnelle). Contexte crucial !"],
       ["ראוי ל + infinitif","il convient de","Recommandation ★★"],
       ["מן הראוי ל + infinitif","il serait approprié de","Très formel ★★"],
       ["יש מקום ל + infinitif","il y a lieu de","Très formel ★"],
@@ -2452,7 +2458,7 @@ const COURS = [
     ]},
     {title:"Subordonnées et relatifs formels",rows:[
       ["אשר","qui / que / lequel (formel)","Remplace ש en formel ★","Dans tout texte formel, ש → אשר. Ex : הדוח אשר פורסם au lieu de הדוח שפורסם"],
-      ["כאשר","lorsque / quand (formel)","Préférable à כש ★★"],
+      ["כאשר","lorsque / quand (formel)","Préférable à כש ★★","Règle absolue : כש = oral, כאשר = écrit formel. Tout texte YAEL doit utiliser כאשר."],
       ["בעוד ש","tandis que / alors que","Opposition ★★"],
       ["ככל ש... כך","plus... plus / à mesure que","Corrélation ★★★","Structure figée : ככל ש + verbe/adj, כך + verbe. Très testée aux annales !"],
       ["לאחר ש","après que","Temporel formel ★"],
@@ -2460,9 +2466,9 @@ const COURS = [
     ]},
     {title:"Passif formel essentiel",rows:[
       ["הוחלט כי","il a été décidé que","Décision officielle ★★","Passif impersonnel : on ne sait pas QUI a décidé. Registre officiel/administratif"],
-      ["נמצא כי","il s'est avéré que / on a trouvé que","Recherche ★★"],
-      ["נקבע כי","il a été établi que","Académique ★"],
-      ["דווח כי","il a été rapporté que","Presse ★★"],
+      ["נמצא כי","il s'est avéré que / on a trouvé que","Recherche ★★","Passif de מצא. Formule académique : במחקר נמצא כי = dans l'étude, on a découvert que. Contexte scientifique."],
+      ["נקבע כי","il a été établi que","Académique ★","Passif de קבע. Décision formelle ou découverte établie. Ex : נקבע כי = une règle/décision a été fixée."],
+      ["דווח כי","il a été rapporté que","Presse ★★","Passif de דיווח. Standard presse écrite. Synonymes : נמסר כי / נאמר כי / צוין כי."],
       ["צוין כי","il a été noté que","Académique ★"],
       ["הוצע כי","il a été proposé que","Proposition ★"],
     ]},
@@ -2509,6 +2515,166 @@ const COURS = [
       ["הדרה / הכלה","exclusion / inclusion","★★★"],
       ["גיוון","diversité","★★★"],
       ["מחאה","protestation / manifestation","★★"],
+    ]},
+    {title:"Santé et médecine",rows:[
+      ["בריאות הציבור","santé publique","★★★","La collocation la plus testée au YAEL en thème santé"],
+      ["מערכת הבריאות","système de santé","★★★"],
+      ["רפואה מונעת","médecine préventive","★★","Opposé : רפואה טיפולית (médecine curative)"],
+      ["מחלה כרונית","maladie chronique","★★★"],
+      ["תמותה","mortalité","★★★"],
+      ["תחלואה","morbidité / taux de maladies","★★"],
+      ["ביטוח בריאות","assurance maladie","★★★"],
+      ["חיסון","vaccination / vaccin","★★★"],
+      ["מגפה","pandémie / épidémie","★★★"],
+      ["בריאות נפשית","santé mentale","★★★","Opposé : בריאות גופנית (santé physique). Thème fréquent au YAEL."],
+      ["דיכאון","dépression","★★★"],
+      ["חרדה","anxiété","★★★"],
+      ["תוחלת חיים","espérance de vie","★★★"],
+      ["אורח חיים","mode de vie / style de vie","★★★"],
+      ["השמנת יתר","obésité","★★★"],
+      ["גורם סיכון","facteur de risque","★★★"],
+      ["רפואה מרחוק","télémédecine","★★"],
+      ["מניעה","prévention","★★★"],
+    ]},
+    {title:"Économie et emploi",rows:[
+      ["שוק העבודה","marché du travail","★★★"],
+      ["אבטלה","chômage","★★★"],
+      ["שכר מינימום","salaire minimum","★★★"],
+      ["פנסיה","retraite","★★★"],
+      ["פערי שכר","écart salarial / inégalités de revenus","★★★"],
+      ["אינפלציה","inflation","★★★"],
+      ["מדד יוקר המחיה","indice du coût de la vie","★★★"],
+      ["מיסוי","fiscalité / imposition","★★★"],
+      ["גלובליזציה","mondialisation","★★★"],
+      ["ייצוא / ייבוא","exportation / importation","★★★"],
+      ["השקעה זרה","investissement étranger","★★"],
+      ["חדשנות","innovation","★★★","Mot-clé dans les textes économie/technologie au YAEL"],
+      ["יזמות","entrepreneuriat","★★★"],
+      ["פיתוח בר-קיימא","développement durable","★★★"],
+      ["כוח קנייה","pouvoir d'achat","★★★"],
+    ]},
+    {title:"Justice et droit",rows:[
+      ["שלטון החוק","état de droit","★★★","Expression figée. Opposé : שרירות הרשות (arbitraire du pouvoir)"],
+      ["חקיקה","législation","★★★"],
+      ["פסיקה","jurisprudence / décision judiciaire","★★★"],
+      ["זכויות אדם","droits de l'homme","★★★"],
+      ["עבירה","infraction / délit","★★★"],
+      ["עונש","punition / peine","★★"],
+      ["אכיפה","application de la loi","★★★"],
+      ["תביעה","plainte / poursuites","★★★"],
+      ["חוקתי","constitutionnel","★★","הגנה חוקתית = protection constitutionnelle"],
+      ["עיקרון","principe","★★★"],
+      ["שוויון בפני החוק","égalité devant la loi","★★★"],
+      ["הגנה על הפרטיות","protection de la vie privée","★★★"],
+      ["אחריות משפטית","responsabilité légale","★★"],
+    ]},
+    {title:"Éducation et culture",rows:[
+      ["מערכת החינוך","système éducatif","★★★"],
+      ["תכנית לימודים","programme scolaire / curriculum","★★★"],
+      ["פערים חינוכיים","inégalités éducatives","★★★","Thème récurrent YAEL : פערים בין מרכז לפריפריה"],
+      ["השכלה גבוהה","enseignement supérieur","★★★"],
+      ["הישגים לימודיים","résultats académiques","★★★"],
+      ["אוריינות","alphabétisation / littératie","★★★"],
+      ["זהות תרבותית","identité culturelle","★★★"],
+      ["מורשת תרבותית","patrimoine culturel","★★★"],
+      ["רב-תרבותיות","multiculturalisme","★★★"],
+      ["שפת אם","langue maternelle","★★★"],
+      ["חינוך לערכים","éducation aux valeurs","★★★"],
+      ["שיוויון בחינוך","égalité dans l'éducation","★★★"],
+      ["ניידות חברתית דרך חינוך","mobilité sociale par l'éducation","★★★"],
+      ["פדגוגיה","pédagogie","★★"],
+      ["תרבות ואמנות","culture et art","★★"],
+    ]},
+  ]},
+  {id:"verbes-formels",icon:"zap",title:"Verbes formels YAEL",color:"#0891b2",sections:[
+    {title:"Verbes de démonstration et citation",rows:[
+      ["מראה / הראה","montre / a montré","★★★","הנתונים מראים כי = les données montrent que (formule-clé ★★★ au YAEL)"],
+      ["מצביע על","indique / pointe vers","★★★","מצביע על + NOM. Ex : הנתונים מצביעים על עלייה = les données indiquent une hausse"],
+      ["מעיד על","témoigne de / révèle","★★★"],
+      ["משקף","reflète","★★★","Ex : הכלכלה משקפת את המציאות החברתית. Souvent utilisé pour exprimer un reflet structurel."],
+      ["מדגים","illustre / démontre","★★"],
+      ["חושף","révèle / expose","★★★","חשף = passé. Synonyme de גילה mais plus fort (révélation d'un fait caché)"],
+      ["מלמד על","enseigne que / révèle","★★"],
+      ["מדגיש","souligne / accentue","★★★","Ex : הכותב מדגיש כי = l'auteur souligne que (discours rapporté formel)"],
+    ]},
+    {title:"Verbes d'analyse et de jugement",rows:[
+      ["ניתח","analyser","★★★","ניתח את הנתונים = analyser les données. Nom d'action : ניתוח (analyse) ★★★"],
+      ["העריך","estimer / évaluer","★★★","Double sens : apprécier (une valeur) + estimer (un chiffre). Nom : הערכה."],
+      ["הסיק","déduire / conclure","★★★","הסיק מסקנה = tirer une conclusion. ניתן להסיק כי = on peut conclure que ★★★"],
+      ["בחן","examiner / étudier","★★","Ex : בחן את השלכות הרפורמה = a examiné les conséquences de la réforme"],
+      ["הבחין ב","distinguer / remarquer","★★"],
+      ["זיהה","identifier / repérer","★★"],
+      ["הגיע למסקנה","parvenir à une conclusion","★★★"],
+      ["השווה","comparer","★★★","השווה בין X ל-Y = a comparé X à Y. Nom : השוואה."],
+    ]},
+    {title:"Verbes institutionnels et décisionnels",rows:[
+      ["אישר","approuver / confirmer","★★★"],
+      ["דחה","rejeter / repousser","★★★","Double sens : rejeter une proposition + remettre à plus tard"],
+      ["יישם","appliquer / mettre en pratique","★★★","יישם מדיניות = appliquer une politique. Nom d'action : יישום ★★★"],
+      ["אימץ","adopter","★★★","Ex : הממשלה אימצה תוכנית = le gouvernement a adopté un programme"],
+      ["התנגד ל","s'opposer à","★★★"],
+      ["תמך ב","soutenir / appuyer","★★★"],
+      ["ביקר","critiquer","★★★","ביקורת = critique (nom). מבקר = critique (personne) / auditeur."],
+      ["הוציא לפועל","mettre en œuvre / exécuter","★★★"],
+      ["קבע","établir / fixer","★★★","קבע כי = a établi que. נקבע כי (passif) = il a été établi que."],
+      ["הכריז","annoncer / déclarer","★★★"],
+    ]},
+    {title:"Nominalisations clés (שמות פעולה)",rows:[
+      ["יישום","mise en œuvre / application","★★★","De יישם. Très fréquent : יישום המדיניות = la mise en œuvre de la politique"],
+      ["הכרה","reconnaissance","★★★","הכרה בזכויות = reconnaissance des droits"],
+      ["ביקורת","critique / contrôle / audit","★★★","Polysémique : critique (opinion) + audit (comptabilité) + contrôle"],
+      ["שיתוף פעולה","coopération / collaboration","★★★"],
+      ["תרומה","contribution / apport","★★★","תרומה לחברה = contribution à la société. Double sens : don + apport."],
+      ["אחריות","responsabilité","★★★","אחריות אישית / ציבורית / קולקטיבית = responsabilité individuelle / publique / collective"],
+      ["מגבלה","limite / restriction / contrainte","★★★","Ex : מגבלות התקציב = les contraintes budgétaires"],
+      ["פיקוח","supervision / contrôle","★★★","Ex : פיקוח ממשלתי = supervision gouvernementale"],
+      ["חקירה","investigation / enquête","★★★"],
+      ["הרחבה","expansion / élargissement","★★"],
+    ]},
+  ]},
+  {id:"expressions-figees",icon:"star",title:"Expressions figées YAEL",color:"#be185d",sections:[
+    {title:"Collocations médiatiques et journalistiques",rows:[
+      ["לפי הדיווחים","selon les rapports","★★★","Standard journalistique au YAEL. Synonyme : על פי דיווחים"],
+      ["על פי ההערכות","selon les estimations","★★★"],
+      ["ברקע הדברים","dans ce contexte","★★★","Expression hébreu journalistique très fréquente"],
+      ["הצהיר כי","a déclaré que","★★★","Discours indirect formel. Synonymes : מסר / ציין / הודיע"],
+      ["הגיב כי","a répondu que","★★"],
+      ["הודיע כי","a annoncé que","★★★"],
+      ["מסר לתקשורת","a communiqué aux médias","★★"],
+    ]},
+    {title:"Formules quantitatives et statistiques",rows:[
+      ["שיעור של","un taux de","★★★","שיעור האבטלה עלה ל-8% = le taux de chômage a atteint 8%"],
+      ["גידול / ירידה של X%","augmentation / diminution de X%","★★★"],
+      ["אחוז ניכר","un pourcentage notable/significatif","★★★"],
+      ["רוב מכריע","une majorité écrasante","★★★"],
+      ["מיעוט קטן","une petite minorité","★★"],
+      ["בהשוואה ל","en comparaison avec / par rapport à","★★★"],
+      ["גידול חד","augmentation nette/forte","★★★","גידול חד ב = forte augmentation dans"],
+      ["נתונים מצביעים על","les données indiquent","★★★"],
+    ]},
+    {title:"Marqueurs temporels formels",rows:[
+      ["בשנים האחרונות","ces dernières années","★★★"],
+      ["בעשורים האחרונים","au cours des dernières décennies","★★★"],
+      ["במהלך","au cours de / pendant","★★★","במהלך + période ou événement"],
+      ["לאורך השנים","au fil des années","★★"],
+      ["בעקבות","suite à / à la suite de","★★★","Cause récente et directe : בעקבות הרפורמה = à la suite de la réforme"],
+      ["עד כה","jusqu'à présent","★★★"],
+      ["מאז","depuis","★★★","מאז + événement passé précis"],
+      ["בעוד","tandis que / alors que","★★★","Opposition temporelle : בעוד X, Y = tandis que X, Y"],
+      ["לקראת","en vue de / à l'approche de","★★"],
+      ["בטווח הארוך","à long terme","★★★","Opposé : בטווח הקצר (à court terme)"],
+    ]},
+    {title:"Intensificateurs et qualificateurs",rows:[
+      ["ניכר","notable / apparent / remarquable","★★★","שיפור ניכר = amélioration notable. Le plus polyvalent des qualificateurs formels."],
+      ["משמעותי","significatif / important","★★★","Le qualificateur le plus fréquent dans les textes YAEL. Ne pas abuser."],
+      ["חסר תקדים","sans précédent","★★★","Expression figée ★★★ : מצב חסר תקדים = situation sans précédent"],
+      ["מהותי","fondamental / essentiel","★★","Opposé : שטחי (superficiel)"],
+      ["בולט","frappant / saillant / notable","★★★"],
+      ["מדאיג","préoccupant / inquiétant","★★★"],
+      ["שנוי במחלוקת","controversé / disputé","★★★","Expression figée : תופעה שנויה במחלוקת = phénomène controversé. Expression fixe inchangeable."],
+      ["רב-ממדי","multidimensionnel","★★","Souvent utilisé pour montrer la complexité d'un sujet"],
+      ["מורכב","complexe / compliqué","★★★"],
+      ["מקיף","complet / global / exhaustif","★★★","פתרון מקיף = solution globale. גישה מקיפה = approche globale."],
     ]},
   ]},
 ]
@@ -2564,6 +2730,32 @@ const REDACTION = {
         <tr><td class='formula'>מכל האמור לעיל עולה כי...</td><td>De tout ce qui précède, il ressort que...</td><td class='badge-tip'>★★★ Formel</td></tr>
         <tr><td class='formula'>לאור הנתונים ניתן להסיק כי...</td><td>À la lumière des données, on peut conclure...</td><td class='badge-tip'>★★ Données</td></tr>
         <tr><td class='formula'>מן הראוי לפעול לשינוי...</td><td>Il convient d'agir pour changer...</td><td class='badge-tip'>★★ Appel à l'action</td></tr>
+      </table>`
+    },
+    {
+      icon:"award",title:"Substitutions de registre : de l'oral au formel",
+      content:`<div class='tip-errors'>
+        <div class='error-row'><span class='error-bad'>אני חושב ש</span><span class='error-arrow'>→</span><span class='error-good'>נראה כי / ניתן לומר כי / ניכר כי</span></div>
+        <div class='error-row'><span class='error-bad'>להגיד</span><span class='error-arrow'>→</span><span class='error-good'>לציין / להצהיר / לומר</span></div>
+        <div class='error-row'><span class='error-bad'>אבל</span><span class='error-arrow'>→</span><span class='error-good'>אולם / ברם / לעומת זאת / עם זאת</span></div>
+        <div class='error-row'><span class='error-bad'>כי (conséquence)</span><span class='error-arrow'>→</span><span class='error-good'>לפיכך / כתוצאה מכך / על כן</span></div>
+        <div class='error-row'><span class='error-bad'>בגלל + verbe</span><span class='error-arrow'>→</span><span class='error-good'>מאחר ש / משום ש / לנוכח ש</span></div>
+        <div class='error-row'><span class='error-bad'>ש (relatif)</span><span class='error-arrow'>→</span><span class='error-good'>אשר (formel, recommandé YAEL)</span></div>
+        <div class='error-row'><span class='error-bad'>כש (temporel)</span><span class='error-arrow'>→</span><span class='error-good'>כאשר (formel)</span></div>
+        <div class='error-row'><span class='error-bad'>זה מראה ש</span><span class='error-arrow'>→</span><span class='error-good'>הדבר מצביע על / מן הנתונים עולה כי</span></div>
+      </div>`
+    },
+    {
+      icon:"star",title:"Lexique de la nuance académique",
+      content:`<table class='tip-table'>
+        <tr><td class='formula'>מחד גיסא... מאידך גיסא</td><td>D'un côté... de l'autre (très formel)</td><td class='badge-tip'>Structure ★★★</td></tr>
+        <tr><td class='formula'>יש להודות כי</td><td>Il faut admettre que (concession)</td><td class='badge-tip'>Nuance ★★★</td></tr>
+        <tr><td class='formula'>אין להכחיש כי</td><td>Il est indéniable que (affirmation forte)</td><td class='badge-tip'>Force ★★</td></tr>
+        <tr><td class='formula'>נראה כי / ניכר כי</td><td>Il semble / Il apparaît clairement</td><td class='badge-tip'>Degré ★★</td></tr>
+        <tr><td class='formula'>ניתן לטעון כי</td><td>On peut soutenir que (thèse)</td><td class='badge-tip'>Thèse ★★★</td></tr>
+        <tr><td class='formula'>אמנם X, אולם Y</td><td>Certes X, mais Y (concession + réfutation)</td><td class='badge-tip'>★★★ YAEL</td></tr>
+        <tr><td class='formula'>ניתן להסיק כי</td><td>On peut déduire / conclure que</td><td class='badge-tip'>Conclusion ★★★</td></tr>
+        <tr><td class='formula'>יש מקום לטעון כי</td><td>Il y a lieu de soutenir que</td><td class='badge-tip'>Très formel ★★</td></tr>
       </table>`
     },
     {
@@ -2645,6 +2837,40 @@ const REDACTION = {
         {type:"para",he:`שנית, יש הטוענים כי ההגירה מאיימת על הזהות הלאומית ועל הלכידות החברתית. אמנם קיים אתגר ממשי של שילוב תרבותי, אולם מחקרים מראים כי דורות שני ושלישי של מהגרים משתלבים היטב ותורמים לחברה. לפיכך, ניתן לטעון כי ההשקעה בשילוב — ולא דחיית ההגירה — היא הפתרון האפקטיבי.`,ann:"יש הטוענים כי = 'certains affirment que'. אמנם... אולם = concession ★★★. ניתן לטעון כי = 'on peut soutenir que'."},
         {type:"label",text:"סיכום (Conclusion)"},
         {type:"para",he:`לסיכום, מכל האמור לעיל עולה כי ההגירה היא תופעה מורכבת שאינה ניתנת לפתרון בגישה חד-ממדית. מן הראוי לפתח מדיניות הגירה מאוזנת המשלבת פיקוח אפקטיבי עם תוכניות שילוב מקיפות. אחריותה של כל חברה דמוקרטית היא לאזן בין ביטחון לאומי לבין ערכי האנושיות.`,ann:"מכל האמור לעיל = 'de tout ce qui précède'. מן הראוי = 'il convient de'. אחריותה של = 'la responsabilité de'."},
+      ]
+    },
+    {
+      title:"בריאות הציבור",
+      fr_title:"La santé publique",
+      topic:"מערכת הבריאות ואתגרי בריאות הציבור",
+      level:"Niveau B2",
+      color:"#dc2626",
+      text:[
+        {type:"label",text:"מבוא (Introduction)"},
+        {type:"para",he:`ניתן לומר כי בריאות הציבור מהווה אחד האתגרים המורכבים ביותר שמדינות מודרניות ניצבות בפניהם. עולה השאלה כיצד ניתן לספק שירותי בריאות איכותיים לכלל האוכלוסייה, תוך שמירה על יעילות כלכלית ושוויון חברתי.`,ann:"מהווה = constitue / représente. ניצבות בפניהם = font face à. כיצד ניתן = comment peut-on (formule de problématique formelle ★★★)."},
+        {type:"label",text:"גוף א׳ (Paragraphe 1 — Enjeux)"},
+        {type:"para",he:`ראשית, נתונים מראים כי פערים חדים קיימים בגישה לשירותי בריאות בין אוכלוסיות שונות. על פי דוחות ה-OECD, תמותת תינוקות במדינות בעלות הכנסה נמוכה גבוהה פי עשרה מאשר במדינות מפותחות. כמו כן, מחלות כרוניות כגון סוכרת והשמנת יתר הולכות ומתרבות, תוך שהן מטילות עומס כבד על מערכות הבריאות.`,ann:"פערים חדים = inégalités marquées. כגון = tel que (+ liste de noms seulement). הולכות ומתרבות = vont en augmentant (structure progressive hébreu ★★★)."},
+        {type:"label",text:"גוף ב׳ (Paragraphe 2 — Solutions)"},
+        {type:"para",he:`שנית, יש הטוענים כי ההשקעה ברפואה מונעת היא הפתרון האפקטיבי ביותר לבעיות אלה. אמנם תוכניות מניעה דורשות השקעה ראשונית משמעותית, אולם מחקרים מראים כי כל שקל שהושקע ברפואה מונעת חוסך שבעה שקלים בטיפול קליני. לפיכך, מדיניות בריאות חכמה חייבת לתת עדיפות לבריאות הציבור על פני הטיפול הפרטני.`,ann:"יש הטוענים כי = certains soutiennent que ★★★. אמנם... אולם = structure de concession obligatoire ★★★. לפיכך = donc/par conséquent (très formel ★★)."},
+        {type:"label",text:"סיכום (Conclusion)"},
+        {type:"para",he:`לסיכום, מכל האמור לעיל עולה כי השקעה בבריאות הציבור אינה רק שאלה של אנושיות, אלא גם של שיקול כלכלי נבון. מן הראוי שממשלות יאמצו גישה כוללת המשלבת מניעה, טיפול שוויוני וחינוך לאורח חיים בריא. אין להכחיש כי חברה בריאה היא גם חברה פרודוקטיבית ומשגשגת.`,ann:"מכל האמור לעיל עולה כי = de tout ce qui précède, il ressort que ★★★. מן הראוי ש = il convient que. אין להכחיש כי = il est indéniable que ★★."},
+      ]
+    },
+    {
+      title:"כלכלה וגלובליזציה",
+      fr_title:"Économie et mondialisation",
+      topic:"השלכות הגלובליזציה על שוק העבודה",
+      level:"Niveau C1",
+      color:"#0891b2",
+      text:[
+        {type:"label",text:"מבוא (Introduction)"},
+        {type:"para",he:`הגלובליזציה שינתה את כללי המשחק הכלכלי ברמה העולמית. ניתן לומר כי התופעה מעוררת ויכוח נוקב: בעוד תומכיה רואים בה מנוע לצמיחה ולרווחה, מבקריה טוענים כי היא מחמירה את אי השוויון ומאיימת על שוק העבודה. עולה השאלה האם הגלובליזציה היא הזדמנות או איום לעובד המודרני.`,ann:"כללי המשחק = les règles du jeu (expression fixe). נוקב = acerbe/virulent. בעוד = tandis que (opposition ★★★). מחמירה = aggrave."},
+        {type:"label",text:"גוף א׳ (Paragraphe 1 — Pour)"},
+        {type:"para",he:`מחד גיסא, הגלובליזציה יצרה הזדמנויות כלכליות חסרות תקדים. נתונים מה-World Bank מראים כי בין השנים 1990-2015, יותר ממיליארד בני אדם יצאו מעוני קיצוני, תופעה המיוחסת בחלקה לפתיחת השווקים. כמו כן, גלובליזציה מאפשרת ייצוא ידע, חדשנות וטכנולוגיה, המקדמים צמיחה כלכלית ברחבי העולם.`,ann:"מחד גיסא = d'un côté (très formel ★★). חסרות תקדים = sans précédent ★★★. המיוחסת ל = attribuée à (passif formel)."},
+        {type:"label",text:"גוף ב׳ (Paragraphe 2 — Contre)"},
+        {type:"para",he:`מאידך גיסא, יש הטוענים כי הגלובליזציה גורמת לעקירת מקומות עבודה ולהחלשת מעמד הביניים במדינות מפותחות. אמנם הגלובליזציה הוזילה את מחיר המוצרים לצרכן, אולם היא גרמה לסגירתן של תעשיות שלמות ולאובדן מיליוני משרות. יתרה מכך, התחרות עם שוקי עבודה זולים יוצרת לחץ כלפי מטה על השכר ועל תנאי ההעסקה.`,ann:"מאידך גיסא = de l'autre côté (paire avec מחד גיסא). הוזילה = a fait baisser le prix. יתרה מכך = qui plus est (intensification ★★★)."},
+        {type:"label",text:"סיכום (Conclusion)"},
+        {type:"para",he:`לסיכום, לאור הנתונים ניתן להסיק כי הגלובליזציה היא תהליך מורכב שאינו ניתן לעצירה, אולם ניתן להכוונה. מן הראוי שמדינות יפתחו מדיניות מקיפה המשלבת הכשרה מקצועית לעובדים שמשרותיהם נעקרו, עם מנגנוני הגנה על קבוצות פגיעות. מכל האמור לעיל עולה כי המענה לאתגרי הגלובליזציה אינו סגירת השווקים, אלא הסתגלות חכמה ומנוהלת.`,ann:"לאור הנתונים ניתן להסיק כי = à la lumière des données, on peut conclure ★★★. מן הראוי ש = il convient que. מכל האמור לעיל עולה כי = de tout ce qui précède ★★★."},
       ]
     },
   ]
@@ -3162,22 +3388,24 @@ function answerAnn(i){
   setTimeout(()=>{ann.qIdx++;renderAnnalesQ();},correct?900:1700);
 }
 
-// === COURS (fixed: uses c.sections, not c.body) ===
+// === COURS ===
 function renderCours(){
-  const COURS_IC_MAP=['link','pen','book','tag'];
-  document.getElementById('cours-tabs').innerHTML=COURS.map((c,i)=>
-    `<div class="cours-tab${i===activeCours?' active':''}" onclick="selectCours(${i})">${I(COURS_IC_MAP[i%4],14)} ${c.title}</div>`
-  ).join('');
-  const c=COURS[activeCours];let total=0,filtered=0;
+  document.getElementById('cours-tabs').innerHTML=COURS.map((c,i)=>{
+    const act=i===activeCours;
+    const st=act?`border-color:${c.color};color:${c.color};background:${c.color}18`:'';
+    return `<div class="cours-tab${act?' active':''}" onclick="selectCours(${i})" style="${st}">${I(c.icon||'book',14)} ${c.title}</div>`;
+  }).join('');
+  const c=COURS[activeCours];let total=0,filtered=0;const cc=c.color||'var(--pd)';
+  const lvlCls=l=>l.includes('★★★')?'clvl clvl-3':l.includes('★★')?'clvl clvl-2':l.includes('★')?'clvl clvl-1':'clvl clvl-0';
   const html=c.sections.map(s=>{
     const rows=s.rows.filter(r=>{total++;if(!coursFilter)return true;
       const ok=r[0].includes(coursFilter)||r[1].toLowerCase().includes(coursFilter)||r[2].toLowerCase().includes(coursFilter);
       if(ok)filtered++;return ok;});
     if(!rows.length)return'';
-    return '<h3>'+s.title+'</h3><table class="ctable">'+rows.map(r=>`<tr>
+    return '<h3 style="color:'+cc+';border-bottom-color:'+cc+'30">'+s.title+'</h3><table class="ctable">'+rows.map(r=>`<tr>
         <td style="direction:rtl">${r[0]}</td>
-        <td style="color:var(--pl)">${r[1]}${r[3]?'<div class="ctip">'+r[3]+'</div>':''}</td>
-        <td><span class="clvl">${r[2]}</span></td>
+        <td style="color:var(--txt2)">${r[1]}${r[3]?'<div class="ctip">'+r[3]+'</div>':''}</td>
+        <td><span class="${lvlCls(r[2])}">${r[2]}</span></td>
       </tr>`).join('')+'</table>';
   }).join('');
   if(!coursFilter)filtered=total;
