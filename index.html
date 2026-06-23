@@ -408,6 +408,9 @@ html.dark .rtab.active{background:#1e293b}
 .ann-timer-fill{height:100%;border-radius:99px;transition:width 1s linear;
   background:linear-gradient(90deg,var(--g),var(--acc))}
 .ann-timer-fill.warn{background:linear-gradient(90deg,var(--acc),var(--r))}
+.kbd-hint{font-size:.68rem;color:var(--txt3);text-align:center;margin-top:6px;opacity:.7}
+.kbd{display:inline-block;background:var(--bg2);border:1px solid var(--bdr);
+  border-radius:4px;padding:1px 5px;font-family:monospace;font-size:.7rem}
 .ann-timer-lbl{font-size:.68rem;color:var(--txt3);text-align:right;margin-top:3px;font-weight:600}
 
 /* ── SEARCH BAR ──────────────────────────────────────────── */
@@ -1087,6 +1090,15 @@ const RAW_WORDS = [
 ["פוסטמודרני","postmoderne","R"],["קנוני","canonique","R"],
 ["אמביוולנטי","ambivalent","R"],["פרדוקסלי","paradoxal","R"],
 ["הדדי","mutuel/réciproque","R"],["סימביוטי","symbiotique","R"],
+// SECTION 11 — Expressions nominales avancées (N2)
+["שינוי פרדיגמה","changement de paradigme","R"],["נקיטת עמדה","prise de position","R"],
+["הצבת גבולות","établissement de limites","R"],["מניעת נזק","prévention des dommages","R"],
+["שימור ערכים","préservation des valeurs","R"],["קידום שוויון","promotion de l'égalité","R"],
+["תחושת שייכות","sentiment d'appartenance","R"],["אחריות קולקטיבית","responsabilité collective","R"],
+["זכות להכרה","droit à la reconnaissance","R"],["גיבוש זהות","construction identitaire","R"],
+["פיתוח מנהיגות","développement du leadership","R"],["העצמת קהילות","empowerment des communautés","R"],
+["הנחלת ידע","transmission du savoir","R"],["ביסוס אמון","consolidation de la confiance","R"],
+["הפחתת אי-שוויון","réduction des inégalités","R"],
 // SECTION 10 — Mots spécifiques aux sujets YAEL (Y)
 ["הכריזה","a déclaré / a annoncé (fém.)","Y"],["פסיקה","arrêt / verdict / jugement","Y"],
 ["תועד","fut documenté","Y"],["נמתחה ביקורת","fut critiqué / essuyé des critiques","Y"],
@@ -2984,6 +2996,88 @@ const ANNALES_DATA = [
         ]
       }
     ]
+  },
+  {
+    "exam": "Examen Blanc N°9",
+    "sections": [
+      {
+        "section": "Section A — Vocabulaire en contexte",
+        "questions": [
+          {"s":"ה_______ הציבורי למוסדות הממשלה ירד לשפל חדש בסקר האחרון.",
+           "w":"אמון","opts":["ביקורת","אמון","תמיכה","ייצוג"],"ans":1,
+           "exp":"אמון = confiance. 'ירד לשפל חדש' (atteint un nouveau plancher) → l'indicateur négatif est l'érosion de la confiance envers les institutions. שפל חדש = nouveau bas historique. אמון ציבורי = confiance publique."},
+          {"s":"הצעת החוק _______ שורה של תיקונים לאחר הדיון בוועדה.",
+           "w":"עברה","opts":["קיבלה","עברה","כללה","הכילה"],"ans":1,
+           "exp":"עברה שורה של תיקונים = a fait l'objet d'une série d'amendements. עבר (passer/subir) + תיקונים = les amendements que le projet a subis. קיבלה תיקונים est aussi possible, mais עברה est plus formel pour les processus législatifs."},
+          {"s":"ה_______ בין הצדדים הגיעה סוף סוף לאחר חודשים של מו"מ.",
+           "w":"הפשרה","opts":["ועידה","הפשרה","הסכמה","פתרון"],"ans":1,
+           "exp":"הפשרה = le compromis / l'accord (après tension). הגיעה = a été atteinte. הפשרה implique un dégel après une période de tension. הסכמה (accord) est plus neutre. פתרון (solution) est plus large. הפשרה est spécifique à la résolution d'un conflit."},
+          {"s":"חוקרים _______ תחת ה'אפקט הבועה' של הרשתות החברתיות.",
+           "w":"מזהירים מפני","opts":["מדברים על","מזהירים מפני","מתנגדים ל","ביקרו"],"ans":1,
+           "exp":"מזהירים מפני = mettent en garde contre (Hif'il de הזהיר). Expression typique du discours académique. 'להזהיר מפני' = alerter contre un danger. מדברים על est trop neutre. מזהירים מפני implique une alerte face à un risque identifié."},
+          {"s":"ה_______ של הפרויקט הוכרחה בשל חריגה תקציבית חמורה.",
+           "w":"הקפאה","opts":["עצירה","הקפאה","ביטול","דחייה"],"ans":1,
+           "exp":"הקפאה = gel / suspension temporaire. 'הקפאת פרויקט' = gel d'un projet (temporaire, avec possibilité de reprise). ביטול = annulation (définitif). דחייה = report (dans le temps). עצירה = arrêt (non terminologique). הקפאה est le terme administratif correct."},
+          {"s":"ה_______ הכלכלית מחייבת צעדים מיידיים של הממשלה.",
+           "w":"האטה","opts":["ירידה","האטה","מיתון","קיפאון"],"ans":1,
+           "exp":"האטה = ralentissement (processus en cours). מיתון = récession (état défini techniquement par 2 trimestres de décroissance). קיפאון = stagnation (arrêt total). ירידה = baisse (terme général). 'מחייבת צעדים מיידיים' → problème urgent mais pas encore récession → האטה."},
+          {"s":"הממשלה נקטה צעדים _______ להגן על השוק המקומי מפני יבואנים.",
+           "w":"פרוטקציוניסטיים","opts":["פופוליסטיים","פרוטקציוניסטיים","ליברליים","רדיקליים"],"ans":1,
+           "exp":"פרוטקציוניסטיים = protectionnistes. הגנה על השוק המקומי + מגבלות על יבוא → protectionnisme économique. פופוליסטיים (populistes) n'est pas spécifiquement économique. ליברליים (libéraux) serait l'opposé."},
+          {"s":"ה_______ הממשלתי לחינוך ייגדל בעשרה אחוז בשנת הכספים הבאה.",
+           "w":"תקציב","opts":["תקצוב","תקציב","השקעה","מימון"],"ans":1,
+           "exp":"תקציב = le budget (allocation officielle, le document). 'ייגדל' (augmentera) + 'שנת כספים' = contexte budgétaire annuel → תקציב. תקצוב = l'acte de budgéter (processus). מימון = financement (sources de fonds). תקציב est le terme le plus précis ici."},
+          {"s":"הוועדה _______ להגיש את המלצותיה לממשלה עד לסוף הרבעון.",
+           "w":"מחויבת","opts":["צריכה","מחויבת","אמורה","יכולה"],"ans":1,
+           "exp":"מחויבת = est tenue de / est engagée à (obligation formelle). Plus fort que צריכה (doit — obligation morale) et אמורה (est censée — attente). מחויבת implique un engagement formel ou légal."},
+          {"s":"ה_______ ההסכם בין הצדדים הייתה פורצת דרך בתחום זכויות הקניין.",
+           "w":"חתימת","opts":["חתימת","כריתת","הגשת","אשרור"],"ans":0,
+           "exp":"חתימת ההסכם = la signature de l'accord (collocation la plus courante). כריתת ברית = conclusion d'une alliance (plus formel, moins courant pour 'accord'). אשרור = ratification (phase ultérieure). חתימה est l'acte physique de signer."},
+        ]
+      },
+      {
+        "section": "Section B — Texte sur la liberté de presse",
+        "paragraph": "חופש העיתונות נחשב לאחד מעמודי התווך של הדמוקרטיה המודרנית. עיתונות חופשית מאפשרת לאזרחים לקבל מידע אמין, לחשוף שחיתות ולהפעיל ביקורת ציבורית על בעלי הכוח. עם זאת, בשנים האחרונות מדווח על ירידה מדאיגה במדד חופש העיתונות במדינות רבות, כולל דמוקרטיות ותיקות.",
+        "questions": [
+          {"s":"חופש העיתונות _______ לאחד מעמודי התווך של הדמוקרטיה.",
+           "w":"נחשב","opts":["הוא","נחשב","נחשב","נמצא"],"ans":1,
+           "exp":"נחשב ל = est considéré comme (Nif'al de חשב). Plus formel qu'הוא (est) — נחשב implique un jugement collectif ou académique. 'עמודי תווך' = piliers (expression figée pour fondements essentiels ★★★)."},
+          {"s":"עיתונות חופשית _______ לאזרחים לקבל מידע אמין.",
+           "w":"מאפשרת","opts":["עוזרת","מאפשרת","נותנת","מביאה"],"ans":1,
+           "exp":"מאפשרת ל = permet à / donne la possibilité de (Pi'el de אפשר). Plus précis qu'עוזרת (aide) qui est plus vague. 'מאפשר ל + inf' est la structure formelle standard pour exprimer la permission/possibilité."},
+          {"s":"בשנים האחרונות מדווח על _______ במדד חופש העיתונות.",
+           "w":"ירידה מדאיגה","opts":["שיפור","ירידה מדאיגה","יציבות","עלייה"],"ans":1,
+           "exp":"ירידה מדאיגה = baisse préoccupante. מדווח על = on rapporte / il est rapporté (passif). 'ירידה במדד חופש העיתונות' = baisse de l'indice de liberté de la presse. מדאיגה = préoccupante (qualificatif émotionnel formel)."},
+          {"s":"מה תפקיד העיתונות החופשית לפי הקטע?",
+           "w":"לספק מידע, לחשוף שחיתות ולהפעיל ביקורת","opts":["לתמוך בממשלה","לספק מידע, לחשוף שחיתות ולהפעיל ביקורת","לבקר כל החלטה","לדאוג לרווח"],"ans":1,
+           "exp":"הטקסט מציין שלוש פונקציות: (1) לאפשר מידע אמין, (2) לחשוף שחיתות, (3) להפעיל ביקורת על בעלי הכוח. שלוש הפונקציות מופיעות בטקסט — יש להכיל את כולן בתשובה."},
+          {"s":"מה מרמז הקטע לגבי מצב הדמוקרטיה?",
+           "w":"היא תחת לחץ גם במדינות ותיקות","opts":["הדמוקרטיה חזקה","היא תחת לחץ גם במדינות ותיקות","רק מדינות חדשות בסכנה","אין שינוי"],"ans":1,
+           "exp":"הקטע מציין: 'ירידה מדאיגה... כולל דמוקרטיות ותיקות'. כולל דמוקרטיות ותיקות = y compris des démocraties établies. ההדגשה על 'ותיקות' רומזת שאפילו דמוקרטיות מבוססות אינן חסינות."},
+        ]
+      },
+      {
+        "section": "Section C — Texte sur la santé mentale des jeunes",
+        "paragraph": "בריאות הנפש של בני הנוער מהווה אתגר גדל והולך בחברה המודרנית. מחקרים מראים כי אחד מכל חמישה בני נוער סובל מהפרעה נפשית כלשהי. גורמים כמו לחץ אקדמי, שימוש מוגזם בסמארטפון ובידוד חברתי תורמים לתופעה. עם זאת, ישנה הסכמה גוברת בקרב מומחים כי התערבות מוקדמת היא המפתח.",
+        "questions": [
+          {"s":"בריאות הנפש של בני הנוער _______ אתגר גדל והולך.",
+           "w":"מהווה","opts":["היא","מהווה","נחשבת","מייצגת"],"ans":1,
+           "exp":"מהווה = constitue (Pi'el de הווה). Verbe formel de composition. גדל והולך = croissant progressivement (structure hébreu typique pour une tendance qui s'intensifie ★★★). מהווה + גדל והולך = formule très formelle."},
+          {"s":"אחד מכל חמישה בני נוער _______ מהפרעה נפשית.",
+           "w":"סובל","opts":["יש לו","סובל","מתמודד עם","חולה ב"],"ans":1,
+           "exp":"סובל מ = souffre de (Pa'al). Expression standard pour les troubles de santé. 'לסבול מהפרעה' est la collocation exacte en hébreu médical. חולה ב = malade de (physique). מתמודד עם = fait face à (implique une gestion active)."},
+          {"s":"מה גורם לבעיית בריאות הנפש לפי הקטע?",
+           "w":"לחץ אקדמי, שימוש מוגזם בסמארטפון ובידוד חברתי","opts":["סמארטפון בלבד","לחץ אקדמי, שימוש מוגזם בסמארטפון ובידוד חברתי","גנטיקה","מחסור בחינוך"],"ans":1,
+           "exp":"הטקסט מציין שלושה גורמים: לחץ אקדמי + שימוש מוגזם בסמארטפון + בידוד חברתי. שלושתם מופיעים מפורשות. בסוגי שאלות של 'גורמים' — יש לכלול את כולם, לא רק חלקם."},
+          {"s":"מה עמדת המומחים לפי הקטע?",
+           "w":"התערבות מוקדמת היא המפתח","opts":["אין פתרון","התערבות מוקדמת היא המפתח","הבעיה מוגזמת","יש לצמצם סמארטפון בלבד"],"ans":1,
+           "exp":"הטקסט: 'הסכמה גוברת בקרב מומחים כי התערבות מוקדמת היא המפתח'. התערבות מוקדמת = intervention précoce. הסכמה גוברת = consensus croissant ★★★. המפתח = la clé (métaphore standard)."},
+          {"s":"מה ניתן להסיק לגבי הנושא מהקטע?",
+           "w":"הבעיה גדלה אך יש סיבה לאופטימיות זהירה","opts":["אין תקווה","הבעיה גדלה אך יש סיבה לאופטימיות זהירה","הכל טוב","הבעיה פתורה"],"ans":1,
+           "exp":"המבנה: 'אחד מכל חמישה... גדל והולך' (בעיה גדלה) + 'עם זאת, התערבות מוקדמת היא המפתח' (אופטימיות). עם זאת = cependant — מסמן פנייה חיובית. המסקנה: גדלה + אבל יש כיוון לפתרון."},
+        ]
+      }
+    ]
   }
 ]
 const COURS = [
@@ -3612,6 +3706,40 @@ const REDACTION = {
         {type:"para",he:`עם זאת, ישנם סימנים לאפשרות התחדשות דמוקרטית. יזמות אזרחית פורחת ברחבי העולם, ותנועות חברתיות מחוללות שינוי מתחת לרדאר של הפוליטיקה המסורתית. יתרה מכך, מדינות שהצליחו להגביר שקיפות ולשתף אזרחים בקבלת החלטות — כגון מדינות סקנדינביה — מדווחות על רמות אמון גבוהות יחסית. הדבר מלמד כי משבר האמון אינו בלתי הפיך, אולם מצריך רפורמה מוסדית אמיתית.`,ann:"ישנם סימנים ל = il y a des signes de. פורחת = fleurit. מחוללות שינוי = opèrent un changement. מלמד כי = enseigne que ★★. אינו בלתי הפיך = n'est pas irréversible."},
         {type:"label",text:"סיכום (Conclusion)"},
         {type:"para",he:`לסיכום, מכל האמור לעיל עולה כי משבר האמון בדמוקרטיה אינו גזרת גורל, אלא קריאה לפעולה. מן הראוי שמנהיגים פוליטיים ומוסדות יאמצו גישה של שקיפות, שיתוף ציבור ואחריות. אין להכחיש כי דמוקרטיה בריאה דורשת השתתפות פעילה של אזרחיה — ובאחריות הדדית של המוסדות כלפיהם.`,ann:"גזרת גורל = fatalité ★★ (expression figée). מן הראוי ש = il convient que. אחריות הדדית = responsabilité mutuelle. כלפיהם = envers eux."},
+      ]
+    },
+    {
+      title:"הזכות לפרטיות בעידן הדיגיטלי",
+      fr_title:"Le droit à la vie privée à l'ère numérique",
+      topic:"האיזון בין פרטיות לשקיפות בחברה הדיגיטלית",
+      level:"Niveau B2",
+      color:"#0891b2",
+      text:[
+        {type:"label",text:"מבוא (Introduction)"},
+        {type:"para",he:`בעידן שבו נתוני המשתמשים הפכו למטבע הכלכלי החדש, עולה השאלה האם הזכות לפרטיות שורדת בעולם הדיגיטלי. ניתן לומר כי ה"חברות הגדולות" — גוגל, מטא ואמזון — יודעות על אזרחים יותר ממה שהם יודעים על עצמם. הדבר מעלה שאלות אתיות ומשפטיות חמורות לגבי הסכמה מדעת, בעלות על הנתונים וגבולות המעקב הדיגיטלי.`,ann:"עידן = ère. מטבע הכלכלי = monnaie économique (métaphore ★★★). הסכמה מדעת = consentement éclairé (terme juridique). מעלה שאלות = soulève des questions ★★."},
+        {type:"label",text:"גוף א׳ (הטכנולוגיה כאיום על הפרטיות)"},
+        {type:"para",he:`יש הטוענים כי קצב האצת טכנולוגיות המעקב עולה על יכולתה של החקיקה להדביק. מחקרים מראים כי 90% ממשתמשי אפליקציות סלולריות אינם קוראים את תנאי השימוש — ובכך מוותרים, מבלי ידיעתם, על זכויות פרטיות מרחיקות לכת. יתרה מכך, ניתוח "ביג דאטה" מאפשר לחזות התנהגויות אישיות ורגישות ברמת דיוק מדאיגה.`,ann:"קצב האצת = le rythme d'accélération de. להדביק = rattraper / suivre le rythme. מרחיקות לכת = de grande portée ★★★. מדאיגה = préoccupante."},
+        {type:"label",text:"גוף ב׳ (האיזון הנדרש)"},
+        {type:"para",he:`מנגד, ישנם הסוברים כי שקיפות מוחלטת יכולה לשמש ככלי לחיזוק הדמוקרטיה ומניעת שחיתות. עם זאת, רוב החוקרים מסכימים כי האיזון הנכון טמון ברגולציה חכמה: כגון תקנת ה-GDPR האירופאית, המחייבת חברות לנקוט שקיפות וליתן למשתמשים שליטה על נתוניהם. מן הראוי שגם ישראל תאמץ מנגנוני הגנה מתקדמים.`,ann:"שקיפות מוחלטת = transparence absolue. ליתן = donner (forme littéraire de לתת). מן הראוי ש = il convient que. תאמץ = adopte (subjonctif)."},
+        {type:"label",text:"סיכום (Conclusion)"},
+        {type:"para",he:`לסיכום, מכל האמור לעיל עולה כי הזכות לפרטיות אינה מותרות, אלא תנאי יסוד לקיומה של חברה חופשית. בעידן הדיגיטלי, שמירה על פרטיות מחייבת רגולציה, חינוך ומודעות ציבורית. אין להכחיש כי הטכנולוגיה משנה את הגדרת הפרטיות — השאלה היא האם אנחנו נשנה אותה, או שהיא תשנה אותנו.`,ann:"מותרות = luxe / commodité superficielle. תנאי יסוד = condition fondamentale ★★. אין להכחיש כי = il est indéniable que ★★. הסיום עם שאלה רטורית — אפשרות C1."},
+      ]
+    },
+    {
+      title:"החברה הדיגיטלית: הזדמנות ואיום",
+      fr_title:"La société numérique : opportunité et menace",
+      topic:"השפעת המדיה החברתית על השיח הציבורי",
+      level:"Niveau C1",
+      color:"#7c3aed",
+      text:[
+        {type:"label",text:"מבוא (Introduction)"},
+        {type:"para",he:`המדיה החברתית שינתה את טבעו של השיח הציבורי בצורה שלא נראתה כמוה מאז המצאת הדפוס. ניתן לומר כי פלטפורמות כפייסבוק, טוויטר ויוטיוב הפכו לכיכר הציבורית של המאה ה-21. ברם, לצד ההזדמנויות שהן מציעות — נגישות מידע, הכלה חברתית, קידום מחאה — הן גם מעוררות חששות כבדים: הפצת מידע שקרי, קיטוב חברתי ורדיקליזציה.`,ann:"שלא נראתה כמוה מאז = sans précédent depuis ★★★. כיכר הציבורית = place publique (métaphore). ברם = toutefois (très formel ★★★). לצד = à côté de / parallèlement à."},
+        {type:"label",text:"גוף א׳ (ההזדמנויות)"},
+        {type:"para",he:`מחד גיסא, המדיה החברתית הוכיחה כוחה ככלי לדמוקרטיזציה של המידע. תנועות חברתיות כ-MeToo# ו-BlackLivesMatter# הצליחו לשנות אג'נדה ציבורית גלובלית בזכות הרשתות החברתיות. כמו כן, בתקופת מגפת הקורונה, פלטפורמות דיגיטליות אפשרו המשכיות חינוכית וכלכלית למיליוני אנשים ברחבי העולם.`,ann:"מחד גיסא = d'un côté (paire avec מאידך גיסא ★★★). דמוקרטיזציה של = démocratisation de. המשכיות = continuité. בזכות = grâce à."},
+        {type:"label",text:"גוף ב׳ (הסכנות)"},
+        {type:"para",he:`מאידך גיסא, ישנם סימנים מדאיגים לנזקים שגורמת המדיה החברתית לשיח הציבורי. ניסויים שנערכו על ידי פייסבוק עצמה הראו כי האלגוריתמים שלה מחזקים תכנים מקוטבים ומעוררי כעס — כי אלה מייצרים מעורבות גבוהה יותר. הדבר יוצר "בועות מידע" שבהן משתמשים נחשפים רק לדעות המאשרות את עמדותיהם הקיימות. יתרה מכך, מחקרים מקשרים בין שימוש מוגזם ברשתות חברתיות לבין עלייה בשיעורי חרדה ודיכאון בקרב בני נוער.`,ann:"סימנים מדאיגים = signes préoccupants. מקוטבים = polarisés. 'בועות מידע' = 'bulles de filtre' ★★★. מאשרות = confirment/valident. מקשרים בין... לבין = relient... à ★★."},
+        {type:"label",text:"סיכום (Conclusion)"},
+        {type:"para",he:`לסיכום, לאור הנתונים ניתן להסיק כי המדיה החברתית היא כלי חזק שאינו ניטרלי — ומשמעותו תלויה בשאלה מי שולט בו ולמה הוא משמש. מן הראוי שממשלות, חברות טכנולוגיה ואזרחים יפעלו יחד לקביעת כללים שיבטיחו שהאינטרנט יישאר כלי משחרר, לא כלי שליטה. בסופו של דבר, הטכנולוגיה אינה הבעיה — הבעיה היא מי מנהל אותה ולמה.`,ann:"אינו ניטרלי = n'est pas neutre. תלויה בשאלה מי = dépend de la question de qui. כלי משחרר = outil libérateur. לא כלי שליטה = pas un outil de contrôle (antithèse ★★★). הסיום עם אנטיתזה — style C1."},
       ]
     },
     {
