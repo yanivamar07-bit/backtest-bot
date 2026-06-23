@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>YAEL — Révisions</title>
 <style>
 :root{
@@ -336,12 +336,106 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-seri
 .hist-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--bdr);font-size:.82rem}
 .hist-row:last-child{border:none}
 .due-badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:99px;font-size:.68rem;font-weight:700;background:var(--rl);color:var(--rd);border:1px solid #fecaca}
+
+/* ── DARK THEME ─────────────────────────────────────────── */
+html.dark{
+  --bg:#0f172a;--bg2:#1e293b;--bg3:#334155;
+  --card:#1e293b;--card2:#0f172a;
+  --bdr:#334155;--bdr2:#475569;
+  --txt:#f1f5f9;--txt2:#cbd5e1;--txt3:#94a3b8;--txt4:#64748b;
+  --p:#3b82f6;--pl:#60a5fa;--pd:#2563eb;--pll:#172554;
+  --acc:#f59e0b;--accl:#1c1400;--accd:#fde68a;
+  --g:#10b981;--gl:#0c1f17;--gd:#6ee7b7;
+  --r:#ef4444;--rl:#1f0a0a;--rd:#fca5a5;
+  --b0l:#1f2937;--b0b:#4b5563;--b1l:#1c1400;--b1b:#92400e;--b2l:#0c1f17;--b2b:#065f46;
+  --sh:0 1px 3px rgba(0,0,0,.4),0 4px 16px rgba(0,0,0,.3);
+  --shm:0 2px 8px rgba(0,0,0,.5),0 8px 24px rgba(0,0,0,.4);
+}
+html.dark .nav{background:#1e293b;border-bottom-color:#334155}
+html.dark .box-card,html.dark .quiz-card,html.dark .ex-card,html.dark .ann-qcard,
+html.dark .tip-card,html.dark .essay-card,html.dark .ann-exam-card,html.dark .ann-sec-card,
+html.dark .mcard,html.dark .stat-card,html.dark .cours-body,html.dark .card,html.dark .card2{
+  background:#1e293b!important;border-color:#334155!important}
+html.dark .fc-face{background:#1e293b!important;border-color:#334155!important}
+html.dark .fc-back{background:#172554!important}
+html.dark .btn-out{background:#1e293b;color:#cbd5e1;border-color:#475569}
+html.dark .btn-out:hover{background:#172554;border-color:#3b82f6;color:#60a5fa}
+html.dark .hero{background:linear-gradient(135deg,#1e3a8a 0%,#1d4ed8 60%,#2563eb 100%)}
+html.dark input{background:#1e293b;color:#f1f5f9;border-color:#334155}
+html.dark .ctable tr:hover td{background:#334155}
+html.dark .cours-body h3{border-bottom-color:#334155}
+html.dark .quiz-exp,html.dark .ex-exp,html.dark .ann-exp-box{background:#172554;border-color:#1e40af}
+html.dark .fc-ant{background:#334155;border-color:#475569}
+html.dark .streak-bar{background:linear-gradient(135deg,#1c1400,#2a1d00);border-color:#92400e}
+html.dark .due-banner{background:linear-gradient(135deg,#1f0a0a,#2d0f0f);border-color:#991b1b}
+html.dark .badge-p{background:#172554;border-color:#1e40af}
+html.dark .badge-g{background:#0c1f17;border-color:#065f46}
+html.dark .badge-a{background:#1c1400;border-color:#92400e}
+html.dark .badge-r{background:#1f0a0a;border-color:#991b1b}
+html.dark .redac-tabs{background:#334155}
+html.dark .rtab.active{background:#1e293b}
+
+/* ── THEME TOGGLE BUTTON ─────────────────────────────────── */
+.theme-btn{width:34px;height:34px;border-radius:50%;border:1px solid var(--bdr2);
+  background:var(--card);color:var(--txt2);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:.15s;flex-shrink:0;padding:0}
+.theme-btn:hover{background:var(--bg2);border-color:var(--pl)}
+
+/* ── ANNALES TIMER ───────────────────────────────────────── */
+.ann-timer-wrap{margin-bottom:12px}
+.ann-timer{height:5px;background:var(--bg3);border-radius:99px;overflow:hidden}
+.ann-timer-fill{height:100%;border-radius:99px;transition:width 1s linear;
+  background:linear-gradient(90deg,var(--g),var(--acc))}
+.ann-timer-fill.warn{background:linear-gradient(90deg,var(--acc),var(--r))}
+.ann-timer-lbl{font-size:.68rem;color:var(--txt3);text-align:right;margin-top:3px;font-weight:600}
+
+/* ── SEARCH BAR ──────────────────────────────────────────── */
+.search-wrap{position:relative;margin-bottom:14px}
+.search-wrap input{width:100%;padding:9px 38px 9px 14px;border:1px solid var(--bdr2);
+  border-radius:var(--rads);font-size:.84rem;background:var(--card);color:var(--txt);
+  outline:none;transition:.15s}
+.search-wrap input:focus{border-color:var(--pl);box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+.search-wrap .s-ic{position:absolute;right:11px;top:50%;transform:translateY(-50%);
+  color:var(--txt3);pointer-events:none}
+.search-results{font-size:.73rem;color:var(--txt3);margin-bottom:6px}
+
+/* ── DIFFICULTY FILTER ───────────────────────────────────── */
+.diff-pills{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.diff-pill{padding:4px 11px;border-radius:99px;font-size:.73rem;font-weight:600;
+  cursor:pointer;transition:.15s;border:1px solid var(--bdr2);color:var(--txt3);background:var(--card)}
+.diff-pill:hover,.diff-pill.active{background:var(--pll);color:var(--pl);border-color:#bfdbfe}
+
+/* ── STATS GRAPH ─────────────────────────────────────────── */
+.graph-wrap{text-align:center;padding:10px 0 14px}
+.graph-ttl{font-size:.7rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;
+  color:var(--txt4);margin-bottom:10px}
+
+/* ── RESPONSIVE TABLET ───────────────────────────────────── */
+@media(min-width:640px){
+  .box-grid{grid-template-columns:1fr 1fr 1fr!important}
+  .ann-grid{grid-template-columns:1fr 1fr}
+  .fc-rate{max-width:600px}
+}
+@media(min-width:768px){
+  .screen{padding:28px 36px 80px}
+  .stat-cards{grid-template-columns:repeat(4,1fr)}
+  .quiz-card,.ex-card,.ann-qcard{padding:32px 36px}
+  .fc-he{font-size:2.8rem}
+}
+@media(min-width:1024px){
+  .screen{max-width:920px;padding:32px 40px 80px}
+  .nav-tab{font-size:.82rem;padding:0 17px}
+  .nav-logo{font-size:1.2rem}
+}
+
 </style>
 </head>
 <body>
 <nav class="nav">
   <div class="nav-logo">YA<span>EL</span></div>
   <div class="nav-tabs" id="nav-tabs"></div>
+  <button class="theme-btn" id="theme-btn" onclick="toggleTheme()" title="Thème clair/sombre" aria-label="Basculer thème"></button>
 </nav>
 
 <div id="screen-home" class="screen active">
@@ -355,6 +449,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-seri
   <div class="box-grid" id="box-grid"></div>
   <div class="sec-ttl">Filtrer par catégorie</div>
   <div class="cpills" id="cat-grid"></div>
+  <div class="diff-pills" id="diff-pills"></div>
   <div class="btn-grid" id="home-btns" style="margin-bottom:22px"></div>
   <div class="sec-ttl">Maîtrise par catégorie</div>
   <div id="mastery-grid"></div>
@@ -430,6 +525,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-seri
     <div class="card-ttl" id="cours-ttl"></div>
     <div class="card-sub">Connecteurs · Argumentation · Grammaire · Vocabulaire thématique</div>
   </div></div>
+  <div class="search-wrap"><input type="text" id="cours-search" placeholder="Rechercher dans les cours..." oninput="filterCours(this.value)" autocomplete="off"><span class="s-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span></div>
+  <div class="search-results" id="cours-count"></div>
   <div class="cours-tabs" id="cours-tabs"></div>
   <div class="cours-body" id="cours-body"></div>
 </div>
@@ -2593,7 +2690,7 @@ function sm2Update(id,rating){
 }
 function setBox(id,box){const p=getProg(id);prog[id]={...p,box,lastReview:Date.now()};saveProg();bumpStreak();}
 function isDue(id){const p=getProg(id);return !p.nextReview||Date.now()>=p.nextReview;}
-function dueWords(){return WORDS.filter(w=>isDue(w.id)&&getBox(w.id)>0);}
+function dueWords(){return WORDS.filter(w=>getBox(w.id)===0||isDue(w.id));}
 function getWeight(w){const p=getProg(w.id);const b=p.box||0;const e=p.errors||0;const due=isDue(w.id)?2:1;return(b===0?4:b===1?2:1)*(1+e*0.25)*due;}
 function weightedShuffle(words){
   if(!words.length)return[];
@@ -2608,12 +2705,12 @@ function weightedShuffle(words){
 function wordsInBox(box,cat){return wordsForCat(cat||'all').filter(w=>getBox(w.id)===box);}
 
 // === STATE ===
-let prog=loadProg(),hist=loadHist(),currentCat='all',lastFcMode='weighted',lastFcBox='all';
+let prog=loadProg(),hist=loadHist(),currentCat='all',lastFcMode='weighted',lastFcBox='all',coursFilter='',diffFilter='all';
 let fc={deck:[],idx:0,flipped:false,ok:0,total:0};
 let quiz={qs:[],idx:0,score:0,combo:0,answered:false};
 let conn={deck:[],idx:0,score:0,answered:false,curOpts:[]};
 let phr={deck:[],idx:0,score:0,answered:false,curOpts:[]};
-let ann={examIdx:0,secIdx:0,deck:[],qIdx:0,score:0,answered:false,curOpts:[]};
+let ann={examIdx:0,secIdx:0,deck:[],qIdx:0,score:0,answered:false,curOpts:[],timerInterval:null,timeLeft:25};
 let openTip=-1,openEssay=-1,redacTab='conseils',activeCours=0;
 
 // === UTILS ===
@@ -2734,6 +2831,10 @@ function renderHome(){
     Object.entries(CAT_INFO).map(([k,v])=>
       `<span class="cpill${currentCat===k?' active':''}" onclick="selectCat('${k}')">${I(v.ic,12)} ${v.name} (${WORDS.filter(w=>w.cat===k).length})</span>`
     ).join('');
+  const LEVELS=['Basique','Formel ★','Avancé ★★'];
+  document.getElementById('diff-pills').innerHTML=
+    '<span class="diff-pill'+(diffFilter==='all'?' active':'')+ '" onclick="setDiff(\'all\')">Tous niveaux</span>'+
+    LEVELS.map(l=>'<span class="diff-pill'+(diffFilter===l?' active':'')+ '" onclick="setDiff(\''+l.replace(/'/g,"\\'")+'\')">'+(l==='Basique'?I('zap',11):l==='Formel ★'?I('award',11):I('star',11))+' '+l+'</span>').join('');
   document.getElementById('home-btns').innerHTML=`
     <button class="btn btn-p btn-lg" onclick="startFlashcards('weighted','all')">${I('brain',17)} Apprentissage adaptatif</button>
     <button class="btn btn-a btn-lg" onclick="startNewQuiz(20)">${I('target',17)} Quiz 20 mots</button>
@@ -2920,23 +3021,22 @@ function renderConnector(){
     <div class="ex-card">
       <div class="ex-counter"><span>${I('link',13)} ${conn.idx+1}/${conn.deck.length}</span>
         <span style="color:var(--g);font-weight:700">${conn.score} juste${conn.score!==1?'s':''}</span></div>
-      <div class="ex-sentence" style="direction:ltr">${q.fr.replace('___',`<span class="ex-blank">___</span>`)}</div>
-      <div style="font-size:.8rem;color:var(--txt3);text-align:center;margin-bottom:12px;direction:rtl">${q.he}</div>
-      <div class="ex-opts">${conn.curOpts.map((_,i)=>`<button class="ex-opt" onclick="answerConn(${i})">${conn.curOpts[i]}</button>`).join('')}</div>
+      <div class="ex-sentence" style="direction:rtl;text-align:right">${(q.q||'').replace('_______','<span class="ex-blank">___</span>')}</div>
+      <div class="ex-opts">${conn.curOpts.map((_,i)=>`<button class="ex-opt" onclick="answerConn(${i})" style="direction:rtl">${conn.curOpts[i]}</button>`).join('')}</div>
       <div id="conn-exp"></div>
     </div>`;
 }
 function answerConn(i){
   if(conn.answered)return;conn.answered=true;
-  const q=conn.deck[conn.idx];const chosen=conn.curOpts[i];const correct=chosen===q.opts[q.ans];
+  const q=conn.deck[conn.idx];const chosen=conn.curOpts[i];const correct=chosen===q.ans;
   if(correct)conn.score++;
   document.querySelectorAll('.ex-opt').forEach((el,j)=>{
     el.setAttribute('disabled','');
-    if(conn.curOpts[j]===q.opts[q.ans])el.classList.add('correct');
+    if(conn.curOpts[j]===q.ans)el.classList.add('correct');
     else if(j===i&&!correct)el.classList.add('wrong');
   });
   const exp=document.getElementById('conn-exp');
-  if(exp)exp.innerHTML=`<div class="ex-exp">${correct?I('check',13)+' Correct !':I('x',13)+' Réponse : <strong>'+q.opts[q.ans]+'</strong>'} — ${q.exp||''}</div>`;
+  if(exp)exp.innerHTML=`<div class="ex-exp">${correct?I('check',13)+' Correct !':I('x',13)+' Réponse : <strong>'+q.ans+'</strong>'} — ${q.exp||''}</div>`;
   setTimeout(()=>{conn.idx++;renderConnector();},correct?900:1700);
 }
 
@@ -2957,28 +3057,28 @@ function renderPhrase(){
     <div class="ex-card">
       <div class="ex-counter"><span>${I('pen',13)} ${phr.idx+1}/${phr.deck.length}</span>
         <span style="color:var(--g);font-weight:700">${phr.score} juste${phr.score!==1?'s':''}</span></div>
-      <div class="ex-sentence">${q.he.replace('___',`<span class="ex-blank">___</span>`)}</div>
-      <div style="font-size:.78rem;color:var(--txt3);text-align:center;margin-bottom:12px;direction:ltr">${q.fr}</div>
-      <div class="ex-opts">${phr.curOpts.map((_,i)=>`<button class="ex-opt" onclick="answerPhr(${i})">${phr.curOpts[i]}</button>`).join('')}</div>
+      <div class="ex-sentence" style="direction:ltr;text-align:left;font-size:.88rem;font-weight:600;line-height:1.6">${q.q||''}</div>
+      ${q.ctx?'<div style="font-size:.77rem;color:var(--txt3);direction:ltr;margin:6px 0 10px;padding:6px 10px;background:var(--bg2);border-radius:6px">'+q.ctx+'</div>':''}
+      <div class="ex-opts" style="grid-template-columns:1fr">${phr.curOpts.map((_,i)=>`<button class="ex-opt" onclick="answerPhr(${i})" style="direction:rtl;text-align:right;font-size:.8rem">${phr.curOpts[i]}</button>`).join('')}</div>
       <div id="phr-exp"></div>
     </div>`;
 }
 function answerPhr(i){
   if(phr.answered)return;phr.answered=true;
-  const q=phr.deck[phr.idx];const chosen=phr.curOpts[i];const correct=chosen===q.opts[q.ans];
+  const q=phr.deck[phr.idx];const chosen=phr.curOpts[i];const correct=chosen===q.ans;
   if(correct)phr.score++;
   document.querySelectorAll('.ex-opt').forEach((el,j)=>{
     el.setAttribute('disabled','');
-    if(phr.curOpts[j]===q.opts[q.ans])el.classList.add('correct');
+    if(phr.curOpts[j]===q.ans)el.classList.add('correct');
     else if(j===i&&!correct)el.classList.add('wrong');
   });
   const exp=document.getElementById('phr-exp');
-  if(exp)exp.innerHTML=`<div class="ex-exp">${correct?I('check',13)+' Correct !':I('x',13)+' Réponse : <strong>'+q.opts[q.ans]+'</strong>'} — ${q.exp||''}</div>`;
+  if(exp)exp.innerHTML=`<div class="ex-exp">${correct?I('check',13)+' Correct !':I('x',13)+' Réponse : <strong>'+q.ans+'</strong>'} — ${q.exp||''}</div>`;
   setTimeout(()=>{phr.idx++;renderPhrase();},correct?900:1700);
 }
 
 // === ANNALES (index-based onclick) ===
-function renderAnnalesSelector(){
+function renderAnnalesSelector(){clearInterval(ann.timerInterval);
   document.getElementById('ann-back').style.display='none';
   document.getElementById('ann-content').innerHTML='';
   document.getElementById('ann-sel').innerHTML=`<div class="ann-grid">${ANNALES_DATA.map((e,i)=>
@@ -3019,20 +3119,35 @@ function renderAnnalesQ(){
   }
   const q=ann.deck[ann.qIdx];
   ann.curOpts=shuffle([...q.opts]);ann.answered=false;
+  ann.timeLeft=25;clearInterval(ann.timerInterval);
+  const highlightedS=q.s?q.s.replace(q.w,'<strong style="color:var(--pl);text-decoration:underline">'+q.w+'</strong>'):'';
   document.getElementById('ann-content').innerHTML=`
     <div class="ann-qcard">
-      <div style="font-size:.72rem;color:var(--txt3);font-weight:700;margin-bottom:12px;display:flex;justify-content:space-between">
+      <div style="font-size:.72rem;color:var(--txt3);font-weight:700;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center">
         <span>${I('file',12)} Question ${ann.qIdx+1}/${ann.deck.length}</span>
         <span style="color:var(--g)">${ann.score} juste${ann.score!==1?'s':''}</span></div>
-      <div class="ann-q">${q.w}</div>
-      ${q.exp?`<div class="ann-exp">${q.exp}</div>`:''}
+      <div class="ann-timer-wrap">
+        <div class="ann-timer"><div class="ann-timer-fill" id="ann-tfill" style="width:100%"></div></div>
+        <div class="ann-timer-lbl" id="ann-tlbl">25s</div>
+      </div>
+      ${highlightedS?'<div style="font-size:.82rem;color:var(--txt2);direction:rtl;text-align:right;padding:10px 12px;background:var(--bg2);border-radius:8px;margin-bottom:10px;line-height:1.9;border-right:3px solid var(--pl)">'+highlightedS+'</div>':''}
+      <div class="ann-q" style="margin-top:4px">${q.w}</div>
       <div class="ann-opts">${ann.curOpts.map((_,i)=>`<button class="ann-opt" onclick="answerAnn(${i})">${ann.curOpts[i]}</button>`).join('')}</div>
       <div id="ann-expbox"></div>
     </div>`;
+  ann.timerInterval=setInterval(()=>{
+    ann.timeLeft--;
+    const fill=document.getElementById('ann-tfill');
+    const lbl=document.getElementById('ann-tlbl');
+    if(fill){fill.style.width=(ann.timeLeft/25*100)+'%';if(ann.timeLeft<=8)fill.classList.add('warn');else fill.classList.remove('warn');}
+    if(lbl)lbl.textContent=ann.timeLeft+'s';
+    if(ann.timeLeft<=0){clearInterval(ann.timerInterval);answerAnn(-1);}
+  },1000);
 }
 function answerAnn(i){
   if(ann.answered)return;ann.answered=true;
-  const q=ann.deck[ann.qIdx];const chosen=ann.curOpts[i];const correct=chosen===q.opts[q.ans];
+  clearInterval(ann.timerInterval);
+  const q=ann.deck[ann.qIdx];const chosen=i>=0?ann.curOpts[i]:null;const correct=chosen===q.opts[q.ans];
   if(correct)ann.score++;
   document.querySelectorAll('.ann-opt').forEach((el,j)=>{
     el.setAttribute('disabled','');
@@ -3040,7 +3155,8 @@ function answerAnn(i){
     else if(j===i&&!correct)el.classList.add('wrong');
   });
   const exp=document.getElementById('ann-expbox');
-  if(exp)exp.innerHTML=`<div class="ann-exp-box">${correct?I('check',13)+' Correct !':I('x',13)+' Réponse : <strong>'+q.opts[q.ans]+'</strong>'}</div>`;
+  const icon=correct?I('check',13)+' Correct !':(i<0?I('clock',13)+' Temps écoulé ! ':I('x',13)+' Incorrect ! ');
+  if(exp)exp.innerHTML=`<div class="ann-exp-box">${icon}Réponse : <strong>${q.opts[q.ans]}</strong>${q.exp?'<br><span style="font-size:.77rem;opacity:.85">'+q.exp+'</span>':''}</div>`;
   setTimeout(()=>{ann.qIdx++;renderAnnalesQ();},correct?900:1700);
 }
 
@@ -3050,19 +3166,24 @@ function renderCours(){
   document.getElementById('cours-tabs').innerHTML=COURS.map((c,i)=>
     `<div class="cours-tab${i===activeCours?' active':''}" onclick="selectCours(${i})">${I(COURS_IC_MAP[i%4],14)} ${c.title}</div>`
   ).join('');
-  const c=COURS[activeCours];
-  const html=c.sections.map(s=>`
-    <h3>${s.title}</h3>
-    <table class="ctable">
-      ${s.rows.map(r=>`<tr>
+  const c=COURS[activeCours];let total=0,filtered=0;
+  const html=c.sections.map(s=>{
+    const rows=s.rows.filter(r=>{total++;if(!coursFilter)return true;
+      const ok=r[0].includes(coursFilter)||r[1].toLowerCase().includes(coursFilter)||r[2].toLowerCase().includes(coursFilter);
+      if(ok)filtered++;return ok;});
+    if(!rows.length)return'';
+    return '<h3>'+s.title+'</h3><table class="ctable">'+rows.map(r=>`<tr>
         <td style="direction:rtl">${r[0]}</td>
         <td style="color:var(--pl)">${r[1]}</td>
         <td><span class="clvl">${r[2]}</span></td>
-      </tr>`).join('')}
-    </table>`).join('');
-  document.getElementById('cours-body').innerHTML=html;
+      </tr>`).join('')+'</table>';
+  }).join('');
+  if(!coursFilter)filtered=total;
+  const cntEl=document.getElementById('cours-count');
+  if(cntEl)cntEl.textContent=coursFilter?filtered+' résultat'+(filtered!==1?'s':'')+ ' sur '+total:'';
+  document.getElementById('cours-body').innerHTML=html||'<div style="text-align:center;padding:24px;color:var(--txt3)">Aucun résultat pour "'+coursFilter+'"</div>';
 }
-function selectCours(i){activeCours=i;renderCours();}
+function selectCours(i){activeCours=i;coursFilter='';const inp=document.getElementById('cours-search');if(inp)inp.value='';renderCours();}
 
 // === REDACTION ===
 function renderRedaction(){
@@ -3124,9 +3245,10 @@ function renderStats(){
       <span style="color:var(--txt3)">${w.fr}</span></div>`).join('')+
     (dueWords().length>8?`<div style="font-size:.74rem;color:var(--txt3);margin-top:8px;text-align:center">+${dueWords().length-8} de plus</div>`:''):
     `<div style="color:var(--txt3);text-align:center;padding:16px;font-size:.84rem">Aucun mot à réviser aujourd'hui !</div>`;
+  const graphHTML=renderGraph();
   document.getElementById('stats-history').innerHTML=hist.length===0?
-    `<div style="color:var(--txt3);text-align:center;padding:16px">Aucun historique — faites votre premier quiz !</div>`:
-    [...hist].reverse().slice(0,15).map(h=>`<div class="hist-row">
+    '<div style="color:var(--txt3);text-align:center;padding:16px">Aucun historique — faites votre premier quiz !</div>':
+    graphHTML+[...hist].reverse().slice(0,15).map(h=>`<div class="hist-row">
       <span style="color:var(--txt3)">${h.date}</span>
       <span style="font-weight:700;color:${h.pct>=70?'var(--g)':'var(--acc)'}">${h.score}/${h.total} (${h.pct}%)</span>
     </div>`).join('');
@@ -3151,6 +3273,59 @@ function onKey(e){
 }
 
 renderHome();
+
+// ================================================================
+// DARK / LIGHT THEME
+// ================================================================
+function toggleTheme(){
+  const isDark=document.documentElement.classList.toggle('dark');
+  localStorage.setItem('yael_theme',isDark?'dark':'light');
+  _updateThemeBtn(isDark);
+}
+function _updateThemeBtn(isDark){
+  const btn=document.getElementById('theme-btn');
+  if(btn)btn.innerHTML=isDark?I('zap',16):I('eye',16);
+  if(btn)btn.title=isDark?'Mode clair':'Mode sombre';
+}
+
+// ================================================================
+// COURS SEARCH
+// ================================================================
+function filterCours(val){coursFilter=val.toLowerCase();renderCours();}
+
+// ================================================================
+// DIFFICULTY FILTER
+// ================================================================
+function setDiff(level){diffFilter=level;renderHome();}
+
+// ================================================================
+// STATS GRAPH (SVG bar chart)
+// ================================================================
+function renderGraph(){
+  if(hist.length<2)return'';
+  const recent=hist.slice(-10);
+  const W=300,H=90,PAD=6;
+  const bw=Math.floor((W-PAD*2)/recent.length)-3;
+  const bars=recent.map((h,i)=>{
+    const bh=Math.max(4,Math.round(h.pct/100*(H-20)));
+    const x=PAD+i*(bw+3);const y=H-bh-2;
+    const col=h.pct>=70?'#059669':h.pct>=50?'#d97706':'#dc2626';
+    return '<rect x="'+x+'" y="'+y+'" width="'+bw+'" height="'+bh+'" rx="3" fill="'+col+'"/>'
+      +'<text x="'+(x+bw/2)+'" y="'+(H+4)+'" text-anchor="middle" font-size="8" fill="#94a3b8">'+h.pct+'%</text>';
+  }).join('');
+  return '<div class="graph-wrap"><div class="graph-ttl">Historique des scores</div>'
+    +'<svg viewBox="0 0 '+W+' '+(H+14)+'" style="width:100%;max-width:340px;display:block;margin:0 auto">'+bars+'</svg></div>';
+}
+
+// ================================================================
+// INIT (called at end of script after all funcs + data defined)
+// ================================================================
+(function _init(){
+  const theme=localStorage.getItem('yael_theme')||'light';
+  if(theme==='dark')document.documentElement.classList.add('dark');
+  _updateThemeBtn(theme==='dark');
+})();
+
 </script>
 </body>
 </html>
