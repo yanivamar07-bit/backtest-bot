@@ -203,6 +203,64 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Inter',system-ui,s
 
 @media(max-width:600px){.screen{padding:14px 12px 32px}.fc-he{font-size:1.9rem}.big-score{font-size:3rem}}
 
+
+/* COURS */
+.cours-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:14px}
+.cours-card{background:var(--card);border-radius:var(--r);padding:16px;box-shadow:var(--sh);cursor:pointer;border:2px solid transparent;transition:all .18s;text-align:center}
+.cours-card:hover{transform:translateY(-2px);box-shadow:var(--sh-lg)}
+.cours-card.active{border-color:var(--primary)}
+.cours-icon{font-size:2rem;margin-bottom:6px}
+.cours-title{font-size:.88rem;font-weight:800;color:var(--text)}
+.cours-body{background:var(--card);border-radius:var(--r);box-shadow:var(--sh);overflow:hidden}
+.cours-section{padding:14px 18px;border-bottom:1px solid var(--border)}
+.cours-section:last-child{border:none}
+.cours-sec-title{font-size:.8rem;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:8px;padding:6px 0 6px}
+.cours-table{width:100%;border-collapse:collapse;font-size:.88rem}
+.cours-table tr{border-bottom:1px solid var(--bg2)}
+.cours-table tr:last-child{border:none}
+.cours-table td{padding:7px 8px;vertical-align:top}
+.cours-he{direction:rtl;font-weight:700;color:var(--text);width:35%}
+.cours-fr{color:var(--text2);width:35%}
+.cours-note{font-size:.75rem;color:var(--muted);font-weight:600;width:30%}
+
+/* REDACTION */
+.redac-tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.redac-tab{padding:7px 14px;border-radius:99px;font-size:.82rem;font-weight:700;cursor:pointer;border:2px solid var(--border);background:#fff;color:var(--text2);transition:all .15s}
+.redac-tab:hover{border-color:var(--primary);color:var(--primary)}
+.redac-tab.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+.tip-card{background:var(--card);border-radius:var(--r);box-shadow:var(--sh);margin-bottom:12px;overflow:hidden}
+.tip-head{display:flex;align-items:center;gap:10px;padding:14px 18px;cursor:pointer;user-select:none;border-bottom:1px solid var(--border)}
+.tip-head-icon{font-size:1.3rem}
+.tip-head-title{font-size:.95rem;font-weight:800;color:var(--text)}
+.tip-head-arrow{margin-left:auto;color:var(--muted);transition:.2s}
+.tip-body{padding:14px 18px;display:none}
+.tip-body.open{display:block}
+.tip-step{display:flex;gap:12px;margin-bottom:12px;align-items:flex-start}
+.tip-step-num{background:var(--primary);color:#fff;border-radius:50%;width:24px;height:24px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:900}
+.tip-formula{background:var(--bg2);border-radius:6px;padding:3px 8px;font-size:.82rem;display:inline-block;margin-top:4px;direction:rtl;font-weight:700;color:var(--primary)}
+.tip-table{width:100%;border-collapse:collapse;font-size:.85rem}
+.tip-table tr{border-bottom:1px solid var(--bg2)}
+.tip-table tr:last-child{border:none}
+.tip-table td{padding:7px 6px;vertical-align:middle}
+.formula{direction:rtl;font-weight:800;color:var(--primary-d);background:var(--bg2);padding:3px 8px;border-radius:4px}
+.badge-tip{font-size:.73rem;font-weight:800;background:var(--accent-l);color:var(--accent-d);padding:2px 8px;border-radius:99px;white-space:nowrap}
+.tip-errors{display:flex;flex-direction:column;gap:8px}
+.error-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:.87rem}
+.error-bad{color:var(--red);background:var(--red-l);padding:3px 10px;border-radius:6px;font-weight:700;direction:rtl}
+.error-arrow{color:var(--muted);font-weight:900}
+.error-good{color:var(--green);background:var(--green-l);padding:3px 10px;border-radius:6px;font-weight:700;direction:rtl}
+.essay-card{background:var(--card);border-radius:var(--r);box-shadow:var(--sh);margin-bottom:14px;overflow:hidden}
+.essay-head{padding:14px 18px;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.essay-title{font-size:1rem;font-weight:900;direction:rtl}
+.essay-subtitle{font-size:.8rem;color:var(--muted);margin-top:2px}
+.essay-body{padding:14px 18px;border-top:1px solid var(--border)}
+.essay-label{font-size:.72rem;font-weight:900;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin:12px 0 6px;padding-bottom:4px;border-bottom:2px solid var(--bg2)}
+.essay-para{direction:rtl;line-height:1.8;font-size:.92rem;color:var(--text);margin-bottom:6px}
+.ann-chip{display:inline-block;background:var(--accent-l);color:var(--accent-d);font-size:.73rem;font-weight:700;padding:3px 9px;border-radius:6px;cursor:pointer;margin-top:6px}
+.essay-ann{background:#fffbeb;border-left:3px solid var(--accent);padding:8px 12px;font-size:.83rem;color:var(--text2);margin-top:6px;border-radius:0 6px 6px 0;display:none}
+.essay-ann.open{display:block}
+.tip-section{display:flex;flex-direction:column;gap:8px}
+
 </style>
 </head>
 <body>
@@ -216,6 +274,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Inter',system-ui,s
     <div class="nav-tab" data-screen="connectors">🔗 Connecteurs</div>
     <div class="nav-tab" data-screen="phrases">📝 Phrases</div>
     <div class="nav-tab" data-screen="annales">📋 Annales</div>
+    <div class="nav-tab" data-screen="cours">📚 Cours</div>
+    <div class="nav-tab" data-screen="redaction">✍️ Rédaction</div>
     <div class="nav-tab" data-screen="stats">📊 Progrès</div>
   </div>
 </nav>
@@ -299,6 +359,26 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Inter',system-ui,s
   </div>
   <div id="ann-selector"></div>
   <div id="ann-content"></div>
+</div>
+
+
+<div id="screen-cours" class="screen">
+  <div class="card-header">
+    <div><div class="card-title">📚 Cours et références</div><div class="card-subtitle">Connecteurs, argumentation, grammaire, vocabulaire thématique</div></div>
+  </div>
+  <div class="cours-grid" id="cours-grid"></div>
+  <div id="cours-body"></div>
+</div>
+
+<div id="screen-redaction" class="screen">
+  <div class="card-header">
+    <div><div class="card-title">✍️ Rédaction YAEL</div><div class="card-subtitle">Conseils, structures et exemples annotés</div></div>
+  </div>
+  <div class="redac-tabs">
+    <div class="redac-tab active" data-tab="conseils" onclick="switchRedacTab('conseils')">📌 Conseils & structures</div>
+    <div class="redac-tab" data-tab="exemples" onclick="switchRedacTab('exemples')">📄 Exemples de rédactions</div>
+  </div>
+  <div id="redac-body"></div>
 </div>
 
 <div id="screen-stats" class="screen">
@@ -716,7 +796,78 @@ const RAW_WORDS = [
 ["פחמן","carbone","E"],["פליטות","émissions","E"],["שינוי אקלים","changement climatique","E"],
 ["כלכלה מעגלית","économie circulaire","E"],["מיחזור","recyclage","E"],
 ["ביזבוז","gaspillage","E"],["חסכון","économie / épargne","E"],
-["פוטנציאל","potentiel","E"],["נישה","niche","E"],["מודל עסקי","modèle économique","E"],
+["פוטנציאל","potentiel","E"],["נישה","niche","E"],["מודל עסקי","modèle économique","E"],,
+// === EXTRA VOCAB — Verbes avancés ===
+["לנמק","justifier/motiver","V"],["לאמת","valider/vérifier","V"],["לשקף","refléter","V"],
+["לצמצם","réduire/limiter","V"],["להרחיב","élargir/développer","V"],["לחדש","innover/renouveler","V"],
+["לתקשר","communiquer","V"],["לשלב","intégrer/combiner","V"],["להשוות","comparer","V"],
+["להגדיר","définir","V"],["להצביע על","indiquer/souligner","V"],["לאמץ","adopter/embrasser","V"],
+["לדחות","rejeter/repousser","V"],["לאשרר","ratifier/confirmer","V"],["לנהל","gérer/diriger","V"],
+["לחרוג","dépasser/déroger","V"],["להחמיר","aggraver/durcir","V"],["לשפר","améliorer","V"],
+["לשנות","changer/modifier","V"],["לעצב","façonner/modeler","V"],["לגרום ל","causer/provoquer","V"],
+["להכיל","contenir/inclure","V"],["לתכנן","planifier/concevoir","V"],["לספק","fournir/satisfaire","V"],
+["לחשוף","révéler/exposer","V"],["להסתיר","cacher/dissimuler","V"],["לאפיין","caractériser","V"],
+["לייצג","représenter","V"],["לתמצת","résumer/synthétiser","V"],["להצדיק","justifier/légitimer","V"],
+// === EXTRA VOCAB — Noms avancés ===
+["שיח","discours/débat","N"],["מסגרת","cadre/structure","N"],["מנגנון","mécanisme","N"],
+["פרדיגמה","paradigme","N"],["גישה","approche/attitude","N"],["עמדה","position/point de vue","N"],
+["מגמה","tendance/trend","N"],["תהליך","processus/processus","N"],["מסקנה","conclusion/déduction","N"],
+["הנחה","hypothèse/postulat","N"],["ממד","dimension/aspect","N"],["נקודת מבט","point de vue","N"],
+["מדיניות","politique (mesures)","N"],["אסטרטגיה","stratégie","N"],["משאב","ressource","N"],
+["תשתית","infrastructure","N"],["מוסד","institution","N"],["מסורת","tradition","N"],
+["זהות","identité","N"],["שייכות","appartenance","N"],["קהילה","communauté","N"],
+["חוסן","résilience/robustesse","N"],["שקיפות","transparence","N"],["אחריות","responsabilité","N"],
+["שלמות","intégrité","N"],["יושרה","honnêteté/intégrité","N"],["כשירות","compétence","N"],
+["פוטנציאל","potentiel","N"],["צמיחה","croissance","N"],["ירידה","déclin/baisse","N"],
+// === EXTRA VOCAB — Adjectifs avancés ===
+["מובהק","prononcé/évident","A"],["מרכזי","central/essentiel","A"],["שנוי במחלוקת","controversé","A"],
+["מסובך","complexe/compliqué","A"],["מקיף","global/exhaustif","A"],["ייחודי","unique/singulier","A"],
+["מתמשך","persistant/continu","A"],["עמוק","profond","A"],["שטחי","superficiel","A"],
+["בסיסי","fondamental/de base","A"],["מתקדם","avancé/progressif","A"],["מוגבל","limité/restreint","A"],
+["בלתי נמנע","inévitable","A"],["חסר תקדים","sans précédent","A"],["קריטי","critique/crucial","A"],
+["פורה","fructueux/prolifique","A"],["גלובלי","mondial/global","A"],["לאומי","national","A"],
+["אזורי","régional","A"],["מקומי","local","A"],["מוצלח","réussi/couronné de succès","A"],
+["כושל","échoué/défaillant","A"],["אמין","fiable/digne de confiance","A"],["חשוד","suspect/douteux","A"],
+// === EXTRA VOCAB — Presse/Académique ===
+["הכרזה","déclaration/annonce","P"],["הצהרה","déclaration/proclamation","P"],
+["ועדה","comité/commission","P"],["דוח","rapport/bilan","P"],["נייר עמדה","document de position","P"],
+["תקשורת המונים","médias de masse","P"],["שידור","diffusion/émission","P"],
+["מידע מוטעה","désinformation","P"],["שיח ציבורי","débat public","P"],
+["דעת קהל","opinion publique","P"],["מבקר","critique/contrôleur","P"],
+["ביקורת","critique/contrôle","P"],["חקירה","investigation/enquête","P"],
+["ניתוח","analyse","P"],["הסבר","explication","P"],["פרשנות","interprétation/commentaire","P"],
+["הערכה","évaluation/estimation","P"],["תחזית","prévision/pronostic","P"],
+["מחקר שדה","recherche de terrain","P"],["מחקר כמותי","recherche quantitative","P"],
+// === EXTRA VOCAB — Société/Culture ===
+["גיוון","diversité","C"],["הכלה","inclusion","C"],["קיטוב","polarisation","C"],
+["גלובליזציה","mondialisation","C"],["לאומנות","nationalisme","C"],
+["פמיניזם","féminisme","C"],["מגדר","genre","C"],["מיעוט","minorité","C"],
+["שוליים","marginalité/marges","C"],["הדרה","exclusion","C"],
+["ניידות חברתית","mobilité sociale","C"],["עוני","pauvreté","C"],
+["אי שוויון","inégalité","C"],["ממסד","establishment/système","C"],
+["מחאה","protestation/manifestation","C"],["אקטיביזם","activisme","C"],
+["התנדבות","bénévolat","C"],["סולידריות","solidarité","C"],
+["אמפתיה","empathie","C"],["אכפתיות","sollicitude/engagement","C"],
+// === EXTRA VOCAB — Économie/Env ===
+["צמיחה כלכלית","croissance économique","E"],["תמ'ג","PIB","E"],
+["אינפלציה","inflation","E"],["מיתון","récession","E"],
+["גירעון","déficit","E"],["עודף","excédent/surplus","E"],
+["השקעה","investissement","E"],["תשואה","rendement/retour","E"],
+["חדשנות","innovation","E"],["יזמות","entrepreneuriat","E"],
+["כוח עבודה","main-d'œuvre/force de travail","E"],["אבטלה","chômage","E"],
+["שוק העבודה","marché du travail","E"],["רגולציה","régulation","E"],
+["פיסקלי","fiscal","E"],["מוניטרי","monétaire","E"],
+["מקיים","durable/soutenable","E"],["כדאי כלכלית","économiquement viable","E"],
+["השפעה סביבתית","impact environnemental","E"],["כלכלה מעגלית","économie circulaire","E"],
+// === EXTRA VOCAB — Rares/Avancés ===
+["אפיסטמולוגי","épistémologique","R"],["אונטולוגי","ontologique","R"],
+["הרמנויטיקה","herméneutique","R"],["דיאלקטי","dialectique","R"],
+["קוגניטיבי","cognitif","R"],["אפקטיבי","affectif/émotionnel","R"],
+["נרטיב","narratif/récit","R"],["דיסקורס","discours","R"],
+["הגמוניה","hégémonie","R"],["אידיאולוגיה","idéologie","R"],
+["פוסטמודרני","postmoderne","R"],["קנוני","canonique","R"],
+["אמביוולנטי","ambivalent","R"],["פרדוקסלי","paradoxal","R"],
+["הדדי","mutuel/réciproque","R"],["סימביוטי","symbiotique","R"],
 ];
 const CONNECTOR_EXERCISES = [
   {q:"הוא עבד קשה, _______ הצליח בבחינה.",ans:"לכן",opts:["בגלל","לכן","למרות ש","כי"],exp:"<strong>לכן</strong> (donc) exprime la conséquence. 'Il a travaillé dur, donc il a réussi.'"},
@@ -2020,6 +2171,302 @@ const CAT_INFO = {
   R:{name:"Rares/Avancés",color:"#92400e",icon:"⭐"},
 };
 
+
+const COURS = [
+  {id:"connecteurs",icon:"🔗",title:"Connecteurs logiques",color:"#1e3a8a",sections:[
+    {title:"Addition et renforcement",rows:[
+      ["גם","aussi / également","Basique"],
+      ["בנוסף לכך","de plus / en outre","Formel ★"],
+      ["יתרה מכך / יתר על כן","qui plus est / de surcroît","Très formel ★★"],
+      ["אף","même / voire","Renforcement"],
+      ["כמו כן","également / de même","Standard ★"],
+    ]},
+    {title:"Opposition et concession",rows:[
+      ["אבל","mais","Basique"],
+      ["אולם","cependant / toutefois","Formel ★"],
+      ["ברם","or / mais","Très formel ★★"],
+      ["לעומת זאת","en revanche / par contre","Standard ★★"],
+      ["אמנם... אולם","certes... mais","Structure de concession ★★★"],
+      ["על אף זאת / למרות זאת","malgré cela / néanmoins","Concession forte ★★"],
+      ["אף על פי כן","néanmoins / pourtant","Très formel ★"],
+      ["מחד גיסא... מאידך גיסא","d'un côté... de l'autre","Très formel ★★"],
+    ]},
+    {title:"Cause",rows:[
+      ["בגלל / כי","à cause de / parce que","Basique"],
+      ["משום ש","parce que (formel)","Formel ★"],
+      ["מאחר ש","étant donné que / du fait que","Formel ★★"],
+      ["לנוכח","face à / compte tenu de","Formel ★★"],
+      ["בשל","en raison de","Formel ★"],
+      ["לאור","à la lumière de / en raison de","Très formel ★★"],
+    ]},
+    {title:"Conséquence",rows:[
+      ["לכן / אז","donc / alors","Basique"],
+      ["לפיכך","par conséquent","Formel ★★"],
+      ["על כן","c'est pourquoi / dès lors","Formel ★★"],
+      ["כתוצאה מכך","en conséquence / par suite","Formel ★"],
+      ["הדבר מוביל ל","cela conduit à / cela mène à","Formule utile ★"],
+    ]},
+    {title:"Illustration / Exemple",rows:[
+      ["למשל / לדוגמה","par exemple","Standard ★★"],
+      ["כגון","tel que / comme par exemple","Formel ★"],
+      ["כפי ש","comme / ainsi que","Standard"],
+      ["ניתן לראות זאת ב","on peut le voir dans","Formule ★"],
+    ]},
+    {title:"Conclusion / Résumé",rows:[
+      ["לסיכום","en résumé / pour résumer","Standard ★★"],
+      ["לבסוף","enfin / finalement","Standard"],
+      ["מן האמור לעיל","de ce qui précède","Très formel ★★★"],
+      ["בסופו של דבר","en fin de compte","Courant ★"],
+      ["לסיכום הדברים","pour conclure","Formel ★"],
+    ]},
+  ]},
+  {id:"argumentation",icon:"💬",title:"Argumentation formelle",color:"#7c3aed",sections:[
+    {title:"Ouvrir / Introduire une thèse",rows:[
+      ["ניתן לומר כי","on peut dire que","Ouverture classique YAEL ★★★"],
+      ["עולה השאלה האם","se pose la question de savoir si","Problématique ★★★"],
+      ["יש לציין כי","il convient de noter que","Standard ★★"],
+      ["נראה כי","il semble que","Position sans 'je' ★★"],
+      ["ניכר כי","il apparaît clairement que","Position affirmée ★"],
+      ["תופעה זו עומדת במרכז הדיון","ce phénomène est au cœur du débat","Introduction ★★"],
+    ]},
+    {title:"Citer des données",rows:[
+      ["נתונים מראים כי","les données montrent que","Standard ★★★"],
+      ["מחקרים מראים כי","des études montrent que","Académique ★★"],
+      ["כפי שמראה המחקר","comme le montre la recherche","Formel ★"],
+      ["על פי המומחים / לפי הדיווחים","selon les experts / selon les rapports","Standard ★★"],
+      ["הנתונים מצביעים על","les données indiquent","Académique ★★"],
+    ]},
+    {title:"Nuancer / Concéder",rows:[
+      ["יש להודות כי","il faut admettre que","Concession intellectuelle ★★★"],
+      ["אמנם... אולם","certes... mais","Structure de base ★★★"],
+      ["מחד גיסא... מאידך גיסא","d'un côté... de l'autre (très formel)","Très formel ★★"],
+      ["מצד אחד... מצד שני","d'un côté... de l'autre (courant)","Standard ★★★"],
+      ["אין להכחיש כי","il est indéniable que","Affirmation forte ★"],
+    ]},
+    {title:"Présenter l'opposition",rows:[
+      ["יש הטוענים כי","certains affirment que","Standard ★★★"],
+      ["ישנם הסוברים כי","certains estiment que (formel)","Formel ★"],
+      ["קיימת גישה הגורסת כי","une approche soutient que","Très formel ★"],
+      ["לטענת המבקרים","selon les critiques","Presse/académique ★"],
+    ]},
+    {title:"Conclure un argument",rows:[
+      ["מכל האמור לעיל עולה כי","de tout ce qui précède, il ressort que","Très formel ★★★"],
+      ["לסיכום ניתן לומר כי","pour résumer, on peut dire que","Classique YAEL ★★★"],
+      ["לאור הנתונים ניתן להסיק כי","à la lumière des données, on peut conclure","Formel ★★"],
+      ["ראוי לציין לסיום כי","il convient de souligner pour conclure","Très formel ★"],
+    ]},
+  ]},
+  {id:"grammaire",icon:"📐",title:"Grammaire formelle",color:"#d97706",sections:[
+    {title:"Structures impersonnelles formelles",rows:[
+      ["ניתן ל + infinitif","on peut / il est possible de","Passif formel ★★★"],
+      ["יש ל + infinitif","il faut / on doit","Obligation ★★"],
+      ["ראוי ל + infinitif","il convient de","Recommandation ★★"],
+      ["מן הראוי ל + infinitif","il serait approprié de","Très formel ★★"],
+      ["יש מקום ל + infinitif","il y a lieu de","Très formel ★"],
+      ["אין להכחיש / אין להתעלם","il ne faut pas nier / ignorer","Structure forte ★★"],
+    ]},
+    {title:"Subordonnées et relatifs formels",rows:[
+      ["אשר","qui / que / lequel (formel)","Remplace ש en formel ★"],
+      ["כאשר","lorsque / quand (formel)","Préférable à כש ★★"],
+      ["בעוד ש","tandis que / alors que","Opposition ★★"],
+      ["ככל ש... כך","plus... plus / à mesure que","Corrélation ★★★"],
+      ["לאחר ש","après que","Temporel formel ★"],
+      ["בטרם","avant que / avant de","Très formel ★"],
+    ]},
+    {title:"Passif formel essentiel",rows:[
+      ["הוחלט כי","il a été décidé que","Décision officielle ★★"],
+      ["נמצא כי","il s'est avéré que / on a trouvé que","Recherche ★★"],
+      ["נקבע כי","il a été établi que","Académique ★"],
+      ["דווח כי","il a été rapporté que","Presse ★★"],
+      ["צוין כי","il a été noté que","Académique ★"],
+      ["הוצע כי","il a été proposé que","Proposition ★"],
+    ]},
+  ]},
+  {id:"vocabulaire-thematique",icon:"🏷",title:"Vocabulaire thématique",color:"#059669",sections:[
+    {title:"Médias et presse",rows:[
+      ["כותרת ראשית","titre principal / une","★★"],
+      ["מאמר מערכת","éditorial","★★"],
+      ["כתב / כתבת","journaliste / correspondant(e)","★★"],
+      ["פרסם","publier / diffuser","★★"],
+      ["הכחיש","démentir","★★★"],
+      ["אישר","confirmer","★★"],
+      ["חשף","révéler / exposer","★★"],
+      ["מידע מוטעה","désinformation","★★★"],
+      ["שיח ציבורי","débat public","★★★"],
+      ["דעת קהל","opinion publique","★★★"],
+    ]},
+    {title:"Technologie et numérique",rows:[
+      ["בינה מלאכותית (במ'ס)","intelligence artificielle (IA)","★★★"],
+      ["פרטיות","vie privée / confidentialité","★★★"],
+      ["אוטומציה","automatisation","★★"],
+      ["אלגוריתם","algorithme","★★"],
+      ["ביג דאטה","big data","★"],
+      ["מציאות מדומה","réalité virtuelle","★"],
+      ["מידע","information / données","★★★"],
+      ["האינטרנט של הדברים","internet des objets (IoT)","★"],
+    ]},
+    {title:"Environnement et climat",rows:[
+      ["שינוי אקלים","changement climatique","★★★"],
+      ["פליטות פחמן","émissions de carbone","★★★"],
+      ["אנרגיות מתחדשות","énergies renouvelables","★★★"],
+      ["קיימות","durabilité / développement durable","★★★"],
+      ["מגוון ביולוגי","biodiversité","★★"],
+      ["זיהום","pollution","★★★"],
+      ["טביעת רגל פחמנית","empreinte carbone","★★"],
+      ["כלכלה מעגלית","économie circulaire","★★"],
+    ]},
+    {title:"Politique et société",rows:[
+      ["דמוקרטיה","démocratie","★★★"],
+      ["שלטון החוק","état de droit","★★★"],
+      ["שוויון הזדמנויות","égalité des chances","★★★"],
+      ["פערים חברתיים","inégalités sociales","★★★"],
+      ["ניידות חברתית","mobilité sociale","★★"],
+      ["הדרה / הכלה","exclusion / inclusion","★★★"],
+      ["גיוון","diversité","★★★"],
+      ["מחאה","protestation / manifestation","★★"],
+    ]},
+  ]},
+];
+
+
+const REDACTION = {
+  tips:[
+    {
+      icon:"📌",title:"Structure générale d'une rédaction YAEL",
+      content:`<div class='tip-section'>
+        <div class='tip-step'>
+          <div class='tip-step-num'>1</div>
+          <div><strong>Introduction</strong> — 3 étapes obligatoires :<br>
+            <span class='tip-formula'>פתיחה (accroche) → הצגת הנושא (présentation) → שאלת המחקר (problématique)</span>
+          </div>
+        </div>
+        <div class='tip-step'>
+          <div class='tip-step-num'>2</div>
+          <div><strong>Développement</strong> — 2 ou 3 paragraphes :<br>
+            <span class='tip-formula'>נקודה (thèse) + נימוק (argument) + דוגמה (exemple)</span>
+          </div>
+        </div>
+        <div class='tip-step'>
+          <div class='tip-step-num'>3</div>
+          <div><strong>Conclusion</strong> — 2 étapes :<br>
+            <span class='tip-formula'>סיכום הנקודות (résumé) + מחשבה לסיום (ouverture)</span>
+          </div>
+        </div>
+      </div>`
+    },
+    {
+      icon:"✏️",title:"Formules d'introduction à mémoriser",
+      content:`<table class='tip-table'>
+        <tr><td class='formula'>ניתן לומר כי...</td><td>On peut dire que...</td><td class='badge-tip'>★★★ YAEL</td></tr>
+        <tr><td class='formula'>עולה השאלה האם...</td><td>Se pose la question de savoir si...</td><td class='badge-tip'>★★★ YAEL</td></tr>
+        <tr><td class='formula'>תופעת X שנויה במחלוקת</td><td>Le phénomène X est controversé</td><td class='badge-tip'>★★★ YAEL</td></tr>
+        <tr><td class='formula'>בעשורים האחרונים...</td><td>Au cours des dernières décennies...</td><td class='badge-tip'>★★ Standard</td></tr>
+        <tr><td class='formula'>מחקרים מראים כי...</td><td>Des études montrent que...</td><td class='badge-tip'>★★ Standard</td></tr>
+      </table>`
+    },
+    {
+      icon:"⚖️",title:"Structurer l'argumentation",
+      content:`<table class='tip-table'>
+        <tr><td class='formula'>מצד אחד... מצד שני</td><td>D'un côté... de l'autre côté</td><td class='badge-tip'>Pour/contre</td></tr>
+        <tr><td class='formula'>אמנם X, אולם Y</td><td>Certes X, mais Y</td><td class='badge-tip'>Concession</td></tr>
+        <tr><td class='formula'>ראשית... שנית... לבסוף</td><td>Premièrement... deuxièmement... enfin</td><td class='badge-tip'>Tripartition</td></tr>
+        <tr><td class='formula'>יש הטוענים כי... אולם</td><td>Certains affirment que... mais</td><td class='badge-tip'>Opposition</td></tr>
+        <tr><td class='formula'>ככל ש-X גדל, כך Y קטן</td><td>Plus X augmente, plus Y diminue</td><td class='badge-tip'>Corrélation</td></tr>
+      </table>`
+    },
+    {
+      icon:"🏁",title:"Formules de conclusion à mémoriser",
+      content:`<table class='tip-table'>
+        <tr><td class='formula'>לסיכום, ניתן לומר כי...</td><td>Pour résumer, on peut dire que...</td><td class='badge-tip'>★★★ YAEL</td></tr>
+        <tr><td class='formula'>מכל האמור לעיל עולה כי...</td><td>De tout ce qui précède, il ressort que...</td><td class='badge-tip'>★★★ Formel</td></tr>
+        <tr><td class='formula'>לאור הנתונים ניתן להסיק כי...</td><td>À la lumière des données, on peut conclure...</td><td class='badge-tip'>★★ Données</td></tr>
+        <tr><td class='formula'>מן הראוי לפעול לשינוי...</td><td>Il convient d'agir pour changer...</td><td class='badge-tip'>★★ Appel à l'action</td></tr>
+      </table>`
+    },
+    {
+      icon:"🚫",title:"Erreurs classiques à éviter",
+      content:`<div class='tip-errors'>
+        <div class='error-row'><span class='error-bad'>✗ אני חושב ש</span><span class='error-arrow'>→</span><span class='error-good'>✓ נראה כי / ניתן לטעון כי</span></div>
+        <div class='error-row'><span class='error-bad'>✗ זה מראה ש</span><span class='error-arrow'>→</span><span class='error-good'>✓ הדבר מצביע על כך ש</span></div>
+        <div class='error-row'><span class='error-bad'>✗ טכנולוגיה היא טובה</span><span class='error-arrow'>→</span><span class='error-good'>✓ לטכנולוגיה יתרונות משמעותיים</span></div>
+        <div class='error-row'><span class='error-bad'>✗ כולם יודעים ש</span><span class='error-arrow'>→</span><span class='error-good'>✓ מחקרים מראים כי / נתונים מצביעים על</span></div>
+        <div class='error-row'><span class='error-bad'>✗ בגלל זה</span><span class='error-arrow'>→</span><span class='error-good'>✓ לפיכך / כתוצאה מכך / על כן</span></div>
+        <div class='error-row'><span class='error-bad'>✗ אבל</span><span class='error-arrow'>→</span><span class='error-good'>✓ אולם / ברם / לעומת זאת</span></div>
+      </div>`
+    },
+  ],
+  essays:[
+    {
+      title:"הטכנולוגיה ועתיד החברה",
+      fr_title:"La technologie et l'avenir de la société",
+      topic:"תפקיד הטכנולוגיה בחברה המודרנית",
+      level:"Niveau B2",
+      color:"#1e3a8a",
+      text:[
+        {type:"label",text:"מבוא (Introduction)"},
+        {type:"para",he:`ניתן לומר כי הטכנולוגיה הפכה לנדבך מרכזי בחיי החברה המודרנית. עולה השאלה האם הטכנולוגיה מקדמת את האנושות, או שמא היא יוצרת אתגרים חדשים שקשה להתמודד עמם.`,ann:"ניתן לומר כי = ouverture classique YAEL. עולה השאלה האם = problématique obligatoire."},
+        {type:"label",text:"גוף א׳ (Paragraphe 1 — Pour)"},
+        {type:"para",he:`מצד אחד, הטכנולוגיה מציעה יתרונות רבים. מחקרים מראים כי גישה לאינטרנט שיפרה את ההשכלה במדינות מתפתחות ב-40% בעשור האחרון. כמו כן, הבינה המלאכותית מסייעת לאבחון מחלות ולפיתוח תרופות חדשות. לפיכך, ניתן לומר כי הטכנולוגיה תורמת במידה רבה לקידום הרווחה האנושית.`,ann:"מצד אחד = 'D'un côté' (début de para). מחקרים מראים כי = citation source. לפיכך = conclusion du para."},
+        {type:"label",text:"גוף ב׳ (Paragraphe 2 — Contre)"},
+        {type:"para",he:`מצד שני, יש להודות כי לטכנולוגיה חסרונות משמעותיים. נתונים מצביעים על עלייה חדה בשיעורי הדיכאון בקרב בני נוער, תופעה המתואמת עם עלייה בשימוש ברשתות החברתיות. אמנם קשה להוכיח קשר סיבתי ישיר, אולם הנתונים מעוררים דאגה ממשית. יתרה מכך, קיים חשש גדל לפגיעה בפרטיות.`,ann:"יש להודות כי = 'il faut admettre que'. אמנם... אולם = structure de concession obligatoire. יתרה מכך = 'qui plus est'."},
+        {type:"label",text:"סיכום (Conclusion)"},
+        {type:"para",he:`לסיכום, ניתן לומר כי הטכנולוגיה היא כלי רב עוצמה שיתרונותיו ומגרעותיו תלויים באופן השימוש בה. מן האמור לעיל עולה כי נדרשת מדיניות מאוזנת המנצלת את יתרונות הטכנולוגיה תוך הגנה על הציבור. מן הראוי לפתח מנגנוני פיקוח אפקטיביים שיבטיחו כי הטכנולוגיה תשמש את האנושות ולא להיפך.`,ann:"לסיכום ניתן לומר כי = conclusion classique YAEL ★★★. מן האמור לעיל = 'de tout ce qui précède'. מן הראוי = recommandation formelle."},
+      ]
+    },
+    {
+      title:"חינוך ועתיד",
+      fr_title:"L'éducation et l'avenir",
+      topic:"אתגרי מערכת החינוך בישראל",
+      level:"Niveau B2",
+      color:"#059669",
+      text:[
+        {type:"label",text:"מבוא (Introduction)"},
+        {type:"para",he:`מערכת החינוך עומדת בפני אתגרים משמעותיים בעידן המודרני. ניתן לומר כי הפערים החינוכיים בין אוכלוסיות שונות מהווים איום ממשי על שוויון ההזדמנויות בחברה הישראלית. עולה השאלה כיצד ניתן לשפר את מערכת החינוך כדי להתמודד עם אתגרים אלה.`,ann:"עומדת בפני = 'fait face à'. פערים חינוכיים = terme clé YAEL. כיצד ניתן = problématique formelle."},
+        {type:"label",text:"גוף א׳ (Paragraphe 1)"},
+        {type:"para",he:`ראשית, נתונים מראים כי פערים חינוכיים בין מרכז לפריפריה ממשיכים לגדול. על פי דוחות הלמ'ס, תלמידים מאזורי פריפריה משיגים ציונים נמוכים ב-20% בממוצע בהשוואה לתלמידים ממרכז הארץ. תופעה זו מחמירה את אי השוויון החברתי ופוגעת בניידות החברתית.`,ann:"ראשית = premièrement (tripartition). על פי דוחות = 'selon les rapports'. תופעה זו מחמירה = la situation aggrave."},
+        {type:"label",text:"גוף ב׳ (Paragraphe 2)"},
+        {type:"para",he:`שנית, יש הטוענים כי הדיגיטליזציה של החינוך עשויה לסגור פערים אלה. אמנם הטכנולוגיה מציעה כלים חינוכיים נגישים, אולם יש להודות כי לא לכל התלמידים יש גישה שווה לאינטרנט ולמחשבים. לפיכך, המעבר לחינוך דיגיטלי עלול דווקא להעמיק את הפערים הקיימים.`,ann:"שנית = deuxièmement. יש הטוענים = 'certains affirment que'. אמנם... אולם = concession standard."},
+        {type:"label",text:"סיכום (Conclusion)"},
+        {type:"para",he:`לסיכום, מכל האמור לעיל עולה כי הפתרון לאתגרי החינוך אינו טכנולוגי בלבד. נדרשת גישה כוללת המשלבת השקעה בתשתיות, הכשרת מורים ותמיכה ישירה בתלמידים מרקעים מוחלשים. ראוי לציין כי ההשקעה בחינוך היא ההשקעה הטובה ביותר שחברה יכולה לעשות בעתידה.`,ann:"מכל האמור לעיל עולה כי = formule de conclusion ★★★. נדרשת גישה כוללת = 'une approche globale est nécessaire'. ראוי לציין = 'il convient de noter'."},
+      ]
+    },
+    {
+      title:"שינוי האקלים",
+      fr_title:"Le changement climatique",
+      topic:"משבר האקלים — אחריות גלובלית",
+      level:"Niveau C1",
+      color:"#d97706",
+      text:[
+        {type:"label",text:"מבוא (Introduction)"},
+        {type:"para",he:`שינוי האקלים מהווה אחד האתגרים הקיומיים החמורים ביותר שהאנושות ניצבת בפניהם. ניתן לומר כי הדיון סביב הנושא שנוי במחלוקת: בעוד מדענים מדווחים על דחיפות חסרת תקדים, גורמים פוליטיים מסוימים מטילים ספק בממצאים. עולה השאלה כיצד ניתן לגייס שיתוף פעולה גלובלי אפקטיבי.`,ann:"חסר תקדים = 'sans précédent'. שנוי במחלוקת = 'controversé' (expression fixe). בעוד = 'tandis que' (opposition)."},
+        {type:"label",text:"גוף א׳ (Paragraphe 1)"},
+        {type:"para",he:`מחד גיסא, הנתונים המדעיים אינם משתמעים לשתי פנים. כפי שמראה דוח ה-IPCC, טמפרטורות כדור הארץ עלו ב-1.1 מעלות מאז המהפכה התעשייתית, וקצב העלייה מואץ. כתוצאה מכך, אירועי מזג אוויר קיצוני הולכים ומתרבים, ועולות השלכות קשות על החקלאות, על המים ועל בריאות הציבור.`,ann:"מחד גיסא = 'd'un côté (très formel)'. כפי שמראה = 'comme le montre'. כתוצאה מכך = 'par conséquent'."},
+        {type:"label",text:"גוף ב׳ (Paragraphe 2)"},
+        {type:"para",he:`מאידך גיסא, יש הטוענים כי המעבר לכלכלה ירוקה יפגע בתעסוקה ובצמיחה הכלכלית. אולם, מחקרים עדכניים מראים כי אנרגיות מתחדשות יצרו 11 מיליון משרות חדשות ברחבי העולם בעשור האחרון — יותר מאלה שאבדו בתעשיות הפוסיליות. לפיכך, טענה זו אינה עומדת במבחן הנתונים.`,ann:"מאידך גיסא = 'de l'autre côté'. יש הטוענים = 'certains affirment'. טענה זו אינה עומדת = 'cet argument ne tient pas'."},
+        {type:"label",text:"סיכום (Conclusion)"},
+        {type:"para",he:`לסיכום, לאור הנתונים המדעיים ניתן להסיק כי שינוי האקלים מחייב פעולה מיידית וגלובלית. מן הראוי שמדינות העולם יאמצו יעדים שאפתניים להפחתת פליטות ויקצו משאבים משמעותיים לפיתוח אנרגיות מתחדשות. אין להכחיש כי עלות חוסר הפעולה תהיה גבוהה בהרבה מעלות המעבר לכלכלה ירוקה.`,ann:"לאור הנתונים ניתן להסיק = 'à la lumière des données'. מן הראוי ש = 'il convient que'. אין להכחיש כי = 'il est indéniable que'."},
+      ]
+    },
+    {
+      title:"הגירה ושילוב",
+      fr_title:"Immigration et intégration",
+      topic:"אתגרי ההגירה ושילוב מהגרים",
+      level:"Niveau B2",
+      color:"#be185d",
+      text:[
+        {type:"label",text:"מבוא (Introduction)"},
+        {type:"para",he:`נושא ההגירה שנוי במחלוקת בכל רחבי העולם המערבי. ניתן לומר כי הוויכוח בנושא זה משקף מתח עמוק בין ערכים של פתיחות ורב-תרבותיות לבין דאגות לגבי זהות לאומית וביטחון. עולה השאלה כיצד ניתן לפתח מדיניות הגירה המשלבת הומניות ומציאותיות.`,ann:"שנוי במחלוקת = 'controversé' ★★★. מתח עמוק = 'tension profonde'. ביטחון = 'sécurité/sûreté'."},
+        {type:"label",text:"גוף א׳ (Paragraphe 1)"},
+        {type:"para",he:`ראשית, יש לציין כי ההגירה תורמת תרומה כלכלית משמעותית למדינות המקלטות. נתונים מה-OECD מראים כי מהגרים מקימים 40% מהסטארט-אפים בעמק הסיליקון. כמו כן, הם ממלאים תפקיד קריטי בתחומים כמו בריאות, חינוך ובנייה. לפיכך, הטענה שהגירה פוגעת בכלכלה אינה מבוססת.`,ann:"יש לציין כי = 'il convient de noter que'. כמו כן = 'de plus / également'. אינה מבוססת = 'n'est pas fondée'."},
+        {type:"label",text:"גוף ב׳ (Paragraphe 2)"},
+        {type:"para",he:`שנית, יש הטוענים כי ההגירה מאיימת על הזהות הלאומית ועל הלכידות החברתית. אמנם קיים אתגר ממשי של שילוב תרבותי, אולם מחקרים מראים כי דורות שני ושלישי של מהגרים משתלבים היטב ותורמים לחברה. לפיכך, ניתן לטעון כי ההשקעה בשילוב — ולא דחיית ההגירה — היא הפתרון האפקטיבי.`,ann:"יש הטוענים כי = 'certains affirment que'. אמנם... אולם = concession ★★★. ניתן לטעון כי = 'on peut soutenir que'."},
+        {type:"label",text:"סיכום (Conclusion)"},
+        {type:"para",he:`לסיכום, מכל האמור לעיל עולה כי ההגירה היא תופעה מורכבת שאינה ניתנת לפתרון בגישה חד-ממדית. מן הראוי לפתח מדיניות הגירה מאוזנת המשלבת פיקוח אפקטיבי עם תוכניות שילוב מקיפות. אחריותה של כל חברה דמוקרטית היא לאזן בין ביטחון לאומי לבין ערכי האנושיות.`,ann:"מכל האמור לעיל = 'de tout ce qui précède'. מן הראוי = 'il convient de'. אחריותה של = 'la responsabilité de'."},
+      ]
+    },
+  ]
+};
+
 // === WORDS ===
 const WORDS = RAW_WORDS.map((r,i)=>({id:i, he:r[0], fr:r[1], cat:r[2], ant:r[3]||null}));
 
@@ -2092,6 +2539,8 @@ function showScreen(name){
   else if(name==='connectors'&&!document.getElementById('conn-content').children.length)startConnectorQuiz();
   else if(name==='phrases'&&!document.getElementById('phrase-content').children.length)startPhraseQuiz();
   else if(name==='annales'&&!document.getElementById('ann-selector').children.length)renderAnnalesSelector();
+  else if(name==='cours'){renderCours();}
+  else if(name==='redaction'){renderRedaction();}
 }
 document.querySelectorAll('.nav-tab').forEach(t=>{t.onclick=()=>showScreen(t.dataset.screen);});
 
@@ -2320,14 +2769,14 @@ function renderQuizResult(){
 
 // === CONNECTORS ===
 function startConnectorQuiz(){
-  conn={idx:0,score:0,answered:false};
+  conn={deck:shuffle([...CONNECTOR_EXERCISES]),idx:0,score:0,answered:false};
   document.getElementById('conn-content').innerHTML='';
   document.getElementById('conn-score-disp').textContent='';
   renderConnector();
 }
 function renderConnector(){
   const el=document.getElementById('conn-content');
-  const total=CONNECTOR_EXERCISES.length;
+  const total=conn.deck.length;
   if(conn.idx>=total){
     const pct=Math.round(conn.score/total*100);
     document.getElementById('conn-score-disp').textContent=`${conn.score}/${total} (${pct}%)`;
@@ -2338,7 +2787,7 @@ function renderConnector(){
       <button class="btn btn-primary" onclick="startConnectorQuiz()">🔄 Recommencer</button></div>`;
     return;
   }
-  const ex=CONNECTOR_EXERCISES[conn.idx];
+  const ex=conn.deck[conn.idx];
   const pct=Math.round(conn.idx/total*100);
   el.innerHTML=`
     <div class="prog-wrap" style="margin-bottom:12px"><div class="prog-fill prog-blue" style="width:${pct}%"></div></div>
@@ -2374,14 +2823,14 @@ function nextConn(){conn.idx++;conn.answered=false;renderConnector();}
 
 // === PHRASES ===
 function startPhraseQuiz(){
-  phrase={idx:0,score:0,answered:false};
+  phrase={deck:shuffle([...PHRASE_EXERCISES]),idx:0,score:0,answered:false};
   document.getElementById('phrase-content').innerHTML='';
   document.getElementById('phrase-score-disp').textContent='';
   renderPhrase();
 }
 function renderPhrase(){
   const el=document.getElementById('phrase-content');
-  const total=PHRASE_EXERCISES.length;
+  const total=phrase.deck.length;
   if(phrase.idx>=total){
     const pct=Math.round(phrase.score/total*100);
     document.getElementById('phrase-score-disp').textContent=`${phrase.score}/${total} (${pct}%)`;
@@ -2392,7 +2841,7 @@ function renderPhrase(){
       <button class="btn btn-primary" onclick="startPhraseQuiz()">🔄 Recommencer</button></div>`;
     return;
   }
-  const ex=PHRASE_EXERCISES[phrase.idx];
+  const ex=phrase.deck[phrase.idx];
   const pct=Math.round(phrase.idx/total*100);
   el.innerHTML=`
     <div class="prog-wrap" style="margin-bottom:12px"><div class="prog-fill prog-accent" style="width:${pct}%"></div></div>
@@ -2440,7 +2889,8 @@ function renderAnnalesSelector(){
     </div>`).join('');
 }
 function startAnnalesSection(ei,si){
-  ann={examIdx:ei,secIdx:si,qIdx:0,score:0,answered:false};
+  const _deck=shuffle([...ANNALES_DATA[ei].sections[si].questions]);
+  ann={examIdx:ei,secIdx:si,qIdx:0,score:0,answered:false,deck:_deck};
   document.getElementById('ann-selector').innerHTML='';
   document.getElementById('ann-back').style.display='';
   renderAnnalesQ();
@@ -2449,7 +2899,7 @@ function renderAnnalesQ(){
   const el=document.getElementById('ann-content');
   const exam=ANNALES_DATA[ann.examIdx];
   const sec=exam.sections[ann.secIdx];
-  const total=sec.questions.length;
+  const total=(ann.deck||sec.questions).length;
   if(ann.qIdx>=total){
     const pct=Math.round(ann.score/total*100);
     el.innerHTML=`<div class="ex-card" style="text-align:center;padding:32px">
@@ -2463,7 +2913,7 @@ function renderAnnalesQ(){
       </div></div>`;
     return;
   }
-  const q=sec.questions[ann.qIdx];
+  const q=(ann.deck||sec.questions)[ann.qIdx];
   const pct=Math.round(ann.qIdx/total*100);
   const labels=['א','ב','ג','ד'];
   el.innerHTML=`
@@ -2486,7 +2936,7 @@ function renderAnnalesQ(){
 function answerAnn(idx){
   if(ann.answered)return;ann.answered=true;
   const sec=ANNALES_DATA[ann.examIdx].sections[ann.secIdx];
-  const q=sec.questions[ann.qIdx];
+  const q=(ann.deck||sec.questions)[ann.qIdx];
   const ok=idx===q.ans;
   if(ok)ann.score++;
   document.querySelectorAll('#ann-opts .ann-opt').forEach((el,i)=>{
@@ -2541,6 +2991,90 @@ function resetConfirm(){
     renderHome();
   }
 }
+
+
+// === COURS ===
+let activeCours = 0;
+function renderCours(){
+  const grid = document.getElementById('cours-grid');
+  const body = document.getElementById('cours-body');
+  grid.innerHTML = COURS.map((c,i)=>`
+    <div class="cours-card ${i===activeCours?'active':''}" onclick="selectCours(${i})" style="${i===activeCours?'border-color:'+c.color:''}">
+      <div class="cours-icon">${c.icon}</div>
+      <div class="cours-title" style="${i===activeCours?'color:'+c.color:''}">${c.title}</div>
+    </div>`).join('');
+
+  const c = COURS[activeCours];
+  body.innerHTML = `<div class="cours-body">` +
+    c.sections.map(sec=>`
+      <div class="cours-section">
+        <div class="cours-sec-title" style="color:${c.color}">${sec.title}</div>
+        <table class="cours-table">
+          ${sec.rows.map(r=>`<tr>
+            <td class="cours-he">${r[0]}</td>
+            <td class="cours-fr">${r[1]}</td>
+            <td class="cours-note">${r[2]}</td>
+          </tr>`).join('')}
+        </table>
+      </div>`).join('') + `</div>`;
+}
+function selectCours(i){activeCours=i;renderCours();}
+
+// === REDACTION ===
+let redacTab = 'conseils';
+let openTip = -1;
+let openEssayAnn = {};
+
+function renderRedaction(){
+  document.querySelectorAll('.redac-tab').forEach(t=>{
+    t.classList.toggle('active', t.dataset.tab===redacTab);
+  });
+  const body = document.getElementById('redac-body');
+  if(redacTab==='conseils'){
+    body.innerHTML = REDACTION.tips.map((t,i)=>`
+      <div class="tip-card">
+        <div class="tip-head" onclick="toggleTip(${i})">
+          <div class="tip-head-icon">${t.icon}</div>
+          <div class="tip-head-title">${t.title}</div>
+          <div class="tip-head-arrow" id="tip-arr-${i}">${openTip===i?'▲':'▼'}</div>
+        </div>
+        <div class="tip-body ${openTip===i?'open':''}" id="tip-body-${i}">${t.content}</div>
+      </div>`).join('');
+  } else {
+    body.innerHTML = REDACTION.essays.map((e,ei)=>`
+      <div class="essay-card">
+        <div class="essay-head" style="border-left:4px solid ${e.color}">
+          <div>
+            <div class="essay-title">${e.title}</div>
+            <div class="essay-subtitle">${e.fr_title} — ${e.level}</div>
+          </div>
+          <span style="background:${e.color}22;color:${e.color};padding:3px 10px;border-radius:99px;font-size:.75rem;font-weight:800">${e.topic}</span>
+        </div>
+        <div class="essay-body">
+          ${e.text.map((p,pi)=>{
+            if(p.type==='label') return `<div class="essay-label">${p.text}</div>`;
+            return `<div class="essay-para">${p.he}</div>
+              <div class="ann-chip" onclick="toggleAnn(${ei},${pi})">💡 Voir les annotations</div>
+              <div class="essay-ann" id="ann-${ei}-${pi}">${p.ann}</div>`;
+          }).join('')}
+        </div>
+      </div>`).join('');
+  }
+}
+
+function toggleTip(i){
+  openTip = openTip===i ? -1 : i;
+  renderRedaction();
+}
+
+function toggleAnn(ei,pi){
+  const el = document.getElementById(`ann-${ei}-${pi}`);
+  el.classList.toggle('open');
+  const chip = el.previousElementSibling;
+  chip.textContent = el.classList.contains('open') ? '💡 Masquer les annotations' : '💡 Voir les annotations';
+}
+
+function switchRedacTab(tab){redacTab=tab;openTip=-1;renderRedaction();}
 
 // === KEYBOARD SHORTCUTS ===
 document.addEventListener('keydown',e=>{
