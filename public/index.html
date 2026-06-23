@@ -247,7 +247,9 @@ html.dark .ctip{color:var(--txt3);border-left-color:var(--bdr)}
 .ex-opt.show-correct{background:var(--gl);border-color:var(--b2b)}
 .ex-opt[disabled]{pointer-events:none}
 .ex-exp{margin-top:10px;padding:10px 14px;background:var(--pll);border-radius:var(--rads);
-  font-size:.8rem;color:var(--txt2);border:1px solid #bfdbfe}
+  font-size:.8rem;color:var(--txt2);border:1px solid var(--bdr);transition:background .2s}
+.ex-exp.correct-bg{background:var(--gl);border-color:var(--g)}
+.ex-exp.wrong-bg{background:var(--rl);border-color:var(--r)}
 .ex-counter{font-size:.75rem;color:var(--txt3);margin-bottom:14px;font-weight:600;
   display:flex;align-items:center;justify-content:space-between}
 
@@ -293,8 +295,11 @@ html.dark .ctip{color:var(--txt3);border-left-color:var(--bdr)}
 .ctable td:last-child{white-space:nowrap}
 .clvl{display:inline-block;padding:1px 6px;border-radius:99px;font-size:.65rem;font-weight:700;
   background:var(--pll);color:var(--pl);border:1px solid #bfdbfe}
-.btn-next-q{display:flex;align-items:center;gap:6px;margin:10px auto 0;padding:9px 22px;background:var(--pd);color:#fff;border:none;border-radius:8px;font-size:.85rem;font-weight:700;cursor:pointer;transition:background .15s}
-.btn-next-q:hover{background:var(--pl)}
+.btn-next-q{display:flex;align-items:center;gap:8px;margin:12px auto 0;padding:11px 28px;
+  background:var(--pd);color:#fff;border:none;border-radius:10px;font-size:.9rem;
+  font-weight:700;cursor:pointer;transition:all .15s;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+.btn-next-q:hover{background:var(--pl);transform:translateY(-1px);box-shadow:0 4px 10px rgba(0,0,0,.18)}
+.btn-next-q:active{transform:translateY(0)}
 .progress-bar{height:8px;background:var(--bdr);border-radius:4px;overflow:hidden;margin:4px 0}
 .progress-fill{height:100%;border-radius:4px;transition:width .4s ease}
 .stat-card{background:var(--bg2);border:1px solid var(--bdr);border-radius:10px;padding:12px 16px;display:flex;flex-direction:column;gap:6px}
@@ -2897,6 +2902,88 @@ const ANNALES_DATA = [
         ]
       }
     ]
+  },
+  {
+    "exam": "Examen Blanc N°8",
+    "sections": [
+      {
+        "section": "Section A — Vocabulaire en contexte",
+        "questions": [
+          {"s":"ה_______ של השירות החברתי שופרה לאחר שנות של הזנחה.",
+           "w":"נגישות","opts":["יעילות","נגישות","איכות","עלות"],"ans":1,
+           "exp":"נגישות = accessibilité. 'שופרה לאחר שנות של הזנחה' (améliorée après des années de négligence) → un service devenu plus accessible. נגישות spécifiquement au sens de l'accès au service pour tous."},
+          {"s":"הכנסייה _______ את הדיון הציבורי על אתיקה רפואית.",
+           "w":"הובילה","opts":["פתחה","הובילה","ייזמה","תרמה"],"ans":1,
+           "exp":"הובילה = a dirigé / a mené (Hif'il de הוביל). 'הוביל דיון' = mener un débat. ייזמה (a initié) implique le démarrage. תרמה (a contribué) est moins fort. הובילה implique la direction du processus."},
+          {"s":"הממצאים _______ על קשר ישיר בין עוני להישגים לימודיים נמוכים.",
+           "w":"מצביעים","opts":["מראים","מצביעים","מוכיחים","אומרים"],"ans":1,
+           "exp":"מצביעים על = indiquent / pointent vers (Hif'il de הצביע). Formel et plus précis que מראים (montrent). הצביע על implique une direction vers une conclusion — différent de הוכיח (prouva de façon définitive)."},
+          {"s":"הממשלה _______ מערכת שיתוף ציבורי חדשה לקבלת החלטות.",
+           "w":"אימצה","opts":["פרסמה","אימצה","בחנה","הכריזה על"],"ans":1,
+           "exp":"אימצה = a adopté (Pa'al de אמץ). 'לאמץ מערכת' = adopter un système. פרסמה (a publié) = communication. בחנה (a examiné) = n'est pas encore adopté. אימצה implique l'intégration effective."},
+          {"s":"ה_______ בתחום האנרגיה הירוקה יצרה הזדמנויות תעסוקה חדשות.",
+           "w":"פריחה","opts":["התקדמות","פריחה","השקעה","צמיחה"],"ans":1,
+           "exp":"פריחה = floraison / essor / boom. 'יצרה הזדמנויות תעסוקה חדשות' → un essor vigoureux crée des emplois. פריחה est plus dynamique que צמיחה (croissance graduelle) ou התקדמות (progrès). L'image de la floraison implique un élan fort."},
+          {"s":"על פי המחקר, ה_______ לטיפול הנפשי עדיין נמוכה בקרב גברים.",
+           "w":"פנייה","opts":["גישה","פנייה","קבלה","נגישות"],"ans":1,
+           "exp":"פנייה = le recours / la démarche de consulter. 'פנייה לטיפול' = recours au traitement. גישה = approche/accès (général). נגישות = accessibilité (disponibilité du service). פנייה = l'acte de se tourner vers un service."},
+          {"s":"ה_______ הכלכלית של המשפחה השפיעה על הצלחתם הלימודית של הילדים.",
+           "w":"רקע","opts":["מצב","רקע","מעמד","מעמד סוציו-אקונומי"],"ans":3,
+           "exp":"מעמד סוציו-אקונומי = statut socio-économique. L'expression complète est la plus précise et la plus formelle dans ce contexte académique. רקע = background/contexte (général). מצב = situation (état actuel). מעמד seul = rang social."},
+          {"s":"חוקרים _______ כי הפתרון שאומץ יהיה יעיל בטווח הארוך.",
+           "w":"מטילים ספק","opts":["לא מאמינים","מטילים ספק","חושבים","מתנגדים"],"ans":1,
+           "exp":"מטילים ספק ב = mettent en doute / doutent (expression figée). 'הטלת ספק' = le doute académique. מתנגדים (s'opposent) est plus fort. לא מאמינים est trop familier. מטילים ספק est l'expression académique standard pour exprimer le doute."},
+          {"s":"ה_______ הממשלתי לבריאות ציבורית עלה בשלושים אחוז.",
+           "w":"תקצוב","opts":["תקציב","תקצוב","השקעה","מימון"],"ans":1,
+           "exp":"תקצוב = le fait de budgéter / l'allocation budgétaire (processus). תקציב = le budget (document/montant). 'עלה התקצוב' = l'allocation a augmenté. La distinction: תקציב = le budget (état) / תקצוב = l'acte de budgéter (processus)."},
+          {"s":"ה_______ של הרפורמה הצריכה שיתוף פעולה בין משרדי ממשלה שונים.",
+           "w":"יישום","opts":["תכנון","יישום","פרסום","הכרזה"],"ans":1,
+           "exp":"יישום = mise en œuvre / implémentation. 'יישום הרפורמה' = la mise en œuvre de la réforme. תכנון = planification (avant). פרסום = publication (communication). הכרזה = annonce (déclaration). יישום = l'exécution concrète."},
+        ]
+      },
+      {
+        "section": "Section B — Texte sur l'inégalité éducative",
+        "paragraph": "פערים חינוכיים בין מרכז לפריפריה נותרים אחד האתגרים החמורים ביותר של מדינת ישראל. נתונים מהלשכה המרכזית לסטטיסטיקה מראים כי תלמידים מהפריפריה מגיעים לבגרות בשיעורים נמוכים משמעותית ממקביליהם במרכז. מבקרים טוענים כי פערים אלו משקפים כשל מערכתי, ולא כשל של הפרט.",
+        "questions": [
+          {"s":"פערים חינוכיים בין מרכז לפריפריה _______ אחד האתגרים החמורים.",
+           "w":"נותרים","opts":["הם","נותרים","נחשבים","מהווים"],"ans":1,
+           "exp":"נותרים = restent / demeurent (Pa'al de נותר). Plus précis qu'הם (sont) — נותרים implique persistance dans le temps malgré les efforts. 'נותרים אחד האתגרים' = restent l'un des défis (sous-entendu: malgré les tentatives)."},
+          {"s":"הנתונים _______ כי תלמידים מהפריפריה מגיעים לבגרות בשיעורים נמוכים.",
+           "w":"מראים","opts":["מוכיחים","מראים","קובעים","אומרים"],"ans":1,
+           "exp":"מראים = montrent (données statistiques → הראות). הנתונים מראים כי est la formule standard pour citer des données officielles au YAEL. מוכיחים (prouvent) est trop fort — les données montrent, elles ne prouvent pas seules."},
+          {"s":"מבקרים טוענים כי פערים אלו _______ כשל מערכתי.",
+           "w":"משקפים","opts":["גורמים","משקפים","מראים","יוצרים"],"ans":1,
+           "exp":"משקפים = reflètent (Pi'el de שיקף). 'לשקף כשל' = refléter un échec (le phénomène comme miroir d'un problème sous-jacent). גורמים (causent) et יוצרים (créent) inverseraient le rapport cause/effet. משקפים = symptôme, pas cause."},
+          {"s":"מה טוענים המבקרים לפי הקטע?",
+           "w":"הפערים הם תוצאה של כשל מערכתי ולא כשל של הפרט","opts":["הפריפריה אשמה","הפערים הם תוצאה של כשל מערכתי ולא כשל של הפרט","יש להסגיר תלמידים","אין מה לעשות"],"ans":1,
+           "exp":"הטקסט: 'מבקרים טוענים כי פערים אלו משקפים כשל מערכתי, ולא כשל של הפרט'. כשל מערכתי = échec systémique. ולא כשל של הפרט = et non un échec individuel. La distinction système/individu est centrale."},
+          {"s":"מה ניתן להסיק לגבי פערים חינוכיים בישראל מהקטע?",
+           "w":"הם עמוקים, מובנים ומחייבים התייחסות מערכתית","opts":["הם נפתרים","הם עמוקים, מובנים ומחייבים התייחסות מערכתית","רק הפריפריה בעיה","הפתרון הוא חינוכי"],"ans":1,
+           "exp":"'נותרים אחד האתגרים החמורים' (persistants et sévères) + 'כשל מערכתי' (systémique) → פערים עמוקים ומבניים המחייבים תגובה מערכתית. המסקנה המלאה משלבת את שני הממדים."},
+        ]
+      },
+      {
+        "section": "Section C — Texte sur le nationalisme économique",
+        "paragraph": "בשנים האחרונות, מדינות רבות אימצו מדיניות לאומנות כלכלית כתגובה לגלובליזציה. מדיניות זו כוללת הטלת מכסים, הגנה על תעשיות מקומיות ומגבלות על השקעות זרות. מבקריה טוענים כי לאומנות כלכלית עלולה להוביל למלחמות סחר ולפגיעה בצמיחה העולמית.",
+        "questions": [
+          {"s":"מדינות רבות _______ מדיניות לאומנות כלכלית בשנים האחרונות.",
+           "w":"אימצו","opts":["בחרו","אימצו","יישמו","החילו"],"ans":1,
+           "exp":"אימצו = ont adopté (Pa'al de אמץ). 'לאמץ מדיניות' = adopter une politique. יישמו (ont mis en œuvre) vient après l'adoption. החילו (ont appliqué) implique l'imposition. אימצו est le verbe standard pour l'adoption d'une politique."},
+          {"s":"מדיניות לאומנות כלכלית מהווה _______ לגלובליזציה.",
+           "w":"תגובה","opts":["התנגדות","תגובה","פתרון","חלופה"],"ans":1,
+           "exp":"תגובה = réaction / réponse. 'כתגובה לגלובליזציה' = en réaction à la mondialisation (le texte dit כתגובה מפורשות). התנגדות (opposition) est plus fort. חלופה (alternative) implique remplacement. תגובה = réponse à un stimulus."},
+          {"s":"מה אינה כוללת מדיניות לאומנות כלכלית לפי הקטע?",
+           "w":"פתיחת שווקים זרים","opts":["הטלת מכסים","פתיחת שווקים זרים","הגנה על תעשיות מקומיות","מגבלות על השקעות זרות"],"ans":1,
+           "exp":"הטקסט מציין: הטלת מכסים ✓, הגנה על תעשיות מקומיות ✓, מגבלות על השקעות זרות ✓. פתיחת שווקים זרים הפוכה לרעיון הלאומנות הכלכלית — זו מדיניות גלובליזציה, לא לאומנות."},
+          {"s":"מה טוענים מבקרי הלאומנות הכלכלית?",
+           "w":"היא עלולה להוביל למלחמות סחר ופגיעה בצמיחה","opts":["היא מועילה","היא עלולה להוביל למלחמות סחר ופגיעה בצמיחה","היא הכרחית","היא נכשלה"],"ans":1,
+           "exp":"הטקסט: 'מבקריה טוענים כי לאומנות כלכלית עלולה להוביל למלחמות סחר ולפגיעה בצמיחה העולמית'. עלולה = risque de (modalité de risque). מלחמות סחר = guerres commerciales. שתי המילים הנדרשות מופיעות מפורשות."},
+          {"s":"מה ניתן להסיק לגבי לאומנות כלכלית מהקטע?",
+           "w":"היא מדיניות שנויה במחלוקת עם יתרונות וחסרונות","opts":["היא הפתרון הנכון","היא מדיניות שנויה במחלוקת עם יתרונות וחסרונות","היא כושלת","כולם מסכימים לה"],"ans":1,
+           "exp":"הטקסט מציג: מדינות 'אימצו' (בחרו בה) + מבקרים מוצאים בה חסרונות → שנויה במחלוקת. הטקסט לא לוקח עמדה חד-משמעית. שנויה במחלוקת = controversée. המבנה: עובדה + ביקורת = תמונה מאוזנת."},
+        ]
+      }
+    ]
   }
 ]
 const COURS = [
@@ -2984,6 +3071,18 @@ const COURS = [
     ]},
   ]},
   {id:"grammaire",icon:"book",title:"Grammaire formelle",color:"#d97706",sections:[
+    {title:"Verbes de presse et de rapport (Pa'al / Hif'il)",rows:[
+      ["ציין","a mentionné / a noté","★","ציין כי = il a mentionné que — très fréquent","Passif : צוין כי"],
+      ["הוסיף","a ajouté","★","הוסיף כי = il a ajouté que","Passif : הוסף כי"],
+      ["הדגיש","a souligné / a mis en évidence","★","הדגיש כי = il a souligné que","Passif : הודגש כי"],
+      ["גרס / סבר","a estimé / a pensé","★★","גרס כי (très formel) / סבר כי (formel)","Rarement au passif"],
+      ["הסיק","a déduit / a conclu","★★","הסיק כי = il a déduit que","Passif : הוסק כי"],
+      ["קבע","a établi / a déterminé","★","קבע כי = il a établi que","Passif : נקבע כי"],
+      ["טען","a affirmé / a soutenu","★","טען כי = il a affirmé que","Passif : נטען כי"],
+      ["הכריז","a déclaré / a proclamé","★","הכריז כי = il a déclaré que","Passif : הוכרז כי"],
+      ["מסר","a transmis / a déclaré","★★","מסר כי = il a communiqué que","Journalistique"],
+      ["חשף","a révélé / a dévoilé","★★","חשף כי = il a révélé que","Passif : נחשף כי"],
+    ]},
     {title:"Structures impersonnelles formelles",rows:[
       ["ניתן ל + infinitif","on peut / il est possible de","Passif formel ★★★","La structure impersonnelle la plus fréquente au YAEL. Plus formel que אפשר ל"],
       ["יש ל + infinitif","il faut / on doit","Obligation ★★","ATTENTION : יש לי = j'ai (possession). יש ל + infinitif = il faut (obligation impersonnelle). Contexte crucial !"],
@@ -3168,6 +3267,34 @@ const COURS = [
       ["הרחבה","expansion / élargissement","★★"],
     ]},
   ]},
+  {id:"lecture",icon:"book-open",title:"Lecture et Compréhension",color:"#0891b2",
+    sections:[
+      {title:"Types de questions YAEL Section B/C",rows:[
+        ["שאלת מילה בהקשר","Mot en contexte — synonym/antonyme","★","Chercher le synonyme dans le texte lui-même","Méthode : remplacer et vérifier le sens"],
+        ["שאלת הסקה","Inférence — 'ניתן להסיק כי'","★★","Le texte n'dit pas explicitement → déduire","Éviter les réponses 'hors texte'"],
+        ["שאלת כוונת הכותב","Intention de l'auteur","★★★","Chercher le ton, les connecteurs d'opinion","כנראה / לדעת הכותב"],
+        ["שאלת מוקד הפסקה","Thème principal du paragraphe","★★","Premier et dernière phrase = clés","Éviter les détails secondaires"],
+        ["שאלת ניגוד","Contraste entre deux idées","★★","Repérer : אולם / בעוד ש / אמנם...אולם","Le connecteur guide la réponse"],
+        ["שאלת עמדת הכותב","Position de l'auteur","★★★","Neutre ou engagé ? Repérer les modalisateurs","ניכר כי / ראוי כי = position"],
+      ]},
+      {title:"Stratégies de lecture rapide",rows:[
+        ["קריאת הכותרת","Lire le titre en premier","★","Anticipe le thème et le registre","20% du temps de compréhension"],
+        ["סריקת מילות מפתח","Scanner les mots-clés","★","Souligner mentalement les connecteurs","Connecteurs = structure logique"],
+        ["קריאת השאלות תחילה","Lire les questions avant le texte","★★","Cible la lecture sur l'essentiel","Stratégie YAEL très efficace"],
+        ["פסקה ראשונה ואחרונה","Lire intro et conclusion","★","Donne la thèse et la conclusion","60% des réponses s'y trouvent"],
+        ["מוקד כל פסקה","Un thème par paragraphe","★★","Première phrase = idée principale","Les exemples ne sont que support"],
+        ["עוגנים לשוניים","Repères linguistiques","★★","ראשית / שנית / לבסוף → structure","לאחר מכן = transition temporelle"],
+      ]},
+      {title:"Pièges courants dans les QCM",rows:[
+        ["תשובה 'נכון מדי'","Réponse 'trop vraie'","★★","Vraie en général mais non soutenue par le texte","Rester dans le texte !"],
+        ["תשובה חצי נכונה","Réponse partiellement vraie","★★","Vraie sur un point mais fausse sur un autre","Lire chaque option en entier"],
+        ["תשובה 'לא מהטקסט'","Hors texte","★","Plausible mais absent du texte","Le texte = seule source"],
+        ["בלבול בין דמויות","Confusion entre acteurs","★★","Qui fait quoi dans le texte?","Souligner le sujet de chaque verbe"],
+        ["הכללה יתרה","Généralisation excessive","★★★","'תמיד / כל / אף פעם' = souvent faux","Méfiance envers les absolus"],
+        ["הפרת ניגוד","Inverser le sens du connecteur","★★","אמנם...אולם → ne pas confondre les deux parties","Le connecteur change tout"],
+      ]},
+    ]
+  },
   {id:"grammaire-avancee",icon:"zap",title:"Grammaire avancée YAEL",color:"#7c3aed",sections:[
     {title:"Binyanim — Les 7 conjugaisons",rows:[
       ["פָּעַל (Pa'al)","forme de base active","★","Ex : כָּתַב = il a écrit / קָרָא = il a lu"],
@@ -3843,7 +3970,7 @@ function answerQuiz(idx){
   if(correct){quiz.score++;quiz.combo++;if(typeof w.id==='number')sm2Update(w.id,2);}
   else{quiz.combo=0;if(typeof w.id==='number')sm2Update(w.id,0);}
   const exp=document.getElementById('quiz-exp');
-  if(exp)exp.innerHTML=`<div class="quiz-exp">${I(correct?'check':'x',14)} ${correct?'Correct !':'Incorrect.'} <strong>${w.fr}</strong>${w.ant?' · Ant. : '+w.ant:''}${w.exp?'<br><span style="opacity:.8">'+w.exp+'</span>':''}</div><button class="btn-next-q" onclick="quiz.idx++;renderQuiz()">${I('arrow-right',14)} Suivant</button>`;
+  if(exp)exp.innerHTML=`<div class="quiz-exp ${correct?'correct-bg':'wrong-bg'}">${I(correct?'check':'x',14)} ${correct?'Correct !':'Incorrect.'} <strong>${w.fr}</strong>${w.ant?' · Ant. : '+w.ant:''}${w.exp?'<br><span style="opacity:.8">'+w.exp+'</span>':''}</div><button class="btn-next-q" onclick="quiz.idx++;renderQuiz()">${I('arrow-right',14)} Suivant</button>`;
 }
 function renderQuizResult(){
   const pct=Math.round(quiz.score/quiz.qs.length*100);
@@ -3895,7 +4022,7 @@ function answerConn(i){
     else if(j===i&&!correct)el.classList.add('wrong');
   });
   const exp=document.getElementById('conn-exp');
-  if(exp)exp.innerHTML=`<div class="ex-exp">${correct?I('check',13)+' Correct !':I('x',13)+' Réponse : <strong>'+q.ans+'</strong>'} — ${q.exp||''}</div><button class="btn-next-q" onclick="conn.idx++;renderConnector()">${I('arrow-right',14)} Suivant</button>`;
+  if(exp)exp.innerHTML=`<div class="ex-exp ${correct?'correct-bg':'wrong-bg'}">${correct?I('check',13)+' Correct !':I('x',13)+' Réponse : <strong>'+q.ans+'</strong>'} — ${q.exp||''}</div><button class="btn-next-q" onclick="conn.idx++;renderConnector()">${I('arrow-right',14)} Suivant</button>`;
 }
 
 // === PHRASES (index-based onclick) ===
@@ -3931,7 +4058,7 @@ function answerPhr(i){
     else if(j===i&&!correct)el.classList.add('wrong');
   });
   const exp=document.getElementById('phr-exp');
-  if(exp)exp.innerHTML=`<div class="ex-exp">${correct?I('check',13)+' Correct !':I('x',13)+' Réponse : <strong>'+q.ans+'</strong>'} — ${q.exp||''}</div><button class="btn-next-q" onclick="phr.idx++;renderPhrase()">${I('arrow-right',14)} Suivant</button>`;
+  if(exp)exp.innerHTML=`<div class="ex-exp ${correct?'correct-bg':'wrong-bg'}">${correct?I('check',13)+' Correct !':I('x',13)+' Réponse : <strong>'+q.ans+'</strong>'} — ${q.exp||''}</div><button class="btn-next-q" onclick="phr.idx++;renderPhrase()">${I('arrow-right',14)} Suivant</button>`;
 }
 
 // === ANNALES (index-based onclick) ===
