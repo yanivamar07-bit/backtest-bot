@@ -1,5 +1,0 @@
-python-telegram-bot==21.6
-aiohttp==3.10.5
-certifi==2024.8.30
-matplotlib==3.9.2
-pillow==10.4.0
