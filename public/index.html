@@ -814,6 +814,15 @@ const RAW_WORDS = [
 ["מיתון","récession","S"],["תעסוקה","emploi","S"],["אבטלה","chômage","S"],
 ["שכר","salaire","S"],["הכשרה","formation","S"],["יזמות","entrepreneuriat","S"],
 
+// SECTION 6b — Santé mentale et bien-être (S)
+["חרדה","anxiété","S"],["דיכאון","dépression","S"],["לחץ","stress","S"],
+["שחיקה","burnout / épuisement","S"],["רווחה נפשית","bien-être mental","S"],
+["תמיכה רגשית","soutien émotionnel","S"],["אוריינות רגשית","littératie émotionnelle","S"],
+["ויסות רגשי","régulation émotionnelle","S"],["חוסן נפשי","résilience psychologique","S"],
+["מוקד שליטה","lieu de contrôle (locus of control)","S"],
+["תופעת לוואי","effet secondaire","S"],["תרופה נגד","médicament contre","S"],
+["מדדי בריאות","indicateurs de santé","S"],["ניטור","monitoring / surveillance","S"],
+["טלה-רפואה","télémédecine","S"],["אבחון מוקדם","diagnostic précoce","S"],
 // SECTION 7 — Société / Culture (C)
 ["שלטון","gouvernance","C"],["דמוקרטיה","démocratie","C"],["שקיפות","transparence","C"],
 ["שחיתות","corruption","C"],["פיקוח","supervision / contrôle","C"],
@@ -4100,6 +4109,39 @@ const COURS = [
       ["התגבר — Hitpa'el","augmenter / l'emporter sur","★★★","הבעיה מתגברת = le problème s'intensifie."],
       ["התמודד — Hitpa'el","faire face à / se confronter","★★★","מִתְמוֹדֵד עִם = fait face à. Très fréquent : 'להתמודד עם אתגרים' = relever les défis."],
       ["התקצן — Hitpa'el","se radicaliser","★★","מִתְקַצֵּן = se radicalise. דיון מתקצן = débat qui se polarise."],
+    ]},
+  ]},
+  {id:"strategies-lecture",icon:"book-open",title:"Stratégies de Lecture YAEL",color:"#b45309",sections:[
+    {title:"Mots-clés de la structure du texte",rows:[
+      ["מחד גיסא... מאידך גיסא","D'un côté... de l'autre — Structure bipartite","★★★","Signal d'un texte équilibré avec deux perspectives. Toujours en paire."],
+      ["עם זאת / אולם / ברם","Cependant / Toutefois — Pivot d'opposition","★★★","Signal: la phrase suivante va nuancer ou contredire. Cherchez le retournement."],
+      ["יתרה מכך","Qui plus est / De surcroît — Renforcement","★★★","Signal: argument plus fort que le précédent. Hiérarchie d'importance."],
+      ["לפיכך / כתוצאה מכך","Par conséquent / En conséquence","★★★","Signal: conclusion logique à venir. La phrase suivante = résultat."],
+      ["בעוד ש","Tandis que / Alors que — Contraste simultané","★★★","Deux faits simultanés mais opposés. Ex: prix montent PENDANT QUE salaires baissent."],
+      ["בעקבות / לאחר","Suite à / Après — Séquence causale","★★","Signal temporel avec implication causale. L'événement A a déclenché B."],
+    ]},
+    {title:"Stratégies pour répondre aux questions",rows:[
+      ["שאלת הגדרה","Qu'est-ce que X? → chercher la définition dans le texte","★★★","Stratégie: chercher 'המכונה', 'כלומר', 'שהוא', '—' (tiret explicatif)."],
+      ["שאלת גורם","Pourquoi? Quelles causes? → repérer 'בגלל','בשל','מאחר ש'","★★★","Stratégie: repérer les connecteurs de cause dans le texte."],
+      ["שאלת תוצאה","Quelle conséquence? → repérer 'לפיכך','הביא ל','לכן'","★★★","Stratégie: repérer les connecteurs de conséquence."],
+      ["שאלת הסקה","Qu'est-ce qu'on peut déduire? → aller au-delà du texte","★★★","Stratégie: combiner deux faits du texte pour en tirer une conclusion logique."],
+      ["שאלת גישה","Quelle est la position de l'auteur? → chercher le ton","★★","Stratégie: repérer les adjectifs évaluatifs, le registre, les concessions."],
+      ["שאלת 'מה לא נאמר'","Ce qui N'EST PAS dit → vérifier chaque option","★★","Stratégie: Élimination — tester chaque option par rapport au texte."],
+    ]},
+    {title:"Pièges classiques des QCM de lecture",rows:[
+      ["פח 1: תשובה 'יותר מדי'","Option 'trop précise' ou avec détail absent du texte","★★★","Si une option contient un fait vrai mais non mentionné dans LE PASSAGE — éliminée."],
+      ["פח 2: תשובה 'כללית מדי'","Option trop vague qui ne répond pas à la question","★★","'Il y a des problèmes' sans précision = trop vague si le texte précise les problèmes."],
+      ["פח 3: בלבול סיבה ותוצאה","Confondre cause et conséquence","★★★","Le texte dit 'X causé par Y'. QCM piège: option inverse 'Y causé par X'."],
+      ["פח 4: מה שמתבקש מרמז עליו","Option qui 'semble logique' mais n'est pas dans le texte","★★★","La bonne réponse doit être dans le texte — pas dans vos connaissances générales."],
+      ["פח 5: ראשית/שנית ושלישית","Ne pas oublier TOUS les éléments d'une liste","★★","Si le texte liste 3 causes et la question demande 'quelles causes' → toutes les 3."],
+    ]},
+    {title:"Vocabulaire de la critique de texte",rows:[
+      ["לטעון","soutenir / arguer — ce que fait l'auteur avec une thèse","★★★"],
+      ["להדגים","illustrer — ce que font les exemples","★★★"],
+      ["לסייג","nuancer / mettre des réserves","★★","לסייג טענה = nuancer une affirmation. Mot clé: 'עם זאת / בתנאי ש'"],
+      ["לסתור","contredire / réfuter","★★★","לסתור טענה = réfuter une affirmation. Signal: 'ברם / לעומת זאת'."],
+      ["לציין","noter / mentionner","★★★","ציין = a noté / a mentionné (plus neutre que 'טען')."],
+      ["להסיק","déduire / conclure","★★★","ניתן להסיק מכך ש = on peut en déduire que."],
     ]},
   ]},
 ]
