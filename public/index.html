@@ -448,6 +448,64 @@ html.dark .rtab.active{background:#1e293b}
 .graph-ttl{font-size:.7rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;
   color:var(--txt4);margin-bottom:10px}
 
+/* ── LANGUE SCREEN ───────────────────────────────────────── */
+.lang-hero{background:linear-gradient(135deg,#312e81 0%,#4f46e5 50%,#7c3aed 100%);
+  border-radius:var(--rad);padding:26px 22px;margin-bottom:24px;color:#fff;position:relative;overflow:hidden}
+.lang-hero::after{content:'🌍';position:absolute;right:10px;top:50%;transform:translateY(-50%);
+  font-size:6rem;opacity:.15;pointer-events:none}
+.lang-hero h2{font-size:1.4rem;font-weight:900;margin-bottom:6px}
+.lang-hero p{font-size:.85rem;opacity:.8;max-width:500px}
+.lang-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px}
+@media(max-width:560px){.lang-grid{grid-template-columns:1fr}}
+.lang-card{background:var(--card);border:1px solid var(--bdr);border-radius:var(--rad);
+  padding:20px;box-shadow:var(--sh);transition:all .2s;cursor:default}
+.lang-card:hover{box-shadow:var(--shm);transform:translateY(-2px)}
+.lang-card-flag{font-size:2.4rem;margin-bottom:12px}
+.lang-card-name{font-size:.82rem;font-weight:800;color:var(--txt);margin-bottom:4px}
+.lang-card-native{font-size:.76rem;color:var(--txt3);margin-bottom:12px}
+.lang-steps{list-style:none;padding:0;display:flex;flex-direction:column;gap:6px}
+.lang-steps li{display:flex;align-items:flex-start;gap:8px;font-size:.76rem;color:var(--txt2);line-height:1.4}
+.lang-steps li::before{content:attr(data-n);background:var(--pl);color:#fff;border-radius:50%;
+  width:18px;height:18px;display:inline-flex;align-items:center;justify-content:center;
+  font-size:.65rem;font-weight:800;flex-shrink:0;margin-top:1px}
+.lang-note{background:linear-gradient(135deg,#fffbeb,#fef3c7);border:1px solid #fde68a;
+  border-radius:var(--rads);padding:14px 16px;margin-bottom:16px;font-size:.8rem;color:var(--accd)}
+.lang-tip{background:var(--pll);border:1px solid #bfdbfe;border-radius:var(--rads);
+  padding:14px 16px;font-size:.8rem;color:var(--pd);display:flex;align-items:flex-start;gap:10px}
+html.dark .lang-card{background:var(--card);border-color:var(--bdr)}
+html.dark .lang-note{background:linear-gradient(135deg,#1c1400,#2a1d00);border-color:#92400e;color:#fbbf24}
+html.dark .lang-tip{background:#172554;border-color:#1e40af;color:#93c5fd}
+
+/* ── COPYRIGHT FOOTER ────────────────────────────────────── */
+.site-footer{text-align:center;padding:32px 20px 20px;color:var(--txt4);font-size:.72rem;
+  border-top:1px solid var(--bdr);margin-top:40px;line-height:1.7}
+.site-footer strong{color:var(--txt3);font-weight:700}
+.site-footer a{color:var(--pl);text-decoration:none}
+html.dark .site-footer{border-color:var(--bdr)}
+
+/* ── DESIGN ENHANCEMENTS ─────────────────────────────────── */
+.nav{background:rgba(255,255,255,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+html.dark .nav{background:rgba(15,23,42,.92)}
+.nav-logo{background:linear-gradient(135deg,var(--pd),var(--pl));-webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;background-clip:text;font-size:1.15rem}
+.nav-logo span{-webkit-text-fill-color:transparent}
+.hero{background:linear-gradient(135deg,#1e1b4b 0%,var(--pd) 30%,var(--pl) 70%,#3b82f6 100%);
+  box-shadow:0 4px 24px rgba(30,64,175,.25)}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='rgba(255,255,255,0.04)'%3E%3Ccircle cx='20' cy='20' r='2'/%3E%3C/g%3E%3C/svg%3E");border-radius:var(--rad)}
+.card{transition:box-shadow .2s,transform .2s}
+.card:hover{box-shadow:var(--shm)}
+.box-card{box-shadow:var(--sh)}
+.box-card:hover{box-shadow:0 8px 32px rgba(0,0,0,.12)}
+.btn-p{background:linear-gradient(135deg,var(--pl),var(--pd));box-shadow:0 2px 8px rgba(37,99,235,.25)}
+.btn-g{background:linear-gradient(135deg,#10b981,var(--g));box-shadow:0 2px 8px rgba(5,150,105,.25)}
+.btn-a{background:linear-gradient(135deg,#f59e0b,var(--acc));box-shadow:0 2px 8px rgba(217,119,6,.25)}
+.btn-pur{background:linear-gradient(135deg,#8b5cf6,var(--pur))}
+.quiz-card{box-shadow:0 4px 32px rgba(0,0,0,.08)}
+.sec-ttl{color:var(--txt3);font-size:.68rem;letter-spacing:2px}
+.score-circle{border-color:var(--pl);border-width:4px}
+.stat-card{transition:transform .2s,box-shadow .2s}
+.stat-card:hover{transform:translateY(-3px);box-shadow:var(--shm)}
+
 /* ── RESPONSIVE TABLET ───────────────────────────────────── */
 @media(min-width:640px){
   .box-grid{grid-template-columns:1fr 1fr 1fr!important}
@@ -591,6 +649,22 @@ html.dark .rtab.active{background:#1e293b}
     <button class="btn btn-primary btn-sm" onclick="exportProgress()" style="background:var(--g);border-color:var(--g)">💾 Exporter ma progression</button>
     <button class="btn btn-primary btn-sm" onclick="importProgress()" style="background:var(--pur);border-color:var(--pur)">📂 Importer une sauvegarde</button>
     <button class="btn btn-ghost btn-sm" id="reset-btn"></button>
+  </div>
+</div>
+
+<div id="screen-langue" class="screen">
+  <div class="lang-hero">
+    <h2>Changer la langue de l'application</h2>
+    <p>YAEL est disponible en plusieurs langues grâce à Google Translate. Suivez les instructions ci-dessous selon votre navigateur ou appareil.</p>
+  </div>
+  <div class="lang-note">
+    💡 <strong>Note :</strong> La traduction automatique est fournie par Google Translate. Les termes techniques hébreux peuvent varier légèrement — les corrections sont toujours les versions hébraïques dans l'application.
+  </div>
+  <div class="sec-ttl">Instructions par navigateur / appareil</div>
+  <div class="lang-grid" id="lang-grid"></div>
+  <div class="lang-tip">
+    <span style="font-size:1.4rem">🔗</span>
+    <div><strong>Traduction directe :</strong> Vous pouvez aussi copier l'URL de cette page et la coller sur <a href="https://translate.google.com/" target="_blank" rel="noopener">translate.google.com</a> pour obtenir une version traduite complète de l'application.</div>
   </div>
 </div>
 
@@ -4852,6 +4926,55 @@ function bumpStreak(){
   sk.lastDate=td;saveStreak(sk);
 }
 
+// === LANGUE ===
+function renderLangue(){
+  const LANGS=[
+    {flag:'🌐',name:'Chrome (Desktop)',native:'Google Chrome',steps:[
+      'Ouvrez Chrome et allez dans <strong>⋮ Menu → Paramètres</strong>',
+      'Cliquez sur <strong>Langues</strong> dans le menu de gauche',
+      'Sous "Google Traduction", activez <strong>"Proposer de traduire les pages"</strong>',
+      'Revenez sur YAEL et cliquez sur <strong>Traduire</strong> dans la barre d\'adresse',
+      'Choisissez votre langue cible'
+    ]},
+    {flag:'📱',name:'Chrome (Android)',native:'Android',steps:[
+      'Appuyez sur <strong>⋮ Menu → Paramètres → Langues</strong>',
+      'Activez <strong>"Toujours traduire"</strong>',
+      'Sur la page YAEL, un bandeau de traduction apparaîtra automatiquement',
+      'Choisissez la langue souhaitée'
+    ]},
+    {flag:'🍎',name:'Safari (iPhone/iPad)',native:'iOS / iPadOS',steps:[
+      'Ouvrez l\'application <strong>Réglages</strong>',
+      'Appuyez sur <strong>Safari → Langue de traduction</strong>',
+      'Sur YAEL, appuyez sur l\'icône <strong>aA</strong> dans la barre d\'adresse',
+      'Choisissez <strong>Traduire en...</strong> et votre langue'
+    ]},
+    {flag:'🦊',name:'Firefox',native:'Mozilla Firefox',steps:[
+      'Installez l\'extension <strong>Google Translator pour Firefox</strong>',
+      'Ou utilisez <strong>translate.google.com</strong> en collant l\'URL de YAEL',
+      'Sélectionnez le texte à traduire → clic droit → <strong>Traduire la sélection</strong>'
+    ]},
+    {flag:'🪟',name:'Edge (Windows)',native:'Microsoft Edge',steps:[
+      'Edge propose la traduction automatiquement sur les pages non-anglaises',
+      'Cliquez sur l\'icône <strong>Traduire</strong> dans la barre d\'adresse',
+      'Ou clic droit sur la page → <strong>Traduire en...</strong>',
+      'Choisissez votre langue cible'
+    ]},
+    {flag:'💻',name:'Mac (Safari Desktop)',native:'macOS Ventura+',steps:[
+      'Ouvrez Safari et allez sur la page YAEL',
+      'Dans la barre d\'adresse, cliquez sur l\'icône <strong>aA → Traduire en...</strong>',
+      'Safari utilise la traduction intégrée d\'Apple (hors ligne possible)',
+      'Sélectionnez la langue souhaitée'
+    ]}
+  ];
+  document.getElementById('lang-grid').innerHTML=LANGS.map(l=>`
+    <div class="lang-card">
+      <div class="lang-card-flag">${l.flag}</div>
+      <div class="lang-card-name">${l.name}</div>
+      <div class="lang-card-native">${l.native}</div>
+      <ul class="lang-steps">${l.steps.map((s,i)=>`<li data-n="${i+1}">${s}</li>`).join('')}</ul>
+    </div>`).join('');
+}
+
 // === INIT ===
 (function initUI(){
   const TABS=[
@@ -4864,6 +4987,7 @@ function bumpStreak(){
     {s:'cours',ic:'book',lbl:'Cours'},
     {s:'redaction',ic:'feather',lbl:'Rédaction'},
     {s:'stats',ic:'bar',lbl:'Progrès'},
+    {s:'langue',ic:'globe',lbl:'Langue'},
   ];
   document.getElementById('nav-tabs').innerHTML=TABS.map(t=>
     `<div class="nav-tab${t.s==='home'?' active':''}" data-s="${t.s}">${I(t.ic,14)} ${t.lbl}</div>`
@@ -4910,6 +5034,7 @@ function showScreen(name){
   else if(name==='annales')renderAnnalesSelector();
   else if(name==='cours')renderCours();
   else if(name==='redaction')renderRedaction();
+  else if(name==='langue')renderLangue();
 }
 
 // === HOME ===
@@ -5520,5 +5645,12 @@ function renderGraph(){
 })();
 
 </script>
+
+<footer class="site-footer">
+  <strong>YAEL — Révisions</strong><br>
+  © 2026 <strong>Yaniv Amar</strong> · Tous droits réservés<br>
+  <span style="opacity:.6">Révision intelligente · Vocabulaire · Annales · Rédaction</span>
+</footer>
+
 </body>
 </html>
