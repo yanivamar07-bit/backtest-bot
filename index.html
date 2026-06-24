@@ -791,13 +791,13 @@ html.dark .nav{background:rgba(15,23,42,.92)}
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:22px" id="lang-quick"></div>
 
   <div class="lang-note">
-    💡 <strong>Note :</strong> La traduction automatique est fournie par Google Translate. Les termes hébreux dans les exercices restent en hébreu — seule l'interface est traduite.
+    ⚠️ <strong>Important :</strong> Google Translate ne peut <u>pas</u> traduire les fichiers locaux (yael.html téléchargé). Pour utiliser la traduction, ouvre le site en ligne : <strong>yanivamar07-bit.github.io/backtest-bot/</strong> — puis clique sur une langue ci-dessus.
   </div>
   <div class="sec-ttl">Instructions par navigateur / appareil</div>
   <div class="lang-grid" id="lang-grid"></div>
   <div class="lang-tip">
     <span style="font-size:1.4rem">🔗</span>
-    <div><strong>Traduction directe :</strong> Copiez l'URL de cette page et collez-la sur <strong>translate.google.com</strong> pour obtenir une version traduite complète.</div>
+    <div><strong>Note importante :</strong> Google Translate ne peut pas traduire les fichiers locaux. Les boutons ci-dessus utilisent l'URL en ligne : <code style="background:var(--bg2);padding:1px 5px;border-radius:4px;font-size:.75rem">yanivamar07-bit.github.io/backtest-bot/</code><br>Si tu utilises le fichier téléchargé, ouvre le site en ligne pour utiliser la traduction.</div>
   </div>
 </div>
 
@@ -1385,6 +1385,36 @@ const RAW_WORDS = [
 ["היררכי","hiérarchique","Y"],["סיסטמי","systémique","Y"],
 ["הדרגתי","graduel / progressif","Y"],["מהותי","fondamental / essentiel","Y"],
 ["מכריע","décisif / crucial","Y"],["תלוי הקשר","dépendant du contexte","Y"],
+// SECTION 13 — Technologie et Intelligence Artificielle (T)
+["אינטליגנציה מלאכותית","intelligence artificielle (IA)","T"],
+["אלגוריתם","algorithme","T"],
+["נתונים","données","T"],
+["פרטיות","vie privée / confidentialité","T"],
+["פריצת דרך טכנולוגית","percée technologique","T"],
+["אוטומציה","automatisation","T"],
+["מיכון","mécanisation","T"],
+["ביג דאטה","big data","T"],
+["מודל שפה","modèle de langage","T"],
+["מחשוב ענן","informatique en nuage / cloud","T"],
+["אבטחת מידע","cybersécurité","T"],
+["פריסה","déploiement","T"],
+["שקיפות","transparence","T"],
+["הטיה אלגוריתמית","biais algorithmique","T"],
+["צנזורה דיגיטלית","censure numérique","T"],
+["רשת חברתית","réseau social","T"],
+["פייק ניוז","fake news / infox","T"],
+["עידן הדיגיטל","ère numérique","T"],
+["פלטפורמה","plateforme","T"],
+["בינה מלאכותית יוצרת","IA générative","T"],
+["מהפכה תעשייתית","révolution industrielle","T"],
+["כישורים דיגיטליים","compétences numériques","T"],
+["פער דיגיטלי","fracture numérique","T"],
+["תקנות","réglementations","T"],
+["אתיקה","éthique","T"],
+["רובוטיקה","robotique","T"],
+["עיבוד שפה טבעית","traitement du langage naturel (NLP)","T"],
+["מציאות מדומה","réalité virtuelle","T"],
+["מציאות רבודה","réalité augmentée","T"],
 ]
 
 const CONNECTOR_EXERCISES = [
@@ -4990,6 +5020,7 @@ const CAT_INFO={
   E:{name:"Éco/Env.",color:"#059669",ic:"globe"},
   R:{name:"Rares/Avancés",color:"#7c3aed",ic:"award"},
   Y:{name:"YAEL-Spécifique",color:"#0f766e",ic:"check"},
+  T:{name:"Tech/IA",color:"#7c3aed",ic:"brain"},
 };
 const BOXES=[
   {id:0,name:"Boite Noire",color:"#374151",bg:"#f9fafb",desc:"À apprendre",cls:"box-b0"},
@@ -5062,12 +5093,12 @@ function bumpStreak(){
 // === LANGUE ===
 function renderLangue(){
   const QUICK=[
-    {flag:'🇬🇧',name:'English',native:'English',badge:'Recommandé',url:'https://translate.google.com/translate?sl=fr&tl=en&u='+encodeURIComponent(location.href)},
-    {flag:'🇷🇺',name:'Русский',native:'Russian',badge:'Рекомендуется',url:'https://translate.google.com/translate?sl=fr&tl=ru&u='+encodeURIComponent(location.href)},
-    {flag:'🇪🇸',name:'Español',native:'Espagnol',badge:'',url:'https://translate.google.com/translate?sl=fr&tl=es&u='+encodeURIComponent(location.href)},
-    {flag:'🇩🇪',name:'Deutsch',native:'Allemand',badge:'',url:'https://translate.google.com/translate?sl=fr&tl=de&u='+encodeURIComponent(location.href)},
-    {flag:'🇮🇱',name:'עברית',native:'Hébreu',badge:'',url:'https://translate.google.com/translate?sl=fr&tl=iw&u='+encodeURIComponent(location.href)},
-    {flag:'🇦🇷',name:'العربية',native:'Arabe',badge:'',url:'https://translate.google.com/translate?sl=fr&tl=ar&u='+encodeURIComponent(location.href)},
+    {flag:'🇬🇧',name:'English',native:'English',badge:'Recommandé',url:'https://translate.google.com/translate?sl=fr&tl=en&u='+encodeURIComponent('https://yanivamar07-bit.github.io/backtest-bot/')},
+    {flag:'🇷🇺',name:'Русский',native:'Russian',badge:'Рекомендуется',url:'https://translate.google.com/translate?sl=fr&tl=ru&u='+encodeURIComponent('https://yanivamar07-bit.github.io/backtest-bot/')},
+    {flag:'🇪🇸',name:'Español',native:'Espagnol',badge:'',url:'https://translate.google.com/translate?sl=fr&tl=es&u='+encodeURIComponent('https://yanivamar07-bit.github.io/backtest-bot/')},
+    {flag:'🇩🇪',name:'Deutsch',native:'Allemand',badge:'',url:'https://translate.google.com/translate?sl=fr&tl=de&u='+encodeURIComponent('https://yanivamar07-bit.github.io/backtest-bot/')},
+    {flag:'🇮🇱',name:'עברית',native:'Hébreu',badge:'',url:'https://translate.google.com/translate?sl=fr&tl=iw&u='+encodeURIComponent('https://yanivamar07-bit.github.io/backtest-bot/')},
+    {flag:'🇦🇷',name:'العربية',native:'Arabe',badge:'',url:'https://translate.google.com/translate?sl=fr&tl=ar&u='+encodeURIComponent('https://yanivamar07-bit.github.io/backtest-bot/')},
   ];
   document.getElementById('lang-quick').innerHTML=QUICK.map(l=>
     `<a class="lang-quick-card" href="${l.url}" target="_blank" rel="noopener">
