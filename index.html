@@ -4903,6 +4903,7 @@ function showScreen(name){
   const tab=document.querySelector('.nav-tab[data-s="'+name+'"]');if(tab)tab.classList.add('active');
   if(name==='home')renderHome();
   else if(name==='stats')renderStats();
+  else if(name==='flashcards'&&!fc.deck.length)startFlashcards('weighted','all');
   else if(name==='quiz'&&!quiz.qs.length)startQuiz(20);
   else if(name==='connectors'&&!conn.deck.length)startConnectorQuiz();
   else if(name==='phrases'&&!phr.deck.length)startPhraseQuiz();
@@ -5402,7 +5403,8 @@ function exportProgress(){
   a.click();URL.revokeObjectURL(a.href);
   const dateStr=new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
   localStorage.setItem('yael_last_export',dateStr);
-  renderHome();
+  const hb=document.getElementById('home-backup');
+  if(hb)hb.querySelector('.backup-hint').textContent='Dernière sauvegarde : '+dateStr;
   showToast('💾 Progression exportée !');
 }
 function importProgress(){
