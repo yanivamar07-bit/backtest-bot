@@ -622,6 +622,60 @@ html.dark .nav{background:rgba(15,23,42,.92)}
 .stat-card{transition:transform .2s,box-shadow .2s}
 .stat-card:hover{transform:translateY(-3px);box-shadow:var(--shm)}
 
+/* ── XP BADGE ────────────────────────────────────────────── */
+.xp-badge{background:linear-gradient(135deg,#1e40af,#2563eb);color:#fff;
+  padding:5px 13px;border-radius:99px;font-size:.72rem;font-weight:800;
+  letter-spacing:.3px;white-space:nowrap;flex-shrink:0;cursor:default;
+  box-shadow:0 2px 8px rgba(30,64,175,.3);border:1px solid rgba(255,255,255,.2)}
+html.dark .xp-badge{background:linear-gradient(135deg,#172554,#1e40af)}
+@keyframes xpPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.18) translateY(-1px)}}
+.xp-pulse{animation:xpPulse .45s cubic-bezier(.34,1.56,.64,1)}
+
+/* ── 3D BUTTONS (blue/white) ─────────────────────────────── */
+.btn-p{background:linear-gradient(135deg,#2563eb,#1e40af);
+  box-shadow:0 4px 0 #1e3a8a,0 6px 16px rgba(30,64,175,.3)}
+.btn-p:hover{background:linear-gradient(135deg,#3b82f6,#2563eb);transform:translateY(-2px);
+  box-shadow:0 6px 0 #1e3a8a,0 10px 20px rgba(30,64,175,.4)}
+.btn-p:active{transform:translateY(3px);box-shadow:0 1px 0 #1e3a8a,0 2px 6px rgba(30,64,175,.2)}
+.btn-g{background:linear-gradient(135deg,#10b981,#059669);
+  box-shadow:0 4px 0 #047857,0 6px 16px rgba(5,150,105,.3)}
+.btn-g:hover{transform:translateY(-2px);box-shadow:0 6px 0 #047857,0 10px 20px rgba(5,150,105,.4)}
+.btn-g:active{transform:translateY(3px);box-shadow:0 1px 0 #047857}
+
+/* ── QUIZ OPTION ENHANCEMENTS ────────────────────────────── */
+.quiz-opt{transition:all .15s;position:relative;overflow:hidden}
+.quiz-opt:hover:not([disabled]){background:linear-gradient(135deg,#eff6ff,#dbeafe);
+  border-color:#2563eb;color:#1e40af;transform:translateX(5px);box-shadow:0 2px 8px rgba(37,99,235,.15)}
+.quiz-opt.correct{background:linear-gradient(135deg,#d1fae5,#a7f3d0);
+  border-color:#059669;color:#065f46;font-weight:700;
+  box-shadow:0 2px 12px rgba(5,150,105,.25)}
+.quiz-opt.wrong{background:linear-gradient(135deg,#fee2e2,#fecaca);
+  border-color:#dc2626;color:#991b1b}
+@keyframes bounceIn{0%{transform:scale(.92)}60%{transform:scale(1.04)}100%{transform:scale(1)}}
+@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+.quiz-opt.correct{animation:bounceIn .35s ease both}
+.quiz-opt.wrong{animation:shake .4s ease both}
+
+/* ── MEMO / MNEMONIC ─────────────────────────────────────── */
+.fc-memo{font-size:.73rem;color:#7c3aed;background:linear-gradient(135deg,#f5f3ff,#ede9fe);
+  padding:8px 12px;border-radius:8px;border:1px solid #ddd6fe;line-height:1.5;
+  text-align:center;max-width:100%}
+html.dark .fc-memo{background:linear-gradient(135deg,#2e1065,#1e1040);
+  color:#c4b5fd;border-color:#4c1d95}
+.quiz-memo{background:linear-gradient(135deg,#eff6ff,#dbeafe);
+  border:1px solid #bfdbfe;border-radius:8px;padding:8px 12px;
+  margin-top:6px;font-size:.77rem;color:#1e40af;font-weight:500;line-height:1.4}
+html.dark .quiz-memo{background:linear-gradient(135deg,#172554,#1e3a8a);
+  color:#93c5fd;border-color:#1e40af}
+.memo-label{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;
+  color:#7c3aed;margin-bottom:3px;display:flex;align-items:center;gap:4px}
+
+/* ── CORRECT/WRONG EXPLANATION ───────────────────────────── */
+.quiz-exp.correct-bg{background:linear-gradient(135deg,#d1fae5,#ecfdf5);
+  border-color:#059669;color:#065f46}
+.quiz-exp.wrong-bg{background:linear-gradient(135deg,#fee2e2,#fff1f2);
+  border-color:#dc2626;color:#991b1b}
+
 /* ── RESPONSIVE TABLET ───────────────────────────────────── */
 @media(min-width:640px){
   .box-grid{grid-template-columns:1fr 1fr 1fr!important}
@@ -646,6 +700,7 @@ html.dark .nav{background:rgba(15,23,42,.92)}
 <nav class="nav">
   <div class="nav-logo">YA<span>EL</span></div>
   <div class="nav-tabs" id="nav-tabs"></div>
+  <div id="xp-badge" class="xp-badge" title="Points XP accumulés">⚡ 0 XP</div>
   <button class="theme-btn" id="theme-btn" onclick="toggleTheme()" title="Thème clair/sombre" aria-label="Basculer thème"></button>
 </nav>
 
@@ -666,6 +721,8 @@ html.dark .nav{background:rgba(15,23,42,.92)}
   <!-- Leitner boxes -->
   <div class="sec-ttl">Boites de Leitner</div>
   <div class="leitner-strip" id="box-grid"></div>
+  <!-- Backup (visible, not buried) -->
+  <div id="home-backup"></div>
   <!-- Action cards -->
   <div class="sec-ttl">Actions rapides</div>
   <div class="action-grid" id="home-btns"></div>
@@ -676,7 +733,6 @@ html.dark .nav{background:rgba(15,23,42,.92)}
   <!-- Mastery -->
   <div class="sec-ttl">Maîtrise par catégorie</div>
   <div class="mastery-grid-new" id="mastery-grid"></div>
-  <div id="home-backup"></div>
 </div>
 
 <div id="screen-flashcards" class="screen">
@@ -5154,7 +5210,47 @@ const BOXES=[
   {id:2,name:"Boite Verte",color:"#059669",bg:"#ecfdf5",desc:"Maîtrisés",cls:"box-b2"},
 ];
 const COURS_IC=['link','pen','book','tag'];
-const WORDS=RAW_WORDS.map((r,i)=>({id:i,he:r[0],fr:r[1],cat:r[2],ant:r[3]||null}));
+const WORDS=RAW_WORDS.map((r,i)=>({id:i,he:r[0],fr:r[1],cat:r[2],ant:r[3]||null,exp:r[4]||null,memo:r[5]||null}));
+
+// === MNEMONICS (mnémo-techniques pour la mémorisation) ===
+const MEMOS={
+  'לדעת':'Racine da-at (דעת) = connaissance. Da-at → "connaître".',
+  'להבין':'Bina (בינה) = compréhension — "bi-nah" sonne comme "bien vu".',
+  'להצליח':'Tsaliaḥ → pense à "ça lie" du succès. Tsliakh = réussite.',
+  'לאפשר':'Efshar (אפשר) = c\'est possible. לאפשר = rendre possible.',
+  'למרות':'Ne confonds pas לראות (voir) et למרות (malgré) ! Même sons, sens opposés.',
+  'כי':'Ki = car/parce que. Ki sonne comme "key" : c\'est la CLÉ de la cause.',
+  'לכן':'Lakhén → "la-chain" = donc, c\'est enchaîné (conséquence logique).',
+  'בגלל':'Biglal → "bi-glal" à cause de. Glal = rouler → la boule de la cause qui roule.',
+  'בעקבות':'B\'akevot → akev (עקב) = talon → suivre les traces de quelqu\'un.',
+  'גישה':'Guisha → "give + access" = approche/attitude. La façon d\'accéder à un sujet.',
+  'ניסיון':'Nisayon → ni-say-on = essai, tentative. Ness (נס) = miracle, nissayon = tenter.',
+  'השפעה':'Hashpa\'ah → "hash + power" → influence, impact.',
+  'תופעה':'Tofaa → "to-faa" = phénomène. Pense à "top phénomène".',
+  'עמדה':'Emda → "stand" : une position où l\'on se tient.',
+  'שינוי':'Shiouy → "shiny new" → changement, nouveauté.',
+  'פתרון':'Pitron → pit-ron = trouver la sortie du piège = solution.',
+  'אתגר':'Etgar → "IT-gar" = défi qu\'on doit garder en tête.',
+  'מגמה':'Megama → "mag-ama" = vague tendance. Comme une vague (megama).',
+  'קשר':'Kesher → "cash + reliance" = lien, connexion, relation.',
+  'גורם':'Goram → "go + run" = facteur qui fait avancer les choses.',
+  'תהליך':'Tahaliḥ → "ta-ha-likh" = processus. Tahal = sous-marin (ça avance lentement).',
+  'מדיניות':'Mediniyout → "medina" = État → politique d\'État.',
+  'חברה':'Ḥevra → "chevra" = société/entreprise. En argot hébreu: "les potes" = la société.',
+  'ערך':'Erekh → "errekh" = valeur, estimation. Comme évaluer.',
+  'צורך':'Tsorekh → "zorek" = besoin urgent, nécessité.',
+  'ידע':'Yeda → "yeh-da" = savoir, connaissance. Da-at = conscience de savoir.',
+  'כוח':'Koaḥ → "KO + ah!" = force, pouvoir. Un KO = force maximale.',
+  'מציאות':'Metsiout → "metsy-out" = réalité. Ce qui EST sorti (motsi = sortir).',
+  'אחריות':'Aḥrayout → "aḥ-rout" = responsabilité. Aḥar = après → ce qui suit nos actes.',
+  'יתרון':'Yitaron → "yeter" = surplus → avantage, bénéfice.',
+  'חסרון':'Ḥisaron → "ḥeser" = manque → désavantage, inconvénient.',
+  'מחקר':'Meḥkar → "meḥ-kar" = recherche. Ḥkar = enquêter.',
+  'התפתחות':'Hitpatḥout → "hit-patch" = développement. Se déplie/éclot.',
+  'בינה מלאכותית':'BI-nah m\'la-khoutit = intelligence artificielle. Bina = intelligence naturelle.',
+  'אלגוריתם':'Algoritem = algorithme. Même mot, même sens, anglicisme direct !',
+};
+
 
 // === STORAGE ===
 const SK='yael_sm2_v1',HK='yael_hist_v5',STK='yael_streak_v1';
@@ -5164,6 +5260,19 @@ function loadHist(){try{return JSON.parse(localStorage.getItem(HK)||'[]')}catch{
 function saveHist(){try{localStorage.setItem(HK,JSON.stringify(hist.slice(-60)))}catch{}}
 function loadStreak(){try{return JSON.parse(localStorage.getItem(STK)||'{}')}catch{return {}}}
 function saveStreak(s){try{localStorage.setItem(STK,JSON.stringify(s))}catch{}}
+const XPK='yael_xp_v1';
+function loadXP(){try{return JSON.parse(localStorage.getItem(XPK)||'{"total":0}')}catch{return {total:0}}}
+function saveXP(x){try{localStorage.setItem(XPK,JSON.stringify(x))}catch{}}
+function addXP(pts){
+  const x=loadXP();x.total=(x.total||0)+pts;saveXP(x);
+  const el=document.getElementById('xp-badge');
+  if(el){el.textContent='⚡ '+x.total+' XP';el.classList.remove('xp-pulse');
+    void el.offsetWidth;el.classList.add('xp-pulse');setTimeout(()=>el.classList.remove('xp-pulse'),600);}
+}
+function refreshXPBadge(){
+  const el=document.getElementById('xp-badge');
+  if(el)el.textContent='⚡ '+(loadXP().total||0)+' XP';
+}
 
 // === SM-2 ===
 function getProg(id){return prog[id]||{box:0,ease:2.5,interval:1,reps:0,errors:0,nextReview:0};}
@@ -5224,7 +5333,6 @@ function renderLangue(){
     {flag:'🇪🇸',name:'Español',native:'Espagnol',badge:'',url:'https://translate.google.com/translate?sl=fr&tl=es&u='+encodeURIComponent('https://yanivamar07-bit.github.io/backtest-bot/')},
     {flag:'🇩🇪',name:'Deutsch',native:'Allemand',badge:'',url:'https://translate.google.com/translate?sl=fr&tl=de&u='+encodeURIComponent('https://yanivamar07-bit.github.io/backtest-bot/')},
     {flag:'🇮🇱',name:'עברית',native:'Hébreu',badge:'',url:'https://translate.google.com/translate?sl=fr&tl=iw&u='+encodeURIComponent('https://yanivamar07-bit.github.io/backtest-bot/')},
-    {flag:'🇦🇷',name:'العربية',native:'Arabe',badge:'',url:'https://translate.google.com/translate?sl=fr&tl=ar&u='+encodeURIComponent('https://yanivamar07-bit.github.io/backtest-bot/')},
   ];
   document.getElementById('lang-quick').innerHTML=QUICK.map(l=>
     `<a class="lang-quick-card" href="${l.url}" target="_blank" rel="noopener">
@@ -5327,6 +5435,7 @@ function renderLangue(){
   document.getElementById('phr-restart').onclick=()=>startPhraseQuiz();
   document.getElementById('reset-btn').onclick=resetConfirm;
   document.addEventListener('keydown',onKey);
+  refreshXPBadge();
 })();
 
 function showScreen(name){
@@ -5353,10 +5462,12 @@ function renderHome(){
   const total=wordsForCat(currentCat).length;const pct=total?Math.round(b2/total*100):0;
 
   // Hero stats
+  const xpTotal=loadXP().total||0;
   document.getElementById('hero-stats').innerHTML=
     `<div class="home-stat-item"><strong>${total}</strong><span>Mots</span></div>
      <div class="home-stat-item"><strong>${b2}</strong><span>Maîtrisés</span></div>
      <div class="home-stat-item"><strong>${sk.streak||0}</strong><span>Streak 🔥</span></div>
+     <div class="home-stat-item"><strong style="color:#a78bfa">${xpTotal}</strong><span>XP ⚡</span></div>
      ${due>0?`<div class="home-stat-item"><strong style="color:#f87171">${due}</strong><span>À réviser</span></div>`:''}`;
 
   // Progress ring SVG
@@ -5434,7 +5545,7 @@ function renderHome(){
     <div class="action-card ac-green" onclick="showScreen('annales')">
       <div class="action-card-icon">${I('file',20)}</div>
       <div class="action-card-ttl">Annales YAEL</div>
-      <div class="action-card-sub">17 examens blancs annotés</div>
+      <div class="action-card-sub">20 examens blancs annotés</div>
       <div class="action-card-arrow">${I('arrow-right',14)}</div>
     </div>
     <div class="action-card ac-purple" onclick="showScreen('cours')">
@@ -5535,6 +5646,7 @@ function renderCard(){
     <div class="fc-fr">${w.fr}</div>
     ${w.ant?`<div class="fc-ant">${I('refresh',12)} Ant. : <strong>${w.ant}</strong></div>`:''}
     ${w.exp?`<div class="fc-exp">${w.exp}</div>`:''}
+    ${(w.memo||MEMOS[w.he])?`<div class="fc-memo"><div class="memo-label">💡 Mnémo</div>${w.memo||MEMOS[w.he]}</div>`:''}
     <div class="fc-hint">${I('chev_d',13)} Choisissez votre boite</div>`;
   fc.flipped=false;
   document.getElementById('fc-wrap').classList.remove('flipped');
@@ -5554,6 +5666,7 @@ function rateCard(rating){
   const w=fc.deck[fc.idx];
   if(typeof w.id==='number')sm2Update(w.id,rating);
   fc.total++;if(rating>=1)fc.ok++;
+  if(rating===2)addXP(3);else if(rating===1)addXP(1);
   document.getElementById('fc-rate').style.display='none';
   document.getElementById('fc-info').textContent='→ '+BOXES[rating].name;
   fc.idx++;setTimeout(renderCard,200);
@@ -5632,10 +5745,11 @@ function answerQuiz(idx){
     if(i===ans)el.classList.add('correct');
     else if(i===idx&&!correct)el.classList.add('wrong');
   });
-  if(correct){quiz.score++;quiz.combo++;if(typeof w.id==='number')sm2Update(w.id,2);}
+  if(correct){quiz.score++;quiz.combo++;if(typeof w.id==='number')sm2Update(w.id,2);addXP(5);}
   else{quiz.combo=0;if(typeof w.id==='number')sm2Update(w.id,0);}
+  const memo=w.memo||MEMOS[w.he]||null;
   const exp=document.getElementById('quiz-exp');
-  if(exp)exp.innerHTML=`<div class="quiz-exp ${correct?'correct-bg':'wrong-bg'}">${I(correct?'check':'x',14)} ${correct?'Correct !':'Incorrect.'} <strong>${w.fr}</strong>${w.ant?' · Ant. : '+w.ant:''}${w.exp?'<br><span style="opacity:.8">'+w.exp+'</span>':''}</div><button class="btn-next-q" onclick="quiz.idx++;renderQuiz()">${I('arrow-right',14)} Suivant</button>`;
+  if(exp)exp.innerHTML=`<div class="quiz-exp ${correct?'correct-bg':'wrong-bg'}">${I(correct?'check':'x',14)} ${correct?'<strong style="color:#065f46">Correct !</strong>':'<strong style="color:#991b1b">Incorrect.</strong>'} <strong>${w.fr}</strong>${w.ant?' · Ant. : '+w.ant:''}${w.exp?'<br><span style="opacity:.85">'+w.exp+'</span>':''}</div>${memo?'<div class="quiz-memo"><span style="font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#7c3aed;margin-right:5px">💡 Mnémo</span>'+memo+'</div>':''}<button class="btn-next-q" onclick="quiz.idx++;renderQuiz()">${I('arrow-right',14)} Suivant</button>`;
 }
 function renderQuizResult(){
   const pct=Math.round(quiz.score/quiz.qs.length*100);
