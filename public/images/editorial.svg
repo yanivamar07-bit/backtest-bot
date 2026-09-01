@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1200" width="1920" height="1200">
+  <defs>
+    <linearGradient id="gedit" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2a2621"/>
+      <stop offset="100%" stop-color="#14120f"/>
+    </linearGradient>
+    <filter id="grainedit"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.04 0"/></filter>
+  </defs>
+  <rect width="1920" height="1200" fill="url(#gedit)"/>
+  <line x1="0" y1="744" x2="1920" y2="696" stroke="#c9c2b2" stroke-width="1" opacity="0.15"/>
+  <rect width="1920" height="1200" filter="url(#grainedit)" opacity="0.7"/>
+  <text x="24" y="1176" font-family="monospace" font-size="12" fill="#c9c2b2" opacity="0.4" letter-spacing="2">MERIDIAN — EDITORIAL</text>
+</svg>

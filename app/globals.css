@@ -1,0 +1,108 @@
+@import "tailwindcss";
+
+@theme {
+  /* -- Typography -- */
+  --font-serif: var(--font-fraunces), "Iowan Old Style", serif;
+  --font-sans: var(--font-inter), -apple-system, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+
+  /* -- Color: light ground -- */
+  --color-paper: #f4efe6;
+  --color-paper-dim: #ece5d8;
+
+  /* -- Color: dark ground (warm near-black, brushed-brass undertone) -- */
+  --color-ink: #14120f;
+  --color-ink-dim: #1c1a15;
+
+  /* -- Signature accent: bottle-glass sapphire green -- */
+  --color-accent: #1f3d34;
+  --color-accent-bright: #2f5c4d;
+  --color-accent-soft: #4c7568;
+
+  /* -- Neutrals -- */
+  --color-stone: #7a7568;
+  --color-stone-light: #a8a294;
+
+  /* -- Hairlines: brushed steel, never pure black -- */
+  --color-hairline: #d8d0bf;
+  --color-hairline-dark: #3a372f;
+
+  --tracking-eyebrow: 0.28em;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-hairline);
+  }
+
+  html {
+    scroll-behavior: auto;
+    background: var(--color-paper);
+  }
+
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 1.05;
+  }
+}
+
+@layer utilities {
+  .eyebrow {
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-eyebrow);
+    font-size: 0.7rem;
+    font-weight: 500;
+  }
+
+  .mono-num {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .hairline {
+    border-color: var(--color-hairline);
+  }
+
+  .bg-dark .hairline,
+  .on-dark .hairline {
+    border-color: var(--color-hairline-dark);
+  }
+
+  .fluid-h1 {
+    font-size: clamp(2.75rem, 3rem + 3vw, 6.5rem);
+  }
+
+  .fluid-h2 {
+    font-size: clamp(2rem, 1.6rem + 3vw, 4.5rem);
+  }
+}
+
+/* Fixed photographic grain, whole-site signature texture */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.03;
+  mix-blend-mode: overlay;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

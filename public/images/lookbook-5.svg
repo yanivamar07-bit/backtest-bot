@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1250" width="1000" height="1250">
+  <defs>
+    <linearGradient id="glb5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2a2621"/>
+      <stop offset="100%" stop-color="#1c1a15"/>
+    </linearGradient>
+    <filter id="grainlb5"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.04 0"/></filter>
+  </defs>
+  <rect width="1000" height="1250" fill="url(#glb5)"/>
+  <line x1="0" y1="775" x2="1000" y2="725" stroke="#c9c2b2" stroke-width="1" opacity="0.15"/>
+  <rect width="1000" height="1250" filter="url(#grainlb5)" opacity="0.7"/>
+  <text x="24" y="1226" font-family="monospace" font-size="12" fill="#c9c2b2" opacity="0.4" letter-spacing="2">LOOKBOOK — 05</text>
+</svg>

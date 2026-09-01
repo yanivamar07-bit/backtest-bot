@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1600" width="1600" height="1600">
+  <defs>
+    <linearGradient id="gmvt" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1f3d34"/>
+      <stop offset="100%" stop-color="#0f0e0b"/>
+    </linearGradient>
+    <filter id="grainmvt"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.04 0"/></filter>
+  </defs>
+  <rect width="1600" height="1600" fill="url(#gmvt)"/>
+  <line x1="0" y1="992" x2="1600" y2="927.9999999999999" stroke="#c9c2b2" stroke-width="1" opacity="0.15"/>
+  <rect width="1600" height="1600" filter="url(#grainmvt)" opacity="0.7"/>
+  <text x="24" y="1576" font-family="monospace" font-size="12" fill="#c9c2b2" opacity="0.4" letter-spacing="2">CALIBRE M.01</text>
+</svg>
