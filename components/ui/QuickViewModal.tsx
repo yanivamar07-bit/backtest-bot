@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import type { Product } from "@/data/products";
+import { productGallery, type Product } from "@/data/products";
 import { formatPrice } from "@/lib/utils";
 
 type QuickViewModalProps = {
@@ -15,12 +15,16 @@ type AddState = "idle" | "loading" | "success";
 
 export function QuickViewModal({ product, onClose }: QuickViewModalProps) {
   const dialogRef = useRef<HTMLDivElement>(null);
+  const galleryRef = useRef<HTMLDivElement>(null);
+  const slideRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [addState, setAddState] = useState<AddState>("idle");
+  const [activeSlide, setActiveSlide] = useState(0);
 
   useEffect(() => {
     if (!product) return;
 
     setAddState("idle");
+    setActiveSlide(0);
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
@@ -54,6 +58,30 @@ export function QuickViewModal({ product, onClose }: QuickViewModalProps) {
       document.removeEventListener("keydown", onKeyDown);
     };
   }, [product, onClose]);
+
+  useEffect(() => {
+    const container = galleryRef.current;
+    if (!container || !product) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = slideRefs.current.findIndex((el) => el === entry.target);
+            if (index !== -1) setActiveSlide(index);
+          }
+        });
+      },
+      { root: container, threshold: 0.6 }
+    );
+
+    slideRefs.current.forEach((el) => el && observer.observe(el));
+    return () => observer.disconnect();
+  }, [product]);
+
+  function scrollToSlide(index: number) {
+    slideRefs.current[index]?.scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
+  }
 
   async function handleAddToCart() {
     setAddState("loading");
@@ -94,15 +122,54 @@ export function QuickViewModal({ product, onClose }: QuickViewModalProps) {
               &times;
             </button>
 
-            <div className="relative aspect-square bg-[var(--color-paper-dim)] md:aspect-auto">
-              <Image
-                src={product.image}
-                alt={`Cadran ${product.name}`}
-                fill
-                sizes="(min-width: 768px) 50vw, 100vw"
-                unoptimized
-                className="object-cover"
-              />
+            <div className="flex flex-col bg-[var(--color-paper-dim)]">
+              <div
+                ref={galleryRef}
+                className="flex aspect-square snap-x snap-mandatory overflow-x-auto md:aspect-auto md:h-full"
+              >
+                {productGallery(product).map((slide, i) => (
+                  <div
+                    key={slide.src}
+                    ref={(el) => {
+                      slideRefs.current[i] = el;
+                    }}
+                    className="relative aspect-square w-full shrink-0 snap-start md:h-full md:w-full"
+                  >
+                    <Image
+                      src={slide.src}
+                      alt={`${slide.label} — ${product.name}`}
+                      fill
+                      sizes="(min-width: 768px) 50vw, 100vw"
+                      unoptimized
+                      className="object-cover"
+                    />
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex gap-2 p-4">
+                {productGallery(product).map((slide, i) => (
+                  <button
+                    key={slide.src}
+                    onClick={() => scrollToSlide(i)}
+                    aria-label={`Voir : ${slide.label}`}
+                    aria-current={activeSlide === i}
+                    className={`relative aspect-square w-14 shrink-0 overflow-hidden border transition-colors ${
+                      activeSlide === i ? "border-[var(--color-accent)]" : "border-[var(--color-hairline)]"
+                    }`}
+                  >
+                    <Image
+                      src={slide.src}
+                      alt=""
+                      fill
+                      sizes="56px"
+                      unoptimized
+                      aria-hidden="true"
+                      className="object-cover"
+                    />
+                  </button>
+                ))}
+              </div>
             </div>
 
             <div className="flex flex-col gap-6 p-8 md:p-12">

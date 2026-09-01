@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1100" width="900" height="1100">
+  <defs>
+    <radialGradient id="mgpm7" cx="30%" cy="30%" r="90%">
+      <stop offset="0%" stop-color="#22201a"/>
+      <stop offset="100%" stop-color="#14120f"/>
+    </radialGradient>
+    <filter id="mgrainpm7"><feTurbulence type="fractalNoise" baseFrequency="1.4" numOctaves="2" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.06 0"/></filter>
+  </defs>
+  <rect width="900" height="1100" fill="url(#mgpm7)"/>
+  <circle cx="360" cy="495" r="495.00000000000006" fill="none" stroke="#c9c2b2" stroke-width="2.5" opacity="0.5"/>
+  <line x1="795.1" y1="360.4" x2="842.3" y2="345.8" stroke="#c9c2b2" stroke-width="2" opacity="0.6"/><line x1="814.1" y1="530.0" x2="863.4" y2="533.8" stroke="#c9c2b2" stroke-width="2" opacity="0.6"/><line x1="769.3" y1="694.7" x2="813.8" y2="716.4" stroke="#c9c2b2" stroke-width="2" opacity="0.6"/><line x1="667.0" y1="831.4" x2="700.4" y2="867.9" stroke="#c9c2b2" stroke-width="2" opacity="0.6"/><line x1="521.6" y1="920.8" x2="539.2" y2="967.0" stroke="#c9c2b2" stroke-width="2" opacity="0.6"/>
+  <line x1="360" y1="495" x2="112.49999999999997" y2="420.75" stroke="#c9c2b2" stroke-width="3" opacity="0.75"/>
+  <circle cx="360" cy="495" r="4" fill="#c9c2b2" opacity="0.85"/>
+  <rect width="900" height="1100" filter="url(#mgrainpm7)" opacity="0.8"/>
+  <text x="876" y="1080" text-anchor="end" font-family="monospace" font-size="10" fill="#c9c2b2" opacity="0.5" letter-spacing="2">REF.08 — BRUME — MACRO</text>
+</svg>

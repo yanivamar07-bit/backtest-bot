@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { products, type Product } from "@/data/products";
+import { products, productMacro, type Product } from "@/data/products";
 import { formatPrice } from "@/lib/utils";
 import { QuickViewModal } from "@/components/ui/QuickViewModal";
 
@@ -35,7 +35,16 @@ export function Collection() {
                 fill
                 sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                 unoptimized
-                className="object-cover transition-transform duration-700 group-hover:scale-[1.06]"
+                className="object-cover transition-opacity duration-500 group-hover:opacity-0"
+              />
+              <Image
+                src={productMacro(product)}
+                alt={`Plan macro du cadran ${product.name}`}
+                fill
+                sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                unoptimized
+                aria-hidden="true"
+                className="object-cover scale-[1.04] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
               />
               <span className="eyebrow absolute left-4 top-4 bg-[var(--color-paper)]/90 px-2 py-1 text-[var(--color-ink)]">
                 Réf. {product.ref}

@@ -13,6 +13,18 @@ export type Product = {
   glass: string;
 };
 
+export function productGallery(product: Product) {
+  return [
+    { src: product.image, label: "Face" },
+    { src: `/images/product-${product.slug}-macro.svg`, label: "Macro cadran" },
+    { src: `/images/product-${product.slug}-angle.svg`, label: "Profil boîtier" },
+  ];
+}
+
+export function productMacro(product: Product) {
+  return `/images/product-${product.slug}-macro.svg`;
+}
+
 export const CALIBRE = {
   name: "Calibre M.01",
   description:
